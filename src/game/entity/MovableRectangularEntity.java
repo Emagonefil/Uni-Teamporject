@@ -14,6 +14,13 @@ public class MovableRectangularEntity extends RectangularEntity implements Movab
 		this.speed = 0.5f;
 		this.rotationSpeed = 1.0f;
 	}
+	
+	public MovableRectangularEntity(float width, float height, Point position, float angle) {
+		super(width, height, position, angle);
+		//Hardcoded at the moment can add more constructors later
+		this.speed = 0.5f;
+		this.rotationSpeed = 1.0f;
+	}
 
 	//collision checking should be added to all movements
 	

@@ -5,6 +5,10 @@ public class Bullet extends MovableRectangularEntity implements KillableEntity{
 	public Bullet(float width, float height, Point position) {
 		super(width, height, position);
 	}
+	
+	public Bullet(float width, float height, Point position, float angle) {
+		super(width, height, position, angle);
+	}
 
 	@Override
 	public void die() {

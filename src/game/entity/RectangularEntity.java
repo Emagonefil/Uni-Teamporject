@@ -2,16 +2,19 @@ package game.entity;
 
 public class RectangularEntity extends Entity {
 
-	private RectangularEntity() {}
 	private float width;
 	private float height;
 	
 	public RectangularEntity(float width, float height, Point position) {
+		super(position);
 		this.width = width;
 		this.height = height;
-		this.position = position;
-		//Hardcoded at the moment can add more constructors later
-		this.angle = 0.0f;
+	}
+	
+	public RectangularEntity(float width, float height, Point position, float angle) {
+		super(position, angle);
+		this.width = width;
+		this.height = height;
 	}
 	
 	private Point rotateCorner(Point corner, float angle) {
