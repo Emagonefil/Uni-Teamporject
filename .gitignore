@@ -1,0 +1,15 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# Eclipse files
+.project
+.classpath
+
+# IntelliJ files
+/.idea/
+
+# Directories #
+/bin/
