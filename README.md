@@ -1,0 +1,1 @@
+The game developed by the GoldenAxe team.
