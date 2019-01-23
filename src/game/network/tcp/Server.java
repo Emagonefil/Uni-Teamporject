@@ -2,6 +2,7 @@ package goldenaxe.network.tcp;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.List;
 
 import goldenaxe.network.tcp.thread.ThreadPool;
@@ -28,7 +29,11 @@ public class Server {
 	
 	
 	private void acceptClients() throws IOException {
-		serverSocket.accept();
-		//TODO  add threads ...
+		threadPool = new ThreadPool();
+		while(true) {
+			Socket client = serverSocket.accept();
+			threadPool.newClient(client);
+		}
+		
 	}
 }
