@@ -24,13 +24,14 @@ public class ServerReceiver implements Runnable{
 		String client_command;
 		
 			try {
-				
 				while(true) {
 					client_command = fromClient.readLine();
+					waiting.put(new Movement(client.getPort(),client_command));
 				}
 				
-			} catch (IOException e) {
-				System.out.println();
+			} catch (IOException | InterruptedException e) {
+				System.out.println(client.getPort()+" logout");
+				//remove the object client is controlling or not?
 			}
 		
 		

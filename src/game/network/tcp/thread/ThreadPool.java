@@ -43,23 +43,8 @@ public class ThreadPool {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	//Server starts sending
 	public void run() {
-		
-//		scheduledThreadPool = Executors.newScheduledThreadPool(4);
-//		scheduledThreadPool.scheduleAtFixedRate(new Runnable() {
-//			@Override
-//			public void run() {
-//				System.out.println("k");
-//			}
-//		}, 0,timegap, TimeUnit.NANOSECONDS);
 		
 		theThread = Executors.newSingleThreadExecutor();
 		theThread.execute(new Runnable() {
