@@ -3,12 +3,14 @@ package goldenaxe.network.udp.client;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
+import goldenaxe.network.udp.Port;
+
 public class ClientReceiver implements Runnable{
 	
-	private static Integer listenPort = 19999;
+	private static Integer listenPort;
 	
-	public ClientReceiver() {
-		
+	public ClientReceiver(Integer listenPort) {
+		this.listenPort = listenPort;
 	}
 
 	@Override

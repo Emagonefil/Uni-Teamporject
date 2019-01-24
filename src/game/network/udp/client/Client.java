@@ -3,25 +3,31 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
+import goldenaxe.network.udp.Port;
+
 public class Client {
 	
-	private Integer port;
+	private final Integer sendingPort = Port.serverPort;
+	private final Integer listenPort = Port.boradcastPort;
+	private final String address = Port.serverAddress;
 	
-	public Client(Integer port) {
-		this.port = port;
+	public Client() {
+		System.out.println("Client started");
 	}
 	
 	
-	public void run() {
-		startSender();
+	
+	public ClientSender run() {
 		startReceiver();
+		return getSender();
 	}
 	
 	
-	private void startSender() {
-		
+	private ClientSender getSender() {
+		return new ClientSender(address,sendingPort);
 	}
 	private void startReceiver() {
-		new Thread(new ClientReceiver()).start();
+		new Thread(new ClientReceiver(listenPort)).start();
 	}
+	
 }
