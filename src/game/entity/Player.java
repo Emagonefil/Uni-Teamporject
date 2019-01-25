@@ -1,8 +1,8 @@
 package game.entity;
 
-public class Tank extends RectangularEntity implements KillableEntity {
+public class Player extends RectangularEntity implements KillableEntity {
 
-	public Tank(float width, float height, Point position) {
+	public Player(float width, float height, Point position) {
 		super(width, height, position);
 		this.health = 100;
 	}
