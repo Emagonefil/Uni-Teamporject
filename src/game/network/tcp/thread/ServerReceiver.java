@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 
-import goldenaxe.network.tcp.Movement;
+import game.network.tcp.Movement;
 
 public class ServerReceiver implements Runnable{
 	Socket client;
