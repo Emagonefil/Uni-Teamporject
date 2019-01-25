@@ -1,12 +1,8 @@
 package game.entity;
 
-import game.entity.MovableEntity;
-
-public class RectangularEntity extends Entity implements MovableEntity {
+public class RectangularEntity extends Entity {
 
 	private RectangularEntity() {}
-	private float speed;
-	private float rotationSpeed;
 	private float width;
 	private float height;
 	
@@ -16,53 +12,41 @@ public class RectangularEntity extends Entity implements MovableEntity {
 		this.position = position;
 		//Hardcoded at the moment can add more constructors later
 		this.angle = 0.0f;
-		this.speed = 0.5f;
 	}
 	
-	public void getCorners() {
-		
-	}
-	
-	//Remember that the corners must be updated!
-	
-	@Override
-	public void forward() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void backwards() {
-		// TODO Auto-generated method stub
-
-	}
-
-	/*
-	//This will not work without storing corners
-	private void rotate(float amount) {
+	private Point rotateCorner(Point corner, float angle) {
+		float radAngle = (float) Math.toRadians(angle);
 		Point center = this.position;
-		for (Point corner:this.corners) {
-			float tempX = corner.getX()-center.getX();
-			float tempY = corner.getY()-center.getY();
-			
-			float rotX = (float) (tempX * Math.cos(amount) - tempY * Math.sin(amount));
-			float rotY = (float) (tempX*Math.sin(amount) + tempY * Math.cos(amount));
-			
-			corner.setX(rotX + center.getX());
-			corner.setY(rotY + center.getY()); 
-		}
-	}
-	*/
-	
-	@Override
-	public void rotateRight() {
 		
+		float tempX = corner.getX()-center.getX();
+		float tempY = corner.getY()-center.getY();
+			
+		float rotX = (float) (tempX * Math.cos(radAngle) - tempY * Math.sin(radAngle));
+		float rotY = (float) (tempX*Math.sin(radAngle) + tempY * Math.cos(radAngle));
+		
+		Point result = new Point(rotX + center.getX(), rotY + center.getY());
+		return result;
 	}
-
-	@Override
-	public void rotateLeft() {
-		// TODO Auto-generated method stub
-
+	
+	public Point[] getCorners() {
+		Point[] corners = new Point[4];
+		float point1X = this.position.getX() - (this.width/2);
+		float point1Y = this.position.getY() + (this.height/2);
+		corners[0] = rotateCorner(new Point(point1X, point1Y), this.angle);
+		
+		float point2X = this.position.getX() + (this.width/2);
+		float point2Y = this.position.getY() + (this.height/2);
+		corners[1] = rotateCorner(new Point(point2X, point2Y), this.angle);
+		
+		float point3X = this.position.getX() - (this.width/2);
+		float point3Y = this.position.getY() - (this.height/2);
+		corners[2] = rotateCorner(new Point(point3X, point3Y), this.angle);
+		
+		float point4X = this.position.getX() + (this.width/2);
+		float point4Y = this.position.getY() - (this.height/2);
+		corners[3] = rotateCorner(new Point(point4X, point4Y), this.angle);
+		
+		return corners;
 	}
 
 }

@@ -1,6 +1,6 @@
 package game.entity;
 
-public class Bullet extends RectangularEntity implements KillableEntity{
+public class Bullet extends MovableRectangularEntity implements KillableEntity{
 
 	public Bullet(float width, float height, Point position) {
 		super(width, height, position);

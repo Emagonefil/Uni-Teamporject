@@ -1,6 +1,6 @@
 package game.entity;
 
-public class Player extends RectangularEntity implements KillableEntity {
+public class Player extends MovableRectangularEntity implements KillableEntity {
 
 	public Player(float width, float height, Point position) {
 		super(width, height, position);
