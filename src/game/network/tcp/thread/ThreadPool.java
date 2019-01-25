@@ -15,7 +15,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import goldenaxe.network.tcp.Movement;
+import game.network.tcp.Movement;
 
 public class ThreadPool {
 

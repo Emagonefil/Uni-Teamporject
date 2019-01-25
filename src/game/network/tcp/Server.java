@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
-import goldenaxe.network.tcp.thread.ThreadPool;
+import game.network.tcp.thread.ThreadPool;
 
 
 public class Server {
