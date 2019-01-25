@@ -21,7 +21,7 @@ public class Controller {
         Node node = (Node)event.getSource();
         Stage primaryStage = (Stage)node.getScene().getWindow();
 
-        Rectangle rec = new Rectangle(10,10,40,30);
+        Rectangle rec = new Rectangle(10.5,10.5,40,30);
         Group root = new Group(rec);
         primaryStage.getScene().setRoot(root);
         primaryStage.setTitle("Tanks");
