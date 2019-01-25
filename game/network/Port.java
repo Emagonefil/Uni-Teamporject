@@ -1,4 +1,4 @@
-package game.network.udp;
+package game.network;
 
 public class Port {
 

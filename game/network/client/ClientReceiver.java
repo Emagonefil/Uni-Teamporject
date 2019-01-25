@@ -1,9 +1,9 @@
-package game.network.udp.client;
+package game.network.client;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
-import game.network.udp.Port;
+import game.network.Port;
 
 public class ClientReceiver implements Runnable{
 	
