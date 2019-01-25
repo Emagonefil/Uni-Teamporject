@@ -1,9 +1,9 @@
-package game.network.udp.client;
+package game.network.client;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
-import goldenaxe.network.udp.Port;
+import game.network.Port;
 
 public class Client {
 	
@@ -14,7 +14,6 @@ public class Client {
 	public Client() {
 		System.out.println("Client started");
 	}
-	
 	
 	
 	public ClientSender run() {

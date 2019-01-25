@@ -1,4 +1,4 @@
-package goldenaxe.network.udp;
+package game.network;
 
 public class Port {
 
