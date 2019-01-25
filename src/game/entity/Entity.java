@@ -5,5 +5,4 @@ public class Entity {
 	Point position;
 	//0 degrees means pointing up i.e. towards positive y
 	float angle;
-	Point[] corners;
 }

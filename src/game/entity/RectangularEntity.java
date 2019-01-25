@@ -7,20 +7,22 @@ public class RectangularEntity extends Entity implements MovableEntity {
 	private RectangularEntity() {}
 	private float speed;
 	private float rotationSpeed;
+	private float width;
+	private float height;
 	
-	public RectangularEntity(Point[] corners, Point position) {
-		this.corners = corners;
+	public RectangularEntity(float width, float height, Point position) {
+		this.width = width;
+		this.height = height;
 		this.position = position;
 		//Hardcoded at the moment can add more constructors later
 		this.angle = 0.0f;
 		this.speed = 0.5f;
 	}
 	
-	/* To be added later
-	public RectangularEntity(float width, float height, Point position) {
+	public void getCorners() {
 		
 	}
-	*/
+	
 	//Remember that the corners must be updated!
 	
 	@Override
@@ -35,7 +37,8 @@ public class RectangularEntity extends Entity implements MovableEntity {
 
 	}
 
-	//THIS NEEDS TESTING
+	/*
+	//This will not work without storing corners
 	private void rotate(float amount) {
 		Point center = this.position;
 		for (Point corner:this.corners) {
@@ -49,6 +52,7 @@ public class RectangularEntity extends Entity implements MovableEntity {
 			corner.setY(rotY + center.getY()); 
 		}
 	}
+	*/
 	
 	@Override
 	public void rotateRight() {

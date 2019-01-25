@@ -2,12 +2,13 @@ package game.entity;
 
 public class Tank extends RectangularEntity implements KillableEntity {
 
-	private int health;
-	
-	public Tank(Point[] corners, Point position) {
-		super(corners, position);
+	public Tank(float width, float height, Point position) {
+		super(width, height, position);
 		this.health = 100;
 	}
+
+	private int health;
+	
 	
 	@Override
 	public void die() {
