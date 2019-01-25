@@ -19,14 +19,16 @@ public class MovableRectangularEntity extends RectangularEntity implements Movab
 	
 	@Override
 	public void forward() {
-		
-		
+		float radAngle = (float) Math.toRadians(this.angle);
+		this.position.changeX((float) (speed * Math.sin(radAngle)));
+		this.position.changeY((float) (speed*Math.cos(radAngle)));
 	}
 
 	@Override
 	public void backwards() {
-		// TODO Auto-generated method stub
-
+		float radAngle = (float) Math.toRadians(this.angle);
+		this.position.changeX((float) (-speed * Math.sin(radAngle)));
+		this.position.changeY((float) (-speed*Math.cos(radAngle)));
 	}
 	
 	@Override
@@ -36,8 +38,7 @@ public class MovableRectangularEntity extends RectangularEntity implements Movab
 
 	@Override
 	public void rotateLeft() {
-		// TODO Auto-generated method stub
-
+		this.angle = (this.angle - rotationSpeed)%360;
 	}
 	
 }
