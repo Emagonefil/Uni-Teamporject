@@ -1,4 +1,4 @@
-package goldenaxe.network.tcp;
+package game.network.tcp;
 
 import java.io.IOException;
 import java.net.ServerSocket;

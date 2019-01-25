@@ -1,4 +1,4 @@
-package goldenaxe.network.tcp;
+package game.network.tcp;
 
 public class Movement {
 

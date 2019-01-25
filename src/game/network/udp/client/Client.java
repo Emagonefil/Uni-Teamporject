@@ -1,4 +1,4 @@
-package goldenaxe.network.udp.client;
+package game.network.udp.client;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
