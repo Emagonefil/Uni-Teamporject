@@ -5,4 +5,12 @@ public class Entity {
 	Point position;
 	//0 degrees means pointing up i.e. towards positive y
 	float angle;
+	
+	public float getAngle() {
+		return angle;
+	}
+	
+	public Point getPosition() {
+		return position;
+	}
 }
