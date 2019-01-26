@@ -1,81 +1,69 @@
-package game.network;
+import goldenaxe.network.server.Server;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
-import game.entity.Entity;
-import game.network.client.Client;
-import game.network.client.ClientSender;
-import game.network.client.Receivable;
-import game.network.server.Server;
+import goldenaxe.network.client.Client;
+import goldenaxe.network.client.ClientSender;
+import goldenaxe.network.client.Receivable;
 
-public class Test{
-
-	public static void main(String[] args) throws InterruptedException {
-		//new server
-		Server server = new Server();
-		//server starts to receive messages from clients as it is generated
-		
+public class test{
+	static Server server1;
+	static Server server2;
+	static Client client1;
+	static Client client2;
+	
+	public static void main(String[] args) throws Exception{
 		
 		/*
-		 * 1. first way to generate Client class
+		 * only run one server or there would be a exception
+		 * server1 only works on my laptop with the default ip of mine
+		 * server2 changes the server address to localhost which you can use
+		 * but make sure server is generated before client if using localhost
 		 */
+//		server1 = new Server<String>();
+		server2 = new Server<String>("localhost");
 		
-		//client that only prints out all entities every time when receives it from server
-		//write what you want in receive to change the functionality
-//		Client client1 = new Client(new Receivable() {
-//
-//			@Override
-//			public void receive(List<Entity> list) {
-//				for(Entity e: list) {
-//					System.out.println(e);
-//				}
-//			}
-//			
-//		});
+		//client do not need parameters now
+		client1 = new Client();
+		client2 = new Client();
 		
+		//ClientSender performs the same way
+		ClientSender sender1 = client1.getSender();
+		sender1.send("test1");
+		ClientSender sender2 = client2.getSender();
+		sender2.send("test2");
+		
+		List<String> list = new ArrayList<String>();
+		list.add("aaa");
+		list.add("bbb");
 		
 		/*
-		 * 2. second way to generate Client class
+		 * sendBroadcast method of server would send the list to all clients that connects
+		 * however the clients won't get this broadcast
+		 * cause client has not start the receiver
 		 */
-		// receTest if under the main method
-		// this client prints out the length of the list every time
-		Client client2 = new Client(new receTest());
+		server2.sendBroadcast(list);
 		
-		
-		//ClientSender can send info to server
-		ClientSender sender = client2.getSender();
-		//send(String) sends to server the string
-		sender.send("hello");
-		
-		
-		List<Entity> list = new ArrayList<>();
-		
-		//able to add entities into list when there are generators for them
-		list.add(new Entity());
-		
-		//this makes server send to all clients the list
-		server.sendBroadcast(list);
-		
-		
-		
-	}
-	
-	
-	private static class receTest implements Receivable{
+		/*
+		 * Client.startReceiver needs a class that implements Receivable
+		 * the receive method would be automatic called every time get the list from server
+		 */
+		client1.startReceiver(new Receivable() {
 
-		@Override
-		public void receive(List<Entity> list) {
-			System.out.println("the length of the list received: "+list.size());
+			@Override
+			public void receive(List list) {
+				for(Object s:list) {
+					System.out.println(s);
+				}
+				
+			}
 			
-		}
+		});
+		
+		//the list would be printed after started receiver
+		server2.sendBroadcast(list);
+		
 		
 	}
-
-	
-
 }

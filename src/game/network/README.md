@@ -1,11 +1,9 @@
 # Test
 **A simple sample to show how these work**
-* ***serverAddres*** in **Port.java** needs to be change to **"localhost"** if you are testing
-* **Entity** Class 
-    * need to implements ***Serializable*** to be able to send through network
-    * also need to have generators to be able to test the ***Server.broadcast***
+* use server2 if you are testing on your own laptop
+* **Entity** Class need to implements ***Serializable*** to be able to send through network
 
-***Just command the line 59 (hopefullly the only line with error) if you do not want to test the broadcast, it still works but sending the empty list to clients since no entities were added adn it does not afftect other methods***
+***I've written more details in the commands***
 
 
 
@@ -13,22 +11,25 @@
 # Client
 
 ```java
-//generate new client (class that implements the interface Receivable)
-Client client = new Client(Receivalbe);
+//generate new client (no parameter)
+Client client = new Client();
 
 //return a ClientSender which can send things to server
 ClientSender sender = client.getSender();
 
 //ClientSender has a method send(String) which sends the parameter to server
-//probably can be binded to the keylistener on ui
+//probably call this method when certain keys are pressed
 sender.send(String s);
+
+//the client starts to receive things from server
+client.startReceiver(Receivable)
 
 ```
 
 # Receivable(Interface)
 
 ```java
-public void receive(List<Entity> list);
+public void receive(List list);
 //the class implements this interface only need to override receive method
 //I would pass the list as parameter in this method
 //this method would be automatic called everytime receives new message from server
@@ -39,14 +40,14 @@ public void receive(List<Entity> list);
 # Server
 
 ```java
-//generate new server (no parameter)
-Server server = new Server();
+//generate new server put the class wants to send in <>
+Server server = new Server<Class>();
 
 //get all new moves of clients from last time getMoves()
 List<String> moves = server.getMoves();
 
-//send List<Entity>(could be changed later on) to all clients connected to this server
-server.Broadcast(List<? extends Entity> list);
+//send List to all clients connected to this server
+server.Broadcast(List list);
 ```
 
 
