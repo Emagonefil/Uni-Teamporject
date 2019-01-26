@@ -1,30 +1,42 @@
-# Server
-
-```java
-//generate new server (no parameter)
-Server server = new Server();
-
-//server starts to send everything's position to all clients connect to it
-server.run();
-
-//TODO still need to discuss how to handle the info that receives from clients
-```
-
-
-
 # Client
 
 ```java
-//generate new client (no parameter)
-Client client = new Client();
+//generate new client (class that implements the interface Receivable)
+Client client = new Client(Receivalbe);
 
-//run() method would start to receive the update information from server
-//(only printing them, not integrate with ui yet)
-//and also returns a ClientSender
-ClientSender sender = client.run();
+//return a ClientSender which can send things to server
+ClientSender sender = client.getSender();
 
 //ClientSender has a method send(String) which sends the parameter to server
 //probably can be binded to the keylistener on ui
 sender.send(String s);
 
 ```
+
+# Receivable(Interface)
+
+```java
+public void receive(List<Entity> list);
+//the class implements this interface only need to override receive method
+//I would pass the list as parameter in this method
+//this method would be automatic called everytime receives new message from server
+//you would probably do renderer using the list here
+```
+
+
+# Server
+
+```java
+//generate new server (no parameter)
+Server server = new Server();
+
+//get all new moves of clients from last time getMoves()
+List<String> moves = server.getMoves();
+
+//send List<Entity>(could be changed later on) to all clients connected to this server
+server.Broadcast(List<? extends Entity> list);
+```
+
+
+
+
