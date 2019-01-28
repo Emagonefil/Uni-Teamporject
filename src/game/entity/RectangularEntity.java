@@ -18,7 +18,7 @@ public class RectangularEntity extends Entity {
 	}
 	
 	private Point rotateCorner(Point corner, float angle) {
-		float radAngle = (float) Math.toRadians(angle);
+		float radAngle = (float) Math.toRadians(360-angle);
 		Point center = this.position;
 		
 		float tempX = corner.getX()-center.getX();
@@ -31,6 +31,9 @@ public class RectangularEntity extends Entity {
 		return result;
 	}
 	
+	//We re-calculate the corners each time they are needed rather than keeping track
+	//of them and updating with the center. This is done to prevent accumulation of
+	//floating point errors.
 	public Point[] getCorners() {
 		Point[] corners = new Point[4];
 		float point1X = this.position.getX() - (this.width/2);
