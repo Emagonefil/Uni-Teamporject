@@ -21,5 +21,9 @@ public class ClientLogic {
 	public List<Entity> getEntities(){
 		return this.Entities;
 	}
+	public void sendCommands(String c) {
+		ClientSender sender1 = c1.getSender();
+		sender1.send(c);
+	}
 	
 }
