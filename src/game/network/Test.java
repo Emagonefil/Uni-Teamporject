@@ -1,3 +1,4 @@
+package game.network;
 import goldenaxe.network.server.Server;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import goldenaxe.network.client.Client;
 import goldenaxe.network.client.ClientSender;
 import goldenaxe.network.client.Receivable;
 
-public class test{
+public class Test{
 	static Server server1;
 	static Server server2;
 	static Client client1;

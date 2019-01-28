@@ -1,0 +1,25 @@
+package game;
+import java.util.List;
+import game.entity.*;
+
+import goldenaxe.network.client.*;
+public class ClientLogic {
+	Client c1;
+	List<Entity> Entities;
+	public void init() {
+		c1 = new Client();
+		c1.startReceiver(new Receivable() {
+
+			@Override
+			public void receive(List list) {
+					Entities = list;
+				
+			}
+			
+		});
+	}
+	public List<Entity> getEntities(){
+		return this.Entities;
+	}
+	
+}
