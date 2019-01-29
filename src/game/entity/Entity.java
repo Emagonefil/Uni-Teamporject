@@ -6,7 +6,7 @@ public class Entity {
 	//REMEBER:ANGLE IS IN DEGREES
 	//0 degrees means pointing up i.e. towards positive y
 	float angle;
-	int id;
+	public int id;
 	private Entity() {}
 	
 	public Entity(Point position) {

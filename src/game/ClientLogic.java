@@ -4,6 +4,7 @@ import game.entity.*;
 
 import goldenaxe.network.client.*;
 public class ClientLogic {
+	public int id;
 	Client c1;
 	List<Entity> Entities;
 	public void init() {
