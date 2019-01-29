@@ -15,7 +15,7 @@ client.startReceiver(Receivable)
 
 //close the current Receiver
 client.closeReceiver();
-
+ 
 ```
 
 # Receivable(Interface)
