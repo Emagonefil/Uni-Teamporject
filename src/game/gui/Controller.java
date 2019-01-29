@@ -34,10 +34,9 @@ public class Controller {
         Node node = (Node)event.getSource();
         Stage primaryStage = (Stage)node.getScene().getWindow();
 
-        Rectangle rec = new Rectangle(10,10,40,30);
+        Parent root1 = FXMLLoader.load(getClass().getResource("CreateRoom.fxml"));
 
-        Group root = new Group(rec);
-        primaryStage.getScene().setRoot(root);
+        primaryStage.getScene().setRoot(root1);
         primaryStage.setTitle("Tanks");
         primaryStage.setMaximized(true);
 
