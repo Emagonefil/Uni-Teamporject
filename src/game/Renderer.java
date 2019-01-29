@@ -10,9 +10,23 @@ import java.io.File;
 
 public class Renderer {
 
-    static Image img;
+    static Image hero;
+    static Image ghost1;
+    static Image ghost2;
+    static Image skull1;
+    static Image skull2;
+    static Image snake1;
+    static Image snake2;
+    static Image bullet;
     static {
-        img = loadImage("Resources/img/sprites_without_border.png");
+        hero = loadImage("Resources/img/chubbyZombie.png");
+        ghost1 = loadImage("Resources/img/ghost1.png");
+        ghost2 = loadImage("Resources/img/ghost2.png");
+        skull1 = loadImage("Resources/img/skull1.png");
+        skull2 = loadImage("Resources/img/skull2.png");
+        snake1 = loadImage("Resources/img/snake1.png");
+        snake2 = loadImage("Resources/img/snake2.png");
+        bullet = loadImage("Resources/img/bullet.png");
     }
 
     public static Image loadImage(String path) {
