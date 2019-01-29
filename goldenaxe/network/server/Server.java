@@ -15,7 +15,7 @@ import goldenaxe.network.Port;
 public class Server<T>{
 
 	private DatagramSocket fromClient;
-	private List<String> movements = new ArrayList<String>();
+	private List<String> movements = new ArrayList<>();
 	
 	public Server() {
 		try {
@@ -80,7 +80,7 @@ public class Server<T>{
 					DatagramPacket rece = new DatagramPacket(buf,buf.length);
 					while(true) {
 						fromClient.receive(rece);
-						String move = new String(buf,0,buf.length);
+						String move = new String(rece.getData(),0,rece.getLength());
 						movements.add(move);
 						System.out.println("Server got from client: "+move);
 					}

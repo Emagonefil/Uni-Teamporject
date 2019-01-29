@@ -1,5 +1,7 @@
 package goldenaxe.network.client;
 
+import goldenaxe.network.Port;
+
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -10,22 +12,20 @@ public class ClientSender{
 	private DatagramSocket socket;
 	private DatagramPacket packet;
 	private String address;
-	private Integer port;
+	private Integer port = Port.serverPort;
 	
-	public ClientSender(String address, Integer port) {
+	public ClientSender() {
 		try {
-			this.address = address;
-			this.port = port;
 			socket = new DatagramSocket();
 		} catch (SocketException e) {
 			e.printStackTrace();
 		}
 	}
+
+
+
 	
-	
-	
-	
-	public void send(String str) {
+	public void send(String address, String str) {
 		try {
 			byte[] buf = str.getBytes();
 			packet = new DatagramPacket(buf,buf.length);

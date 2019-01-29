@@ -1,16 +1,12 @@
 package goldenaxe.network.client;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.SocketException;
-import java.util.List;
 
 import goldenaxe.network.Port;
 
 public class Client{
 	
-	private final Integer sendingPort = Port.serverPort;
-	private final Integer listenPort = Port.boradcastPort;
-	private final String address = Port.serverAddress;
+	private Integer sendingPort = Port.serverPort;
+	private Integer listenPort = Port.boradcastPort;
+	private String address = Port.serverAddress;
 	
 	private ClientSender sender;
 	private ClientReceiver receiver;
@@ -19,7 +15,7 @@ public class Client{
 	
 
 	public Client() {
-		sender = new ClientSender(address,sendingPort);
+		sender = new ClientSender();
 		System.out.println("Client ready");
 	}
 	
@@ -41,7 +37,22 @@ public class Client{
 		}
 		
 	}
+
+	public void changeServerIP(String address){
+		this.address = address;
+	}
+	public void closeReceiver(){
+	    if(!(null==this.receiver))
+		this.receiver.stop();
+	    this.receiver = null;
+		receOn = false;
+	}
 	
-	
-	
+
+	public String getAddress(){
+	    return address+"@"+sendingPort;
+    }
+
+
+
 }

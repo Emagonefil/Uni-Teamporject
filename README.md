@@ -7,12 +7,14 @@ Client client = new Client();
 //return a ClientSender which can send things to server
 ClientSender sender = client.getSender();
 
-//ClientSender has a method send(String) which sends the parameter to server
-//probably call this method when certain keys are pressed
-sender.send(String s);
+//send method of ClientSender sends the str to address
+sender.send(String address, String str);
 
 //the client starts to receive things from server
 client.startReceiver(Receivable)
+
+//close the current Receiver
+client.closeReceiver();
 
 ```
 
