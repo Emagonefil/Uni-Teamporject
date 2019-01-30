@@ -11,7 +11,7 @@ ClientSender sender = client.getSender();
 sender.send(String address, String str);
 
 //the client starts to receive things from server
-client.startReceiver(Receivable)
+client.startReceiver(Receivable);
 
 //close the current Receiver
 client.closeReceiver();
@@ -31,8 +31,8 @@ public void receive(Object obj);
 # Server
 
 ```java
-//generate new server put the class wants to send in <>
-Server server = new Server<Class>();
+//generate new server(receiver starts automatically)
+Server server = new Server();
 
 //get all new moves of clients from last time getMoves()
 List<String> moves = server.getMoves();
