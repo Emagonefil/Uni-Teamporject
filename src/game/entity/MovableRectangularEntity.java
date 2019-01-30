@@ -2,58 +2,61 @@ package game.entity;
 
 import game.entity.MovableEntity;
 
-public class MovableRectangularEntity extends RectangularEntity implements MovableEntity {
+public class MovableRectangularEntity extends MovableEntity {
+
+	//TO-DO Read player info from file and then delete some constructors
 	
-	private float speed;
-	private float rotationSpeed;
+	//Using composition as multiple inheritance is not allowed
+	RectangularEntity rec;
 
 	public MovableRectangularEntity(float width, float height, Point position) {
-		super(width, height, position);
-		//Hardcoded at the moment can add more constructors later
-		this.angle = 0.0f;
-		this.speed = 0.5f;
-		this.rotationSpeed = 1.0f;
-	}
-	
-	public MovableRectangularEntity(float width, float height, Point position, float angle) {
-		super(width, height, position, angle);
-		//Hardcoded at the moment can add more constructors later
-		this.speed = 0.5f;
-		this.rotationSpeed = 1.0f;
+		super(position);
+		rec = new RectangularEntity(width, height, position);
 	}
 
-	//collision checking should be added to all movements
+	public MovableRectangularEntity(float width, float height, Point position, float angle) {
+		super(position, angle);
+		rec = new RectangularEntity(width, height, position, angle);
+	}
+	
+	public MovableRectangularEntity(float width, float height, Point position, float angle, float speed) {
+		super(position, angle, speed);
+		rec = new RectangularEntity(width, height, position, angle);
+	}
+	
+	public MovableRectangularEntity(float width, float height, Point position, float angle, float speed, float rotationSpeed) {
+		super(position, angle, rotationSpeed);
+		rec = new RectangularEntity(width, height, position, angle);
+	}
+
+	// collision checking should be added to all movements
+
+	public Point[] getCorners() {
+		return rec.getCorners();
+	}
 	
 	@Override
-	public void forward() {
-		float radAngle = (float) Math.toRadians(this.angle);
-		this.position.changeX((float) (speed * Math.sin(radAngle)));
-		this.position.changeY((float) (speed*Math.cos(radAngle)));
+	public void forward(){
+		super.forward();
+		//We must update the position
+		rec.setPosition(this.getPosition());
 	}
-
+	
 	@Override
 	public void backwards() {
-		float radAngle = (float) Math.toRadians(this.angle);
-		this.position.changeX((float) (-speed * Math.sin(radAngle)));
-		this.position.changeY((float) (-speed*Math.cos(radAngle)));
+		super.backwards();
+		rec.setPosition(this.getPosition());
 	}
 	
 	@Override
 	public void rotateRight() {
-		this.angle = (this.angle + rotationSpeed)%360;
+		super.rotateRight();
+		rec.setAngle(this.getAngle());
 	}
-
+	
 	@Override
 	public void rotateLeft() {
-		this.angle = (this.angle - rotationSpeed)%360;
+		super.rotateLeft();
+		rec.setAngle(this.getAngle());
 	}
-	
-	public float getSpeed() {
-		return speed;
-	}
-	
-	public float getRotationSpeed() {
-		return rotationSpeed;
-	}
-	
 }
