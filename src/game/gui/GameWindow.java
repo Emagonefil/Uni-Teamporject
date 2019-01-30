@@ -26,13 +26,16 @@ public class GameWindow {
         c = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
         root.getChildren().add(c);
         gc = c.getGraphicsContext2D();
-        GameLoop.start(gc, primaryStage.getScene(), cl);
         primaryStage.show();
-        List<Entity> map=cl.getEntities();
-        for(int i=0;i<map.size();i++){
-            Entity e=map.get(i);
-            e.getPosition();
-        }
+        GameLoop.start(gc, primaryStage.getScene(), cl);
+
+
+//
+//        List<Entity> map=cl.getEntities();
+//        for(int i=0;i<map.size();i++){
+//            Entity e=map.get(i);
+//            e.getPosition();
+//        }
 
     }
 

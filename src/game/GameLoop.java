@@ -3,6 +3,7 @@ package game;
 import game.controller.InputManager;
 import game.entity.Entity;
 import game.entity.Player;
+import game.entity.Point;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -37,22 +38,23 @@ public class GameLoop {
                 deltaTime = currentGameTime - oldGameTime;
                 gc.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
 
+                cl.Entities.add(new Player(40,40,new Point(50,50)));
                 update(s,cl);
-                render();
+                render(cl);
             }
         }.start();
     }
 
     public static void update(Scene s, ClientLogic cl) {
         InputManager.handlePlayerMovements(s,cl);
-        Iterator<Entity> it = entities.iterator();
+        Iterator<Entity> it = cl.getEntities().iterator();
         while (it.hasNext()) {
             Entity entity = it.next();
         }
     }
 
-    public static void render() {
-        for (Entity e : entities) {
+    public static void render(ClientLogic cl) {
+        for (Entity e : cl.getEntities()) {
             e.draw();
         }
     }

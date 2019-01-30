@@ -121,6 +121,7 @@ public class Main extends Application {
 		}
 		ClientLogic c1 = new ClientLogic();
 		c1.init();
+		c1.Entities.add(new Player(40,40,new Point(20,20)));
 		id=(int)System.currentTimeMillis();
 		c1.sendCommands(String.valueOf(id)+",JoinServer");
 		GameWindow newWindow = new GameWindow(stage, c1);
