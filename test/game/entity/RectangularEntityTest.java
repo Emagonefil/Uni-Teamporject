@@ -38,6 +38,10 @@ public class RectangularEntityTest {
 		//At the moment I have manually checked the corner positions.
 		//I can't think of a way to test it automatically without re-writing
 		//the function here.
+		System.out.println(corners[0]);
+		System.out.println(corners[1]);
+		System.out.println(corners[2]);
+		System.out.println(corners[3]);
 	}
 
 }

@@ -23,7 +23,7 @@ public class RectangularEntity extends Entity {
 		
 		float tempX = corner.getX()-center.getX();
 		float tempY = corner.getY()-center.getY();
-			
+		
 		float rotX = (float) (tempX * Math.cos(radAngle) - tempY * Math.sin(radAngle));
 		float rotY = (float) (tempX*Math.sin(radAngle) + tempY * Math.cos(radAngle));
 		
