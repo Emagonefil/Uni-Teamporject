@@ -15,17 +15,16 @@ client.startReceiver(Receivable)
 
 //close the current Receiver
 client.closeReceiver();
- 
+
 ```
 
 # Receivable(Interface)
 
 ```java
-public void receive(List list);
+public void receive(Object obj);
 //the class implements this interface only need to override receive method
-//I would pass the list as parameter in this method
+//I would pass the object received as parameter in this method
 //this method would be automatic called everytime receives new message from server
-//you would probably do renderer using the list here
 ```
 
 
@@ -38,8 +37,8 @@ Server server = new Server<Class>();
 //get all new moves of clients from last time getMoves()
 List<String> moves = server.getMoves();
 
-//send List to all clients connected to this server
-server.Broadcast(List list);
+//send Object to all clients connected to this server
+server.Broadcast(Object obj);
 ```
 
 
