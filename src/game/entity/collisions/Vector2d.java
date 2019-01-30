@@ -26,7 +26,7 @@ public class Vector2d {
 	}
 
 	public boolean equals(Vector2d vec) {
-		return (vec.getX() == this.getX()) && (vec.getY() == this.getY());
+		return (Math.abs(vec.getX() - this.getX()) < 0.001) && (Math.abs(vec.getY() - this.getY()) < 0.001);
 	}
 
 	public float getX() {
