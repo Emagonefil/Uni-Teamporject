@@ -48,4 +48,12 @@ public class MovableRectangularEntity extends RectangularEntity implements Movab
 		this.angle = (this.angle - rotationSpeed)%360;
 	}
 	
+	public float getSpeed() {
+		return speed;
+	}
+	
+	public float getRotationSpeed() {
+		return rotationSpeed;
+	}
+	
 }
