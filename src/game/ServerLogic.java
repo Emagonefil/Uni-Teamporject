@@ -6,9 +6,9 @@ import java.util.regex.*;
 import game.entity.*;
 import java.util.*;
 public class ServerLogic {
-	List<Entity> Entities;
-	List<String> Commands;
-	Server server;
+	List<Entity> Entities=new ArrayList<Entity>();
+	List<String> Commands=new ArrayList<String>();
+	Server server= new Server();
 	Random ra = new Random();
 	private int status=0;
 	public int ServerId= ra.nextInt()%99999+1;
@@ -31,7 +31,7 @@ public class ServerLogic {
 		}
 	}
 	public int getSpareId(){
-		int id;
+		int id=ra.nextInt()%9999+1;
 		while(true){
 			int t=0;
 			id=ra.nextInt()%9999+1;
@@ -93,7 +93,9 @@ public class ServerLogic {
 			}
 			else {
 				if(arrs[1].equals("JoinServer")) {
-					Entities.add(new Player(10,10,new Point()));
+					Player p=new Player(10,10,new Point());
+					p.id=Integer.parseInt(arrs[0]);
+					Entities.add(p);
 				}
 			}
 		}
@@ -113,23 +115,19 @@ public class ServerLogic {
 		}
 
 		public void run(ServerLogic s) {
-			System.out.println("Server thread " + id+" is running" );
-			while(true) {
+			System.out.println("Server thread " + id + " is running");
+			while (true) {
 				try {
-					s.dealCommmands();
-					Thread.sleep(50);
+					if (s.status ==1){
 
-				}
-				catch(Exception e){
+					}else if(s.status == 2){
+						s.dealCommmands();
+					}
+					Thread.sleep(10);
+
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-		}
-
-		public void start () {
-			if (t == null) {
-				t = new Thread (this,String.valueOf(id));
-				t.start ();
 			}
 		}
 	}
