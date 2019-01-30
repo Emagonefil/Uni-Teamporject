@@ -12,7 +12,7 @@ import java.util.List;
 
 import goldenaxe.network.Port;
 
-public class Server<T>{
+public class Server{
 
 	private DatagramSocket fromClient;
 	private List<String> movements = new ArrayList<>();
@@ -43,8 +43,9 @@ public class Server<T>{
 		movements.clear();
 		return list;
 	}
-	
-	public void sendBroadcast(List<? extends T> list){
+
+	//send broadcast with list
+	public void sendBroadcast(Object obj){
 		try {
 			DatagramSocket broadSocket = new DatagramSocket();
 			DatagramPacket packet;
@@ -54,7 +55,7 @@ public class Server<T>{
 			
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			ObjectOutputStream oo = new ObjectOutputStream(byteStream); 
-			oo.writeObject(list);
+			oo.writeObject(obj);
 			oo.close();
 			byte[] buf = byteStream.toByteArray();
 			
@@ -68,6 +69,7 @@ public class Server<T>{
 		}catch(Exception ignored){}
 		
 	}
+
 	
 	 
 	private void run() {

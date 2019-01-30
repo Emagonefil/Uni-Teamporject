@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface Receivable {
 
-	public void receive(List list);
+	public void receive(Object obj);
 }

@@ -1,11 +1,9 @@
 package goldenaxe.network.client;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.util.List;
 
 
 public class ClientReceiver implements Runnable{
@@ -30,8 +28,9 @@ public class ClientReceiver implements Runnable{
 			do {
 				fromServer.receive(packet);
 		        input = new ObjectInputStream(new ByteArrayInputStream(buf));
-		        List list = (List) input.readObject();
-				renderer.receive(list);
+
+		        Object obj = input.readObject();
+				renderer.receive(obj);
 			}while(flag);
 		}catch (Exception e) {}
 	}

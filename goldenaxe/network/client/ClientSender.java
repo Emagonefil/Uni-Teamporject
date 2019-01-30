@@ -11,7 +11,7 @@ public class ClientSender{
 		
 	private DatagramSocket socket;
 	private DatagramPacket packet;
-	private String address;
+//	private String address;
 	private Integer port = Port.serverPort;
 	
 	public ClientSender() {
