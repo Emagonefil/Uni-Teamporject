@@ -1,9 +1,19 @@
 package game.entity;
 
+import game.Renderer;
+import game.gui.Animations;
+import game.gui.Sprite;
+
 public class Bullet extends MovableRectangularEntity implements KillableEntity{
+
+	private Sprite currentSprite;
+	private Animations animations;
 
 	public Bullet(float width, float height, Point position) {
 		super(width, height, position);
+		// for drawing
+		animations = new Animations(this,Renderer.getBulletImg());
+		currentSprite = animations.getSprite();
 	}
 	
 	public Bullet(float width, float height, Point position, float angle) {
@@ -26,6 +36,10 @@ public class Bullet extends MovableRectangularEntity implements KillableEntity{
 	public int getHealth(int amount) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	public void draw() {
+		Renderer.playAnimation(currentSprite);
 	}
 
 }

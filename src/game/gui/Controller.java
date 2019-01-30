@@ -34,7 +34,7 @@ public class Controller {
         Node node = (Node)event.getSource();
         Stage primaryStage = (Stage)node.getScene().getWindow();
 
-        Parent root1 = FXMLLoader.load(getClass().getResource("CreateRoom.fxml"));
+        Parent root1 = FXMLLoader.load(getClass().getResource("C   fxml"));
 
         primaryStage.getScene().setRoot(root1);
         primaryStage.setTitle("Tanks");

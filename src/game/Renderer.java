@@ -1,5 +1,9 @@
 package game;
 
+import com.sun.prism.Graphics;
+import game.gui.GameWindow;
+import game.gui.Sprite;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
@@ -48,9 +52,22 @@ public class Renderer {
 
         return new Image(imagePath);
     }
-    public static Image crop(Image img,int x,int y,int w,int h){
-        PixelReader reader = img.getPixelReader();
-        WritableImage newImage = new WritableImage(reader, x, y, w, h);
-        return newImage;
+
+
+    public static Image getHeroImg() {
+        return hero;
+    }
+
+    public static Image getBulletImg() {
+        return bullet;
+    }
+
+    public static void playAnimation(Sprite sprite) {
+        GraphicsContext gc = GameWindow.getGraphicsContext();
+        playAnimation(gc, sprite.spriteImg, sprite.getYPosition(), sprite.getYPosition(), sprite.width * sprite.scale, sprite.height*sprite.scale);
+    }
+
+    public static void playAnimation(GraphicsContext gc, Image img, float x, float y, double width, double height) {
+        gc.drawImage(img,x,y,width,height);
     }
 }

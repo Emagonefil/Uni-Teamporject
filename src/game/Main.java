@@ -5,6 +5,7 @@ import game.entity.*;
 import java.util.*;
 import game.ServerLogic.*;
 import game.ClientLogic.*;
+import game.gui.GameWindow;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -70,8 +71,7 @@ public class Main extends Application {
 		single.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
-				newGameWindow(primaryStage);
-				SinglePlayer();
+				SinglePlayer(primaryStage);
 			}
 		});
 
@@ -79,8 +79,7 @@ public class Main extends Application {
 		multi.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
-				newGameWindow(primaryStage);
-				MultiPlayer(true);
+				MultiPlayer(true, primaryStage);
 			}
 		});
 
@@ -99,21 +98,20 @@ public class Main extends Application {
 	}
 
 
-	public static void newGameWindow(Stage primaryStage) {
-		Group root = new Group();
-		primaryStage.getScene().setRoot(root);
-
-		primaryStage.show();
-	}
-
-	public static void SinglePlayer() {
+	public static void SinglePlayer(Stage stage) {
 		ServerLogic s1=new ServerLogic();
 		s1.init();
 		Gap g1= new Gap(1);
 		g1.start();
+		ClientLogic c1 = new ClientLogic();
+		c1.init();
+		int id=(int)System.currentTimeMillis();
+		c1.sendCommands(String.valueOf(id)+",JoinServer");
+
+		GameWindow newWindow = new GameWindow(stage, c1);
 	}
 
-	public static void MultiPlayer(boolean iflocal) {
+	public static void MultiPlayer(boolean iflocal, Stage stage) {
 		int id;
 		if(iflocal) {
 			ServerLogic s1=new ServerLogic();
@@ -125,6 +123,7 @@ public class Main extends Application {
 		c1.init();
 		id=(int)System.currentTimeMillis();
 		c1.sendCommands(String.valueOf(id)+",JoinServer");
+		GameWindow newWindow = new GameWindow(stage, c1);
 	}
 
 	public static class Gap extends Thread {

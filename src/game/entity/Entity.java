@@ -29,4 +29,8 @@ public class Entity {
 	public int getId() {
 		return id;
 	}
+
+	public void draw() {
+		System.out.println("must override draw method for " +  this.getClass().getName());
+	}
 }
