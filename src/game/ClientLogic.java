@@ -7,7 +7,7 @@ import goldenaxe.network.client.*;
 public class ClientLogic {
 	public int id;
 	Client c1;
-	List<Entity> Entities= new ArrayList<Entity>();
+	public List<Entity> Entities= new ArrayList<Entity>();
 	String ServerIp="127.0.0.1";
 	List<String> Room = new ArrayList<String>();
 	public void init() {
@@ -15,9 +15,16 @@ public class ClientLogic {
 		c1.startReceiver(new Receivable() {
 
 			@Override
-			public void receive(List list) {
-					Entities = list;
+			public void receive(Object o) {
+
+				try {
+					Entities = (List<Entity>) o;
+				}
+				catch (Exception e){
+					String command= (String) o;
+				}
 			}
+
 			
 		});
 	}

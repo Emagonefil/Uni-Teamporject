@@ -85,7 +85,7 @@ public class ServerLogic {
 			if((e1=(Player)SearchEntityById(Integer.parseInt(arrs[1])))!=null) {
 				switch(arrs[2]) {
 				case "Forward":e1.forward();
-				case "Fackward":e1.backwards();
+				case "Backward":e1.backwards();
 				case "RotateRight":e1.rotateRight();
 				case "RotateLeft":e1.rotateLeft();
 				case "Shoot": this.Entities.add(new Bullet(1,1,e1.getPosition()));

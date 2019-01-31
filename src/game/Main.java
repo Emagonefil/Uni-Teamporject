@@ -21,8 +21,11 @@ public class Main {
 		}
 		ClientLogic c1 = new ClientLogic();
 		c1.init();
-		id=(int)System.currentTimeMillis();
-		c1.sendCommands(String.valueOf(id)+",JoinServer");
+		c1.sendCommands("Forward");
+		c1.sendCommands("Backward");
+		c1.sendCommands("RotateRight");
+		c1.sendCommands("RotateLeft");
+		c1.sendCommands("Shoot");
 	}
 
 }
