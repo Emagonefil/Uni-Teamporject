@@ -1,7 +1,7 @@
 package game;
 import game.entity.*;
 import game.entity.collisions.*;
-import goldenaxe.network.server.*;
+import game.network.server.*;
 import java.math.*;
 import java.util.regex.*;
 import game.entity.*;
@@ -9,7 +9,7 @@ import java.util.*;
 public class ServerLogic {
 	List<Entity> Entities=new ArrayList<Entity>();
 	List<String> Commands=new ArrayList<String>();
-	Server server= new Server();
+	Server server= new Server("192.168.191.1");
 	Random ra = new Random();
 	public int status=0;
 	public int ServerId= ra.nextInt(99999)+1;
@@ -17,6 +17,7 @@ public class ServerLogic {
 		initMap();
 		this.status=1;
 		System.out.println("ServerId: "+this.ServerId);
+		this.status=2;
 	}
 	public void initMap() {
 		int num=ra.nextInt(30)+10;
@@ -53,6 +54,7 @@ public class ServerLogic {
 		listPlayers();
 	}
 	public void listPlayers(){
+		System.out.println("Server info");
 		Entity e;
 		for(int i=0;i<Entities.size();i++){
 			e =Entities.get(i);

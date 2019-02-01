@@ -2,7 +2,7 @@ package game.entity;
 
 public class MovableEntity extends Entity {
 
-	private float speed = 0.5f;
+	private float speed = 5.0f;
 	private float rotationSpeed = 1.0f;
 
 	public MovableEntity(Point position) {

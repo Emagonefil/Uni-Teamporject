@@ -3,12 +3,13 @@ import java.util.ArrayList;
 import java.util.List;
 import game.entity.*;
 
-import goldenaxe.network.client.*;
+import game.network.client.*;
 public class ClientLogic {
 	public int id;
 	Client c1=new Client();
 	public List<Entity> Entities= new ArrayList<Entity>();
-	String ServerIp="127.0.0.1";
+	String ServerIp="192.168.191.1";
+	String RoomServerIp="192.168.191.1";
 	public int ServerId;
 	List<String> Room = new ArrayList<String>();
 	public void init() {
@@ -24,9 +25,20 @@ public class ClientLogic {
 					String command= (String) o;
 
 				}
+				System.out.println("Client info");
+				listPlayers();
 			}
 			
 		});
+	}
+	public void listPlayers(){
+		Entity e;
+		for(int i=0;i<Entities.size();i++){
+			e =Entities.get(i);
+			if(e.type.equals("Player")){
+				System.out.println("id: "+e.getId()+" Pos: "+e.getPosition()+" Angle: "+e.getAngle());
+			}
+		}
 	}
 	public List<Entity> getEntities(){
 		return this.Entities;
