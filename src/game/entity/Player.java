@@ -1,21 +1,14 @@
 package game.entity;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 public class Player extends MovableRectangularEntity implements KillableEntity {
 
-	public static Player fromFile(String path) {
-		// Add checking for valid paths
-
+	public static Player fromFile(String path) throws IOException {
 		Properties configFile = new Properties();
-		try {
-			configFile.load(new FileInputStream(path));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		// Get values. Needs Validation
+		configFile.load(new FileInputStream(path));
 
 		float width = Float.parseFloat(configFile.getProperty("width"));
 		float height = Float.parseFloat(configFile.getProperty("height"));

@@ -1,6 +1,8 @@
 package game.entity;
 
-public class Entity {
+import java.io.Serializable;
+
+public class Entity implements Serializable {
 	// Note: origin is bottom left corner.
 	Point position;
 	// REMEBER:ANGLE IS IN DEGREES
