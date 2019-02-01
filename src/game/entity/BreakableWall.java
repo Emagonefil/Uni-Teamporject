@@ -20,7 +20,7 @@ public class BreakableWall extends Wall implements KillableEntity{
 	}
 
 	@Override
-	public int getHealth(int amount) {
+	public int getHealth() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
