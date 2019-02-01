@@ -1,5 +1,6 @@
 package game;
 import game.entity.*;
+import game.entity.collisions.*;
 import goldenaxe.network.server.*;
 import java.math.*;
 import java.util.regex.*;
@@ -10,57 +11,95 @@ public class ServerLogic {
 	List<String> Commands=new ArrayList<String>();
 	Server server= new Server();
 	Random ra = new Random();
-	private int status=0;
-	public int ServerId= ra.nextInt()%99999+1;
+	public int status=0;
+	public int ServerId= ra.nextInt(99999)+1;
 	public void init() {
-		this.server = new Server();
 		initMap();
-		Gap g1= new Gap(1);
-		g1.run(this);
 		this.status=1;
+		System.out.println("ServerId: "+this.ServerId);
 	}
 	public void initMap() {
-		for(int i=0;i<ra.nextInt()%20+10;i++) {
-			Wall w;
-			while(true){
-				w=new Wall(10,10,new Point((float)Math.random()%635+5,(float)Math.random()%635+5));
-				w.id=getSpareId();
-				if(checkColision(w)==0)
-					this.Entities.add(w);
+		int num=ra.nextInt(30)+10;
+		for(int i=0;i<num;i++) {
+			while (true) {
+				Wall w;
+				double x=ra.nextInt(635) + 5;
+				double y=ra.nextInt(635) + 5;
+				w = new Wall(10, 10, new Point((float)x, (float) y));
+				int l=checkColision(w);
+				//System.out.println(l);
+				if (l== 0) {
+					w.id = getSpareId();
+					Entities.add(w);
+					break;
+				}
+			}
+		}
+		for(int i=0;i<2;i++) {
+			while (true) {
+				Player w;
+				double x=ra.nextInt(635) + 5;
+				double y=ra.nextInt(635) + 5;
+				w = new Player(10, 10, new Point((float)x, (float) y));
+				int l=checkColision(w);
+				//System.out.println(l);
+				if (l== 0) {
+					w.id = getSpareId();
+					Entities.add(w);
+					break;
+				}
+			}
+		}
+		listPlayers();
+	}
+	public void listPlayers(){
+		Entity e;
+		for(int i=0;i<Entities.size();i++){
+			e =Entities.get(i);
+			if(e.type.equals("Player")){
+				System.out.println("id: "+e.getId()+" Pos: "+e.getPosition()+" Angle: "+e.getAngle());
 			}
 		}
 	}
 	public int getSpareId(){
-		int id=ra.nextInt()%9999+1;
+		int id=ra.nextInt(9999)+1;
+		if (Entities.size()!=0)
 		while(true){
 			int t=0;
-			id=ra.nextInt()%9999+1;
+			id=ra.nextInt(9999)+1;
 			for(int i=0;i<Entities.size();i++) {
-				System.out.println(i+" "+Entities.size());
+				//System.out.println(i+" "+Entities.size()+" "+id+" "+Entities.get(i).getId());
 				if(Entities.get(i).getId()==id){
 					t=1;
 					break;
 				}
 			}
+			//System.out.println(t);
 			if(t==0)
 				break;
 		}
 		return id;
 	}
+	public Point[] getCorner(Entity e){
+		if(e.type.equals("Player"))
+			return ((Player)e).getCorners();
+		if(e.type.equals("Wall"))
+			return ((Wall)e).getCorners();
+		if (e.type.equals("Bullet"))
+			return ((Bullet)e).getCorners();
+		return null;
+	}
 	public int checkColision(Entity e){
-		Point p1= e.getPosition();
-		Point p2;
+		Point[] p1= getCorner(e);
+		Point[] p2;
 		for(int i=0;i<Entities.size();i++) {
 			Entity e2 = Entities.get(i);
-			p2=e2.getPosition();
-			if((p1.getX()-5)>=(p2.getX()-5)&&(p1.getX()-5)<=(p2.getX()+5)&&(p1.getY()-5)>=(p2.getY()-5)&&(p1.getY()-5)>=(p2.getY()+5))
-				return e2.getId();
-			if((p1.getX()+5)>=(p2.getX()-5)&&(p1.getX()+5)<=(p2.getX()+5)&&(p1.getY()-5)>=(p2.getY()-5)&&(p1.getY()-5)>=(p2.getY()+5))
-				return e2.getId();
-			if((p1.getX()-5)>=(p2.getX()-5)&&(p1.getX()-5)<=(p2.getX()+5)&&(p1.getY()+5)>=(p2.getY()-5)&&(p1.getY()+5)>=(p2.getY()+5))
-				return e2.getId();
-			if((p1.getX()+5)>=(p2.getX()-5)&&(p1.getX()+5)<=(p2.getX()+5)&&(p1.getY()+5)>=(p2.getY()-5)&&(p1.getY()+5)>=(p2.getY()+5))
-				return e2.getId();
+			p2=getCorner(e2);
+			if(CollisionDetection.isTouching(p1,p2))
+				return e2.id;
+			else
+				return 0;
+
 		}
 		return 0;
 	}
@@ -80,23 +119,30 @@ public class ServerLogic {
 		String[] arrs;
 		Player e1;
 		while(it1.hasNext()) {
-			arrs = ((String)it1.next()).split(",");
-			if(arrs[0].equals(this.ServerId))
-			if((e1=(Player)SearchEntityById(Integer.parseInt(arrs[1])))!=null) {
-				switch(arrs[2]) {
-				case "Forward":e1.forward();
-				case "Backward":e1.backwards();
-				case "RotateRight":e1.rotateRight();
-				case "RotateLeft":e1.rotateLeft();
-				case "Shoot": this.Entities.add(new Bullet(1,1,e1.getPosition()));
+			String cmd=(String)it1.next();
+			arrs = cmd.split(",");
+			if((Integer.parseInt(arrs[0]))==this.ServerId){
+				e1=(Player)SearchEntityById(Integer.parseInt(arrs[1]));
+				if(e1!=null) {
+					switch(arrs[2]) {
+					case "Forward":e1.forward();break;
+					case "Backward":e1.backwards();break;
+					case "RotateRight":e1.rotateRight();break;
+					case "RotateLeft":e1.rotateLeft();break;
+					case "Shoot": this.Entities.add(new Bullet(1,1,e1.getPosition()));break;
+					}
+					listPlayers();
+				}
+				else {
+					if(arrs[1].equals("JoinServer")) {
+						Player p=new Player(10,10,new Point());
+						p.id=Integer.parseInt(arrs[0]);
+						Entities.add(p);
+					}
 				}
 			}
 			else {
-				if(arrs[1].equals("JoinServer")) {
-					Player p=new Player(10,10,new Point());
-					p.id=Integer.parseInt(arrs[0]);
-					Entities.add(p);
-				}
+				System.out.println("invalid command");
 			}
 		}
 		this.Commands = null;
@@ -106,29 +152,4 @@ public class ServerLogic {
 		server.sendBroadcast(this.Entities);
 	}
 
-	public static class Gap extends Thread {
-		private Thread t;
-		private int id;
-
-		Gap(int tid) {
-			this.id=tid;
-		}
-
-		public void run(ServerLogic s) {
-			System.out.println("Server thread " + id + " is running");
-			while (true) {
-				try {
-					if (s.status ==1){
-
-					}else if(s.status == 2){
-						s.dealCommmands();
-					}
-					Thread.sleep(10);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
 }

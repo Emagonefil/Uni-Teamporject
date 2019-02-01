@@ -9,7 +9,7 @@ public class Entity implements Serializable {
 	// 0 degrees means pointing up i.e. towards positive y
 	float angle;
 	public int id;
-
+	public String type;
 	// Dont use this
 	public Entity() {
 		this.position = new Point(0.0f, 0.0f);
