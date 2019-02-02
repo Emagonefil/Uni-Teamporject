@@ -1,7 +1,10 @@
 package game;
 import game.entity.*;
 import game.entity.collisions.*;
+import game.network.Port;
 import game.network.server.*;
+
+import java.io.Serializable;
 import java.math.*;
 import java.util.regex.*;
 import game.entity.*;
@@ -9,7 +12,7 @@ import java.util.*;
 public class ServerLogic {
 	List<Entity> Entities=new ArrayList<Entity>();
 	List<String> Commands=new ArrayList<String>();
-	Server server= new Server("192.168.191.1");
+	Server server= new Server();
 	Random ra = new Random();
 	public int status=0;
 	public int ServerId= ra.nextInt(99999)+1;
@@ -106,7 +109,7 @@ public class ServerLogic {
 		return 0;
 	}
 	public void addPlayer(int id){
-		this.Entities.add(new Player(10,10,new Point((float)Math.random()%635+5,(float)Math.random()%635+5)));
+		this.Entities.add(new Player(10,10,new Point((float)ra.nextInt(635)+5,(float)ra.nextInt(635)+5)));
 	}
 	public Entity SearchEntityById(int id) {
 		for(int i=0;i<Entities.size();i++) {
@@ -115,6 +118,43 @@ public class ServerLogic {
 		}
 		return null;
 	}
+	public void moveBullets(){
+		Entity e;
+		for(int i=0;i<Entities.size();i++) {
+			e=Entities.get(i);
+			if(e.type.equals("Bullet"))
+				((Bullet)e).forward();
+			else
+				continue;
+			if(e.getPosition().getX()<0||e.getPosition().getX()>640||e.getPosition().getY()<0||e.getPosition().getY()>650) {
+				System.out.println(((Bullet)e).getPosition().getX()+","+((Bullet)e).getPosition().getY());
+				Entities.remove(e);
+				continue;
+			}
+			Entity e2;
+			boolean live=true;
+			for(int t=0;t<Entities.size();t++){
+				e2=Entities.get(t);
+				switch (e2.type) {
+					case "Wall":
+						if(CollisionDetection.isTouching(((Bullet)e).getCorners(),((Wall)e2).getCorners()))
+							Entities.remove(e);
+						live=false;
+						break;
+					case "Player":
+						if(CollisionDetection.isTouching(((Bullet)e).getCorners(),((Player)e2).getCorners())) {
+							((Player) e2).reduceHealth(((Bullet) e).damage);
+							Entities.remove(e);
+						}
+						live=false;
+						break;
+				}
+				if(!live)
+					break;
+			}
+
+		}
+	}
 	public void dealCommmands() {
 		this.Commands = server.getMoves();
 		Iterator it1 = Commands.iterator();
@@ -122,36 +162,65 @@ public class ServerLogic {
 		Player e1;
 		while(it1.hasNext()) {
 			String cmd=(String)it1.next();
+			System.out.println(cmd);
 			arrs = cmd.split(",");
 			if((Integer.parseInt(arrs[0]))==this.ServerId){
 				e1=(Player)SearchEntityById(Integer.parseInt(arrs[1]));
 				if(e1!=null) {
 					switch(arrs[2]) {
-					case "Forward":e1.forward();break;
-					case "Backward":e1.backwards();break;
-					case "RotateRight":e1.rotateRight();break;
-					case "RotateLeft":e1.rotateLeft();break;
-					case "Shoot": this.Entities.add(new Bullet(1,1,e1.getPosition()));break;
+					case "Forward": {
+						e1.forward();
+						if (checkColision(e1) != 0)
+							e1.backwards();
+						break;
 					}
-					listPlayers();
+					case "Backward":{
+						e1.backwards();
+						if (checkColision(e1)!=0)
+							e1.forward();
+						break;
+					}
+					case "RotateRight":{
+						e1.rotateRight();
+						if (checkColision(e1)!=0)
+							e1.rotateLeft();
+						break;
+					}
+					case "RotateLeft": {
+						e1.rotateLeft();
+						if (checkColision(e1) != 0)
+							e1.rotateRight();
+						break;
+					}
+					case "Shoot": {
+						Bullet b = new Bullet(1, 1,new Point(e1.getPosition().getX(),e1.getPosition().getY()));
+						b.id = getSpareId();
+						this.Entities.add(b);
+						break;
+					}
+					}
+					//listPlayers();
 				}
 				else {
-					if(arrs[1].equals("JoinServer")) {
+					if(arrs[2].equals("JoinServer")) {
 						Player p=new Player(10,10,new Point());
-						p.id=Integer.parseInt(arrs[0]);
+						p.id=Integer.parseInt(arrs[1]);
 						Entities.add(p);
 					}
 				}
+
 			}
 			else {
 				System.out.println("invalid command");
 			}
 		}
 		this.Commands = null;
+		moveBullets();
 	}
 
 	public void broadcastEntities() {
-		server.sendBroadcast(this.Entities);
+		server.send(Port.clientAddress,Entities);
+		//System.out.println("发送："+System.currentTimeMillis());
 	}
 
 }

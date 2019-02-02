@@ -16,6 +16,8 @@ client.startReceiver(Receivable);
 //close the current Receiver
 client.closeReceiver();
 
+//allows client change the ip of server it is sending to
+client.changeServerIP();
 ```
 
 # Receivable(Interface)

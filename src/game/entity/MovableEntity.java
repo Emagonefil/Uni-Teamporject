@@ -36,6 +36,10 @@ public class MovableEntity extends Entity {
 		this.position.changeY((float) (-speed * Math.cos(radAngle)));
 	}
 
+	public void setSpeed(float s){
+		this.speed=s;
+	}
+
 	public void rotateRight() {
 		this.angle = (this.angle + rotationSpeed) % 360;
 	}
