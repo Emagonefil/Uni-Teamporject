@@ -53,7 +53,7 @@ public class Main extends Application {
 		single.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
-				SinglePlayer();
+				SinglePlayer(primaryStage);
 			}
 		});
 
@@ -64,7 +64,7 @@ public class Main extends Application {
 		multi.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
-				MultiPlayer(true);
+				MultiPlayer(true,primaryStage);
 			}
 		});
 
@@ -112,18 +112,29 @@ public class Main extends Application {
 		Scene scene = new Scene(vbox);
 
 		// add style sheet to this scene
-//		scene.getStylesheets().addAll(this.getClass().getResource("/gui/style.css").toExternalForm());
+		scene.getStylesheets().addAll(this.getClass().getResource("gui/style.css").toExternalForm());
 
 		// add scene to stage and display stage
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 
-	public static void SinglePlayer() {
+	public static void SinglePlayer(Stage stage) {
 		ServerLogic s1=new ServerLogic();
 		s1.init();
+		int id;
+		Scanner scanner= new Scanner(System.in);
+		ClientLogic c1 = new ClientLogic();
+//		c1.init();
+//		System.out.println("Set serverid:");
+//		c1.ServerId=scanner.nextInt();
+//		System.out.println("Set clientid:");
+//		c1.id=scanner.nextInt();
+//		System.out.println("init succeed");
+
+		GameWindow newGame = new GameWindow(stage,c1);
 	}
-	public static void MultiPlayer(boolean iflocal) {
+	public static void MultiPlayer(boolean iflocal, Stage stage) {
 		int id;
 		Scanner scanner= new Scanner(System.in);
 		if(iflocal) {
@@ -141,7 +152,7 @@ public class Main extends Application {
 //		catch (Exception e){
 //			e.printStackTrace();
 //		}
-
+		GameWindow newGame = new GameWindow(stage,c1);
 		while(true) {
 			String s2=scanner.next();
 			if(s2.equals("q")){

@@ -1,10 +1,18 @@
 package game.entity;
 
+import game.Renderer;
+import game.gui.Animation;
+import game.gui.Sprite;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class Player extends MovableRectangularEntity implements KillableEntity {
+
+	// for drawing
+	private Sprite currentSprite;
+	private Animation playerAnimation;
 
 	public static Player fromFile(String path) throws IOException {
 		Properties configFile = new Properties();
@@ -28,18 +36,31 @@ public class Player extends MovableRectangularEntity implements KillableEntity {
 		this.health = 100;
 		this.ammo = 20;
 		this.type="Player";
+
+		// for drawing
+		playerAnimation = new Animation(this,Renderer.hero);
+		currentSprite = playerAnimation.getSprite();
 	}
 
 	public Player(float width, float height, Point position, float angle, float speed, float rotationSpeed) {
 		super(width, height, position, angle, speed, rotationSpeed);
 		this.health = 100;
 		this.ammo = 20;
+
+		// for drawing
+		playerAnimation = new Animation(this,Renderer.hero);
+		currentSprite = playerAnimation.getSprite();
 	}
 
 	public Player(float width, float height, Point position, float angle, float speed, float rotationSpeed, int health,
 			int ammo) {
 		super(width, height, position, angle, speed, rotationSpeed);
 		this.health = health;
+		this.ammo = ammo;
+
+		// for drawing
+		playerAnimation = new Animation(this,Renderer.hero);
+		currentSprite = playerAnimation.getSprite();
 	}
 
 	private int health;
@@ -73,5 +94,11 @@ public class Player extends MovableRectangularEntity implements KillableEntity {
 	// there is nothing more in this part.
 	public void shoot() {
 		this.ammo -= 1;
+	}
+
+	// draw the player on screen
+	@Override
+	public void draw() {
+		Renderer.playAnimation(currentSprite);
 	}
 }
