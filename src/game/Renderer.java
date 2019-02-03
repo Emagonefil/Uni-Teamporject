@@ -23,14 +23,14 @@ public class Renderer {
     static Image snake2;
     static Image bullet;
     static {
-        hero = loadImage("Resources/img/chubbyZombie.png");
+        hero = loadImage("Resources/image/chubbyZombie.png");
 //        ghost1 = loadImage("Resources/img/ghost1.png");
 //        ghost2 = loadImage("Resources/img/ghost2.png");
 //        skull1 = loadImage("Resources/img/skull1.png");
 //        skull2 = loadImage("Resources/img/skull2.png");
 //        snake1 = loadImage("Resources/img/snake1.png");
 //        snake2 = loadImage("Resources/img/snake2.png");
-        bullet = loadImage("Resources/img/bullet.png");
+        bullet = loadImage("Resources/image/bullet.png");
     }
 
     public static Image loadImage(String path) {
