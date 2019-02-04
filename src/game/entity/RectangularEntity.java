@@ -54,5 +54,13 @@ public class RectangularEntity extends Entity {
 		
 		return corners;
 	}
+	
+	public float getWidth() {
+		return this.width;
+	}
+	
+	public float getHeight() {
+		return this.height;
+	}
 
 }

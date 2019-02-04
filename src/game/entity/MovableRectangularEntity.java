@@ -35,6 +35,14 @@ public class MovableRectangularEntity extends MovableEntity {
 		return rec.getCorners();
 	}
 	
+	public float getWidth() {
+		return rec.getWidth();
+	}
+	
+	public float getHeight() {
+		return rec.getHeight();
+	}
+	
 	@Override
 	public void forward(){
 		super.forward();
@@ -59,4 +67,5 @@ public class MovableRectangularEntity extends MovableEntity {
 		super.rotateLeft();
 		rec.setAngle(this.getAngle());
 	}
+	
 }
