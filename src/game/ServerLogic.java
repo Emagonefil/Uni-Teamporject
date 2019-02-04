@@ -107,14 +107,14 @@ public class ServerLogic {
 	public int checkColision(Entity e){
 		Point[] p1= getCorner(e);
 		Point[] p2;
+		Entity e2;
 		for(int i=0;i<Entities.size();i++) {
-			Entity e2 = Entities.get(i);
+			e2 = Entities.get(i);
+			if(e2.equals(e))
+				continue;
 			p2=getCorner(e2);
 			if(CollisionDetection.isTouching(p1,p2))
 				return e2.id;
-			else
-				return 0;
-
 		}
 		return 0;
 	}
@@ -147,16 +147,18 @@ public class ServerLogic {
 				e2=Entities.get(t);
 				switch (e2.type) {
 					case "Wall":
-						if(CollisionDetection.isTouching(((Bullet)e).getCorners(),((Wall)e2).getCorners()))
+						if(CollisionDetection.isTouching(((Bullet)e).getCorners(),((Wall)e2).getCorners())) {
 							Entities.remove(e);
-						live=false;
+							live = false;
+						}
 						break;
 					case "Player":
+						if(((Bullet)e).owner!=((Player)e2).id)
 						if(CollisionDetection.isTouching(((Bullet)e).getCorners(),((Player)e2).getCorners())) {
 							((Player) e2).reduceHealth(((Bullet) e).damage);
 							Entities.remove(e);
+							live=false;
 						}
-						live=false;
 						break;
 				}
 				if(!live)
@@ -206,6 +208,7 @@ public class ServerLogic {
 						Bullet b = new Bullet(1, 1,new Point(e1.getPosition().getX(),e1.getPosition().getY()));
 						b.setAngle(e1.getAngle());
 						b.id = getSpareId();
+						b.owner=e1.id;
 						this.Entities.add(b);
 						break;
 					}

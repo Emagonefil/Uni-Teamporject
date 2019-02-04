@@ -9,7 +9,7 @@ public class Bullet extends MovableRectangularEntity implements KillableEntity{
 	public Bullet(float width, float height, Point position) {
 		super(width, height, position);
 		this.type="Bullet";
-		this.setSpeed(0.1f);
+		this.setSpeed(10f);
 
 	}
 	
@@ -18,6 +18,7 @@ public class Bullet extends MovableRectangularEntity implements KillableEntity{
 
 
 	}
+	public int owner;
 	public int damage=10;
 	@Override
 	public void die() {
