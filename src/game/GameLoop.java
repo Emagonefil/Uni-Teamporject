@@ -1,6 +1,7 @@
 package game;
 
 import game.controller.InputManager;
+import game.entity.Bullet;
 import game.entity.Entity;
 import game.entity.Player;
 import game.entity.Point;
@@ -38,20 +39,17 @@ public class GameLoop {
                 deltaTime = currentGameTime - oldGameTime;
                 gc.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
 
-                client.Entities.add(new Player(40,40,new Point(50,50)));
-                update(scene,client);
+                client.Entities.add(new Player(40,40,new Point(50,50),45.0f,0.5f, 1.0f));
+                client.Entities.add(new Bullet(5,5,new Point(200,50)));
+                InputManager.handlePlayerMovements(scene,client);
                 render(client);
             }
         }.start();
     }
 
-    public static void update(Scene scene, ClientLogic client) {
+//    public static void update(Scene scene, ClientLogic client) {
 //        InputManager.handlePlayerMovements(scene,client);
-        Iterator<Entity> it = client.getEntities().iterator();
-        while (it.hasNext()) {
-            Entity entity = it.next();
-        }
-    }
+//    }
 
     public static void render(ClientLogic client) {
         for (Entity e : client.getEntities()) {

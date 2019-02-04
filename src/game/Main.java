@@ -153,6 +153,7 @@ public class Main extends Application {
 //			e.printStackTrace();
 //		}
 		GameWindow newGame = new GameWindow(stage,c1);
+
 		while(true) {
 			String s2=scanner.next();
 			if(s2.equals("q")){

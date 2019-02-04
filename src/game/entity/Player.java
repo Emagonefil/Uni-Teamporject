@@ -12,7 +12,6 @@ public class Player extends MovableRectangularEntity implements KillableEntity {
 
 	// for drawing
 	private Sprite currentSprite;
-	private Animation playerAnimation;
 
 	public static Player fromFile(String path) throws IOException {
 		Properties configFile = new Properties();
@@ -38,8 +37,7 @@ public class Player extends MovableRectangularEntity implements KillableEntity {
 		this.type="Player";
 
 		// for drawing
-		playerAnimation = new Animation(this,Renderer.hero);
-		currentSprite = playerAnimation.getSprite();
+		currentSprite = new Sprite(this,Renderer.tank,40,50,2);
 	}
 
 	public Player(float width, float height, Point position, float angle, float speed, float rotationSpeed) {
@@ -48,8 +46,7 @@ public class Player extends MovableRectangularEntity implements KillableEntity {
 		this.ammo = 20;
 
 		// for drawing
-		playerAnimation = new Animation(this,Renderer.hero);
-		currentSprite = playerAnimation.getSprite();
+		currentSprite = new Sprite(this,Renderer.tank,40,50,2);
 	}
 
 	public Player(float width, float height, Point position, float angle, float speed, float rotationSpeed, int health,
@@ -59,8 +56,7 @@ public class Player extends MovableRectangularEntity implements KillableEntity {
 		this.ammo = ammo;
 
 		// for drawing
-		playerAnimation = new Animation(this,Renderer.hero);
-		currentSprite = playerAnimation.getSprite();
+		currentSprite = new Sprite(this,Renderer.tank,40,50,2);
 	}
 
 	private int health;
