@@ -2,7 +2,7 @@ package game.entity;
 
 import game.entity.MovableEntity;
 
-public class MovableRectangularEntity extends MovableEntity {
+public class MovableRectangularEntity extends MovableEntity implements IRectangularEntity {
 
 	//TO-DO Read player info from file and then delete some constructors
 	

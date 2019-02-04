@@ -1,6 +1,6 @@
 package game.entity;
 
-public class RectangularEntity extends Entity {
+public class RectangularEntity extends Entity implements IRectangularEntity {
 
 	private float width;
 	private float height;
