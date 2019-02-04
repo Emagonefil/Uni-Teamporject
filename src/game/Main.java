@@ -155,33 +155,22 @@ public class Main extends Application {
 		Scanner scanner= new Scanner(System.in);
 		serverGap s1=new serverGap();
 		s1.start();
-		RoomServer roomServer=new RoomServer();
-		roomServer.run();
-		c1.createRoom();
-		c1.getRoomList();
-		for(int i=0;i<c1.rooms.size();i++) {
-			Room r1=c1.rooms.get(i);
-			System.out.println("1:"+r1.roomId);
-			for(int u=0;u<r1.ClientId.size();u++)
-				System.out.println(":"+r1.ClientId.get(u));
-		}
+//		RoomServer roomServer=new RoomServer();
+//		roomServer.run();
+//		c1.createRoom();
+//		c1.getRoomList();
+//		for(int i=0;i<c1.rooms.size();i++) {
+//			Room r1=c1.rooms.get(i);
+//			System.out.println("1:"+r1.roomId);
+//			for(int u=0;u<r1.ClientId.size();u++)
+//				System.out.println(":"+r1.ClientId.get(u));
+//		}
 		System.out.println("init succeed");
 		//try{Thread.sleep(2000);}
 //		catch (Exception e){
 //			e.printStackTrace();
 //		}
 		GameWindow newGame = new GameWindow(stage,c1);
-//		while(true) {
-//			String s2=scanner.next();
-//			if(s2.equals("q")){
-//				c1.listBullets();
-//				c1.listPlayers();
-//				c1.listWalls();
-//				System.out.println(c1.Entities.size());
-//			}
-//
-//			c1.sendCommands(s2);
-//		}
 
 
 	}
