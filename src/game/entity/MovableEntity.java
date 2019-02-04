@@ -26,14 +26,14 @@ public class MovableEntity extends Entity {
 
 	public void forward() {
 		float radAngle = (float) Math.toRadians(this.angle);
-		this.position.changeX((float) (speed * Math.sin(radAngle)));
-		this.position.changeY((float) (speed * Math.cos(radAngle)));
+		this.position.changeX((float) (speed * Math.cos(radAngle)));
+		this.position.changeY((float) (speed * Math.sin(radAngle)));
 	}
 
 	public void backwards() {
 		float radAngle = (float) Math.toRadians(this.angle);
-		this.position.changeX((float) (-speed * Math.sin(radAngle)));
-		this.position.changeY((float) (-speed * Math.cos(radAngle)));
+		this.position.changeX((float) (-speed * Math.cos(radAngle)));
+		this.position.changeY((float) (-speed * Math.sin(radAngle)));
 	}
 
 	public void setSpeed(float s){

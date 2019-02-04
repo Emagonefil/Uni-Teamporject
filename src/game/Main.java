@@ -9,14 +9,18 @@ import game.network.Room;
 import game.network.RoomServer;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -72,7 +76,26 @@ public class Main extends Application {
 		multi.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
-				MultiPlayer(primaryStage);
+				HBox room = new HBox();
+				room.setSpacing(20);
+				ListView<String> servers = new ListView<>();
+				ObservableList<String> items = FXCollections.observableArrayList (
+						"one", "two", "three", "four");
+				servers.setItems(items);
+
+				ListView<String> players = new ListView<>();
+
+
+				Button start = new Button("Start");
+				start.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent mouseEvent) {
+						MultiPlayer(primaryStage);
+					}
+				});
+
+				room.getChildren().addAll(servers,players,start);
+				primaryStage.getScene().setRoot(room);
 			}
 		});
 
