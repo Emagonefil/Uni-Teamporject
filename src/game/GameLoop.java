@@ -55,10 +55,10 @@ public class GameLoop {
             switch (e.type){
                 case "Player":currentSprite = new Sprite(e,Renderer.tank,30,40,2);break;
                 case "Wall": currentSprite = new Sprite(e,Renderer.wall,60,40,1);break;
-                case "Bullet":currentSprite = new Sprite(e,Renderer.bullet,5,5,2);;break;
+                case "Bullet":currentSprite = new Sprite(e,Renderer.bullet,5,5,2);break;
             }
 
-            Renderer.playAnimation(currentSprite,e.getPosition().getX(),e.getPosition().getY());
+            Renderer.playAnimation(currentSprite,e.getAngle(), e.getPosition().getX(),e.getPosition().getY());
         }
 
     }

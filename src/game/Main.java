@@ -21,6 +21,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import javax.swing.text.Position;
+
 // loop that runs continuously to update every component of the game
 public class Main extends Application {
 	public static ClientLogic c1 = new ClientLogic();
@@ -142,6 +144,24 @@ public class Main extends Application {
 		s1.init();
 		int id;
 		Scanner scanner= new Scanner(System.in);
+
+		// some trials for key event movements locally
+		c1.Entities.add(new Player(40,50,new Point(700,700)));
+		c1.Entities.add(new Player(40,50,new Point(200,200)));
+
+
+		stage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent keyEvent) {
+				switch (keyEvent.getCode()){
+					case W: c1.Entities.get(0).setPosition(new Point(c1.Entities.get(0).getPosition().getX(), c1.Entities.get(0).getPosition().getY() + 2));break;
+					case S: c1.Entities.get(0).setPosition(new Point(c1.Entities.get(0).getPosition().getX(), c1.Entities.get(0).getPosition().getY() - 2));break;
+					case A: c1.Entities.get(0).setAngle(c1.getEntities().get(0).getAngle() - 2);break;
+					case D: c1.Entities.get(0).setAngle(c1.getEntities().get(0).getAngle() + 2);break;
+					case J: c1.Entities.add(new Bullet(10,10, new Point(c1.Entities.get(0).getPosition().getX() + 10, c1.Entities.get(0).getPosition().getY() + 10)));
+				}
+			}
+		});
 //		c1.init();
 //		System.out.println("Set serverid:");
 //		c1.ServerId=scanner.nextInt();

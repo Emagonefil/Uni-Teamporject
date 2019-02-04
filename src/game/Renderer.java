@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import javafx.scene.transform.Rotate;
 
 import java.io.File;
 
@@ -61,13 +62,25 @@ public class Renderer {
         return hero;
     }
 
-    public static void playAnimation(Sprite sprite, float x, float y) {
+    public static void playAnimation(Sprite sprite, double angle,  float x, float y) {
         GraphicsContext gc = GameWindow.getGraphicsContext();
-        playAnimation(gc, sprite.spriteImage, x, y, sprite.width * sprite.scale, sprite.height * sprite.scale);
+        playAnimation(gc, sprite.spriteImage, angle, x, y, sprite.width * sprite.scale, sprite.height * sprite.scale);
     }
 
     // draw an image on the screen given all relevant details
-    public static void playAnimation(GraphicsContext gc, Image img, float x, float y, double width, double height) {
-        gc.drawImage(img,x,y,width,height);
+    public static void playAnimation(GraphicsContext gc, Image img, double angle, float x, float y, double width, double height) {
+        drawRotatedImage(gc,img,angle,x,y);
+    }
+
+    public static void drawRotatedImage(GraphicsContext gc, Image img, double angle, float x, float y) {
+        gc.save();
+        rotate(gc, angle, x + img.getWidth() / 2, y + img.getHeight() / 2);
+        gc.drawImage(img,x,y);
+        gc.restore();
+    }
+
+    public static void rotate(GraphicsContext gc, double angle, double x, double y) {
+        Rotate r = new Rotate(angle,x,y);
+        gc.setTransform(r.getMxx(),r.getMyx(),r.getMxy(),r.getMyy(),r.getTx(),r.getTy());
     }
 }
