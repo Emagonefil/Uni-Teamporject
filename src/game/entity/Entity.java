@@ -10,6 +10,8 @@ public class Entity implements Serializable {
 	float angle;
 	public int id;
 	public String type;
+	public float width;
+	public float height;
 	// Dont use this
 	public Entity() {
 		this.position = new Point(0.0f, 0.0f);

@@ -148,7 +148,8 @@ public class Main extends Application {
 		// some trials for key event movements locally
 		c1.Entities.add(new Player(40,50,new Point(700,700)));
 		c1.Entities.add(new Player(40,50,new Point(200,200)));
-
+		System.out.println(c1.Entities.get(0).type + " " + c1.Entities.get(0).width + " " + c1.Entities.get(0).height);
+		System.out.println(c1.Entities.get(1).type + " " + c1.Entities.get(1).width + " " + c1.Entities.get(1).height);
 
 		stage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 			@Override
@@ -160,7 +161,9 @@ public class Main extends Application {
 					case S: c1.Entities.get(0).setPosition(new Point(c1.Entities.get(0).getPosition().getX() + (float)(dist*Math.cos(rad)), c1.Entities.get(0).getPosition().getY() + (float)(dist*Math.sin(rad))));break;
 					case A: c1.Entities.get(0).setAngle(c1.getEntities().get(0).getAngle() - (float)dist);break;
 					case D: c1.Entities.get(0).setAngle(c1.getEntities().get(0).getAngle() + (float)dist);break;
-					case J: c1.Entities.add(new Bullet(10,10, new Point(c1.Entities.get(0).getPosition().getX() + 10, c1.Entities.get(0).getPosition().getY() + 10)));
+					case J: c1.Entities.add(new Bullet(5,5, new Point(c1.Entities.get(0).getPosition().getX() + 10, c1.Entities.get(0).getPosition().getY() + 10)));
+						System.out.println(c1.Entities.get(2).type + " " + c1.Entities.get(2).width + " " + c1.Entities.get(2).height); break;
+
 				}
 			}
 		});
