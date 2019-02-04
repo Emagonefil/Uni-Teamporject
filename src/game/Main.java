@@ -7,6 +7,7 @@ import game.ServerLogic.*;
 import game.ClientLogic.*;
 import game.network.Room;
 import game.network.RoomServer;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -17,11 +18,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -30,6 +33,8 @@ import javax.swing.text.Position;
 // loop that runs continuously to update every component of the game
 public class Main extends Application {
 	public static ClientLogic c1 = new ClientLogic();
+	public String username = "";
+	boolean forward, backward, left, right, shoot;
 
 	public static void main(String args[]) {
 		c1.init();
@@ -53,7 +58,7 @@ public class Main extends Application {
 		vbox.setAlignment(Pos.CENTER);
 
 		// create a label for the name of the game
-		Label label = new Label(Constants.GAME_NAME + " " + Constants.GAME_VERSION);
+		Label label = new Label(Constants.GAME_NAME);
 
 		// create a mute button
 		// Button sound = new Button("Sound");
@@ -78,6 +83,9 @@ public class Main extends Application {
 			public void handle(MouseEvent mouseEvent) {
 				HBox room = new HBox();
 				room.setSpacing(20);
+				Text title = new Text("Room");
+				TextField name = new TextField();
+
 				ListView<String> servers = new ListView<>();
 				ObservableList<String> items = FXCollections.observableArrayList (
 						"one", "two", "three", "four");
@@ -90,11 +98,13 @@ public class Main extends Application {
 				start.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent mouseEvent) {
+						username = name.getCharacters().toString();
+						System.out.println("Username: " + username);
 						MultiPlayer(primaryStage);
 					}
 				});
 
-				room.getChildren().addAll(servers,players,start);
+				room.getChildren().addAll(title,name,servers,players,start);
 				primaryStage.getScene().setRoot(room);
 			}
 		});
@@ -137,18 +147,6 @@ public class Main extends Application {
 			}
 		});
 
-		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent keyEvent) {
-				switch (keyEvent.getCode()){
-					case W:c1.sendCommands("Forward");break;
-					case S:c1.sendCommands("Backward");break;
-					case A:c1.sendCommands("RotateLeft");break;
-					case D:c1.sendCommands("RotateRight");break;
-					case J:c1.sendCommands("Shoot");break;
-				}
-			}
-		});
 		vbox.getChildren().addAll(label,single,multi,settings,quit);
 
 		// create a scene
@@ -160,6 +158,55 @@ public class Main extends Application {
 		// add scene to stage and display stage
 		primaryStage.setScene(scene);
 		primaryStage.show();
+
+
+		primaryStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent keyEvent) {
+				switch (keyEvent.getCode()){
+					case W:
+					case UP: 	forward = true; break;
+					case S:
+					case DOWN:	backward = true; break;
+					case A:
+					case LEFT:	left = true; break;
+					case D:
+					case RIGHT:	right = true; break;
+					case J:
+					case SPACE:	shoot = true; break;
+				}
+			}
+		});
+
+		primaryStage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent keyEvent) {
+				switch (keyEvent.getCode()){
+					case W:
+					case UP: 	forward = false; break;
+					case S:
+					case DOWN:	backward = false; break;
+					case A:
+					case LEFT:	left = false; break;
+					case D:
+					case RIGHT:	right = false; break;
+					case J:
+					case SPACE:	shoot = false; break;
+				}
+			}
+		});
+
+		AnimationTimer timer = new AnimationTimer() {
+			@Override
+			public void handle(long l) {
+				if(forward) c1.sendCommands("Forward");
+				if(backward) c1.sendCommands("Backward");
+				if(left) c1.sendCommands("RotateLeft");
+				if(right) c1.sendCommands("RotateRight");
+				if(shoot) c1.sendCommands("Shoot");
+			}
+		};
+		timer.start();
 	}
 
 	public static void SinglePlayer(Stage stage) {
