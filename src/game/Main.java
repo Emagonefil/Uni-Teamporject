@@ -171,6 +171,7 @@ public class Main extends Application {
 //			c1.sendCommands(s2);
 //		}
 
+
 	}
 
 	public static class serverGap extends Thread {

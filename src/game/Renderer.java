@@ -13,6 +13,7 @@ import java.io.File;
 public class Renderer {
 
     public static Image hero;
+    public static Image tank;
     static Image ghost1;
     static Image ghost2;
     static Image skull1;
@@ -22,6 +23,7 @@ public class Renderer {
     public static Image bullet;
     static {
         hero = loadImage("Resources/image/chubbyZombie.png");
+        tank = loadImage("Resources/image/Tank.png");
 //        ghost1 = loadImage("Resources/image/ghost1.png");
 //        ghost2 = loadImage("Resources/image/ghost2.png");
         skull1 = loadImage("Resources/image/skull1.png");

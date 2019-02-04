@@ -38,7 +38,6 @@ public class Player extends MovableRectangularEntity implements KillableEntity {
 		super(width, height, position, angle, speed, rotationSpeed);
 		this.health = 100;
 		this.ammo = 20;
-
 	}
 
 	public Player(float width, float height, Point position, float angle, float speed, float rotationSpeed, int health,
