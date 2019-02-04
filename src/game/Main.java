@@ -11,6 +11,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -18,9 +20,10 @@ import javafx.stage.WindowEvent;
 
 // loop that runs continuously to update every component of the game
 public class Main extends Application {
+	public static ClientLogic c1 = new ClientLogic();
 
 	public static void main(String args[]) {
-//		MultiPlayer(true);
+		c1.init();
 		launch(args);
 	}
 
@@ -64,7 +67,7 @@ public class Main extends Application {
 		multi.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
-				MultiPlayer(true,primaryStage);
+				MultiPlayer(primaryStage);
 			}
 		});
 
@@ -106,6 +109,18 @@ public class Main extends Application {
 			}
 		});
 
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent keyEvent) {
+				switch (keyEvent.getCode()){
+					case W:c1.sendCommands("Forward");break;
+					case S:c1.sendCommands("Backward");break;
+					case A:c1.sendCommands("RotateLeft");break;
+					case D:c1.sendCommands("RotateRight");break;
+					case J:c1.sendCommands("Shoot");break;
+				}
+			}
+		});
 		vbox.getChildren().addAll(label,single,multi,settings,quit);
 
 		// create a scene
@@ -124,7 +139,6 @@ public class Main extends Application {
 		s1.init();
 		int id;
 		Scanner scanner= new Scanner(System.in);
-		ClientLogic c1 = new ClientLogic();
 //		c1.init();
 //		System.out.println("Set serverid:");
 //		c1.ServerId=scanner.nextInt();
@@ -134,50 +148,44 @@ public class Main extends Application {
 
 		GameWindow newGame = new GameWindow(stage,c1);
 	}
-	public static void MultiPlayer(boolean iflocal, Stage stage) {
+	public static void MultiPlayer(Stage stage) {
 		int id;
 		Scanner scanner= new Scanner(System.in);
-		if(iflocal) {
-			serverGap s1=new serverGap(1);
-			s1.start();
-		}
-		ClientLogic c1 = new ClientLogic();
-		c1.init();
-		System.out.println("Set serverid:");
-		c1.ServerId=scanner.nextInt();
-		System.out.println("Set clientid:");
-		c1.id=scanner.nextInt();
+		serverGap s1=new serverGap();
+		s1.start();
 		System.out.println("init succeed");
 		//try{Thread.sleep(2000);}
 //		catch (Exception e){
 //			e.printStackTrace();
 //		}
 		GameWindow newGame = new GameWindow(stage,c1);
-		while(true) {
-			String s2=scanner.next();
-			if(s2.equals("q")){
-				c1.listBullets();
-				c1.listPlayers();
-				c1.listWalls();
-				System.out.println(c1.Entities.size());
-			}
+//		while(true) {
+//			String s2=scanner.next();
+//			if(s2.equals("q")){
+//				c1.listBullets();
+//				c1.listPlayers();
+//				c1.listWalls();
+//				System.out.println(c1.Entities.size());
+//			}
+//
+//			c1.sendCommands(s2);
+//		}
 
-			c1.sendCommands(s2);
-		}
 	}
+
 	public static class serverGap extends Thread {
 		private Thread t;
-		private int id;
-
-		serverGap(int tid) {
-			this.id=tid;
-		}
+		public int sid;
+		public int cid;
 		@Override
 		public void run() {
-			System.out.println("Server thread " + id + " is running");
 			ServerLogic s1=new ServerLogic();
 			s1.init();
-
+			this.sid=s1.ServerId;
+			this.cid=s1.getPlayerId();
+			c1.ServerId=this.sid;
+			c1.id=this.cid;
+			System.out.println("Server thread " + c1.ServerId + " is running, controling bot "+c1.id);
 			while (true) {
 				try {
 					s1.dealCommmands();

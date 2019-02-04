@@ -2,36 +2,31 @@ root {
     display: block;
 }
 .root {
-    /*-fx-background-image: url("background.jpg");*/
-    -fx-background-color: #eee;
-}
-.label {
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #bbbbbb;
-    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+    /*-fx-background-image: url("../Resources/image/skull1.png");*/
+    /*-fx-background-repeat: stretch;*/
+    /*-fx-background-size: 900 506;*/
+    /*-fx-background-position: center center;*/
+    /*-fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);*/
+    -fx-background-color: beige;
 }
 
-#welcome-text {
+.label {
     -fx-font-size: 40px;
     -fx-font-family: "Arial Black";
-    -fx-fill: #777777;
+    -fx-fill: saddlebrown;
     -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
 }
 
-#actiontarget {
-    -fx-font-size: 22px;
-    -fx-fill: #777;
-    -fx-font-weight: bold;
-    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
-}
-
 .button {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 35px;
+
     -fx-font-size: 20px;
-    -fx-text-fill: #555;
+    -fx-text-fill: beige;
     /*-fx-font-family: "Arial Narrow";*/
     -fx-font-weight: bold;
     -fx-width:400px!important;
-    -fx-background-color: linear-gradient(#fefefe, #cbcbcb);
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-background-color: linear-gradient(burlywood, #996134);
+    -fx-effect: dropshadow( three-pass-box , rgba(20,0,10,0.6) , 5, 0.0 , 0 , 1 );
+
 }

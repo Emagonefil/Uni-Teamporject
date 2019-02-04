@@ -29,7 +29,7 @@ public class ServerLogic {
 				Wall w;
 				double x=ra.nextInt(635) + 5;
 				double y=ra.nextInt(635) + 5;
-				w = new Wall(10, 10, new Point((float)x, (float) y));
+				w = new Wall(40, 40, new Point((float)x, (float) y));
 				int l=checkColision(w);
 				//System.out.println(l);
 				if (l== 0) {
@@ -44,7 +44,7 @@ public class ServerLogic {
 				Player w;
 				double x=ra.nextInt(635) + 5;
 				double y=ra.nextInt(635) + 5;
-				w = new Player(10, 10, new Point((float)x, (float) y));
+				w = new Player(40, 40, new Point((float)x, (float) y));
 				int l=checkColision(w);
 				//System.out.println(l);
 				if (l== 0) {
@@ -55,6 +55,16 @@ public class ServerLogic {
 			}
 		}
 		listPlayers();
+	}
+	public int getPlayerId(){
+		Entity e;
+		for(int i=0;i<Entities.size();i++){
+			e =Entities.get(i);
+			if(e.type.equals("Player")){
+				return ((Player)e).id;
+			}
+		}
+		return 0;
 	}
 	public void listPlayers(){
 		System.out.println("Server info");
@@ -194,6 +204,7 @@ public class ServerLogic {
 					}
 					case "Shoot": {
 						Bullet b = new Bullet(1, 1,new Point(e1.getPosition().getX(),e1.getPosition().getY()));
+						b.setAngle(e1.getAngle());
 						b.id = getSpareId();
 						this.Entities.add(b);
 						break;

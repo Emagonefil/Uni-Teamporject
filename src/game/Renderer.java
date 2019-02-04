@@ -24,7 +24,7 @@ public class Renderer {
         hero = loadImage("Resources/image/chubbyZombie.png");
 //        ghost1 = loadImage("Resources/image/ghost1.png");
 //        ghost2 = loadImage("Resources/image/ghost2.png");
-//        skull1 = loadImage("Resources/image/skull1.png");
+        skull1 = loadImage("Resources/image/skull1.png");
 //        skull2 = loadImage("Resources/image/skull2.png");
 //        snake1 = loadImage("Resources/image/snake1.png");
 //        snake2 = loadImage("Resources/image/snake2.png");

@@ -4,6 +4,8 @@ import game.controller.InputManager;
 import game.entity.Entity;
 import game.entity.Player;
 import game.entity.Point;
+import game.gui.Animation;
+import game.gui.Sprite;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -37,8 +39,6 @@ public class GameLoop {
                 currentGameTime = (currentNanoTime - startNanoTime) / 1000000000.0;
                 deltaTime = currentGameTime - oldGameTime;
                 gc.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
-
-                client.Entities.add(new Player(40,40,new Point(50,50)));
                 update(scene,client);
                 render(client);
             }
@@ -54,8 +54,16 @@ public class GameLoop {
     }
 
     public static void render(ClientLogic client) {
+        Sprite currentSprite;
+        Animation playerAnimation=null;
         for (Entity e : client.getEntities()) {
-            e.draw();
+            switch (e.type){
+                case "Player":playerAnimation = new Animation(e,Renderer.hero);break;
+                case "Wall":playerAnimation = new Animation(e,Renderer.skull1);break;
+                case "Bullet":playerAnimation = new Animation(e,Renderer.bullet);break;
+            }
+            currentSprite = playerAnimation.getSprite();
+            Renderer.playAnimation(currentSprite);
         }
 
     }
