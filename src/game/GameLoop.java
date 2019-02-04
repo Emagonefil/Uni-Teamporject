@@ -50,16 +50,15 @@ public class GameLoop {
 //    }
 
     public static void render(ClientLogic client) {
-        Sprite currentSprite;
-        Animation playerAnimation=null;
+        Sprite currentSprite = null;
         for (Entity e : client.getEntities()) {
             switch (e.type){
-                case "Player":playerAnimation = new Animation(e,Renderer.tank);break;
-                case "Wall":playerAnimation = new Animation(e,Renderer.skull1);break;
-                case "Bullet":playerAnimation = new Animation(e,Renderer.bullet);break;
+                case "Player":currentSprite = new Sprite(e,Renderer.tank,30,40,2);break;
+                case "Wall": currentSprite = new Sprite(e,Renderer.wall,60,40,1);break;
+                case "Bullet":currentSprite = new Sprite(e,Renderer.bullet,5,5,2);;break;
             }
-            currentSprite = playerAnimation.getSprite();
-            Renderer.playAnimation(currentSprite);
+
+            Renderer.playAnimation(currentSprite,e.getPosition().getX(),e.getPosition().getY());
         }
 
     }

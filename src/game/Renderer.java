@@ -1,6 +1,7 @@
 package game;
 
 import game.gui.Sprite;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -20,10 +21,12 @@ public class Renderer {
     static Image skull2;
     static Image snake1;
     static Image snake2;
+    public static Image wall;
     public static Image bullet;
     static {
         hero = loadImage("Resources/image/chubbyZombie.png");
         tank = loadImage("Resources/image/Tank.png");
+        wall = loadImage("Resources/image/terrain4.png");
 //        ghost1 = loadImage("Resources/image/ghost1.png");
 //        ghost2 = loadImage("Resources/image/ghost2.png");
         skull1 = loadImage("Resources/image/skull1.png");
@@ -36,9 +39,9 @@ public class Renderer {
     // return an Image object given the image path
     public static Image loadImage(String path) {
         File file = new File(path);
-        System.out.println("Loading Sprite sheet " + file.exists());
+//        System.out.println("Loading Sprite sheet " + file.exists());
         String imagePath = file.getAbsolutePath();
-        System.out.println("Before Imagepath " + imagePath);
+//        System.out.println("Before Imagepath " + imagePath);
         if (File.separatorChar == '\\') {
             // From Windows to Linux/Mac
             imagePath=imagePath.replace('/', File.separatorChar);
@@ -49,7 +52,7 @@ public class Renderer {
 
         }
         imagePath="file:"+imagePath;
-        System.out.println("After Imagepath " + imagePath);
+//        System.out.println("After Imagepath " + imagePath);
 
         return new Image(imagePath);
     }
@@ -58,9 +61,9 @@ public class Renderer {
         return hero;
     }
 
-    public static void playAnimation(Sprite sprite) {
+    public static void playAnimation(Sprite sprite, float x, float y) {
         GraphicsContext gc = GameWindow.getGraphicsContext();
-        playAnimation(gc, sprite.spriteImage, sprite.getXPosition(), sprite.getYPosition(), sprite.width * sprite.scale, sprite.height * sprite.scale);
+        playAnimation(gc, sprite.spriteImage, x, y, sprite.width * sprite.scale, sprite.height * sprite.scale);
     }
 
     // draw an image on the screen given all relevant details
