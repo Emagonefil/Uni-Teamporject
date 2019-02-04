@@ -1,9 +1,12 @@
 package game;
+import com.sun.javafx.iio.common.PushbroomScaler;
 import game.entity.*;
 
 import java.util.*;
 import game.ServerLogic.*;
 import game.ClientLogic.*;
+import game.network.Room;
+import game.network.RoomServer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -149,10 +152,19 @@ public class Main extends Application {
 		GameWindow newGame = new GameWindow(stage,c1);
 	}
 	public static void MultiPlayer(Stage stage) {
-		int id;
 		Scanner scanner= new Scanner(System.in);
 		serverGap s1=new serverGap();
 		s1.start();
+		RoomServer roomServer=new RoomServer();
+		roomServer.run();
+		c1.createRoom();
+		c1.getRoomList();
+		for(int i=0;i<c1.rooms.size();i++) {
+			Room r1=c1.rooms.get(i);
+			System.out.println("1:"+r1.roomId);
+			for(int u=0;u<r1.ClientId.size();u++)
+				System.out.println(":"+r1.ClientId.get(u));
+		}
 		System.out.println("init succeed");
 		//try{Thread.sleep(2000);}
 //		catch (Exception e){

@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.MulticastSocket;
 
 
 public class ClientReceiver implements Runnable{
@@ -24,7 +25,9 @@ public class ClientReceiver implements Runnable{
 	@Override
 	public void run() {
 		try {
-			DatagramSocket fromServer = new DatagramSocket(listenPort);
+			//DatagramSocket fromServer = new DatagramSocket(listenPort);
+			MulticastSocket fromServer = new MulticastSocket(listenPort);
+			fromServer.joinGroup(InetAddress.getByName(Port.mulitcastAddress));
 			fromServer.setSoTimeout(100);
 			byte[] buf = new byte[4096];
 			DatagramPacket packet = new DatagramPacket(buf,buf.length);
@@ -42,7 +45,6 @@ public class ClientReceiver implements Runnable{
 		}catch (Exception e) {
 		}
 	}
-
 	public void stop(){
 	    try {
             this.flag = false;

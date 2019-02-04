@@ -233,7 +233,7 @@ public class ServerLogic {
 	}
 
 	public void broadcastEntities() {
-		server.send(Port.clientAddress,Entities);
+		server.send(Port.mulitcastAddress,Entities);
 		//System.out.println("发送："+System.currentTimeMillis());
 	}
 
