@@ -3,11 +3,9 @@ package game.network.client;
 import game.network.Port;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
+import java.net.*;
 
 
 public class ClientReceiver implements Runnable{
@@ -16,8 +14,15 @@ public class ClientReceiver implements Runnable{
 	private Receivable renderer;
 	private ObjectInputStream input;
 	private static boolean flag = true;
+	private static MulticastSocket fromServer;
+	private static String fromRoom = Port.mulitcastAddress;
 	
 	public ClientReceiver(Integer listenPort,Receivable r) {
+		try{
+			fromServer = new MulticastSocket(listenPort);
+		}catch (IOException e){
+			e.printStackTrace();
+		}
 		this.listenPort = listenPort;
 		this.renderer = r;
 	}
@@ -26,8 +31,7 @@ public class ClientReceiver implements Runnable{
 	public void run() {
 		try {
 			//DatagramSocket fromServer = new DatagramSocket(listenPort);
-			MulticastSocket fromServer = new MulticastSocket(listenPort);
-			fromServer.joinGroup(InetAddress.getByName(Port.mulitcastAddress));
+			fromServer.joinGroup(InetAddress.getByName(fromRoom));
 			fromServer.setSoTimeout(100);
 			byte[] buf = new byte[4096];
 			DatagramPacket packet = new DatagramPacket(buf,buf.length);
@@ -51,6 +55,26 @@ public class ClientReceiver implements Runnable{
             input.close();
             System.out.println("Receiver closed");
         }catch (Exception e){}
+
+	}
+
+	public void join(String groupAddress){
+		try{
+			leave();
+			fromRoom = groupAddress;
+			fromServer.joinGroup(InetAddress.getByName(fromRoom));
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+	}
+
+	public void leave(){
+		try{
+			fromServer.leaveGroup(InetAddress.getByName(fromRoom));
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 
 	}
 	
