@@ -34,8 +34,21 @@ public class Controller {
         Node node = (Node)event.getSource();
         Stage primaryStage = (Stage)node.getScene().getWindow();
 
-        Parent root1 = FXMLLoader.load(getClass().getResource("CreateRoom.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("CreateRoom.fxml"));
+        primaryStage.getScene().setRoot(root);
+        primaryStage.setTitle("Tanks");
+        primaryStage.setMaximized(true);
 
+        primaryStage.show();
+
+
+    }
+
+    @FXML protected void handleSettingsButtonAction(ActionEvent event) throws Exception {
+        Node node = (Node)event.getSource();
+        Stage primaryStage = (Stage)node.getScene().getWindow();
+
+        Parent root1 = FXMLLoader.load(getClass().getResource("settings.fxml"));
         primaryStage.getScene().setRoot(root1);
         primaryStage.setTitle("Tanks");
         primaryStage.setMaximized(true);
@@ -43,15 +56,17 @@ public class Controller {
         primaryStage.show();
     }
 
-    @FXML protected void handleSettingsButtonAction(ActionEvent event) throws Exception {
+    @FXML protected void handleBackButtonAction(ActionEvent event)throws Exception{
+
         Node node = (Node)event.getSource();
         Stage primaryStage = (Stage)node.getScene().getWindow();
 
-        Parent root = FXMLLoader.load(getClass().getResource("settings.fxml"));
-        primaryStage.getScene().setRoot(root);
+        Parent root1 = FXMLLoader.load(getClass().getResource("menu.fxml"));
+        primaryStage.getScene().setRoot(root1);
         primaryStage.setTitle("Tanks");
         primaryStage.setMaximized(true);
 
         primaryStage.show();
+
     }
 }
