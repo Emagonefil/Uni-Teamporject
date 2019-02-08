@@ -1,5 +1,7 @@
 package game.gui;
 
+import game.Main;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,28 +22,20 @@ public class Controller {
     @FXML protected void handleSinglePlayerButtonAction(ActionEvent event) throws Exception {
         Node node = (Node)event.getSource();
         Stage primaryStage = (Stage)node.getScene().getWindow();
-
-        Rectangle rec = new Rectangle(10.5,10.5,40,30);
-        Group root = new Group(rec);
-        primaryStage.getScene().setRoot(root);
-        primaryStage.setTitle("Tanks");
-        primaryStage.setMaximized(true);
-
-        primaryStage.show();
+        Main.SinglePlayer(primaryStage);
     }
 
     @FXML protected void handleMultiplayerButtonAction(ActionEvent event) throws Exception {
         Node node = (Node)event.getSource();
         Stage primaryStage = (Stage)node.getScene().getWindow();
 
-        Parent root = FXMLLoader.load(getClass().getResource("CreateRoom.fxml"));
-        primaryStage.getScene().setRoot(root);
-        primaryStage.setTitle("Tanks");
-        primaryStage.setMaximized(true);
-
-        primaryStage.show();
-
-
+//        Parent root = FXMLLoader.load(getClass().getResource("CreateRoom.fxml"));
+//        primaryStage.getScene().setRoot(root);
+//        primaryStage.setTitle("Tanks");
+//        primaryStage.setMaximized(true);
+//
+//        primaryStage.show();
+        Main.MultiPlayer(primaryStage);
     }
 
     @FXML protected void handleSettingsButtonAction(ActionEvent event) throws Exception {
@@ -54,6 +48,24 @@ public class Controller {
         primaryStage.setMaximized(true);
 
         primaryStage.show();
+    }
+
+    @FXML protected void handleRankingsButtonAction(ActionEvent event) throws Exception {
+        Node node = (Node)event.getSource();
+        Stage primaryStage = (Stage)node.getScene().getWindow();
+
+        Parent root1 = FXMLLoader.load(getClass().getResource("Rankings.fxml"));
+        primaryStage.getScene().setRoot(root1);
+        primaryStage.setTitle("Tanks");
+        primaryStage.setMaximized(true);
+
+        primaryStage.show();
+    }
+
+    @FXML protected void handleQuitButtonAction(ActionEvent event) throws Exception {
+        System.out.println("Quit Game");
+        Platform.exit();
+        System.exit(0);
     }
 
     @FXML protected void handleBackButtonAction(ActionEvent event)throws Exception{

@@ -19,7 +19,7 @@
     <HBox spacing="10" alignment="CENTER"
           GridPane.columnIndex="0" GridPane.rowIndex="1"
           GridPane.columnSpan="2">
-        <Button text = "Single Player"
+        <Button text = "Singleplayer"
                 onAction="#handleSinglePlayerButtonAction"/>
     </HBox>
 
@@ -37,6 +37,20 @@
                 onAction="#handleSettingsButtonAction"/>
     </HBox>
 
+    <HBox spacing="10" alignment="CENTER"
+          GridPane.columnIndex="0" GridPane.rowIndex="4"
+          GridPane.columnSpan="2">
+        <Button text = "Rankings"
+                onAction="#handleRankingsButtonAction"/>
+    </HBox>
+
+    <HBox spacing="20" alignment="CENTER"
+          GridPane.columnIndex="0" GridPane.rowIndex="5"
+          GridPane.columnSpan="2">
+        <Button text = "Quit"
+                onAction="#handleQuitButtonAction"/>
+    </HBox>
+
     <!--<Button text = "Single Player"-->
     <!--GridPane.columnIndex="0" GridPane.rowIndex="1"-->
     <!--onAction="#handleSinglePlayerButtonAction"/>-->
@@ -48,7 +62,7 @@
     <Text fx:id="actiontarget"
           GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2"/>
 
-    <stylesheets>
-        <URL value="@style.css"/>
-    </stylesheets>
+    <!--<stylesheets>-->
+        <!--<URL value="@style.css"/>-->
+    <!--</stylesheets>-->
 </GridPane>

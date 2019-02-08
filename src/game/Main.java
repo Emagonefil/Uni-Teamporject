@@ -51,6 +51,10 @@ public class Main extends Application {
 		// set the window to be maximized (fullscreen)
 		primaryStage.setMaximized(true);
 
+		/*
+		********************
+
+
 		// create a vbox
 		VBox vbox = new VBox();
 
@@ -84,31 +88,36 @@ public class Main extends Application {
 		multi.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
-				HBox room = new HBox();
-				room.setSpacing(20);
-				Text title = new Text("Room");
-				TextField name = new TextField();
+//				HBox room = new HBox();
+//				room.setSpacing(20);
+//				Text title = new Text("Room");
+//				TextField name = new TextField();
+//
+//				ListView<String> servers = new ListView<>();
+//				ObservableList<String> items = FXCollections.observableArrayList (
+//						"one", "two", "three", "four");
+//				servers.setItems(items);
+//
+//				ListView<String> players = new ListView<>();
+//
+//
+//				Button start = new Button("Start");
+//				start.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+//					@Override
+//					public void handle(MouseEvent mouseEvent) {
+//						username = name.getCharacters().toString();
+//						System.out.println("Username: " + username);
+//						MultiPlayer(primaryStage);
+//					}
+//				});
+//
+//				room.getChildren().addAll(title,name,servers,players,start);
+				try {
 
-				ListView<String> servers = new ListView<>();
-				ObservableList<String> items = FXCollections.observableArrayList (
-						"one", "two", "three", "four");
-				servers.setItems(items);
+				} catch() {
 
-				ListView<String> players = new ListView<>();
+				}
 
-
-				Button start = new Button("Start");
-				start.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-					@Override
-					public void handle(MouseEvent mouseEvent) {
-						username = name.getCharacters().toString();
-						System.out.println("Username: " + username);
-						MultiPlayer(primaryStage);
-					}
-				});
-
-				room.getChildren().addAll(title,name,servers,players,start);
-				primaryStage.getScene().setRoot(room);
 			}
 		});
 
@@ -144,6 +153,9 @@ public class Main extends Application {
 				System.exit(0);
 			}
 		});
+		vbox.getChildren().addAll(label,single,multi,settings,quit);
+		********************************************************************
+		*/
 
 		// close application (stop all processes) when x button is pressed
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -156,13 +168,12 @@ public class Main extends Application {
 			}
 		});
 
-		vbox.getChildren().addAll(label,single,multi,settings,quit);
-
 		// create a scene
-		Scene scene = new Scene(vbox);
+		Parent root = FXMLLoader.load(getClass().getResource("gui/menu.fxml"));
+		Scene scene = new Scene(root);
 
 		// add style sheet to this scene
-		scene.getStylesheets().addAll(this.getClass().getResource("gui/style.css").toExternalForm());
+//		scene.getStylesheets().addAll(this.getClass().getResource("gui/style.css").toExternalForm());
 
 		// add scene to stage and display stage
 		primaryStage.setScene(scene);
