@@ -7,9 +7,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<<<<<<< HEAD
 <GridPane alignment="center" hgap="10" prefHeight="383.0" prefWidth="307.0"
           styleClass="root" vgap="10" xmlns="http://javafx.com/javafx/8"
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.Controller">
+=======
+<GridPane alignment="center" hgap="10" prefHeight="383.0" prefWidth="307.0" styleClass="root" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.SettingController">
+>>>>>>> 719dc4d5264f1d18e63971dc92c3ccd8081bfe5a
     <padding><Insets bottom="10" left="25" right="25" top="25" /></padding>
    <children>
    
