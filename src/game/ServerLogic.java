@@ -156,6 +156,10 @@ public class ServerLogic {
 						if(((Bullet)e).owner!=((Player)e2).id)
 						if(CollisionDetection.isTouching(((Bullet)e).getCorners(),((Player)e2).getCorners())) {
 							((Player) e2).reduceHealth(((Bullet) e).damage);
+
+							//Here are increasing score logic
+							RankService.getInstance().addPlayerScore(((Bullet)e).owner, ((Bullet) e).damage);
+
 							Entities.remove(e);
 							live=false;
 						}
@@ -220,6 +224,9 @@ public class ServerLogic {
 						Player p=new Player(10,10,new Point());
 						p.id=Integer.parseInt(arrs[1]);
 						Entities.add(p);
+
+						//Initialise this game's ranking board when join this game
+						RankService.getInstance().initPlayScore(p.id);
 					}
 				}
 
@@ -235,6 +242,8 @@ public class ServerLogic {
 	public void broadcastEntities() {
 		server.send(Port.mulitcastAddress,Entities);
 		//System.out.println("发送："+System.currentTimeMillis());
+
+		List<PlayerScore> newRank = RankService.getInstance().rankList();
 	}
 
 }
