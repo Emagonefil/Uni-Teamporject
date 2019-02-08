@@ -240,7 +240,7 @@ public class Main extends Application {
 						ai.sendCommands("Shoot");
 						//write what you want ai to do here
 					}
-					Thread.currentThread().sleep(1000);
+					Thread.currentThread().sleep(10);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
