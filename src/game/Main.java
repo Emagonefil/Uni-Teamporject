@@ -13,7 +13,9 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -118,7 +120,13 @@ public class Main extends Application {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
 				// create content for the settings page
-				VBox settingsBox = new VBox();
+				try {
+					Parent settings = FXMLLoader.load(getClass().getResource("gui/settings.fxml"));
+					primaryStage.getScene().setRoot(settings);
+					primaryStage.show();
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 
 			}
 		});
