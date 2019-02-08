@@ -231,12 +231,12 @@ public class Main extends Application {
 		@Override
 		public void run() {
 			ClientLogic ai;
-			System.out.println(c1.id);
+			//System.out.println(c1.id);
 			while (true){
 				try {
 					for(int i=0;i<numOfAI;i++){
 						ai=AIs.get(i);
-						System.out.println(ai.id);
+						//System.out.println(ai.id);
 						ai.sendCommands("Shoot");
 						//write what you want ai to do here
 					}
