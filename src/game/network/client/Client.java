@@ -48,7 +48,15 @@ public class Client{
 	    this.receiver = null;
 		receOn = false;
 	}
-	
+
+	public void joinRoom(String address){
+		this.receiver.join(address);
+	}
+
+	public void leaveRoom(){
+		this.receiver.leave();
+	}
+
 
 	public String getAddress(){
 	    return address+"@"+sendingPort;
