@@ -27,24 +27,9 @@ public class ServerLogic {
 		for(int i=0;i<num;i++) {
 			while (true) {
 				Wall w;
-				double x=ra.nextInt(635) + 5;
-				double y=ra.nextInt(635) + 5;
+				double x=ra.nextInt(Constants.CANVAS_WIDTH-20) + 20;
+				double y=ra.nextInt(Constants.CANVAS_HEIGHT-20) + 20;
 				w = new Wall(40, 40, new Point((float)x, (float) y));
-				int l=checkColision(w);
-				//System.out.println(l);
-				if (l== 0) {
-					w.id = getSpareId();
-					Entities.add(w);
-					break;
-				}
-			}
-		}
-		for(int i=0;i<2;i++) {
-			while (true) {
-				Player w;
-				double x=ra.nextInt(635) + 5;
-				double y=ra.nextInt(635) + 5;
-				w = new Player(40, 40, new Point((float)x, (float) y));
 				int l=checkColision(w);
 				//System.out.println(l);
 				if (l== 0) {
@@ -108,6 +93,10 @@ public class ServerLogic {
 		Point[] p1= getCorner(e);
 		Point[] p2;
 		Entity e2;
+		float x=e.getPosition().getX();
+		float y=e.getPosition().getY();
+		if((x-20<=0)||(x+20>=Constants.CANVAS_WIDTH)||(y-20<=0)||(y+20>=Constants.CANVAS_HEIGHT))
+			return -1;
 		for(int i=0;i<Entities.size();i++) {
 			e2 = Entities.get(i);
 			if(e2.equals(e))
@@ -118,12 +107,26 @@ public class ServerLogic {
 		}
 		return 0;
 	}
-	public void addPlayer(int id){
-		this.Entities.add(new Player(10,10,new Point((float)ra.nextInt(635)+5,(float)ra.nextInt(635)+5)));
+	public int addPlayer(){
+		Player w;
+		while (true) {
+			double x=ra.nextInt(Constants.CANVAS_WIDTH-20) + 20;
+			double y=ra.nextInt(Constants.CANVAS_HEIGHT-20) + 20;
+			w = new Player(40, 40, new Point((float)x, (float) y));
+			int l=checkColision(w);
+			//System.out.println(l);
+			if (l== 0) {
+				w.id = getSpareId();
+				Entities.add(w);
+				break;
+			}
+		}
+		RankService.getInstance().initPlayScore(w.id);
+		return w.id;
 	}
 	public Entity SearchEntityById(int id) {
 		for(int i=0;i<Entities.size();i++) {
-			if(Entities.get(i).getId()==id)
+			if(Entities.get(i).id==id)
 				return Entities.get(i);
 		}
 		return null;
@@ -136,8 +139,8 @@ public class ServerLogic {
 				((Bullet)e).forward();
 			else
 				continue;
-			if(e.getPosition().getX()<0||e.getPosition().getX()>640||e.getPosition().getY()<0||e.getPosition().getY()>650) {
-				System.out.println(((Bullet)e).getPosition().getX()+","+((Bullet)e).getPosition().getY());
+			if(e.getPosition().getX()<0||e.getPosition().getX()>Constants.CANVAS_WIDTH||e.getPosition().getY()<0||e.getPosition().getY()>Constants.CANVAS_HEIGHT) {
+				//System.out.println(((Bullet)e).getPosition().getX()+","+((Bullet)e).getPosition().getY());
 				Entities.remove(e);
 				continue;
 			}
@@ -156,12 +159,13 @@ public class ServerLogic {
 						if(((Bullet)e).owner!=((Player)e2).id)
 						if(CollisionDetection.isTouching(((Bullet)e).getCorners(),((Player)e2).getCorners())) {
 							((Player) e2).reduceHealth(((Bullet) e).damage);
-
-							//Here are increasing score logic
-							RankService.getInstance().addPlayerScore(((Bullet)e).owner, ((Bullet) e).damage);
-
+							RankService.getInstance().addPlayScore(((Bullet)e).owner, ((Bullet) e).damage);
 							Entities.remove(e);
 							live=false;
+							if(((Player) e2).getHealth()<=0) {
+								((Player) e2).die();
+								Entities.remove(e2);
+							}
 						}
 						break;
 				}
@@ -177,62 +181,62 @@ public class ServerLogic {
 		String[] arrs;
 		Player e1;
 		while(it1.hasNext()) {
-			String cmd=(String)it1.next();
-			System.out.println(cmd);
-			arrs = cmd.split(",");
-			if((Integer.parseInt(arrs[0]))==this.ServerId){
-				e1=(Player)SearchEntityById(Integer.parseInt(arrs[1]));
-				if(e1!=null) {
-					switch(arrs[2]) {
-					case "Forward": {
-						e1.forward();
-						if (checkColision(e1) != 0)
-							e1.backwards();
-						break;
+			try {
+				String cmd = (String) it1.next();
+				//System.out.println(cmd);
+				arrs = cmd.split(",");
+				if ((Integer.parseInt(arrs[0])) == this.ServerId) {
+					e1 = (Player) SearchEntityById(Integer.parseInt(arrs[1]));
+					if (e1 != null) {
+						switch (arrs[2]) {
+							case "Forward": {
+								e1.forward();
+								if (checkColision(e1) != 0)
+									e1.backwards();
+								break;
+							}
+							case "Backward": {
+								e1.backwards();
+								if (checkColision(e1) != 0)
+									e1.forward();
+								break;
+							}
+							case "RotateRight": {
+								e1.rotateRight();
+								if (checkColision(e1) != 0)
+									e1.rotateLeft();
+								break;
+							}
+							case "RotateLeft": {
+								e1.rotateLeft();
+								if (checkColision(e1) != 0)
+									e1.rotateRight();
+								break;
+							}
+							case "Shoot": {
+								Bullet b = new Bullet(1, 1, new Point(e1.getPosition().getX(), e1.getPosition().getY()));
+								b.setAngle(e1.getAngle());
+								b.id = getSpareId();
+								b.owner = e1.id;
+								this.Entities.add(b);
+								break;
+							}
+						}
+						//listPlayers();
+					} else {
+						if (arrs[2].equals("JoinServer")) {
+							Player p = new Player(10, 10, new Point());
+							p.id = Integer.parseInt(arrs[1]);
+							Entities.add(p);
+						}
 					}
-					case "Backward":{
-						e1.backwards();
-						if (checkColision(e1)!=0)
-							e1.forward();
-						break;
-					}
-					case "RotateRight":{
-						e1.rotateRight();
-						if (checkColision(e1)!=0)
-							e1.rotateLeft();
-						break;
-					}
-					case "RotateLeft": {
-						e1.rotateLeft();
-						if (checkColision(e1) != 0)
-							e1.rotateRight();
-						break;
-					}
-					case "Shoot": {
-						Bullet b = new Bullet(1, 1,new Point(e1.getPosition().getX(),e1.getPosition().getY()));
-						b.setAngle(e1.getAngle());
-						b.id = getSpareId();
-						b.owner=e1.id;
-						this.Entities.add(b);
-						break;
-					}
-					}
-					//listPlayers();
-				}
-				else {
-					if(arrs[2].equals("JoinServer")) {
-						Player p=new Player(10,10,new Point());
-						p.id=Integer.parseInt(arrs[1]);
-						Entities.add(p);
 
-						//Initialise this game's ranking board when join this game
-						RankService.getInstance().initPlayScore(p.id);
-					}
+				} else {
+					System.out.println("invalid command");
 				}
-
 			}
-			else {
-				System.out.println("invalid command");
+			catch (Exception e){
+				e.printStackTrace();
 			}
 		}
 		this.Commands = null;
@@ -241,9 +245,8 @@ public class ServerLogic {
 
 	public void broadcastEntities() {
 		server.send(Port.mulitcastAddress,Entities);
-		//System.out.println("发送："+System.currentTimeMillis());
-
 		List<PlayerScore> newRank = RankService.getInstance().rankList();
+		//System.out.println("发送："+System.currentTimeMillis());
 	}
 
 }

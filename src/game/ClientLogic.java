@@ -19,7 +19,9 @@ public class ClientLogic {
 	List<String> Room = new ArrayList<String>();
 	Socket socket;
 	List<Room> rooms;
+	ClientSender sender1= c1.getSender();;
 	int myRoom;
+	long[] freezetime={System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis()};
 	public void init() {
 
 		c1.startReceiver(new Receivable() {
@@ -73,9 +75,33 @@ public class ClientLogic {
 		return this.Entities;
 	}
 	public void sendCommands(String c) {
-		ClientSender sender1 = c1.getSender();
-		sender1.send(Port.serverAddress,ServerId+","+this.id+","+c);
-		System.out.println("Client sent: "+ServerId+","+this.id+","+c);
+		if(c.equals("Forward"))
+			if(freezetime[0]+10<System.currentTimeMillis()) {
+				sender1.send(Port.serverAddress, ServerId + "," + this.id + "," + c);
+				freezetime[0]=System.currentTimeMillis();
+			}
+		if(c.equals("Backward"))
+			if(freezetime[1]+10<System.currentTimeMillis()) {
+				sender1.send(Port.serverAddress, ServerId + "," + this.id + "," + c);
+				freezetime[1]=System.currentTimeMillis();
+			}
+		if(c.equals("RotateLeft"))
+			if(freezetime[2]+10<System.currentTimeMillis()) {
+				sender1.send(Port.serverAddress, ServerId + "," + this.id + "," + c);
+				freezetime[2]=System.currentTimeMillis();
+			}
+		if(c.equals("RotateRight"))
+			if(freezetime[3]+10<System.currentTimeMillis()) {
+				sender1.send(Port.serverAddress, ServerId + "," + this.id + "," + c);
+				freezetime[3]=System.currentTimeMillis();
+			}
+		if(c.equals("Shoot"))
+			if(freezetime[4]+200<System.currentTimeMillis()) {
+				sender1.send(Port.serverAddress, ServerId + "," + this.id + "," + c);
+				freezetime[4]=System.currentTimeMillis();
+			}
+		//sender1.send(Port.serverAddress,ServerId+","+this.id+","+c);
+		//System.out.println("Client sent: "+ServerId+","+this.id+","+c);
 	}
 	public void getRoomList(){
 		try{

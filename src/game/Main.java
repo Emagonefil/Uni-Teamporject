@@ -35,7 +35,8 @@ public class Main extends Application {
 	public static ClientLogic c1 = new ClientLogic();
 	public String username = "";
 	boolean forward, backward, left, right, shoot;
-
+	public static List<ClientLogic> AIs=new ArrayList<>();
+	public static int numOfAI=7;
 	public static void main(String args[]) {
 		c1.init();
 		launch(args);
@@ -210,44 +211,46 @@ public class Main extends Application {
 	}
 
 	public static void SinglePlayer(Stage stage) {
-		ServerLogic s1=new ServerLogic();
-		s1.init();
-		int id;
-		Scanner scanner= new Scanner(System.in);
-
-		// some trials for key event movements locally
-		c1.Entities.add(new Player(40,50,new Point(700,700)));
-		c1.Entities.add(new Player(40,50,new Point(200,200)));
-		System.out.println(c1.Entities.get(0).type + " " + c1.Entities.get(0).width + " " + c1.Entities.get(0).height);
-		System.out.println(c1.Entities.get(1).type + " " + c1.Entities.get(1).width + " " + c1.Entities.get(1).height);
-
-		stage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent keyEvent) {
-				double dist = 10;
-				double rad = Math.toRadians(c1.getEntities().get(0).getAngle());
-				switch (keyEvent.getCode()){
-					case W: c1.Entities.get(0).setPosition(new Point(c1.Entities.get(0).getPosition().getX() - (float)(dist*Math.cos(rad)), c1.Entities.get(0).getPosition().getY() - (float)(dist*Math.sin(rad))));break;
-					case S: c1.Entities.get(0).setPosition(new Point(c1.Entities.get(0).getPosition().getX() + (float)(dist*Math.cos(rad)), c1.Entities.get(0).getPosition().getY() + (float)(dist*Math.sin(rad))));break;
-					case A: c1.Entities.get(0).setAngle(c1.getEntities().get(0).getAngle() - (float)dist);break;
-					case D: c1.Entities.get(0).setAngle(c1.getEntities().get(0).getAngle() + (float)dist);break;
-					case J: c1.Entities.add(new Bullet(5,5, new Point(c1.Entities.get(0).getPosition().getX() + 10, c1.Entities.get(0).getPosition().getY() + 10)));
-						System.out.println(c1.Entities.get(2).type + " " + c1.Entities.get(2).width + " " + c1.Entities.get(2).height); break;
-
-				}
-			}
-		});
-//		c1.init();
-//		System.out.println("Set serverid:");
-//		c1.ServerId=scanner.nextInt();
-//		System.out.println("Set clientid:");
-//		c1.id=scanner.nextInt();
-//		System.out.println("init succeed");
-
+		serverGap s1=new serverGap();
+		s1.start();
+		c1.ServerId=s1.s1.ServerId;
+		c1.id=s1.s1.addPlayer();
+		ClientLogic ai;
+		for(int i=0;i<numOfAI;i++){
+			ai=new ClientLogic();
+			ai.ServerId=s1.s1.ServerId;
+			ai.id=s1.s1.addPlayer();
+			AIs.add(ai);
+		}
+		moveAI m=new moveAI();
+		m.start();
 		GameWindow newGame = new GameWindow(stage,c1);
 	}
+
+	public static class moveAI extends Thread {
+		@Override
+		public void run() {
+			ClientLogic ai;
+			System.out.println(c1.id);
+			while (true){
+				try {
+					for(int i=0;i<numOfAI;i++){
+						ai=AIs.get(i);
+						System.out.println(ai.id);
+						ai.sendCommands("Shoot");
+						//write what you want ai to do here
+					}
+					Thread.currentThread().sleep(1000);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
+	}
+
+
 	public static void MultiPlayer(Stage stage) {
-		Scanner scanner= new Scanner(System.in);
 		serverGap s1=new serverGap();
 		s1.start();
 //		RoomServer roomServer=new RoomServer();
@@ -261,27 +264,16 @@ public class Main extends Application {
 //				System.out.println(":"+r1.ClientId.get(u));
 //		}
 		System.out.println("init succeed");
-		//try{Thread.sleep(2000);}
-//		catch (Exception e){
-//			e.printStackTrace();
-//		}
 		GameWindow newGame = new GameWindow(stage,c1);
 
 
 	}
 
 	public static class serverGap extends Thread {
-		private Thread t;
-		public int sid;
-		public int cid;
+		public ServerLogic s1=new ServerLogic();
 		@Override
 		public void run() {
-			ServerLogic s1=new ServerLogic();
 			s1.init();
-			this.sid=s1.ServerId;
-			this.cid=s1.getPlayerId();
-			c1.ServerId=this.sid;
-			c1.id=this.cid;
 			System.out.println("Server thread " + c1.ServerId + " is running, controling bot "+c1.id);
 			while (true) {
 				try {

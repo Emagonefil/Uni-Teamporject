@@ -1,11 +1,13 @@
 package game.entity;
 
+import java.io.Serializable;
+
 /**
  * PlayerScore
  *
  * @date 2019-02-08
  */
-public class PlayerScore {
+public class PlayerScore implements Serializable {
 
     /**
      * playerId
