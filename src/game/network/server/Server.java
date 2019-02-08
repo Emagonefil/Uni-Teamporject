@@ -110,7 +110,7 @@ public class Server{
 						fromClient.receive(rece);
 						String move = new String(rece.getData(),0,rece.getLength());
 						movements.add(move);
-						System.out.println("Server got from client: "+move);
+						//aSystem.out.println("Server got from client: "+move);
 					}
 				}catch(Exception ignored) {}
 			}

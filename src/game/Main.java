@@ -231,13 +231,21 @@ public class Main extends Application {
 		@Override
 		public void run() {
 			ClientLogic ai;
+			Random ra=new Random();
+			int n;
 			//System.out.println(c1.id);
 			while (true){
 				try {
 					for(int i=0;i<numOfAI;i++){
 						ai=AIs.get(i);
-						//System.out.println(ai.id);
-						ai.sendCommands("Shoot");
+						n=ra.nextInt(5);
+						switch (n){
+							case 0:ai.sendCommands("Forward");break;
+							case 1:ai.sendCommands("Backward");break;
+							case 2:ai.sendCommands("RotateLeft");break;
+							case 3:ai.sendCommands("RotateRight");break;
+							case 4:ai.sendCommands("Shoot");break;
+						}
 						//write what you want ai to do here
 					}
 					Thread.currentThread().sleep(10);

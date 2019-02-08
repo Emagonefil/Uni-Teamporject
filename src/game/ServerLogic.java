@@ -27,8 +27,8 @@ public class ServerLogic {
 		for(int i=0;i<num;i++) {
 			while (true) {
 				Wall w;
-				double x=ra.nextInt(Constants.CANVAS_WIDTH-20) + 20;
-				double y=ra.nextInt(Constants.CANVAS_HEIGHT-20) + 20;
+				double x=ra.nextInt(Constants.CANVAS_WIDTH) ;
+				double y=ra.nextInt(Constants.CANVAS_HEIGHT) ;
 				w = new Wall(40, 40, new Point((float)x, (float) y));
 				int l=checkColision(w);
 				//System.out.println(l);
@@ -110,8 +110,8 @@ public class ServerLogic {
 	public int addPlayer(){
 		Player w;
 		while (true) {
-			double x=ra.nextInt(Constants.CANVAS_WIDTH-20) + 20;
-			double y=ra.nextInt(Constants.CANVAS_HEIGHT-20) + 20;
+			double x=ra.nextInt(Constants.CANVAS_WIDTH);
+			double y=ra.nextInt(Constants.CANVAS_HEIGHT);
 			w = new Player(40, 40, new Point((float)x, (float) y));
 			int l=checkColision(w);
 			//System.out.println(l);
@@ -184,6 +184,8 @@ public class ServerLogic {
 			try {
 				String cmd = (String) it1.next();
 				//System.out.println(cmd);
+				if(cmd.isEmpty())
+					continue;
 				arrs = cmd.split(",");
 				if ((Integer.parseInt(arrs[0])) == this.ServerId) {
 					e1 = (Player) SearchEntityById(Integer.parseInt(arrs[1]));
@@ -216,7 +218,7 @@ public class ServerLogic {
 							case "Shoot": {
 								Bullet b = new Bullet(1, 1, new Point(e1.getPosition().getX(), e1.getPosition().getY()));
 								b.setAngle(e1.getAngle());
-								b.id = getSpareId();
+								//b.id = getSpareId();
 								b.owner = e1.id;
 								this.Entities.add(b);
 								break;
@@ -245,7 +247,7 @@ public class ServerLogic {
 
 	public void broadcastEntities() {
 		server.send(Port.mulitcastAddress,Entities);
-		List<PlayerScore> newRank = RankService.getInstance().rankList();
+		//List<PlayerScore> newRank = RankService.getInstance().rankList();
 		//System.out.println("发送："+System.currentTimeMillis());
 	}
 
