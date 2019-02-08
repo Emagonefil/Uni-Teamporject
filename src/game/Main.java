@@ -2,6 +2,7 @@ package game;
 import com.sun.javafx.iio.common.PushbroomScaler;
 import game.entity.*;
 
+import java.net.URL;
 import java.util.*;
 import game.ServerLogic.*;
 import game.ClientLogic.*;
@@ -169,7 +170,23 @@ public class Main extends Application {
 		});
 
 		// create a scene
-		Parent root = FXMLLoader.load(getClass().getResource("gui/menu.fxml"));
+		String sceneFile = "gui/menu.fxml";
+		Parent root = null;
+		URL url  = null;
+		try
+		{
+			url  = getClass().getResource( sceneFile );
+			root = FXMLLoader.load( url );
+			System.out.println( "  fxmlResource = " + sceneFile );
+		}
+		catch ( Exception ex )
+		{
+			System.out.println( "Exception on FXMLLoader.load()" );
+			System.out.println( "  * url: " + url );
+			System.out.println( "  * " + ex );
+			System.out.println( "    ----------------------------------------\n" );
+			throw ex;
+		}
 		Scene scene = new Scene(root);
 
 		// add style sheet to this scene

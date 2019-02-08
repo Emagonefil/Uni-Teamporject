@@ -29,13 +29,13 @@ public class Controller {
         Node node = (Node)event.getSource();
         Stage primaryStage = (Stage)node.getScene().getWindow();
 
-//        Parent root = FXMLLoader.load(getClass().getResource("CreateRoom.fxml"));
-//        primaryStage.getScene().setRoot(root);
-//        primaryStage.setTitle("Tanks");
-//        primaryStage.setMaximized(true);
-//
-//        primaryStage.show();
-        Main.MultiPlayer(primaryStage);
+        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        primaryStage.getScene().setRoot(root);
+        primaryStage.setTitle("Tanks");
+        primaryStage.setMaximized(true);
+
+        primaryStage.show();
+//        Main.MultiPlayer(primaryStage);
     }
 
     @FXML protected void handleSettingsButtonAction(ActionEvent event) throws Exception {
