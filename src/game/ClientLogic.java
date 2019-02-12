@@ -11,11 +11,11 @@ import game.network.Room;
 import game.network.client.*;
 import game.network.Room;
 public class ClientLogic {
-	public int id;
+	public int id=0;
 	Client c1=new Client();
 	public List<Entity> Entities= new ArrayList<Entity>();
 	String RoomServerIp="192.168.191.1";
-	public int ServerId;
+	public int ServerId=0;
 	List<String> Room = new ArrayList<String>();
 	Socket socket;
 	List<Room> rooms;
@@ -75,6 +75,8 @@ public class ClientLogic {
 		return this.Entities;
 	}
 	public void sendCommands(String c) {
+		if(id==0||ServerId==0)
+			return;
 		if(c.equals("Forward"))
 			if(freezetime[0]+10<System.currentTimeMillis()) {
 				sender1.send(Port.serverAddress, ServerId + "," + this.id + "," + c);

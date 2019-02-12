@@ -29,7 +29,7 @@ public class ServerLogic {
 				Wall w;
 				double x=ra.nextInt(Constants.CANVAS_WIDTH) ;
 				double y=ra.nextInt(Constants.CANVAS_HEIGHT) ;
-				w = new Wall(40, 40, new Point((float)x, (float) y));
+				w = new Wall(100, 20, new Point((float)x, (float) y));
 				int l=checkColision(w);
 				//System.out.println(l);
 				if (l== 0) {
@@ -112,7 +112,7 @@ public class ServerLogic {
 		while (true) {
 			double x=ra.nextInt(Constants.CANVAS_WIDTH);
 			double y=ra.nextInt(Constants.CANVAS_HEIGHT);
-			w = new Player(40, 40, new Point((float)x, (float) y));
+			w = new Player(50, 30, new Point((float)x, (float) y));
 			int l=checkColision(w);
 			//System.out.println(l);
 			if (l== 0) {
@@ -141,7 +141,7 @@ public class ServerLogic {
 				continue;
 			if(e.getPosition().getX()<0||e.getPosition().getX()>Constants.CANVAS_WIDTH||e.getPosition().getY()<0||e.getPosition().getY()>Constants.CANVAS_HEIGHT) {
 				//System.out.println(((Bullet)e).getPosition().getX()+","+((Bullet)e).getPosition().getY());
-				Entities.remove(e);
+				Entities.remove(i);
 				continue;
 			}
 			Entity e2;
@@ -151,7 +151,7 @@ public class ServerLogic {
 				switch (e2.type) {
 					case "Wall":
 						if(CollisionDetection.isTouching(((Bullet)e).getCorners(),((Wall)e2).getCorners())) {
-							Entities.remove(e);
+							Entities.remove(i);
 							live = false;
 						}
 						break;
@@ -160,7 +160,7 @@ public class ServerLogic {
 						if(CollisionDetection.isTouching(((Bullet)e).getCorners(),((Player)e2).getCorners())) {
 							((Player) e2).reduceHealth(((Bullet) e).damage);
 							RankService.getInstance().addPlayScore(((Bullet)e).owner, ((Bullet) e).damage);
-							Entities.remove(e);
+							Entities.remove(i);
 							live=false;
 							if(((Player) e2).getHealth()<=0) {
 								((Player) e2).die();
@@ -184,7 +184,7 @@ public class ServerLogic {
 			try {
 				String cmd = (String) it1.next();
 				//System.out.println(cmd);
-				if(cmd.isEmpty())
+				if(cmd==null)
 					continue;
 				arrs = cmd.split(",");
 				if ((Integer.parseInt(arrs[0])) == this.ServerId) {

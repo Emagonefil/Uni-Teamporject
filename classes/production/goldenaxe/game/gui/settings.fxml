@@ -7,7 +7,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="center" hgap="10" prefHeight="383.0" prefWidth="307.0" styleClass="root" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.Controller">
+<GridPane alignment="center" hgap="10" prefHeight="383.0" prefWidth="307.0"
+          styleClass="root" vgap="10" xmlns="http://javafx.com/javafx/8"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.Controller">
+
     <padding><Insets bottom="10" left="25" right="25" top="25" /></padding>
    <children>
    
@@ -29,7 +32,7 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
          <children>
-            <Button mnemonicParsing="false" text="Back" />
+            <Button mnemonicParsing="false" text="Back" onAction="#handleBackButtonAction"/>
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" />
