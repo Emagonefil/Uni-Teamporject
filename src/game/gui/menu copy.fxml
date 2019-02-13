@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.Controller">
+<AnchorPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.Controller">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
+      <ImageView>
          <image>
-            <Image url="@../../../Resources/image/2.jpeg" />
+            <Image url="@2.jpeg" />
          </image>
          <effect>
             <SepiaTone level="0.35" />
@@ -26,7 +26,7 @@
             <GaussianBlur />
          </effect>
       </SVGGlyph>
-      <JFXButton buttonType="RAISED" layoutX="249.0" layoutY="94.0" onAction="#handleSinglePlayerButtonAction" prefHeight="31.0" prefWidth="116.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Start" textFill="WHITE">
+      <JFXButton buttonType="RAISED" alignment="CENTER" layoutX="249.0" layoutY="94.0" onAction="#handleSinglePlayerButtonAction" prefHeight="31.0" prefWidth="116.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Start" textFill="WHITE">
          <effect>
             <Lighting>
                <bumpInput>
@@ -63,4 +63,8 @@
       </SVGGlyph>
       <JFXButton buttonType="RAISED" layoutX="249.0" layoutY="329.0" onAction="#handleQuitButtonAction" prefHeight="31.0" prefWidth="116.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Exit" textFill="WHITE" />
    </children>
+
+   <stylesheets>
+      <URL value="@style.css"/>
+   </stylesheets>
 </AnchorPane>

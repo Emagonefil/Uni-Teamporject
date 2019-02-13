@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
+      <ImageView>
          <image>
             <Image url="@../../../Resources/image/2.jpeg" />
          </image>
@@ -21,6 +21,6 @@
             <GaussianBlur />
          </effect>
       </SVGGlyph>
-      <JFXButton buttonType="RAISED" layoutX="231.0" layoutY="87.0" onAction="#handleMultiplayerButtonAction" prefHeight="31.0" prefWidth="127.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Ranking" textFill="WHITE" />
+      <JFXButton buttonType="RAISED" layoutX="231.0" layoutY="87.0" prefHeight="31.0" prefWidth="127.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Ranking" textFill="WHITE" />
    </children>
 </AnchorPane>
