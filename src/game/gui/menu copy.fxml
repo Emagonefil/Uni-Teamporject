@@ -16,7 +16,7 @@
    <children>
       <ImageView blendMode="DIFFERENCE" fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
          <image>
-            <Image url="Resources/1.JPEG" />
+            <Image url="goldenaxe/Resources/image/1.JPEG" />
          </image>
          <effect>
             <SepiaTone level="0.35" />
