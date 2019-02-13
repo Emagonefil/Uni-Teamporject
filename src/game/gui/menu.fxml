@@ -20,7 +20,7 @@
     <HBox spacing="10" alignment="CENTER"
           GridPane.columnIndex="0" GridPane.rowIndex="1"
           GridPane.columnSpan="2">
-        <JFXButton buttonType="RAISED" style="-fx-background-color: #8eeeefff" text = "Singleplayer"
+        <Button style="-fx-background-color: #8eeeefff" text = "Singleplayer"
                 onAction="#handleSinglePlayerButtonAction"/>
     </HBox>
 
