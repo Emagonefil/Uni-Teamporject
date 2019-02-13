@@ -31,22 +31,33 @@
 
 /*}*/
 
-/*#gameWindow {*/
-    /*-fx-background-image: url("../../../../../Resources/image/terrain5.png");*/
-    /*!*-fx-background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../../../../../Resources/image/floor.jpg");*!*/
-    /*-fx-background-size: 130 32;*/
-    /*-fx-background-repeat: repeat;*/
-    /*!*-fx-background-color: green;*!*/
+#gameWindow {
+    -fx-background-image: url("../../../../../Resources/image/terrain5.png");
+    /*-fx-background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../../../../../Resources/image/floor.jpg");*/
+    -fx-background-size: 130 32;
+    -fx-background-repeat: repeat;
+    /*-fx-background-color: green;*/
 
-/*}*/
+}
 
 #pane {
--fx-background-image: url("../../image/2.jpeg");
+    -fx-background-image: url("../../image/2.jpeg");
 
--fx-background-repeat: no-repeat;
--fx-background-size: cover;
--fx-background-position: center;
--fx-background-color: green;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-color: green;
+    display: flex!important;
+    align-items: center!important;
+    justify-content: center!important;
 
+}
+
+.jfx-button {
+    /*-fx-position: relative!important;*/
+    /*-fx-*/
+    /*-fx-alignment: center;*/
+    /*-fx-background-color: green!important;*/
+    /*-fx-margin: 0 auto!important;*/
 }
 
