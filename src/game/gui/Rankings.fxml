@@ -16,11 +16,11 @@
             <Image url="@../../../Resources/image/2.jpeg" />
          </image>
       </ImageView>
-      <SVGGlyph fill="#ee4422" layoutX="226.0" layoutY="83.0" prefHeight="40.0" prefWidth="138.0">
+      <SVGGlyph fill="#ee4422" layoutX="256.0" layoutY="145.0" prefHeight="39.0" prefWidth="113.0">
          <effect>
             <GaussianBlur />
          </effect>
       </SVGGlyph>
-      <JFXButton buttonType="RAISED" layoutX="231.0" layoutY="87.0" onAction="#handleMultiplayerButtonAction" prefHeight="31.0" prefWidth="127.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Ranking" textFill="WHITE" />
+      <JFXButton alignment="CENTER" buttonType="RAISED" prefHeight="30.0" prefWidth="96.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Ranking" textFill="WHITE" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="266.0" AnchorPane.rightAnchor="238.0" AnchorPane.topAnchor="150.0" />
    </children>
 </AnchorPane>
