@@ -150,7 +150,7 @@ public class Main extends Application {
 		});
 
 		// create a scene
-		String sceneFile = "gui/menu.fxml";
+		String sceneFile = "gui/menu copy.fxml";
 		Parent root = null;
 		URL url  = null;
 		try

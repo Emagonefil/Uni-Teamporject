@@ -29,7 +29,7 @@ public class Controller {
         Node node = (Node)event.getSource();
         Stage primaryStage = (Stage)node.getScene().getWindow();
 
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("CreateRoom.fxml"));
         primaryStage.getScene().setRoot(root);
         primaryStage.setTitle("Tanks");
         primaryStage.setMaximized(true);
@@ -73,7 +73,7 @@ public class Controller {
         Node node = (Node)event.getSource();
         Stage primaryStage = (Stage)node.getScene().getWindow();
 
-        Parent root1 = FXMLLoader.load(getClass().getResource("menu.fxml"));
+        Parent root1 = FXMLLoader.load(getClass().getResource("menu copy.fxml"));
         primaryStage.getScene().setRoot(root1);
         primaryStage.setTitle("Tanks");
         primaryStage.setMaximized(true);
