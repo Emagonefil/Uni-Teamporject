@@ -8,6 +8,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 import java.util.Iterator;
 import java.util.List;
@@ -56,9 +57,15 @@ public class GameLoop {
                 case "Player":
                     currentSprite = new Sprite(e, Renderer.tank, ((Player) e).getWidth(), ((Player) e).getHeight(), 1);
                     Renderer.playAnimation(currentSprite, e.getAngle(), e.getPosition().getX(), e.getPosition().getY());
+                    gc.setFill(Color.GREEN);
+                    gc.strokeText("name",e.getPosition().getX() + 25,e.getPosition().getY() - 15);
+                    gc.fillRect(e.getPosition().getX() + 10,e.getPosition().getY() -10 ,60, 6);
                     break;
                 case "Wall":
 //                    currentSprite = new Sprite(e, Renderer.wall, ((Wall) e).getWidth(), ((Wall) e).getHeight(), 1);
+                    gc.setFill(Color.BLACK);
+                    gc.getPixelWriter();
+
                     gc.fillRect(e.getPosition().getX(),e.getPosition().getY(),((Wall) e).getWidth(), ((Wall) e).getHeight());
 
                     break;
