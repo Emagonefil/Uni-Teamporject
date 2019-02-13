@@ -69,13 +69,13 @@ public class Renderer {
 
     // draw an image on the screen given all relevant details
     public static void playAnimation(GraphicsContext gc, Image img, double angle, float x, float y, double width, double height) {
-        drawRotatedImage(gc,img,angle,x,y);
+        drawRotatedImage(gc,img,angle,x,y,width,height);
     }
 
-    public static void drawRotatedImage(GraphicsContext gc, Image img, double angle, float x, float y) {
+    public static void drawRotatedImage(GraphicsContext gc, Image img, double angle, float x, float y, double width, double height) {
         gc.save();
         rotate(gc, angle, x + img.getWidth() / 2, y + img.getHeight() / 2);
-        gc.drawImage(img,x,y);
+        gc.drawImage(img,x,y,width,height);
         gc.restore();
     }
 

@@ -3,7 +3,9 @@
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<?import java.net.URL?>
+<AnchorPane id="pane"
+            maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="game.gui.Controller">
@@ -27,4 +29,7 @@
                  textFill="WHITE" onAction="#handleBackButtonAction"/>
    </children>
 
+   <stylesheets>
+      <URL value="@style.css"/>
+   </stylesheets>
 </AnchorPane>

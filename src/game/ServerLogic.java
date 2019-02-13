@@ -110,9 +110,9 @@ public class ServerLogic {
 	public int addPlayer(){
 		Player w;
 		while (true) {
-			double x=ra.nextInt(Constants.CANVAS_WIDTH);
-			double y=ra.nextInt(Constants.CANVAS_HEIGHT);
-			w = new Player(50, 30, new Point((float)x, (float) y));
+			double x = ra.nextInt(Constants.CANVAS_WIDTH - 30);
+			double y = ra.nextInt(Constants.CANVAS_HEIGHT - 30);
+			w = new Player(70, 65, new Point((float)x, (float) y));
 			int l=checkColision(w);
 			//System.out.println(l);
 			if (l== 0) {
@@ -216,7 +216,7 @@ public class ServerLogic {
 								break;
 							}
 							case "Shoot": {
-								Bullet b = new Bullet(1, 1, new Point(e1.getPosition().getX(), e1.getPosition().getY()));
+								Bullet b = new Bullet(5, 5, new Point(e1.getPosition().getX(), e1.getPosition().getY()));
 								b.setAngle(e1.getAngle());
 								//b.id = getSpareId();
 								b.owner = e1.id;
@@ -227,7 +227,7 @@ public class ServerLogic {
 						//listPlayers();
 					} else {
 						if (arrs[2].equals("JoinServer")) {
-							Player p = new Player(10, 10, new Point());
+							Player p = new Player(70, 65, new Point());
 							p.id = Integer.parseInt(arrs[1]);
 							Entities.add(p);
 						}

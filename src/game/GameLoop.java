@@ -38,7 +38,7 @@ public class GameLoop {
                 currentGameTime = (currentNanoTime - startNanoTime) / 1000000000.0;
                 deltaTime = currentGameTime - oldGameTime;
                 gc.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
-                render(client);
+                render(client, gc);
             }
         }.start();
     }
@@ -47,18 +47,30 @@ public class GameLoop {
 //        InputManager.handlePlayerMovements(scene,client);
 //    }
 
-    public static void render(ClientLogic client) {
+    public static void render(ClientLogic client, GraphicsContext gc) {
         Sprite currentSprite = null;
         for (Entity e : client.getEntities()) {
 
-            switch (e.type){
+            switch (e.type) {
 
-                case "Player":currentSprite = new Sprite(e,Renderer.tank,((Player)e).getWidth(),((Player)e).getHeight(),1);break;
-                case "Wall": currentSprite = new Sprite(e,Renderer.wall,((Wall)e).getWidth(),((Wall)e).getHeight(),1);break;
-                case "Bullet":currentSprite = new Sprite(e,Renderer.bullet,((Bullet)e).getWidth(),((Bullet)e).getHeight(),1);break;
+                case "Player":
+                    currentSprite = new Sprite(e, Renderer.tank, ((Player) e).getWidth(), ((Player) e).getHeight(), 1);
+                    Renderer.playAnimation(currentSprite, e.getAngle(), e.getPosition().getX(), e.getPosition().getY());
+                    break;
+                case "Wall":
+//                    currentSprite = new Sprite(e, Renderer.wall, ((Wall) e).getWidth(), ((Wall) e).getHeight(), 1);
+                    gc.fillRect(e.getPosition().getX(),e.getPosition().getY(),((Wall) e).getWidth(), ((Wall) e).getHeight());
+
+                    break;
+                case "Bullet":
+                    currentSprite = new Sprite(e, Renderer.bullet, ((Bullet) e).getWidth(), ((Bullet) e).getHeight(), 2);
+                    Renderer.playAnimation(currentSprite, e.getAngle(), e.getPosition().getX(), e.getPosition().getY());
+                    break;
             }
-
-            Renderer.playAnimation(currentSprite,e.getAngle(), e.getPosition().getX(),e.getPosition().getY());
+//            if (currentSprite != null) {
+//                Renderer.playAnimation(currentSprite, e.getAngle(), e.getPosition().getX(), e.getPosition().getY());
+//                currentSprite = null;
+//            }
         }
 
     }

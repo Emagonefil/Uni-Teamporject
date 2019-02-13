@@ -13,9 +13,9 @@
 
 <AnchorPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.Controller">
    <children>
-      <ImageView>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
          <image>
-            <Image url="@2.jpeg" />
+            <Image url="@../../../Resources/image/2.jpeg" />
          </image>
          <effect>
             <SepiaTone level="0.35" />
