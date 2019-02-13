@@ -42,12 +42,10 @@
 
 #pane {
 -fx-background-image: url("../../image/2.jpeg");
-/*-fx-background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../../../../../Resources/image/floor.jpg");*/
-/*-fx-background-size: 130 32;*/
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
-    -fx-background-position: center;
-    /*-fx-background-size:;*/
+
+-fx-background-repeat: no-repeat;
+-fx-background-size: cover;
+-fx-background-position: center;
 -fx-background-color: green;
 
 }

@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.*?>
 <?import com.jfoenix.controls.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<?import java.net.URL?>
+<AnchorPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView>
          <image>
@@ -23,4 +24,9 @@
       </SVGGlyph>
       <JFXButton alignment="CENTER" buttonType="RAISED" prefHeight="30.0" prefWidth="96.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Ranking" textFill="WHITE" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="266.0" AnchorPane.rightAnchor="238.0" AnchorPane.topAnchor="150.0" />
    </children>
+
+   <stylesheets>
+      <URL value="@style.css"/>
+   </stylesheets>
+
 </AnchorPane>
