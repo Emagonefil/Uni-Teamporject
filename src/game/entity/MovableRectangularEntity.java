@@ -25,7 +25,7 @@ public class MovableRectangularEntity extends MovableEntity implements IRectangu
 	}
 	
 	public MovableRectangularEntity(float width, float height, Point position, float angle, float speed, float rotationSpeed) {
-		super(position, angle, rotationSpeed);
+		super(position, angle, speed, rotationSpeed);
 		rec = new RectangularEntity(width, height, position, angle);
 	}
 
