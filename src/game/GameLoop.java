@@ -1,13 +1,11 @@
 package game;
 
 import game.controller.InputManager;
-import game.entity.Bullet;
-import game.entity.Entity;
-import game.entity.Player;
-import game.entity.Point;
+import game.entity.*;
 import game.gui.Animation;
 import game.gui.Sprite;
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -55,9 +53,9 @@ public class GameLoop {
 
             switch (e.type){
 
-                case "Player":currentSprite = new Sprite(e,Renderer.tank,40,50,2);break;
-                case "Wall": currentSprite = new Sprite(e,Renderer.wall,40,40,1);break;
-                case "Bullet":currentSprite = new Sprite(e,Renderer.bullet,5,5,2);break;
+                case "Player":currentSprite = new Sprite(e,Renderer.tank,((Player)e).getWidth(),((Player)e).getHeight(),1);break;
+                case "Wall": currentSprite = new Sprite(e,Renderer.wall,((Wall)e).getWidth(),((Wall)e).getHeight(),1);break;
+                case "Bullet":currentSprite = new Sprite(e,Renderer.bullet,((Bullet)e).getWidth(),((Bullet)e).getHeight(),1);break;
             }
 
             Renderer.playAnimation(currentSprite,e.getAngle(), e.getPosition().getX(),e.getPosition().getY());

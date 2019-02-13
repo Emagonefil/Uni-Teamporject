@@ -81,4 +81,32 @@ public class Controller {
         primaryStage.show();
 
     }
+
+    @FXML protected void handleLoadRoomButtonAction(ActionEvent event)throws Exception{
+        Node node = (Node)event.getSource();
+        Stage primaryStage = (Stage)node.getScene().getWindow();
+
+//        Parent root1 = FXMLLoader.load(getClass().getResource("menu copy.fxml"));
+//        primaryStage.getScene().setRoot(root1);
+//        primaryStage.setTitle("Tanks");
+//        primaryStage.setMaximized(true);
+//
+//        primaryStage.show();
+        Main.MultiPlayer(primaryStage);
+    }
+
+    @FXML protected void handleNewRoomButtonAction(ActionEvent event)throws Exception{
+
+        Node node = (Node)event.getSource();
+        Stage primaryStage = (Stage)node.getScene().getWindow();
+
+        Parent root1 = FXMLLoader.load(getClass().getResource("menu copy.fxml"));
+        primaryStage.getScene().setRoot(root1);
+        primaryStage.setTitle("Tanks");
+        primaryStage.setMaximized(true);
+
+        primaryStage.show();
+
+    }
+
 }

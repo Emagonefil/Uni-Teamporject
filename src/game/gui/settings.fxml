@@ -38,9 +38,9 @@
       <HBox prefHeight="100.0" prefWidth="200.0" />
    </children>
 
-    <stylesheets>
-        <URL value="@style.css" />
-    </stylesheets>
+    <!--<stylesheets>-->
+        <!--<URL value="@style.css" />-->
+    <!--</stylesheets>-->
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
