@@ -42,12 +42,16 @@ public class CollisionDetection {
 			}
 		}
 	}
-
-	public static boolean isTouching(Point[] c1, Point[] c2) {
+	
+	//This function will give the mtv i.e. the minimum amount & direction by which an overlapping
+	//object must be moved to no longer overlap.
+	public static Vector2d minimumTranslationVector(Point[] c1, Point[] c2) {
 		ArrayList<Vector2d> axis = new ArrayList<Vector2d>();
 		// Get the unique normals of each face to use as axis:
 		getAxis(c1, axis);
 		getAxis(c2, axis);
+		
+		Vector2d mtv = new Vector2d(Float.MAX_VALUE, Float.MAX_VALUE);
 
 		for (Vector2d ax : axis) {
 			float c1Min;
@@ -75,10 +79,35 @@ public class CollisionDetection {
 			c2Max = Collections.max(projections);
 			
 			if (c1Min>c2Max || c2Min>c1Max) {
-				return false;
+				//If they are not touching |mtv| = 0
+				return new Vector2d();
 			}
+			
+			float overlap = 1.0f; //Initial value 1 so error will still give collision
+			float overlap1 = -(c2Max - c1Min);
+			float overlap2 = (c1Max - c2Min);
+			if (Math.abs(overlap1)<Math.abs(overlap2)) {
+				overlap = overlap1;
+			}else {
+				overlap = overlap2;
+			}
+			
+			if (overlap<mtv.getMagnitude()) {
+				ax.scalarMult(overlap);
+				mtv = ax;
+			}
+			
 		}
-		return true;
+		return mtv;
 	}
 
+	public static boolean isTouching(Point[] c1, Point[] c2) {
+		Vector2d result = minimumTranslationVector(c1, c2);
+		//If overlap is > 0
+		if (result.getMagnitude()>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

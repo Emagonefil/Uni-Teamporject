@@ -18,8 +18,12 @@ public class Vector2d {
 		this.y = y;
 	}
 
+	public float getMagnitude() {
+		return (float) Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
+	}
+	
 	public Vector2d getNormal() {
-		float magnitude = (float) Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
+		float magnitude = this.getMagnitude();
 		float newY = this.y / magnitude;
 		float newX = this.x / magnitude;
 		return (new Vector2d(newY, -newX));
@@ -27,6 +31,11 @@ public class Vector2d {
 
 	public boolean equals(Vector2d vec) {
 		return (Math.abs(vec.getX() - this.getX()) < 0.001) && (Math.abs(vec.getY() - this.getY()) < 0.001);
+	}
+	
+	public void scalarMult(float scalar) {
+		this.x = this.x * scalar;
+		this.y = this.y * scalar;
 	}
 
 	public float getX() {
