@@ -26,7 +26,7 @@
             <GaussianBlur />
          </effect>
       </SVGGlyph>
-      <JFXButton buttonType="RAISED" alignment="CENTER" layoutX="249.0" layoutY="94.0" onAction="#handleSinglePlayerButtonAction" prefHeight="31.0" prefWidth="116.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Start" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="249.0" layoutY="94.0" onAction="#handleSinglePlayerButtonAction" prefHeight="31.0" prefWidth="116.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Start" textFill="WHITE">
          <effect>
             <Lighting>
                <bumpInput>
