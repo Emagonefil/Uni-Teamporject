@@ -3,25 +3,38 @@ import java.util.*;
 import game.*;
 import game.entity.*;
 
-public class AiController {
+public class AiController extends Thread {
 
 	private ClientLogic c1;
+	private ClientLogic c2;
 	private List<Entity>entities;
-	private AiPlayer aiPlayer;
+	private Player aiPlayer;
 	
-	public AiController(AiPlayer aiPlayer) {
+	public AiController(ClientLogic c1,ClientLogic c2) {
 		
-		this.aiPlayer = aiPlayer;
-		c1 = new ClientLogic();
+		this.c1 = c1;
+		this.c2 = c2;
 		c1.init();
-		entities = c1.getEntities();
+		entities = c2.getEntities();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		aiPlayer = myPlayer();
 		
 	}
 	
-	public void controlPlayer() {
+	public void run() {
 		
 	
-		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		attack();
 		/**State state = aiPlayer.getState();
 		
@@ -43,15 +56,26 @@ public class AiController {
 	
 	public void attack() {
 		
-		List<Entity>players = getPlayers();
+		
+		List<Entity>players = null;
 		Player nearestPlayer = null;
-		float x = aiPlayer.getPosition().getX();
-		float y = aiPlayer.getPosition().getY();
+		float x = 0;
+		float y = 0;
 		
 		while(true) {
 			
-			
+			updateEntities();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			players = getPlayers();
 			nearestPlayer = (Player)nearest(players);
+			
+			 x = aiPlayer.getPosition().getX();
+			 y = aiPlayer.getPosition().getY();
 			
 			if (aiPlayer.getAngle() >= 360) {
 				
@@ -147,11 +171,16 @@ public class AiController {
 				
 				if(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
 					
-					c1.sendCommands("RotateRight");
+					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
+						c1.sendCommands("RotateRight");
+					}
 				}
 				else if(aiPlayer.getAngle()> 180-computeAngle(nearestPlayer.getPosition())) {
 					
-					c1.sendCommands("RotateLeft");
+					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
+						c1.sendCommands("RotateLeft");
+					}
+					
 				}
 				
 				else {
@@ -165,12 +194,19 @@ public class AiController {
 				
 				if(aiPlayer.getAngle() < computeAngle(nearestPlayer.getPosition())) {
 					
-					c1.sendCommands("RotateRight");
+					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
+						
+						c1.sendCommands("RotateRight");
+					}
+					
 				}
 				
 				else if(aiPlayer.getAngle() > computeAngle(nearestPlayer.getPosition())) {
 					
-					c1.sendCommands("RotateLeft");
+					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
+						
+						c1.sendCommands("RotateLeft");
+					}
 				}
 				
 				else {
@@ -183,12 +219,18 @@ public class AiController {
 				
 				if(aiPlayer.getAngle() < 180+computeAngle(nearestPlayer.getPosition())) {
 					
-					c1.sendCommands("RotateRight");
+					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
+						
+						c1.sendCommands("RotateRight");
+					}
 				}
 				
 				else if(aiPlayer.getAngle() > 180+computeAngle(nearestPlayer.getPosition())) {
 					
-					c1.sendCommands("RotateLeft");
+					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
+						
+						c1.sendCommands("RotateLeft");
+					}
 				}
 				
 				else {
@@ -201,12 +243,18 @@ public class AiController {
 				
 				if(aiPlayer.getAngle()<180+(180-computeAngle(nearestPlayer.getPosition()))) {
 					
-					c1.sendCommands("RotateRight");
+					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
+						
+						c1.sendCommands("RotateRight");
+					}
 				}
 				
 				else if(aiPlayer.getAngle()>180+(180-computeAngle(nearestPlayer.getPosition()))) {
 					
-					c1.sendCommands("RotateLeft");
+					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
+						
+						c1.sendCommands("RotateLeft");
+					}
 				}
 				
 				else {
@@ -245,7 +293,7 @@ public class AiController {
 		ArrayList<Entity>players = new ArrayList<Entity>();
 		for(Entity e: entities) {
 			
-			if(e.type.equals("Player")) {
+			if(e.type.equals("Player") && e.id != c1.id) {
 				
 				players.add((Player)e);
 			}
@@ -282,6 +330,28 @@ public class AiController {
 		float p2y = p2.getY();
 		
 		return (float) Math.sqrt(Math.pow(p1x-p2x, 2) + Math.pow(p1y-p2y, 2));
+	}
+	
+	private Player myPlayer() {
+		
+		updateEntities();
+		for(Entity e:entities) {
+			
+			if(e.id == c1.id) {
+				
+				
+				return (Player)e;
+			}
+			
+		}
+		
+		return null;
+		
+	}
+	
+	private void updateEntities() {
+		
+		entities = c2.getEntities();
 	}
 	
 	

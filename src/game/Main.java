@@ -2,6 +2,8 @@ package game;
 
 import java.net.URL;
 import java.util.*;
+
+import game.ai.AiController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -237,9 +239,10 @@ public class Main extends Application {
 			ai.ServerId=s1.s1.ServerId;
 			ai.id=s1.s1.addPlayer();
 			AIs.add(ai);
+			(new AiController(ai,c1)).start();
 		}
-		moveAI m=new moveAI();
-		m.start();
+		//moveAI m=new moveAI();
+		//m.start();
 		GameWindow newGame = new GameWindow(stage,c1);
 	}
 
