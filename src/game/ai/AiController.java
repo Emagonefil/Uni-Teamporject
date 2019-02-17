@@ -5,13 +5,18 @@ import game.entity.*;
 
 public class AiController extends Thread {
 
+	private static int counter = 0;
+	private int id;
 	private ClientLogic c1;
 	private ClientLogic c2;
 	private List<Entity>entities;
 	private Player aiPlayer;
+	private volatile boolean running = true;
 	
 	public AiController(ClientLogic c1,ClientLogic c2) {
 		
+		counter++;
+		this.id = counter;
 		this.c1 = c1;
 		this.c2 = c2;
 		c1.init();
@@ -28,29 +33,41 @@ public class AiController extends Thread {
 	
 	public void run() {
 		
-	
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		attack();
-		/**State state = aiPlayer.getState();
-		
-		switch(state) {
-		
-		case ATTACK:
-			
+		while(running) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			attack();
-			break;
-		case FLEE:
+		
+			/**State state = aiPlayer.getState();
 			
-			break;
-		case WANDER:
+			switch(state) {
 			
+			case ATTACK:
+				
+				attack();
+				break;
+			case FLEE:
+				
+				break;
+			case WANDER:
+				
+				
+			}**/
+		}
+		
+		if(aiPlayer == null) {
 			
-		}**/
+			System.out.println("AI"+ id + " dead");
+		}
+		
+		else {
+			
+			System.out.println("AI"+ id + " is the winner");
+		}
 	}
 	
 	
@@ -63,19 +80,31 @@ public class AiController extends Thread {
 		float y = 0;
 		
 		while(true) {
+				
 			
 			updateEntities();
+			updatePlayer();
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			players = getPlayers();
-			nearestPlayer = (Player)nearest(players);
 			
-			 x = aiPlayer.getPosition().getX();
-			 y = aiPlayer.getPosition().getY();
+			players = getPlayers();
+		
+			if(aiPlayer == null || players.size() == 0) {
+				
+				running = false; 
+				break;
+			}
+			
+			
+			
+			nearestPlayer = (Player)nearest(players);
+			x = aiPlayer.getPosition().getX();
+			y = aiPlayer.getPosition().getY();
+			
 			
 			if (aiPlayer.getAngle() >= 360) {
 				
@@ -91,14 +120,15 @@ public class AiController extends Thread {
 			if (x == nearestPlayer.getPosition().getX() && y > nearestPlayer.getPosition().getY()) {
 				
 			
-				if(aiPlayer.getAngle() < 180) {
+				if(aiPlayer.getAngle() > 270 || aiPlayer.getAngle() < 90) {
 					
-					c1.sendCommands("RotateRight");
+					//while()
+					c1.sendCommands("RotateLeft");
 				}
 				
-				else if (aiPlayer.getAngle() > 180 ) {
+				else if (aiPlayer.getAngle() < 270 && aiPlayer.getAngle() >= 90 ) {
 					
-					c1.sendCommands("RotateLeft");
+					c1.sendCommands("RotateRight");
 				}
 				
 				else {
@@ -107,17 +137,18 @@ public class AiController extends Thread {
 				}
 			}	
 				
+			
 			else if (x == nearestPlayer.getPosition().getX() && y < nearestPlayer.getPosition().getY()) {
 					
 				
-				if(aiPlayer.getAngle() > 180 && aiPlayer.getAngle() < 360 ) {
-					
-					c1.sendCommands("RotateRight");
-				}
-				
-				else if (aiPlayer.getAngle() < 180 && aiPlayer.getAngle() > 0) {
+				if(aiPlayer.getAngle() > 90 && aiPlayer.getAngle() < 270) {
 					
 					c1.sendCommands("RotateLeft");
+				}
+				
+				else if (aiPlayer.getAngle() < 90 || aiPlayer.getAngle() >= 270) {
+					
+					c1.sendCommands("RotateRight");
 				}
 				
 				else {
@@ -131,12 +162,12 @@ public class AiController extends Thread {
 			else if (y == nearestPlayer.getPosition().getY() && x > nearestPlayer.getPosition().getX()) {
 				
 				
-				if(aiPlayer.getAngle() > 90 && aiPlayer.getAngle() < 270) {
+				if(aiPlayer.getAngle() < 360 && aiPlayer.getAngle() > 180) {
 					
 					c1.sendCommands("RotateLeft");
 				}
 				
-				else if (aiPlayer.getAngle() < 90) {
+				else if (aiPlayer.getAngle() < 180) {
 					
 					c1.sendCommands("RotateRight");
 				}
@@ -150,12 +181,12 @@ public class AiController extends Thread {
 				
 			else if (y == nearestPlayer.getPosition().getY() && x < nearestPlayer.getPosition().getX()) {
 					
-				if(aiPlayer.getAngle() > 270 || aiPlayer.getAngle()<90) {
+				if(aiPlayer.getAngle() < 180 && aiPlayer.getAngle() > 0) {
 					
 					c1.sendCommands("RotateLeft");
 				}
 				
-				else if (aiPlayer.getAngle() < 270) {
+				else if (aiPlayer.getAngle() >= 180 && aiPlayer.getAngle() != 0 ) {
 					
 					c1.sendCommands("RotateRight");
 				}
@@ -167,20 +198,17 @@ public class AiController extends Thread {
 			
 			}
 			
+			
 			else if (x > nearestPlayer.getPosition().getX() && y > nearestPlayer.getPosition().getY()){
 				
-				if(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
+				if(aiPlayer.getAngle() > 180+computeAngle(nearestPlayer.getPosition())+2) {
 					
-					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
-						c1.sendCommands("RotateRight");
-					}
-				}
-				else if(aiPlayer.getAngle()> 180-computeAngle(nearestPlayer.getPosition())) {
-					
-					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
 						c1.sendCommands("RotateLeft");
-					}
+				}
+				
+				else if(aiPlayer.getAngle()< 180+computeAngle(nearestPlayer.getPosition())-2) {
 					
+					c1.sendCommands("RotateRight");
 				}
 				
 				else {
@@ -189,72 +217,59 @@ public class AiController extends Thread {
 				}
 				
 			}
+			
 			
 			else if(x > nearestPlayer.getPosition().getX() && y < nearestPlayer.getPosition().getY()) {
 				
-				if(aiPlayer.getAngle() < computeAngle(nearestPlayer.getPosition())) {
-					
-					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
+				if(aiPlayer.getAngle() > 180-computeAngle(nearestPlayer.getPosition())+2) {
 						
-						c1.sendCommands("RotateRight");
-					}
-					
+					c1.sendCommands("RotateLeft");
 				}
 				
-				else if(aiPlayer.getAngle() > computeAngle(nearestPlayer.getPosition())) {
-					
-					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
+				else if(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())-2) {
 						
-						c1.sendCommands("RotateLeft");
-					}
+					c1.sendCommands("RotateRight");
 				}
 				
 				else {
 					
 					c1.sendCommands("Shoot");
 				}
+				
 			}
+			
 			
 			else if(x < nearestPlayer.getPosition().getX() && y > nearestPlayer.getPosition().getY()) {
 				
-				if(aiPlayer.getAngle() < 180+computeAngle(nearestPlayer.getPosition())) {
-					
-					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
+				if(aiPlayer.getAngle() > 360-computeAngle(nearestPlayer.getPosition())+2) {
 						
-						c1.sendCommands("RotateRight");
-					}
+					c1.sendCommands("RotateLeft");
+					
 				}
 				
-				else if(aiPlayer.getAngle() > 180+computeAngle(nearestPlayer.getPosition())) {
+				else if(aiPlayer.getAngle() < 360-computeAngle(nearestPlayer.getPosition())-2) {
 					
-					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
-						
-						c1.sendCommands("RotateLeft");
-					}
+					c1.sendCommands("RotateRight");
 				}
 				
 				else {
 					
 					c1.sendCommands("Shoot");
 				}
+				
 			}
+			
 			
 			else if(x < nearestPlayer.getPosition().getX() && y < nearestPlayer.getPosition().getY()) {
 				
-				if(aiPlayer.getAngle()<180+(180-computeAngle(nearestPlayer.getPosition()))) {
+				if(aiPlayer.getAngle() > computeAngle(nearestPlayer.getPosition())+2) {
 					
-					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
-						
-						c1.sendCommands("RotateRight");
-					}
+					c1.sendCommands("RotateLeft");
 				}
 				
-				else if(aiPlayer.getAngle()>180+(180-computeAngle(nearestPlayer.getPosition()))) {
-					
-					while(aiPlayer.getAngle() < 180-computeAngle(nearestPlayer.getPosition())) {
+				else if(aiPlayer.getAngle()< computeAngle(nearestPlayer.getPosition())-2) {
 						
-						c1.sendCommands("RotateLeft");
-					}
+					c1.sendCommands("RotateRight");
 				}
 				
 				else {
@@ -263,18 +278,17 @@ public class AiController extends Thread {
 				}
 			}
 			
-			else {
-				
-				c1.sendCommands("Shoot");
-			}
+			
 			
 			c1.sendCommands("Forward");
+				
+			
 		}
 	}
 	
 	private float computeAngle(Point position) {
 		
-		Point p1 = new Point(aiPlayer.getPosition().getX(),position.getY());
+		Point p1 = new Point(position.getX(),aiPlayer.getPosition().getY());
 		float distToPosition = distance(p1,position);
 		float distBetweenPlayers = distance(aiPlayer.getPosition(),position);
 		float sin0 = distToPosition/distBetweenPlayers;
@@ -325,7 +339,7 @@ public class AiController extends Thread {
 	private float distance(Point p1, Point p2) {
 		
 		float p1x = p1.getX();
-		float p1y = p1.getX();
+		float p1y = p1.getY();
 		float p2x = p2.getX();
 		float p2y = p2.getY();
 		
@@ -339,10 +353,8 @@ public class AiController extends Thread {
 			
 			if(e.id == c1.id) {
 				
-				
 				return (Player)e;
 			}
-			
 		}
 		
 		return null;
@@ -354,5 +366,9 @@ public class AiController extends Thread {
 		entities = c2.getEntities();
 	}
 	
+	private void updatePlayer() {
+		
+		aiPlayer = myPlayer();
+	}
 	
 }
