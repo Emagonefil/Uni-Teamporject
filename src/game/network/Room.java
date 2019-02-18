@@ -9,4 +9,5 @@ public class Room implements Serializable {
     public int roomId;
     public List<Integer> ClientId=new ArrayList<Integer>();
     public String ServerIp;
+    public int status=0;
 }
