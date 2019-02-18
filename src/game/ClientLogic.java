@@ -18,7 +18,7 @@ public class ClientLogic {
 	public int ServerId=0;
 	List<String> Room = new ArrayList<String>();
 	Socket socket;
-	public List<Room> rooms;
+	public List<Room> rooms = new ArrayList();
 	ClientSender sender1= c1.getSender();;
 	int myRoom;
 	long[] freezetime={System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis()};
@@ -122,6 +122,7 @@ public class ClientLogic {
 			PrintStream ps=new PrintStream(socket.getOutputStream());
 			ps.println("Room,create");
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
+			getRoomList();
 			id=findRoom(((int)in.readObject())).ClientId.get(0);
 		}catch (Exception e){
 			e.printStackTrace();
