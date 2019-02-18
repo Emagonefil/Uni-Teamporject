@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.*;
 
 import game.ai.AiController;
+import game.network.Room;
+import game.network.RoomServer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -145,16 +147,16 @@ public class Main extends Application {
 	public static void MultiPlayer(Stage stage) {
 		serverGap s1=new serverGap();
 		s1.start();
-//		RoomServer roomServer=new RoomServer();
-//		roomServer.run();
-//		c1.createRoom();
-//		c1.getRoomList();
-//		for(int i=0;i<c1.rooms.size();i++) {
-//			Room r1=c1.rooms.get(i);
-//			System.out.println("1:"+r1.roomId);
-//			for(int u=0;u<r1.ClientId.size();u++)
-//				System.out.println(":"+r1.ClientId.get(u));
-//		}
+		RoomServer roomServer=new RoomServer();
+		roomServer.run();
+		c1.createRoom();
+		c1.getRoomList();
+		for(int i=0;i<c1.rooms.size();i++) {
+			Room r1=c1.rooms.get(i);
+			System.out.println("1:"+r1.roomId);
+			for(int u=0;u<r1.ClientId.size();u++)
+				System.out.println(":"+r1.ClientId.get(u));
+		}
 		System.out.println("init succeed");
 		GameWindow newGame = new GameWindow(stage,c1);
 
