@@ -68,4 +68,16 @@ public class MovableRectangularEntity extends MovableEntity implements IRectangu
 		rec.setAngle(this.getAngle());
 	}
 	
+	@Override
+	public void setPosition(Point pos) {
+		super.setPosition(pos);
+		rec.setPosition(pos);
+	}
+	
+	@Override
+	public void setAngle(float angle) {
+		this.angle = angle;
+		rec.setAngle(angle);
+	}
+	
 }
