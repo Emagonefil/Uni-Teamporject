@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.Controller">
+<AnchorPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.Controller">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
+      <ImageView fitHeight="800.0" fitWidth="1280.0" pickOnBounds="true">
          <image>
             <Image url="@../../../Resources/image/2.jpeg" />
          </image>
@@ -21,12 +21,7 @@
             <SepiaTone level="0.35" />
          </effect>
       </ImageView>
-      <SVGGlyph fill="#ee4422" layoutX="244.0" layoutY="90.0" prefHeight="40.0" prefWidth="127.0">
-         <effect>
-            <GaussianBlur />
-         </effect>
-      </SVGGlyph>
-      <JFXButton buttonType="RAISED" layoutX="249.0" layoutY="94.0" onAction="#handleSinglePlayerButtonAction" prefHeight="31.0" prefWidth="116.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Start" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="243.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleSinglePlayerButtonAction" prefHeight="38.0" prefWidth="131.0" ripplerFill="#1dc8ee" style="-fx-background-color: #1cce77;" text="Start" textFill="WHITE">
          <effect>
             <Lighting>
                <bumpInput>
@@ -37,34 +32,28 @@
                </light>
             </Lighting>
          </effect>
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
       </JFXButton>
-      <SVGGlyph fill="#ee4422" layoutX="244.0" layoutY="150.0" prefHeight="40.0" prefWidth="127.0">
-         <effect>
-            <GaussianBlur />
-         </effect>
-      </SVGGlyph>
-      <JFXButton buttonType="RAISED" layoutX="250.0" layoutY="154.0" onAction="#handleMultiplayerButtonAction" prefHeight="31.0" prefWidth="116.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Multiplayer" textFill="WHITE" />
-      <SVGGlyph fill="#ee4422" layoutX="244.0" layoutY="208.0" prefHeight="40.0" prefWidth="127.0">
-         <effect>
-            <GaussianBlur />
-         </effect>
-      </SVGGlyph>
-      <JFXButton buttonType="RAISED" layoutX="249.0" layoutY="212.0" onAction="#handleRankingsButtonAction" prefHeight="31.0" prefWidth="116.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Ranking" textFill="WHITE" />
-      <SVGGlyph fill="#ee4422" layoutX="244.0" layoutY="267.0" prefHeight="40.0" prefWidth="127.0">
-         <effect>
-            <GaussianBlur />
-         </effect>
-      </SVGGlyph>
-      <JFXButton buttonType="RAISED" layoutX="250.0" layoutY="271.0" onAction="#handleSettingsButtonAction" prefHeight="31.0" prefWidth="116.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Setting" textFill="WHITE" />
-      <SVGGlyph fill="#ee4422" layoutX="244.0" layoutY="325.0" prefHeight="40.0" prefWidth="127.0">
-         <effect>
-            <GaussianBlur />
-         </effect>
-      </SVGGlyph>
-      <JFXButton buttonType="RAISED" layoutX="249.0" layoutY="329.0" onAction="#handleQuitButtonAction" prefHeight="31.0" prefWidth="116.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Exit" textFill="WHITE" />
+      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="322.0" onAction="#handleMultiplayerButtonAction" prefHeight="38.0" prefWidth="131.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Multiplayer" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="400.0" onAction="#handleSettingsButtonAction" prefHeight="38.0" prefWidth="131.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Setting" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="481.0" onAction="#handleQuitButtonAction" prefHeight="38.0" prefWidth="131.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Exit" textFill="WHITE" textOverrun="CLIP">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
    </children>
 
    <stylesheets>
-      <URL value="@style.css"/>
+      <URL value="@style.css" />
    </stylesheets>
 </AnchorPane>
