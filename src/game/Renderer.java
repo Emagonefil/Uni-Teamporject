@@ -1,5 +1,6 @@
 package game;
 
+import game.entity.IRectangularEntity;
 import game.gui.Sprite;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -61,21 +62,13 @@ public class Renderer {
     public static Image getHeroImage() {
         return hero;
     }
-
-    public static void playAnimation(Sprite sprite, double angle,  float x, float y) {
+    
+    public static void playAnimation(Sprite sprite, IRectangularEntity e) {
         GraphicsContext gc = GameWindow.getGraphicsContext();
-        playAnimation(gc, sprite.spriteImage, angle, x, y, sprite.width * sprite.scale, sprite.height * sprite.scale);
-    }
-
-    // draw an image on the screen given all relevant details
-    public static void playAnimation(GraphicsContext gc, Image img, double angle, float x, float y, double width, double height) {
-        drawRotatedImage(gc,img,angle,x,y,width,height);
-    }
-
-    public static void drawRotatedImage(GraphicsContext gc, Image img, double angle, float x, float y, double width, double height) {
         gc.save();
-        rotate(gc, angle, x + img.getWidth() / 2, y + img.getHeight() / 2);
-        gc.drawImage(img,x,y,width,height);
+        rotate(gc, e.getAngle(), e.getPosition().getX(),e.getPosition().getY());
+        gc.drawImage(sprite.spriteImage,e.getPosition().getX()-(e.getWidth()/2),e.getPosition().getY()-(e.getHeight()/2),
+        		sprite.width*sprite.scale,sprite.height * sprite.scale);
         gc.restore();
     }
 
