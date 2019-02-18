@@ -255,16 +255,24 @@ public class Main extends Application {
 		s1.start();
 		RoomServer roomServer=new RoomServer();
 		roomServer.run();
-		c1.createRoom();
-		c1.getRoomList();
-		for(int i=0;i<c1.rooms.size();i++) {
-			Room r1=c1.rooms.get(i);
-			System.out.println("1:"+r1.roomId);
-			for(int u=0;u<r1.ClientId.size();u++)
-				System.out.println(":"+r1.ClientId.get(u));
-		}
-		System.out.println("init succeed");
 		GameWindow newGame = new GameWindow(stage,c1);
+		c1.createRoom();
+		while(true) {
+			c1.getRoomList();
+			for (int i = 0; i < c1.rooms.size(); i++) {
+				Room r1 = c1.rooms.get(i);
+				System.out.println(i+":" + r1.roomId);
+				for (int u = 0; u < r1.ClientId.size(); u++)
+					System.out.println(":" + r1.ClientId.get(u));
+			}
+			try {
+				Thread.sleep(1000);
+			}
+			catch (Exception e){}
+
+		}
+		//System.out.println("init succeed");
+
 
 
 	}

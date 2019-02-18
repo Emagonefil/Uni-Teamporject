@@ -95,12 +95,16 @@ public class RoomServer {
         return null;
     }
     public int getSpareId(){
+        int id;
+        boolean t=true;
         for(int i=1;i<255;i++){
+            id=i;
             for(int u=0;u<rooms.size();u++)
-                if((rooms.get(u).roomId==i)){
-                    break;
+                if((rooms.get(u).roomId==id)){
+                    t=false;
                 }
-            return i;
+            if (t)
+                return i;
         }
         return 0;
     }
