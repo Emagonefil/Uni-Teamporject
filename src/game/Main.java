@@ -158,7 +158,7 @@ public class Main extends Application {
 				System.out.println(":"+r1.ClientId.get(u));
 		}
 		System.out.println("init succeed");
-		GameWindow newGame = new GameWindow(stage,c1);
+//		GameWindow newGame = new GameWindow(stage,c1);
 
 
 	}
