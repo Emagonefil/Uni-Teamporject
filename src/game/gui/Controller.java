@@ -29,12 +29,12 @@ public class Controller {
         Node node = (Node)event.getSource();
         Stage primaryStage = (Stage)node.getScene().getWindow();
 
-        Parent root = FXMLLoader.load(getClass().getResource("CreateRoom.fxml"));
-        primaryStage.getScene().setRoot(root);
-        primaryStage.setTitle("Tanks");
-        primaryStage.setMaximized(true);
-
-        primaryStage.show();
+//        Parent root = FXMLLoader.load(getClass().getResource("CreateRoom.fxml"));
+//        primaryStage.getScene().setRoot(root);
+//        primaryStage.setTitle("Tanks");
+//        primaryStage.setMaximized(true);
+//
+//        primaryStage.show();
 //        Main.MultiPlayer(primaryStage);
     }
 
