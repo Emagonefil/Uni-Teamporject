@@ -18,7 +18,7 @@ public class ClientLogic {
 	public int ServerId=0;
 	List<String> Room = new ArrayList<String>();
 	Socket socket;
-	List<Room> rooms;
+	public List<Room> rooms;
 	ClientSender sender1= c1.getSender();;
 	int myRoom;
 	long[] freezetime={System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis()};
@@ -98,7 +98,7 @@ public class ClientLogic {
 				freezetime[3]=System.currentTimeMillis();
 			}
 		if(c.equals("Shoot"))
-			if(freezetime[4]+200<System.currentTimeMillis()) {
+			if(freezetime[4]+1000<System.currentTimeMillis()) {
 				sender1.send(Port.serverAddress, ServerId + "," + this.id + "," + c);
 				freezetime[4]=System.currentTimeMillis();
 			}
