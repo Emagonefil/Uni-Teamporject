@@ -32,7 +32,7 @@ public class AiController extends Thread {
 	
 	public void run() {
 		
-		while(running) {
+		while(running&&Main.isRunning) {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {

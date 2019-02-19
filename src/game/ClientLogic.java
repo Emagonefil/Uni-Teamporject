@@ -22,12 +22,11 @@ public class ClientLogic {
 	List<String> Room = new ArrayList<String>();
 	public List<Room> rooms = new ArrayList();
 	ClientSender sender1= c1.getSender();;
-	int myRoom;
+	private int myRoom;
 	long[] freezetime={System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis()};
 	public void init() {
 
 		c1.startReceiver(new Receivable() {
-
 			@Override
 			public void receive(Object o) {
 				try {
@@ -125,7 +124,14 @@ public class ClientLogic {
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
 			getRoomList();
 			int t=(int) in.readObject();
-			id = findRoom((t)).ClientId.get(0);
+			while(true){
+				try {
+					id = findRoom(t).ClientId.get(0);
+					break;
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+			}
 			myRoom=t;
 		}catch (Exception e){
 			e.printStackTrace();
@@ -137,9 +143,18 @@ public class ClientLogic {
 			PrintStream ps=new PrintStream(socket.getOutputStream());
 			ps.println("Room,join"+roomNum);
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
-			id=findRoom(((int)in.readObject())).ClientId.get(0);
+			getRoomList();
+			Object t=in.readObject();
+			while(true){
+				try {
+					id = (int)t;
+					myRoom=roomNum;
+					break;
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+			}
 		}catch (Exception e){
-			e.printStackTrace();
 		}
 	}
 	public void leaveRoom(){
@@ -170,5 +185,8 @@ public class ClientLogic {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+	}
+	public int getMyRoom(){
+		return myRoom;
 	}
 	}

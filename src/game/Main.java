@@ -128,6 +128,7 @@ public class Main extends Application {
 	}
 
 	public static void SinglePlayer(Stage stage) {
+		isRunning = true;
 		serverGap s1=new serverGap();
 		s1.start();
 		c1.ServerId=s1.s1.ServerId;
@@ -152,11 +153,10 @@ public class Main extends Application {
 		roomServer.run();
 
 		c1.getRoomList();
-		c1.createRoom();
+		//c1.createRoom();
 		waitForGame w1=new waitForGame(stage);
 		w1.start();
 //		GameWindow newGame = new GameWindow(stage,c1);
-		isRunning = true;
 
 	}
 
@@ -171,32 +171,34 @@ public class Main extends Application {
 			Room r=new Room();
 			while(true) {
 				try {
-					Thread.sleep(10);
+					if(isRunning)
+						break;
+					Thread.sleep(100);
 					c1.getRoomList();
 					//Thread.sleep(100);
-					r = c1.findRoom(c1.myRoom);
+					r = c1.findRoom(c1.getMyRoom());
 					if(r==null)
 						continue;
-					System.out.println(r.status+" "+r.ServerIp + " " );
+					//System.out.println(r.status+" "+r.ServerIp + " " );
 					if (r.ServerIp != null&&r.status == 2 && r.ServerIp != "") {
+						isRunning = true;
 						if (r.ServerIp.equals(InetAddress.getLocalHost().getHostAddress())) {
 							serverGap s1 = new serverGap();
 							s1.start();
-							s1.s1.ServerId = c1.myRoom;
+							s1.s1.ServerId = c1.getMyRoom();
 							for (int id : r.ClientId) {
 								s1.s1.addPlayer(id);
 							}
 							System.out.println(r.ServerIp);
-							c1.ServerId = c1.myRoom;
+							c1.ServerId = c1.getMyRoom();
 							Port.serverAddress = r.ServerIp;
 						}
 						else if(r.status == 2){
-							c1.ServerId = c1.myRoom;
+							c1.ServerId = c1.getMyRoom();
 							Port.serverAddress = r.ServerIp;
 						}
 						break;
 					}
-					c1.startGame();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -211,6 +213,8 @@ public class Main extends Application {
 			s1.init();
 			System.out.println("Server thread " + s1.ServerId+ " is running");
 			while (true) {
+				if(!Main.isRunning)
+					break;
 				try {
 					s1.dealCommmands();
 					if (s1.status == 2) {
