@@ -177,7 +177,7 @@ public class Main extends Application {
 					r = c1.findRoom(c1.myRoom);
 					if(r==null)
 						continue;
-					System.out.println(r.status+" "+r.ServerIp + " " );
+					//System.out.println(r.status+" "+r.ServerIp + " " );
 					if (r.ServerIp != null&&r.status == 2 && r.ServerIp != "") {
 						isRunning = true;
 						if (r.ServerIp.equals(InetAddress.getLocalHost().getHostAddress())) {
