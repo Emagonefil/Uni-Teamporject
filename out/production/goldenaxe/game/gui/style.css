@@ -53,6 +53,31 @@
 
 }
 
+.vbox {
+    -fx-spacing: 10;
+    -fx-padding: 20;
+    -fx-pref-width: 300;
+
+}
+.jfx-button {
+    -jfx-button-type: RAISED;
+    -fx-background-color: #75b05f;
+    -fx-text-fill: white;
+    -fx-pref-width: 150px;
+    -fx-font-size: 16;
+}
+
+.listview {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -jfx-cell-horizontal-margin: 0.0;
+    -jfx-cell-vertical-margin: 5.0;
+    -jfx-vertical-gap: 10;
+    -jfx-expanded: false;
+    -fx-pref-width: 250;
+    -fx-max-width: 250;
+}
+
 .jfx-button : hover {
     /*-fx-position: relative!important;*/
     /*-fx-*/
@@ -61,4 +86,6 @@
     /*-fx-margin: 0 auto!important;*/
     /*-fx-background-color: #1dc8ee;*/
 }
+
+
 

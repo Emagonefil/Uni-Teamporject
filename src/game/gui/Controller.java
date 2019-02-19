@@ -2,6 +2,7 @@ package game.gui;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import game.Constants;
 import game.GameWindow;
 import game.Main;
 import javafx.application.Platform;
@@ -14,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -48,6 +50,7 @@ public class Controller {
 
 
         VBox vbox = new VBox();
+        vbox.setAlignment(Pos.TOP_CENTER);
 
         // Create List of Rooms
         ObservableList<String> roomIDs = FXCollections.<String>observableArrayList();
@@ -62,8 +65,8 @@ public class Controller {
         for (String roomID : roomIDs) {
             list.getItems().add(roomID);
         }
-//        list.setPrefHeight(200);
 
+        list.getStyleClass().add("listview");
         // When a room is selected from the list, display the users in that room
         list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String> () {
             @Override
@@ -77,10 +80,9 @@ public class Controller {
                 for (String clientID: clients) {
                     cls.getItems().add(clientID);
                 }
-                if(vbox.getChildren().size() == 4){
-                    vbox.getChildren().remove(4);
-                }
+                cls.getStyleClass().add("listview");
                 vbox.getChildren().add(cls);
+//                cls.setTranslateY(Constants.CANVAS_HEIGHT/3);
             }
         });
 
@@ -148,8 +150,10 @@ public class Controller {
             }
         });
 
+        vbox.getStyleClass().add("vbox");
         vbox.getChildren().addAll(list,join,create,back,start);
         primaryStage.getScene().setRoot(vbox);
+        primaryStage.getScene().getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
         primaryStage.show();
 
     }
