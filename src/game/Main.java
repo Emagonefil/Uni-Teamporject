@@ -171,10 +171,12 @@ public class Main extends Application {
 			Room r=new Room();
 			while(true) {
 				try {
+					if(isRunning)
+						break;
 					Thread.sleep(100);
 					c1.getRoomList();
 					//Thread.sleep(100);
-					r = c1.findRoom(c1.myRoom);
+					r = c1.findRoom(c1.getMyRoom());
 					if(r==null)
 						continue;
 					//System.out.println(r.status+" "+r.ServerIp + " " );
@@ -183,16 +185,16 @@ public class Main extends Application {
 						if (r.ServerIp.equals(InetAddress.getLocalHost().getHostAddress())) {
 							serverGap s1 = new serverGap();
 							s1.start();
-							s1.s1.ServerId = c1.myRoom;
+							s1.s1.ServerId = c1.getMyRoom();
 							for (int id : r.ClientId) {
 								s1.s1.addPlayer(id);
 							}
 							System.out.println(r.ServerIp);
-							c1.ServerId = c1.myRoom;
+							c1.ServerId = c1.getMyRoom();
 							Port.serverAddress = r.ServerIp;
 						}
 						else if(r.status == 2){
-							c1.ServerId = c1.myRoom;
+							c1.ServerId = c1.getMyRoom();
 							Port.serverAddress = r.ServerIp;
 						}
 						break;

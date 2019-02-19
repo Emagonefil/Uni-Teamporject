@@ -22,7 +22,7 @@ public class ClientLogic {
 	List<String> Room = new ArrayList<String>();
 	public List<Room> rooms = new ArrayList();
 	ClientSender sender1= c1.getSender();;
-	int myRoom;
+	private int myRoom;
 	long[] freezetime={System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis()};
 	public void init() {
 
@@ -176,5 +176,8 @@ public class ClientLogic {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+	}
+	public int getMyRoom(){
+		return myRoom;
 	}
 	}
