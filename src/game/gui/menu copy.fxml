@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.media.*?>
+<?import javafx.scene.*?>
 <?import com.jfoenix.svg.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.effect.*?>
@@ -18,15 +20,17 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="game.gui.Controller">
    <children>
-      <ImageView fitHeight="800.0" fitWidth="1280.0" pickOnBounds="true">
-         <image>
-            <Image url="@../../../Resources/image/2.jpeg" />
-         </image>
-         <effect>
-            <SepiaTone level="0.35" />
-         </effect>
-      </ImageView>
-      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="243.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleSinglePlayerButtonAction" prefHeight="38.0" prefWidth="131.0" ripplerFill="#1dc8ee" style="-fx-background-color: #1cce77;" text="Start" textFill="WHITE">
+      <MediaView fitHeight="800.0" fitWidth="1280.0" opacity="0.88">
+         <mediaPlayer>
+            <MediaPlayer autoPlay="true">
+               <media>
+                  <Media source="@../../../Resources/image/v1.mp4" />
+               </media>
+            </MediaPlayer>
+         </mediaPlayer>
+      </MediaView>
+
+      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="238.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleSinglePlayerButtonAction" opacity="0.8" prefHeight="38.0" prefWidth="131.0" ripplerFill="#1dc8ee" style="-fx-background-color: #1dc8ee; -fx-border-color: #F79F1F; -fx-border-width: 4; -fx-border-style: dashed; -fx-border-radius: 15px 50px; -fx-background-radius: 15px 50px;" text="Start" textFill="WHITE">
          <effect>
             <Lighting>
                <bumpInput>
@@ -41,19 +45,49 @@
             <Font name="System Italic" size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="322.0" onAction="#handleMultiplayerButtonAction" prefHeight="38.0" prefWidth="131.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Multiplayer" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="319.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleMultiplayerButtonAction" opacity="0.8" prefHeight="38.0" prefWidth="131.0" ripplerFill="#1dc8ee" style="-fx-background-color: #1dc8ee; -fx-border-color: #F79F1F; -fx-border-width: 4; -fx-border-style: dashed; -fx-border-radius: 15px 50px; -fx-background-radius: 15px 50px;" text="Mutiplayer" textFill="WHITE">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
          <font>
-            <Font size="18.0" />
+            <Font name="System Italic" size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="400.0" onAction="#handleSettingsButtonAction" prefHeight="38.0" prefWidth="131.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Setting" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="400.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleSettingsButtonAction" opacity="0.8" prefHeight="38.0" prefWidth="131.0" ripplerFill="#1dc8ee" style="-fx-background-color: #1dc8ee; -fx-border-color: #F79F1F; -fx-border-width: 4; -fx-border-style: dashed; -fx-border-radius: 15px 50px; -fx-background-radius: 15px 50px;" text="Setting" textFill="WHITE">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
          <font>
-            <Font size="18.0" />
+            <Font name="System Italic" size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="481.0" onAction="#handleQuitButtonAction" prefHeight="38.0" prefWidth="131.0" ripplerFill="RED" style="-fx-background-color: #ee4422;" text="Exit" textFill="WHITE" textOverrun="CLIP">
+      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="483.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleSinglePlayerButtonAction" opacity="0.8" prefHeight="38.0" prefWidth="131.0" ripplerFill="#1dc8ee" style="-fx-background-color: #1dc8ee; -fx-border-color: #F79F1F; -fx-border-width: 4; -fx-border-style: dashed; -fx-border-radius: 15px 50px; -fx-background-radius: 15px 50px;" text="Exit" textFill="WHITE">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
          <font>
-            <Font size="18.0" />
+            <Font name="System Italic" size="18.0" />
          </font>
       </JFXButton>
    </children>
