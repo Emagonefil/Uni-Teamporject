@@ -13,31 +13,24 @@ public class Player extends MovableRectangularEntity implements KillableEntity {
 	public static Player fromFile(String path) throws IOException {
 		Properties configFile = new Properties();
 		configFile.load(new FileInputStream(path));
-
-		float width = Float.parseFloat(configFile.getProperty("width"));
-		float height = Float.parseFloat(configFile.getProperty("height"));
-		float x = Float.parseFloat(configFile.getProperty("xPos"));
-		float y = Float.parseFloat(configFile.getProperty("yPos"));
-		float angle = Float.parseFloat(configFile.getProperty("angle"));
-		float speed = Float.parseFloat(configFile.getProperty("speed"));
-		float rotationSpeed = Float.parseFloat(configFile.getProperty("rotationSpeed"));
-		int health = Integer.parseInt(configFile.getProperty("health"));
-		int ammo = Integer.parseInt(configFile.getProperty("ammo"));
+		float width = Float.parseFloat(configFile.getProperty("width", "50"));
+		float height = Float.parseFloat(configFile.getProperty("height", "30"));
+		float x = Float.parseFloat(configFile.getProperty("xPos", "0"));
+		float y = Float.parseFloat(configFile.getProperty("yPos", "0"));
+		float angle = Float.parseFloat(configFile.getProperty("angle", "0"));
+		float speed = Float.parseFloat(configFile.getProperty("speed", "5.0"));
+		float rotationSpeed = Float.parseFloat(configFile.getProperty("rotationSpeed", "2.5"));
+		int health = Integer.parseInt(configFile.getProperty("health", "100"));
+		int ammo = Integer.parseInt(configFile.getProperty("ammo", "30"));
 
 		return new Player(width, height, new Point(x, y), angle, speed, rotationSpeed, health, ammo);
 	}
-
-	public Player(float width, float height, Point position) {
-		super(width, height, position, 0.0f, 0.5f, 1.0f);
+	
+	public Player() {
+		super(50.0f, 30.0f, new Point(0.0f, 0.0f), 0.0f, 0.5f, 1.0f);
 		this.health = 100;
-		this.ammo = 20;
+		this.ammo = 30;
 		this.type="Player";
-	}
-
-	public Player(float width, float height, Point position, float angle, float speed, float rotationSpeed) {
-		super(width, height, position, angle, speed, rotationSpeed);
-		this.health = 100;
-		this.ammo = 20;
 	}
 
 	public Player(float width, float height, Point position, float angle, float speed, float rotationSpeed, int health,
@@ -45,6 +38,7 @@ public class Player extends MovableRectangularEntity implements KillableEntity {
 		super(width, height, position, angle, speed, rotationSpeed);
 		this.health = health;
 		this.ammo = ammo;
+		this.type="Player";
 	}
 
 	private int health;

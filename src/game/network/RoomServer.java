@@ -38,7 +38,7 @@ public class RoomServer {
     private Object dealCommand(Socket s,String command){
 
         if(command.equalsIgnoreCase(Command.roomCreate)){
-            return createRoom(s.getInetAddress().toString().substring(1));
+            return createRoom();
         }else if(command.startsWith(Command.roomJoin)) {
             return joinRoom(Integer.parseInt(command.substring(Command.roomJoin.length())));
         }
@@ -50,7 +50,7 @@ public class RoomServer {
         }
         else if(command.startsWith(Command.roomStart)){
             String t = command.substring(Command.roomStart.length());
-            String[] a = t.split(",");
+            String[] a=t.split(",");
             Room r = findRoom(Integer.parseInt(a[0]));
             if(r.status==1){
                 r.status=2;
@@ -138,11 +138,11 @@ public class RoomServer {
                 return id;
         }
     }
-    private int createRoom(String ip){
+    private int createRoom(){
         Room r=new Room();
         r.roomId=getSpareId();
-        r.ServerIp=ip;
         r.ClientId.add(getSpareClientId());
+        r.status=1;
         rooms.add(r);
         return r.roomId;
     }

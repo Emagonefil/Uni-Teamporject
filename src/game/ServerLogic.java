@@ -4,6 +4,8 @@ import game.entity.collisions.*;
 import game.network.Port;
 import game.network.server.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.math.*;
 import java.util.regex.*;
@@ -15,7 +17,7 @@ public class ServerLogic {
 	Server server= new Server();
 	Random ra = new Random();
 	public int status=0;
-	public int ServerId= ra.nextInt(99999)+1;
+	public int ServerId= 99999;
 	public void init() {
 		initMap();
 		this.status=1;
@@ -23,13 +25,13 @@ public class ServerLogic {
 		this.status=2;
 	}
 	public void initMap() {
-		int num=ra.nextInt(30)+10;
+		int num=ra.nextInt(30)+30;
 		for(int i=0;i<num;i++) {
 			while (true) {
 				Wall w;
-				double x=ra.nextInt(Constants.CANVAS_WIDTH) ;
-				double y=ra.nextInt(Constants.CANVAS_HEIGHT) ;
-				w = new Wall(100, 20, new Point((float)x, (float) y));
+				double x=ra.nextInt(Constants.CANVAS_WIDTH/40)*40 ;
+				double y=ra.nextInt(Constants.CANVAS_HEIGHT/40)*40 ;
+				w = new Wall(40, 40, new Point((float)x, (float) y));
 				int l=checkColision(w);
 				//System.out.println(l);
 				if (l== 0) {
@@ -107,16 +109,58 @@ public class ServerLogic {
 		}
 		return 0;
 	}
-	public int addPlayer(){
+	public int addPlayer(int id){
 		Player w;
 		while (true) {
-			double x = ra.nextInt(Constants.CANVAS_WIDTH - 30);
-			double y = ra.nextInt(Constants.CANVAS_HEIGHT - 30);
-			w = new Player(70, 65, new Point((float)x, (float) y));
+			double x = ra.nextInt(Constants.CANVAS_WIDTH/40)*40;
+			double y = ra.nextInt(Constants.CANVAS_HEIGHT/40)*40;
+
+//			try {
+//
+//				File config = new File("Resources/playerConfigs/basic.player");
+//				w = Player.fromFile(config.getAbsolutePath());
+//
+//			} catch (IOException e) {
+//
+//				// TODO Auto-generated catch block
+
+				w = new Player();
+
+//			}
+			w.setPosition(new Point((float)x,(float)y));
 			int l=checkColision(w);
 			//System.out.println(l);
 			if (l== 0) {
-				w.id = getSpareId();
+				w.id = id;
+				Entities.add(w);
+				break;
+			}
+		}
+		RankService.getInstance().initPlayScore(w.id);
+		return w.id;
+	}
+	public int addPlayer(){
+		Player w;
+		while (true) {
+			double x = ra.nextInt(Constants.CANVAS_WIDTH/40)*40;
+			double y = ra.nextInt(Constants.CANVAS_HEIGHT/40)*40;
+//			try {
+//
+//				File config = new File("Resources/playerConfigs/basic.player");
+//				w = Player.fromFile(config.getAbsolutePath());
+//
+//			} catch (IOException e) {
+
+				// TODO Auto-generated catch block
+
+				w = new Player();
+
+//			}
+			w.setPosition(new Point((float)x,(float)y));
+			int l=checkColision(w);
+			//System.out.println(l);
+			if (l== 0) {
+				w.id =getSpareId();
 				Entities.add(w);
 				break;
 			}
@@ -225,12 +269,6 @@ public class ServerLogic {
 							}
 						}
 						//listPlayers();
-					} else {
-						if (arrs[2].equals("JoinServer")) {
-							Player p = new Player(70, 65, new Point());
-							p.id = Integer.parseInt(arrs[1]);
-							Entities.add(p);
-						}
 					}
 
 				} else {

@@ -18,7 +18,7 @@ public class RectangularEntity extends Entity implements IRectangularEntity {
 	}
 	
 	private Point rotateCorner(Point corner, float angle) {
-		float radAngle = (float) Math.toRadians(360-angle);
+		float radAngle = (float) Math.toRadians(angle);
 		Point center = this.position;
 		
 		float tempX = corner.getX()-center.getX();

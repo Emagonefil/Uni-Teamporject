@@ -1,6 +1,7 @@
 package game;
 import java.io.ObjectInputStream;
 import java.io.PrintStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +11,15 @@ import game.network.Port;
 import game.network.Room;
 import game.network.client.*;
 import game.network.Room;
+
+import javax.naming.ldap.SortKey;
+
 public class ClientLogic {
 	public int id=0;
 	Client c1=new Client();
 	public List<Entity> Entities= new ArrayList<Entity>();
-	String RoomServerIp="192.168.191.1";
 	public int ServerId=0;
 	List<String> Room = new ArrayList<String>();
-	Socket socket;
 	public List<Room> rooms = new ArrayList();
 	ClientSender sender1= c1.getSender();;
 	int myRoom;
@@ -36,7 +38,6 @@ public class ClientLogic {
 //					String command= (String) o;
 
 				}
-				//System.out.println("接受："+System.currentTimeMillis());
 			}
 
 		});
@@ -107,7 +108,7 @@ public class ClientLogic {
 	}
 	public void getRoomList(){
 		try{
-			socket=new Socket(Port.roomServerAddress,9999);
+			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
 			PrintStream ps=new PrintStream(socket.getOutputStream());
 			ps.println("Room,list");
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
@@ -118,19 +119,21 @@ public class ClientLogic {
 	}
 	public void createRoom(){
 		try{
-			socket=new Socket(Port.roomServerAddress,9999);
+			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
 			PrintStream ps=new PrintStream(socket.getOutputStream());
 			ps.println("Room,create");
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
 			getRoomList();
-			id=findRoom(((int)in.readObject())).ClientId.get(0);
+			int t=(int) in.readObject();
+			id = findRoom((t)).ClientId.get(0);
+			myRoom=t;
 		}catch (Exception e){
 			e.printStackTrace();
 		}
 	}
 	public void joinRoom(int roomNum){
 		try{
-			socket=new Socket(Port.roomServerAddress,9999);
+			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
 			PrintStream ps=new PrintStream(socket.getOutputStream());
 			ps.println("Room,join"+roomNum);
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
@@ -141,7 +144,7 @@ public class ClientLogic {
 	}
 	public void leaveRoom(){
 		try{
-			socket=new Socket(Port.roomServerAddress,9999);
+			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
 			PrintStream ps=new PrintStream(socket.getOutputStream());
 			ps.println("Room,leave");
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
@@ -157,5 +160,15 @@ public class ClientLogic {
 				return rooms.get(i);
 		}
 		return null;
+	}
+	public void startGame(){
+		try{
+			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
+			PrintStream ps=new PrintStream(socket.getOutputStream());
+			ps.println("Room,start"+myRoom+","+ InetAddress.getLocalHost().getHostAddress());
+			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 	}

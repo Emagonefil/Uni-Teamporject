@@ -1,9 +1,11 @@
 package game;
 
+import java.net.InetAddress;
 import java.net.URL;
 import java.util.*;
 
 import game.ai.AiController;
+import game.network.Port;
 import game.network.Room;
 import game.network.RoomServer;
 import javafx.animation.AnimationTimer;
@@ -137,36 +139,66 @@ public class Main extends Application {
 			AIs.add(ai);
 			(new AiController(ai,c1)).start();
 		}
-		
-		GameWindow newGame = new GameWindow(stage,c1);
+		GameWindow newGame = new GameWindow(stage, c1);
 	}
 
 
 
 
 	public static void MultiPlayer(Stage stage) {
-		serverGap s1=new serverGap();
-		s1.start();
+		//if you are the room server, run these codes
 		RoomServer roomServer=new RoomServer();
 		roomServer.run();
-//		GameWindow newGame = new GameWindow(stage,c1);
+
 		c1.getRoomList();
 		c1.createRoom();
-		while(true) {
-			c1.getRoomList();
-			for (int i = 0; i < c1.rooms.size(); i++) {
-				Room r1 = c1.rooms.get(i);
-				System.out.println(i+":" + r1.roomId);
-				for (int u = 0; u < r1.ClientId.size(); u++)
-					System.out.println(":" + r1.ClientId.get(u));
-			}
-			try {
-				Thread.sleep(1000);
-			}
-			catch (Exception e){}
+		waitForGame w1=new waitForGame(stage);
+		w1.start();
+		GameWindow newGame = new GameWindow(stage,c1);
+	}
 
+	public static class waitForGame extends Thread{
+		Stage stage;
+		waitForGame(Stage stage){
+			this.stage=stage;
 		}
-		//System.out.println("init succeed");
+		@Override
+		public void run() {
+			int t=0;
+			Room r=new Room();
+			while(true) {
+				try {
+					Thread.sleep(10);
+					c1.getRoomList();
+					//Thread.sleep(100);
+					r = c1.findRoom(c1.myRoom);
+					if(r==null)
+						continue;
+					System.out.println(r.status+" "+r.ServerIp + " " );
+					if (r.ServerIp != null&&r.status == 2 && r.ServerIp != "") {
+						if (r.ServerIp.equals(InetAddress.getLocalHost().getHostAddress())) {
+							serverGap s1 = new serverGap();
+							s1.start();
+							s1.s1.ServerId = c1.myRoom;
+							for (int id : r.ClientId) {
+								s1.s1.addPlayer(id);
+							}
+							System.out.println(r.ServerIp);
+							c1.ServerId = c1.myRoom;
+							Port.serverAddress = r.ServerIp;
+						}
+						else if(r.status == 2){
+							c1.ServerId = c1.myRoom;
+							Port.serverAddress = r.ServerIp;
+						}
+						break;
+					}
+					c1.startGame();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	public static class serverGap extends Thread {
@@ -174,7 +206,7 @@ public class Main extends Application {
 		@Override
 		public void run() {
 			s1.init();
-			System.out.println("Server thread " + c1.ServerId + " is running, controling bot "+c1.id);
+			System.out.println("Server thread " + s1.ServerId+ " is running");
 			while (true) {
 				try {
 					s1.dealCommmands();
