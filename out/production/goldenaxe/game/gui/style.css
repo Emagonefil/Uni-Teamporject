@@ -41,12 +41,12 @@
 }
 
 #pane {
-    -fx-background-image: url("../../image/2.jpeg");
+    /*-fx-background-image: url("../../image/2.jpeg");*/
 
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-background-position: center;
-    -fx-background-color: green;
+    /*-fx-background-color: green;*/
     display: flex!important;
     align-items: center!important;
     justify-content: center!important;
@@ -54,9 +54,11 @@
 }
 
 .vbox {
+    /*-fx-background-color: #b2ff9b;*/
     -fx-spacing: 10;
     -fx-padding: 20;
     -fx-pref-width: 300;
+    -fx-alignment: CENTER;
 
 }
 .jfx-button {
@@ -76,6 +78,44 @@
     -jfx-expanded: false;
     -fx-pref-width: 250;
     -fx-max-width: 250;
+}
+
+.jfx-list-cell-container {
+    -fx-alignment: center-left;
+}
+
+.jfx-list-cell-container > .label {
+    -fx-text-fill: BLACK;
+}
+
+.jfx-list-cell:odd:selected > .jfx-rippler > StackPane, .jfx-list-cell:even:selected > .jfx-rippler > StackPane {
+    -fx-background-color: rgba(117, 176, 95, 0.2);
+}
+
+.jfx-list-cell {
+    -fx-background-insets: 0.0;
+    -fx-text-fill: BLACK;
+}
+
+.jfx-list-cell:odd, .jfx-list-cell:even {
+    -fx-background-color: WHITE;
+}
+
+.jfx-list-cell:filled:hover {
+    -fx-text-fill: black;
+}
+
+.jfx-list-cell .jfx-rippler {
+    -jfx-rippler-fill: rgb(117,176,95);
+}
+
+.jfx-list-view {
+    -fx-background-insets: 0;
+    -jfx-cell-horizontal-margin: 0.0;
+    -jfx-cell-vertical-margin: 5.0;
+    -jfx-vertical-gap: 10;
+    -jfx-expanded: false;
+    -fx-pref-width: 200;
 }
 
 .jfx-button : hover {

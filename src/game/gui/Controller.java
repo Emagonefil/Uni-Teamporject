@@ -50,10 +50,15 @@ public class Controller {
 
 
         VBox vbox = new VBox();
-        vbox.setAlignment(Pos.TOP_CENTER);
+//        vbox.setAlignment(Pos.TOP_CENTER);
 
         // Create List of Rooms
         ObservableList<String> roomIDs = FXCollections.<String>observableArrayList();
+        
+        // Create List of Users
+        ObservableList<String> users = FXCollections.<String>observableArrayList();
+        
+        // Fill list of rooms
         if (!Main.c1.rooms.isEmpty()) {
             for (Room room : Main.c1.rooms) {
                 roomIDs.add("" + room.roomId);
@@ -61,28 +66,30 @@ public class Controller {
         }
 
         // Add List of Rooms to a ListView Obj
-        JFXListView<String> list = new JFXListView<String>();
+        JFXListView<String> roomList = new JFXListView<String>();
+
+        JFXListView<String> userList = new JFXListView<>();
         for (String roomID : roomIDs) {
-            list.getItems().add(roomID);
+            roomList.getItems().add(roomID);
         }
 
-        list.getStyleClass().add("listview");
+        roomList.getStyleClass().add("listview");
+        userList.getStyleClass().add("listview");
         // When a room is selected from the list, display the users in that room
-        list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String> () {
+        roomList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String> () {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 
-                ObservableList<String> clients = FXCollections.<String>observableArrayList();
+                userList.getItems().removeAll(users);
+                users.removeAll();
+                users.clear();
                 for(Integer clientID : Main.c1.rooms.get(0).ClientId) {
-                    clients.add("" + clientID);
+                    users.add("" + clientID);
                 }
-                JFXListView<String> cls = new JFXListView<>();
-                for (String clientID: clients) {
-                    cls.getItems().add(clientID);
+
+                for (String clientID: users) {
+                    userList.getItems().add(clientID);
                 }
-                cls.getStyleClass().add("listview");
-                vbox.getChildren().add(cls);
-//                cls.setTranslateY(Constants.CANVAS_HEIGHT/3);
             }
         });
 
@@ -97,11 +104,11 @@ public class Controller {
         back.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent t)  {
-                list.getItems().clear();
-                list.getItems().removeAll(roomIDs);
-                list.refresh();
+                roomList.getItems().clear();
+                roomList.getItems().removeAll(roomIDs);
+                roomList.refresh();
                 try {
-                    Parent root1 = FXMLLoader.load(getClass().getResource("menu copy.fxml"));
+                    Parent root1 = FXMLLoader.load(getClass().getResource("menu3.fxml"));
                     primaryStage.getScene().setRoot(root1);
                     primaryStage.setTitle("Tanks");
                     primaryStage.setMaximized(true);
@@ -118,7 +125,7 @@ public class Controller {
         join.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                String room = list.getSelectionModel().getSelectedItem().toString();
+                String room = roomList.getSelectionModel().getSelectedItem().toString();
                 int room2 = Integer.parseInt(room);
                 Main.c1.joinRoom(room2);
 //                GameWindow newWindow = new GameWindow(primaryStage,Main.c1);
@@ -131,12 +138,12 @@ public class Controller {
 
                 Main.c1.createRoom();
                 Main.c1.getRoomList();
-                int sel = list.getSelectionModel().getSelectedIndex();
-                if (sel >= 0 && sel < list.getItems().size()) {
-                    list.setUserData(list.getItems().get(sel));
-                    ObservableList<String> items = list.getItems();
-                    list.setItems(null);
-                    list.setItems(items);
+                int sel = roomList.getSelectionModel().getSelectedIndex();
+                if (sel >= 0 && sel < roomList.getItems().size()) {
+                    roomList.setUserData(roomList.getItems().get(sel));
+                    ObservableList<String> items = roomList.getItems();
+                    roomList.setItems(null);
+                    roomList.setItems(items);
                 }
             }
         });
@@ -151,7 +158,7 @@ public class Controller {
         });
 
         vbox.getStyleClass().add("vbox");
-        vbox.getChildren().addAll(list,join,create,back,start);
+        vbox.getChildren().addAll(roomList,join,create,start,back,userList);
         primaryStage.getScene().setRoot(vbox);
         primaryStage.getScene().getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
         primaryStage.show();
@@ -200,7 +207,7 @@ public class Controller {
         Node node = (Node)event.getSource();
         Stage primaryStage = (Stage)node.getScene().getWindow();
 
-        Parent root1 = FXMLLoader.load(getClass().getResource("menu copy.fxml"));
+        Parent root1 = FXMLLoader.load(getClass().getResource("menu3.fxml"));
         primaryStage.getScene().setRoot(root1);
         primaryStage.setTitle("Tanks");
         primaryStage.setMaximized(true);
@@ -209,32 +216,5 @@ public class Controller {
 
     }
 
-    @FXML protected void handleLoadRoomButtonAction(ActionEvent event)throws Exception{
-        Node node = (Node)event.getSource();
-        Stage primaryStage = (Stage)node.getScene().getWindow();
-
-//        Parent root1 = FXMLLoader.load(getClass().getResource("menu copy.fxml"));
-//        primaryStage.getScene().setRoot(root1);
-//        primaryStage.setTitle("Tanks");
-//        primaryStage.setMaximized(true);
-//
-//        primaryStage.show();
-//        Main.MultiPlayer(primaryStage);
-        GameWindow newGame = new GameWindow(primaryStage,Main.c1);
-    }
-
-    @FXML protected void handleNewRoomButtonAction(ActionEvent event)throws Exception{
-
-        Node node = (Node)event.getSource();
-        Stage primaryStage = (Stage)node.getScene().getWindow();
-
-        Parent root1 = FXMLLoader.load(getClass().getResource("menu copy.fxml"));
-        primaryStage.getScene().setRoot(root1);
-        primaryStage.setTitle("Tanks");
-        primaryStage.setMaximized(true);
-
-        primaryStage.show();
-
-    }
 
 }
