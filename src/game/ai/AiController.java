@@ -19,7 +19,6 @@ public class AiController extends Thread {
 		this.id = counter;
 		this.c1 = c1;
 		this.c2 = c2;
-		c1.init();
 		entities = c2.getEntities();
 		try {
 			Thread.sleep(1000);
