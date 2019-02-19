@@ -21,6 +21,7 @@ import javafx.stage.WindowEvent;
 
 // loop that runs continuously to update every component of the game
 public class Main extends Application {
+	public static boolean isRunning = false;
 	public static ClientLogic c1 = new ClientLogic();
 	public String username = "";
 	boolean forward, backward, left, right, shoot;
@@ -154,7 +155,9 @@ public class Main extends Application {
 		c1.createRoom();
 		waitForGame w1=new waitForGame(stage);
 		w1.start();
-		GameWindow newGame = new GameWindow(stage,c1);
+//		GameWindow newGame = new GameWindow(stage,c1);
+		isRunning = true;
+
 	}
 
 	public static class waitForGame extends Thread{
