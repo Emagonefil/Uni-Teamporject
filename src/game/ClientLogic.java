@@ -126,10 +126,10 @@ public class ClientLogic {
 			int t=(int) in.readObject();
 			while(true){
 				try {
-					id = findRoom((t)).ClientId.get(0);
+					id = findRoom(t).ClientId.get(0);
 					break;
 				}catch (Exception e){
-
+					e.printStackTrace();
 				}
 			}
 			myRoom=t;
@@ -143,9 +143,18 @@ public class ClientLogic {
 			PrintStream ps=new PrintStream(socket.getOutputStream());
 			ps.println("Room,join"+roomNum);
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
-			id=findRoom(((int)in.readObject())).ClientId.get(0);
+			getRoomList();
+			Object t=in.readObject();
+			while(true){
+				try {
+					id = (int)t;
+					myRoom=roomNum;
+					break;
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+			}
 		}catch (Exception e){
-			e.printStackTrace();
 		}
 	}
 	public void leaveRoom(){

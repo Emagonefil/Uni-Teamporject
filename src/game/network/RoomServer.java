@@ -146,16 +146,16 @@ public class RoomServer {
         rooms.add(r);
         return r.roomId;
     }
-    private String joinRoom(Integer roomNum){
+    private Integer joinRoom(Integer roomNum){
         Room r1=findRoom(roomNum);
         if(r1==null){
 
-            return "0";
+            return 0;
         }
         else {
             int id=getSpareClientId();
             r1.ClientId.add(id);
-            return ""+id;
+            return id;
 
         }
     }
