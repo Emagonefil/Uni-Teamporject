@@ -27,7 +27,6 @@ public class ClientLogic {
 	public void init() {
 
 		c1.startReceiver(new Receivable() {
-
 			@Override
 			public void receive(Object o) {
 				try {
@@ -125,7 +124,14 @@ public class ClientLogic {
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
 			getRoomList();
 			int t=(int) in.readObject();
-			id = findRoom((t)).ClientId.get(0);
+			while(true){
+				try {
+					id = findRoom((t)).ClientId.get(0);
+					break;
+				}catch (Exception e){
+
+				}
+			}
 			myRoom=t;
 		}catch (Exception e){
 			e.printStackTrace();
