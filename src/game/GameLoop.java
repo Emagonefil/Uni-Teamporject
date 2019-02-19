@@ -59,8 +59,8 @@ public class GameLoop {
                     Renderer.playAnimation(currentSprite, (IRectangularEntity) e);
                     //drawCorners(gc, ((IRectangularEntity) e).getCorners(), Color.GREEN);
                     gc.setFill(Color.GREEN);
-                    gc.strokeText("name",e.getPosition().getX() + 25,e.getPosition().getY() - 15);
-                    gc.fillRect(e.getPosition().getX() + 10,e.getPosition().getY() -10 ,60, 6);
+                    gc.strokeText("name",e.getPosition().getX() ,e.getPosition().getY() - 15);
+                    gc.fillRect(e.getPosition().getX() ,e.getPosition().getY() -10 ,60, 6);
                     break;
                 case "Wall":
                     currentSprite = new Sprite(e, Renderer.wall, ((Wall) e).getWidth(), ((Wall) e).getHeight(), 1);

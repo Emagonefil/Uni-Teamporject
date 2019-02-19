@@ -50,7 +50,7 @@ public class Controller {
 
 
         VBox vbox = new VBox();
-//        vbox.setAlignment(Pos.TOP_CENTER);
+        vbox.setAlignment(Pos.CENTER);
 
         // Create List of Rooms
         ObservableList<String> roomIDs = FXCollections.<String>observableArrayList();
@@ -94,11 +94,20 @@ public class Controller {
         });
 
         // Create necessary Buttons
+        JFXButton refresh = new JFXButton("Refresh List");
         JFXButton join = new JFXButton("Join Room");
         JFXButton create = new JFXButton("Create Room");
         JFXButton start = new JFXButton("Start Game");
         JFXButton back = new JFXButton("Back");
 //        ActionEvent event1 = new ActionEvent(Even);
+
+        refresh.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Main.c1.getRoomList();
+                roomList.refresh();
+            }
+        });
 
         // When the back button is pressed
         back.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -158,7 +167,8 @@ public class Controller {
         });
 
         vbox.getStyleClass().add("vbox");
-        vbox.getChildren().addAll(roomList,join,create,start,back,userList);
+
+        vbox.getChildren().addAll(roomList,refresh,join,create,start,back,userList);
         primaryStage.getScene().setRoot(vbox);
         primaryStage.getScene().getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
         primaryStage.show();

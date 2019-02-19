@@ -52,13 +52,20 @@
     justify-content: center!important;
 
 }
+#mainMenu {
+    -fx-background-image: url("../../image/background.gif");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
 
 .vbox {
     /*-fx-background-color: #b2ff9b;*/
     -fx-spacing: 10;
     -fx-padding: 20;
     -fx-pref-width: 300;
-    -fx-alignment: TOP_CENTER;
+    -fx-alignment: CENTER;
 
 }
 .jfx-button {

@@ -52,6 +52,13 @@
     justify-content: center!important;
 
 }
+#mainMenu {
+    -fx-background-image: url("../../image/background.gif");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
 
 .vbox {
     /*-fx-background-color: #b2ff9b;*/

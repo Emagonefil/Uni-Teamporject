@@ -8,7 +8,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import java.net.URL?>
-<VBox styleClass="vbox" xmlns="http://javafx.com/javafx"
+<VBox styleClass="vbox" id="mainMenu" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="game.gui.Controller"
       prefHeight="800.0" prefWidth="1280.0">
