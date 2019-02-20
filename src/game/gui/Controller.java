@@ -42,6 +42,8 @@ public class Controller {
     @FXML
     private Text actiontarget;
 
+    public JFXListView roomList;
+
     @FXML
     protected void handleSinglePlayerButtonAction(ActionEvent event) throws Exception {
         Node node = (Node) event.getSource();
@@ -71,24 +73,28 @@ public class Controller {
 
         start.setId("startBtn");
 
-        JFXListView roomList = getRoomsList();
+        roomList = getRoomsList();
         VBox titleImg = new VBox();
         titleImg.getStyleClass().add("titleImg");
 
         Label roomsLabel = new Label("ROOMS");
         roomsLabel.setId("roomsLabel");
+//        JFXListView newList;
 
         refresh.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
                 vbox.getChildren().removeAll(titleImg, join, create, start, back,refresh, roomsLabel, roomList);
+
                 Main.c1.getRoomList();
                 roomList.refresh();
-                JFXListView newList = getRoomsList();
-                vbox.getChildren().addAll(titleImg, join, create, start, back, refresh, roomsLabel, newList);
+//                JFXListView newList = getRoomsList();
+                roomList = getRoomsList();
+//                roomList = newList;
+                vbox.getChildren().addAll(titleImg, join, create, start, back, refresh, roomsLabel, roomList);
                 primaryStage.getScene().setRoot(vbox);
                 primaryStage.show();
+//                vbox.getChildren().removeAll(titleImg, join, create, start, back,refresh, roomsLabel, roomList);
             }
         });
 
