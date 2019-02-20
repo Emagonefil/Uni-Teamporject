@@ -29,8 +29,10 @@ public class ClientLogic {
 		c1.startReceiver(new Receivable() {
 			@Override
 			public void receive(Object o) {
+				System.out.println("received");
 				try {
 						Entities = (List<Entity>) o;
+
 
 				}
 				catch (Exception e){

@@ -10,20 +10,20 @@ import java.net.*;
 
 public class ClientReceiver implements Runnable{
 	
-	private static Integer listenPort;
+	private static Integer listenPort=Port.boradcastPort;
 	private Receivable renderer;
 	private ObjectInputStream input;
 	private static boolean flag = true;
 	private static MulticastSocket fromServer;
 	private static String fromRoom = Port.mulitcastAddress;
 	
-	public ClientReceiver(Integer listenPort,Receivable r) {
+	public ClientReceiver(Receivable r) {
 		try{
 			fromServer = new MulticastSocket(listenPort);
 		}catch (IOException e){
 			e.printStackTrace();
 		}
-		this.listenPort = listenPort;
+//		this.listenPort = listenPort;
 		this.renderer = r;
 	}
 
@@ -31,6 +31,7 @@ public class ClientReceiver implements Runnable{
 	public void run() {
 		try {
 			//DatagramSocket fromServer = new DatagramSocket(listenPort);
+			fromServer.setInterface(InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()));
 			fromServer.joinGroup(InetAddress.getByName(fromRoom));
 			fromServer.setSoTimeout(100);
 			byte[] buf = new byte[4096];

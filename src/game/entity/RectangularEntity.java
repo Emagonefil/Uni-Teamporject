@@ -44,13 +44,13 @@ public class RectangularEntity extends Entity implements IRectangularEntity {
 		float point2Y = this.position.getY() + (this.height/2);
 		corners[1] = rotateCorner(new Point(point2X, point2Y), this.angle);
 		
-		float point3X = this.position.getX() - (this.width/2);
-		float point3Y = this.position.getY() - (this.height/2);
-		corners[2] = rotateCorner(new Point(point3X, point3Y), this.angle);
-		
 		float point4X = this.position.getX() + (this.width/2);
 		float point4Y = this.position.getY() - (this.height/2);
-		corners[3] = rotateCorner(new Point(point4X, point4Y), this.angle);
+		corners[2] = rotateCorner(new Point(point4X, point4Y), this.angle);
+		
+		float point3X = this.position.getX() - (this.width/2);
+		float point3Y = this.position.getY() - (this.height/2);
+		corners[3] = rotateCorner(new Point(point3X, point3Y), this.angle);
 		
 		return corners;
 	}
