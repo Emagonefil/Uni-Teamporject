@@ -5,7 +5,7 @@ import game.network.Port;
 public class Client{
 	
 	private Integer sendingPort = Port.serverPort;
-	private Integer listenPort = Port.boradcastPort;
+//	private Integer listenPort = Port.boradcastPort;
 	private String address = Port.serverAddress;
 	
 	private ClientSender sender;
@@ -30,7 +30,7 @@ public class Client{
 			System.out.println("Receiver has started already");
 			return;
 		}else {
-			receiver = new ClientReceiver(listenPort,r);
+			receiver = new ClientReceiver(r);
 			new Thread(receiver).start();
 			receOn = true;
 			System.out.println("Receiver starts");

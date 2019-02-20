@@ -48,30 +48,7 @@ public class Server{
 
 	}
 	//send broadcast with list
-	public void sendBroadcast(Object obj){
-		try {
-			DatagramSocket broadSocket = new DatagramSocket();
-			DatagramPacket packet;
-			
-			String address = Port.boradAddress;
-			int port = Port.boradcastPort;
-			
-			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-			ObjectOutputStream oo = new ObjectOutputStream(byteStream); 
-			oo.writeObject(obj);
-			oo.close();
-			byte[] buf = byteStream.toByteArray();
-			
-	        
-	        packet = new DatagramPacket(buf,buf.length);
-			packet.setAddress(InetAddress.getByName(address));
-			packet.setPort(port);
-			broadSocket.send(packet);
-			//System.out.println("broadcast sent");
-			
-		}catch(Exception ignored){}
-		
-	}
+
 	public void send(String addr,Object obj){
 		try {
 			DatagramSocket broadSocket = new DatagramSocket();
