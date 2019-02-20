@@ -52,15 +52,7 @@ public class GameLoop {
 
     public static void render(ClientLogic client, GraphicsContext gc) {
         Sprite currentSprite = null;
-        Player currentPlayer = (Player) client.getEntityByID(client.id);
 
-        int x = 50;
-        int y1 =20;
-        int y2 = 40;
-        if(currentPlayer!=null) {
-            gc.strokeText("x: " + currentPlayer.getPosition().getX(), x,y1);
-            gc.strokeText("y: " + currentPlayer.getPosition().getY(), x,y2);
-        }
         for (Entity e : client.getEntities()) {
 
             switch (e.type) {
@@ -70,10 +62,18 @@ public class GameLoop {
                     Renderer.playAnimation(currentSprite, (IRectangularEntity) e);
 
                     //drawCorners(gc, ((IRectangularEntity) e).getCorners(), Color.GREEN);
-                    gc.setFill(Color.DARKGREEN);
+                    gc.setFont(new Font("SERIF", 12));
                     gc.strokeText(""+e.getId(),e.getPosition().getX() -14 ,e.getPosition().getY() - 42);
 
-                    gc.fillRoundRect(e.getPosition().getX()-30 ,e.getPosition().getY() -37 ,(((Player) e).getHealth()/1.6), 6,3,3);
+                    double health = (((Player) e).getHealth()/1.6);
+                    if(health < 20) {
+                        gc.setFill(Color.RED);
+                    } else if(health < 40) {
+                        gc.setFill(Color.YELLOW);
+                    } else if(health > 40){
+                        gc.setFill(Color.DARKGREEN);
+                    }
+                    gc.fillRoundRect(e.getPosition().getX()-30 ,e.getPosition().getY() -37 ,health, 6,3,4);
                     break;
                 case "Wall":
                     currentSprite = new Sprite(e, Renderer.wall, ((Wall) e).getWidth(), ((Wall) e).getHeight(), 1);
@@ -90,10 +90,21 @@ public class GameLoop {
                     Renderer.playAnimation(currentSprite, (IRectangularEntity) e);
                     break;
             }
-//            if (currentSprite != null) {
-//                Renderer.playAnimation(currentSprite, e.getAngle(), e.getPosition().getX(), e.getPosition().getY());
-//                currentSprite = null;
-//            }
+
+
+        }
+
+        Player currentPlayer = (Player) client.getEntityByID(client.id);
+        gc.setFill(Color.BLACK);
+        if(currentPlayer!=null) {
+            gc.fillText("x: " + currentPlayer.getPosition().getX(), 50,20);
+            gc.fillText("y: " + currentPlayer.getPosition().getY(), 50,40);
+        } else {
+            gc.setFill(Color.BLACK);
+//            System.out.println(Font.getFontNames());
+            gc.setFont(new Font("Press Start 2P", 80));
+            gc.fillText("GAME OVER", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
+//            gc.drawImage(Renderer.gameOver,CANVAS_WIDTH/3.2, CANVAS_HEIGHT/2.2);
         }
         
     }

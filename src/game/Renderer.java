@@ -15,6 +15,7 @@ import java.io.File;
 
 public class Renderer {
 
+    public static Image gameOver;
     public static Image hero;
     public static Image tank;
     static Image ghost1;
@@ -26,6 +27,7 @@ public class Renderer {
     public static Image wall;
     public static Image bullet;
     static {
+        gameOver = loadImage("Resources/image/game-over.gif");
         hero = loadImage("Resources/image/chubbyZombie.png");
         tank = loadImage("Resources/image/Tank.png");
         wall = loadImage("Resources/image/terrain4.png");
