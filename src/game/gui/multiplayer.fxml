@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.net.URL?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXListCell?>
+<VBox styleClass="vbox" id="multiplayer" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="game.gui.Controller"
+      prefHeight="800.0" prefWidth="1280.0">
+    <children>
+
+        <VBox fx:id="titleImg">
+
+        </VBox>
+        <JFXButton text="REFRESH ROOMS" onAction="#refresh"></JFXButton>
+        <JFXButton text="JOIN ROOM" onAction="#joinAction">
+
+        </JFXButton>
+        <JFXButton text="CREATE ROOM" onAction="#createAction">
+
+        </JFXButton>
+        <JFXButton id="startButton" text="START" onAction="#startAction">
+
+        </JFXButton>
+        <JFXButton text="BACK" onAction="#backAction">
+
+        </JFXButton>
+
+        <Label text="ROOMS"></Label>
+        <JFXListView fx:id="list1" styleClass="custom-jfx-list-view">
+
+            <JFXListView fx:id="subList" styleClass="sublist">
+                <groupnode>
+                    <Label styleClass="sub-label">First Room</Label>
+                </groupnode>
+                <Label>User1</Label>
+                <Label>User2</Label>
+            </JFXListView>
+            <JFXListView fx:id="subList1" styleClass="sublist">
+                <groupnode>
+                    <Label styleClass="sub-label">Room2</Label>
+                </groupnode>
+                <Label>User3</Label>
+                <Label>User4</Label>
+            </JFXListView>
+        </JFXListView>
+
+
+    </children>
+        <stylesheets>
+            <URL value="@style.css" />
+        </stylesheets>
+
+</VBox>

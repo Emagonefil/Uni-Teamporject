@@ -5,7 +5,10 @@ import com.jfoenix.controls.JFXListView;
 import game.Constants;
 import game.GameWindow;
 import game.Main;
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -15,12 +18,14 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -29,22 +34,27 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import game.network.Room;
 
+import java.net.URL;
+import java.util.*;
+
 
 public class Controller {
     @FXML
     private Text actiontarget;
 
-    @FXML protected void handleSinglePlayerButtonAction(ActionEvent event) throws Exception {
-        Node node = (Node)event.getSource();
-        Stage primaryStage = (Stage)node.getScene().getWindow();
+    @FXML
+    protected void handleSinglePlayerButtonAction(ActionEvent event) throws Exception {
+        Node node = (Node) event.getSource();
+        Stage primaryStage = (Stage) node.getScene().getWindow();
         Main.SinglePlayer(primaryStage);
     }
 
-    @FXML protected void handleMultiplayerButtonAction(ActionEvent event) throws Exception {
-        Node node = (Node)event.getSource();
-        Stage primaryStage = (Stage)node.getScene().getWindow();
+    @FXML
+    protected void handleMultiplayerButtonAction(ActionEvent event) throws Exception {
+        Node node = (Node) event.getSource();
+        Stage primaryStage = (Stage) node.getScene().getWindow();
 
-        if(!Main.isRunning) {
+        if (!Main.isRunning) {
             Main.MultiPlayer(primaryStage);
         }
 
@@ -52,70 +62,45 @@ public class Controller {
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
 
-        // Create List of Rooms
-        ObservableList<String> roomIDs = FXCollections.<String>observableArrayList();
-        
-        // Create List of Users
-        ObservableList<String> users = FXCollections.<String>observableArrayList();
-        
-        // Fill list of rooms
-        if (!Main.c1.rooms.isEmpty()) {
-            for (Room room : Main.c1.rooms) {
-                roomIDs.add("" + room.roomId);
-            }
-        }
-
-        // Add List of Rooms to a ListView Obj
-        JFXListView<String> roomList = new JFXListView<String>();
-
-        JFXListView<String> userList = new JFXListView<>();
-        for (String roomID : roomIDs) {
-            roomList.getItems().add(roomID);
-        }
-
-        roomList.getStyleClass().add("listview");
-        userList.getStyleClass().add("listview");
-        // When a room is selected from the list, display the users in that room
-        roomList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String> () {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-
-                userList.getItems().removeAll(users);
-                users.removeAll();
-                users.clear();
-                for(Integer clientID : Main.c1.rooms.get(0).ClientId) {
-                    users.add("" + clientID);
-                }
-
-                for (String clientID: users) {
-                    userList.getItems().add(clientID);
-                }
-            }
-        });
 
         // Create necessary Buttons
-        JFXButton refresh = new JFXButton("Refresh List");
-        JFXButton join = new JFXButton("Join Room");
-        JFXButton create = new JFXButton("Create Room");
-        JFXButton start = new JFXButton("Start Game");
-        JFXButton back = new JFXButton("Back");
+        JFXButton refresh = new JFXButton("REFRESH ROOMS");
+        JFXButton join = new JFXButton("JOIN ROOM");
+        JFXButton create = new JFXButton("CREATE ROOM");
+        JFXButton start = new JFXButton("START");
+        JFXButton back = new JFXButton("BACK");
 //        ActionEvent event1 = new ActionEvent(Even);
+
+        start.setId("startBtn");
+
+        JFXListView roomList = getRoomsList();
+        VBox titleImg = new VBox();
+        titleImg.getStyleClass().add("titleImg");
+
+        Label roomsLabel = new Label("ROOMS");
+        roomsLabel.setId("roomsLabel");
+
 
         refresh.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 Main.c1.getRoomList();
                 roomList.refresh();
+                JFXListView newList = getRoomsList();
+                vbox.getChildren().addAll(titleImg, join, create, start, back, refresh, roomsLabel, newList);
+                primaryStage.getScene().setRoot(vbox);
+                primaryStage.show();
             }
         });
 
         // When the back button is pressed
         back.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent t)  {
+            public void handle(MouseEvent t) {
                 roomList.getItems().clear();
-                roomList.getItems().removeAll(roomIDs);
+//                roomList.getItems().removeAll(roomIDs);
                 roomList.refresh();
+
                 try {
                     Parent root1 = FXMLLoader.load(getClass().getResource("menu3.fxml"));
                     primaryStage.getScene().setRoot(root1);
@@ -123,7 +108,7 @@ public class Controller {
                     primaryStage.setMaximized(true);
 
                     primaryStage.show();
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -147,13 +132,6 @@ public class Controller {
 
                 Main.c1.createRoom();
                 Main.c1.getRoomList();
-                int sel = roomList.getSelectionModel().getSelectedIndex();
-                if (sel >= 0 && sel < roomList.getItems().size()) {
-                    roomList.setUserData(roomList.getItems().get(sel));
-                    ObservableList<String> items = roomList.getItems();
-                    roomList.setItems(null);
-                    roomList.setItems(items);
-                }
             }
         });
 
@@ -162,29 +140,58 @@ public class Controller {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 Main.c1.startGame();
-                GameWindow newGame = new GameWindow(primaryStage,Main.c1);
+                GameWindow newGame = new GameWindow(primaryStage, Main.c1);
             }
         });
 
+
+
         vbox.getStyleClass().add("vbox");
 
-        vbox.getChildren().addAll(roomList,refresh,join,create,start,back,userList);
+        vbox.getChildren().addAll(titleImg, join, create, start, back, refresh, roomsLabel, roomList);
         primaryStage.getScene().setRoot(vbox);
         primaryStage.getScene().getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
         primaryStage.show();
 
     }
 
+    public static JFXListView getRoomsList() {
+        // Create List of Rooms
+        ObservableList<JFXListView> roomIDs = FXCollections.<JFXListView>observableArrayList();
 
-    private <T> void forceListRefreshOn(JFXListView<T> lsv) {
-        ObservableList<T> items = lsv.getItems();
-        lsv.setItems(null);
-        lsv.setItems(items);
+        // Create List of Users
+        ObservableList<String> users;
+
+        // Add List of Rooms to a ListView Obj
+        JFXListView<JFXListView> roomList = new JFXListView<JFXListView>();
+        roomList.getStyleClass().add("custom-jfx-list-view");
+        roomList.setId("list1");
+
+        JFXListView<String> userList;
+        Label idOfRoom;
+        for (Room room : Main.c1.rooms) {
+            users = FXCollections.observableArrayList();
+            userList = new JFXListView<>();
+            userList.getStyleClass().add("sublist");
+//            roomList.getItems().
+
+            for (int client : room.ClientId) {
+                users.add(" PLAYER " + (room.ClientId.indexOf(client) + 1) + ": " + client + "");
+            }
+            for (String id : users) {
+                userList.getItems().add(id);
+            }
+            idOfRoom = new Label(" ROOM " + room.roomId);
+            userList.setGroupnode(idOfRoom);
+            roomList.getItems().add(userList);
+        }
+        return roomList;
     }
 
-    @FXML protected void handleSettingsButtonAction(ActionEvent event) throws Exception {
-        Node node = (Node)event.getSource();
-        Stage primaryStage = (Stage)node.getScene().getWindow();
+    @FXML
+    protected void handleSettingsButtonAction(ActionEvent event) throws Exception {
+        Node node = (Node) event.getSource();
+        Stage primaryStage = (Stage) node.getScene().getWindow();
 
         Parent root1 = FXMLLoader.load(getClass().getResource("settings.fxml"));
         primaryStage.getScene().setRoot(root1);
@@ -194,9 +201,10 @@ public class Controller {
         primaryStage.show();
     }
 
-    @FXML protected void handleRankingsButtonAction(ActionEvent event) throws Exception {
-        Node node = (Node)event.getSource();
-        Stage primaryStage = (Stage)node.getScene().getWindow();
+    @FXML
+    protected void handleRankingsButtonAction(ActionEvent event) throws Exception {
+        Node node = (Node) event.getSource();
+        Stage primaryStage = (Stage) node.getScene().getWindow();
 
         Parent root1 = FXMLLoader.load(getClass().getResource("Rankings.fxml"));
         primaryStage.getScene().setRoot(root1);
@@ -206,16 +214,18 @@ public class Controller {
         primaryStage.show();
     }
 
-    @FXML protected void handleQuitButtonAction(ActionEvent event) throws Exception {
+    @FXML
+    protected void handleQuitButtonAction(ActionEvent event) throws Exception {
         System.out.println("Quit Game");
         Platform.exit();
         System.exit(0);
     }
 
-    @FXML protected void handleBackButtonAction(ActionEvent event)throws Exception{
+    @FXML
+    protected void handleBackButtonAction(ActionEvent event) throws Exception {
 
-        Node node = (Node)event.getSource();
-        Stage primaryStage = (Stage)node.getScene().getWindow();
+        Node node = (Node) event.getSource();
+        Stage primaryStage = (Stage) node.getScene().getWindow();
 
         Parent root1 = FXMLLoader.load(getClass().getResource("menu3.fxml"));
         primaryStage.getScene().setRoot(root1);
@@ -225,6 +235,5 @@ public class Controller {
         primaryStage.show();
 
     }
-
 
 }

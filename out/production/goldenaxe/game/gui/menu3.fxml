@@ -18,18 +18,21 @@
         <VBox fx:id="titleImg">
 
         </VBox>
-        <JFXButton text="Singleplayer" onAction="#handleSinglePlayerButtonAction">
+        <JFXButton text="SINGLEPLAYER" onAction="#handleSinglePlayerButtonAction">
 
         </JFXButton>
-        <JFXButton text="Multiplayer" onAction="#handleMultiplayerButtonAction">
+        <JFXButton text="MULTIPLAYER" onAction="#handleMultiplayerButtonAction">
 
         </JFXButton>
-        <JFXButton text="Settings" onAction="#handleSettingsButtonAction">
+        <JFXButton text="SETTINGS" onAction="#handleSettingsButtonAction">
 
         </JFXButton>
-        <JFXButton text="Quit" onAction="#handleQuitButtonAction">
+        <JFXButton text="QUIT" onAction="#handleQuitButtonAction">
 
         </JFXButton>
+        <!--<JFXButton text="MULTIPLAYER2" onAction="#multiplayer">-->
+
+        <!--</JFXButton>-->
     </children>
     <stylesheets>
         <URL value="@style.css" />

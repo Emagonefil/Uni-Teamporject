@@ -21,6 +21,7 @@ import javafx.stage.WindowEvent;
 
 // loop that runs continuously to update every component of the game
 public class Main extends Application {
+	public static Stage mainStage;
 	public static boolean isRunning = false;
 	public static ClientLogic c1 = new ClientLogic();
 	public String username = "";
@@ -33,6 +34,7 @@ public class Main extends Application {
 	}
 
 	public void start(Stage primaryStage) throws Exception {
+		mainStage = primaryStage;
 		// set the window title
 		primaryStage.setTitle(Constants.GAME_NAME + " " + Constants.GAME_VERSION);
 
