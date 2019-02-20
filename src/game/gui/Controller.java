@@ -58,10 +58,8 @@ public class Controller {
             Main.MultiPlayer(primaryStage);
         }
 
-
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
-
 
         // Create necessary Buttons
         JFXButton refresh = new JFXButton("REFRESH ROOMS");
@@ -79,7 +77,6 @@ public class Controller {
 
         Label roomsLabel = new Label("ROOMS");
         roomsLabel.setId("roomsLabel");
-
 
         refresh.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override

@@ -36,7 +36,7 @@
 }
 
 #gameWindow {
-    -fx-background-image: url("../../../../../Resources/image/terrain5.png");
+    -fx-background-image: url("../../image/terrain5.png");
     /*-fx-background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../../../../../Resources/image/floor.jpg");*/
     -fx-background-size: 130 32;
     -fx-background-repeat: repeat;
