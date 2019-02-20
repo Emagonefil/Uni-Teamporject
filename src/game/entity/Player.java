@@ -27,7 +27,7 @@ public class Player extends MovableRectangularEntity implements KillableEntity {
 	}
 	
 	public Player() {
-		super(50.0f, 30.0f, new Point(0.0f, 0.0f), 0.0f, 0.5f, 1.0f);
+		super(75.0f, 45.0f, new Point(0.0f, 0.0f), 0.0f, 1f, 1.0f);
 		this.health = 100;
 		this.ammo = 30;
 		this.type="Player";

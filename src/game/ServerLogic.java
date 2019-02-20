@@ -29,8 +29,8 @@ public class ServerLogic {
 		for(int i=0;i<num;i++) {
 			while (true) {
 				Wall w;
-				double x=ra.nextInt(Constants.CANVAS_WIDTH/40)*40 ;
-				double y=ra.nextInt(Constants.CANVAS_HEIGHT/40)*40 ;
+				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
+				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
 				w = new Wall(40, 40, new Point((float)x, (float) y));
 				int l=checkColision(w);
 				//System.out.println(l);
@@ -112,8 +112,8 @@ public class ServerLogic {
 	public int addPlayer(int id){
 		Player w;
 		while (true) {
-			double x = ra.nextInt(Constants.CANVAS_WIDTH/40)*40;
-			double y = ra.nextInt(Constants.CANVAS_HEIGHT/40)*40;
+			double x = ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40;
+			double y = ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40;
 
 //			try {
 //
@@ -142,8 +142,8 @@ public class ServerLogic {
 	public int addPlayer(){
 		Player w;
 		while (true) {
-			double x = ra.nextInt(Constants.CANVAS_WIDTH/40)*40;
-			double y = ra.nextInt(Constants.CANVAS_HEIGHT/40)*40;
+			double x = ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40;
+			double y = ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40;
 //			try {
 //
 //				File config = new File("Resources/playerConfigs/basic.player");

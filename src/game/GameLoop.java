@@ -8,7 +8,9 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 import java.util.Iterator;
 import java.util.List;
@@ -57,10 +59,23 @@ public class GameLoop {
                 case "Player":
                     currentSprite = new Sprite(e, Renderer.tank, ((Player) e).getWidth(), ((Player) e).getHeight(), 1);
                     Renderer.playAnimation(currentSprite, (IRectangularEntity) e);
+
+                    int x = 50;
+                    int y1 =20;
+                    int y2 = 40;
+                    gc.setFont(new Font("PLAIN",20));
+                    gc.fillText("x: " + e.getPosition().getX(), x,y1);
+                    gc.fillText("y: " + e.getPosition().getY(), x,y2);
+//                    gc.text
+
+//                    System.out.println("x: " + e.getPosition().getX() + " y: " + e.getPosition().getY());
                     //drawCorners(gc, ((IRectangularEntity) e).getCorners(), Color.GREEN);
                     gc.setFill(Color.GREEN);
-                    gc.strokeText("name",e.getPosition().getX() ,e.getPosition().getY() - 15);
-                    gc.fillRect(e.getPosition().getX() ,e.getPosition().getY() -10 ,60, 6);
+//                    ProgressBar pb = new ProgressBar();
+//                    gc.drawImage(pb,100,20);
+                    gc.strokeText(""+e.getId(),e.getPosition().getX() -13 ,e.getPosition().getY() - 40);
+
+                    gc.fillRect(e.getPosition().getX()-30 ,e.getPosition().getY() -35 ,((Player) e).getHealth(), 6);
                     break;
                 case "Wall":
                     currentSprite = new Sprite(e, Renderer.wall, ((Wall) e).getWidth(), ((Wall) e).getHeight(), 1);

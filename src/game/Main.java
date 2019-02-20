@@ -13,9 +13,11 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -29,6 +31,9 @@ public class Main extends Application {
 	public static List<ClientLogic> AIs=new ArrayList<>();
 	public static int numOfAI=7;
 	public static void main(String args[]) {
+		System.out.println("HEIGHT: " + Constants.CANVAS_HEIGHT);
+		System.out.println("WIDTH: " + Constants.CANVAS_WIDTH);
+
 		c1.init();
 		launch(args);
 	}
