@@ -13,8 +13,8 @@ public class Player extends MovableRectangularEntity implements KillableEntity {
 	public static Player fromFile(String path) throws IOException {
 		Properties configFile = new Properties();
 		configFile.load(new FileInputStream(path));
-		float width = Float.parseFloat(configFile.getProperty("width", "50"));
-		float height = Float.parseFloat(configFile.getProperty("height", "30"));
+		float width = Float.parseFloat(configFile.getProperty("width", "60"));
+		float height = Float.parseFloat(configFile.getProperty("height", "36"));
 		float x = Float.parseFloat(configFile.getProperty("xPos", "0"));
 		float y = Float.parseFloat(configFile.getProperty("yPos", "0"));
 		float angle = Float.parseFloat(configFile.getProperty("angle", "0"));
@@ -27,7 +27,7 @@ public class Player extends MovableRectangularEntity implements KillableEntity {
 	}
 	
 	public Player() {
-		super(75.0f, 45.0f, new Point(0.0f, 0.0f), 0.0f, 1f, 1.0f);
+		super(60.0f, 36.0f, new Point(0.0f, 0.0f), 0.0f, 1f, 1.0f);
 		this.health = 100;
 		this.ammo = 30;
 		this.type="Player";

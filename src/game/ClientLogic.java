@@ -100,7 +100,7 @@ public class ClientLogic {
 				freezetime[3]=System.currentTimeMillis();
 			}
 		if(c.equals("Shoot"))
-			if(freezetime[4]+1000<System.currentTimeMillis()) {
+			if(freezetime[4]+500<System.currentTimeMillis()) {
 				sender1.send(Port.serverAddress, ServerId + "," + this.id + "," + c);
 				freezetime[4]=System.currentTimeMillis();
 			}
@@ -191,4 +191,14 @@ public class ClientLogic {
 	public int getMyRoom(){
 		return myRoom;
 	}
+
+	public Entity getEntityByID(int id) {
+		for(int i=0;i<Entities.size();i++) {
+			if(Entities.get(i).id==id)
+				return Entities.get(i);
+		}
+		return null;
 	}
+	}
+
+

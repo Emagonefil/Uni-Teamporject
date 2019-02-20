@@ -31,9 +31,6 @@ public class Main extends Application {
 	public static List<ClientLogic> AIs=new ArrayList<>();
 	public static int numOfAI=7;
 	public static void main(String args[]) {
-		System.out.println("HEIGHT: " + Constants.CANVAS_HEIGHT);
-		System.out.println("WIDTH: " + Constants.CANVAS_WIDTH);
-
 		c1.init();
 		launch(args);
 	}

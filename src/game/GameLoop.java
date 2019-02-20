@@ -24,7 +24,7 @@ public class GameLoop {
     private static double oldGameTime;
     private static double deltaTime;
     private final static long startNanoTime = System.nanoTime();
-    private static List<Entity> entities;
+//    private static List<Entity> entities;
 
     public static double getCurrentGameTime() {
         return currentGameTime;
@@ -52,6 +52,15 @@ public class GameLoop {
 
     public static void render(ClientLogic client, GraphicsContext gc) {
         Sprite currentSprite = null;
+        Player currentPlayer = (Player) client.getEntityByID(client.id);
+
+        int x = 50;
+        int y1 =20;
+        int y2 = 40;
+        if(currentPlayer!=null) {
+            gc.strokeText("x: " + currentPlayer.getPosition().getX(), x,y1);
+            gc.strokeText("y: " + currentPlayer.getPosition().getY(), x,y2);
+        }
         for (Entity e : client.getEntities()) {
 
             switch (e.type) {
@@ -60,22 +69,11 @@ public class GameLoop {
                     currentSprite = new Sprite(e, Renderer.tank, ((Player) e).getWidth(), ((Player) e).getHeight(), 1);
                     Renderer.playAnimation(currentSprite, (IRectangularEntity) e);
 
-                    int x = 50;
-                    int y1 =20;
-                    int y2 = 40;
-                    gc.setFont(new Font("PLAIN",20));
-                    gc.fillText("x: " + e.getPosition().getX(), x,y1);
-                    gc.fillText("y: " + e.getPosition().getY(), x,y2);
-//                    gc.text
-
-//                    System.out.println("x: " + e.getPosition().getX() + " y: " + e.getPosition().getY());
                     //drawCorners(gc, ((IRectangularEntity) e).getCorners(), Color.GREEN);
-                    gc.setFill(Color.GREEN);
-//                    ProgressBar pb = new ProgressBar();
-//                    gc.drawImage(pb,100,20);
-                    gc.strokeText(""+e.getId(),e.getPosition().getX() -13 ,e.getPosition().getY() - 40);
+                    gc.setFill(Color.DARKGREEN);
+                    gc.strokeText(""+e.getId(),e.getPosition().getX() -14 ,e.getPosition().getY() - 42);
 
-                    gc.fillRect(e.getPosition().getX()-30 ,e.getPosition().getY() -35 ,((Player) e).getHealth(), 6);
+                    gc.fillRoundRect(e.getPosition().getX()-30 ,e.getPosition().getY() -37 ,(((Player) e).getHealth()/1.6), 6,3,3);
                     break;
                 case "Wall":
                     currentSprite = new Sprite(e, Renderer.wall, ((Wall) e).getWidth(), ((Wall) e).getHeight(), 1);
