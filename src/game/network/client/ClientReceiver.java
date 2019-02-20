@@ -27,6 +27,8 @@ public class ClientReceiver implements Runnable{
 		this.renderer = r;
 	}
 
+
+
 	@Override
 	public void run() {
 		try {
