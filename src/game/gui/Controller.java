@@ -81,6 +81,8 @@ public class Controller {
         refresh.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+
+                vbox.getChildren().removeAll(titleImg, join, create, start, back,refresh, roomsLabel, roomList);
                 Main.c1.getRoomList();
                 roomList.refresh();
                 JFXListView newList = getRoomsList();
@@ -116,9 +118,9 @@ public class Controller {
         join.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                String room = roomList.getSelectionModel().getSelectedItem().toString();
-                int room2 = Integer.parseInt(room);
-                Main.c1.joinRoom(room2);
+                int room = roomList.getSelectionModel().getSelectedIndex()+1;
+//                int room2 = Integer.parseInt(room);
+                Main.c1.joinRoom(room);
 //                GameWindow newWindow = new GameWindow(primaryStage,Main.c1);
             }
         });
