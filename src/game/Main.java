@@ -153,8 +153,8 @@ public class Main extends Application {
 
 	public static void MultiPlayer(Stage stage) {
 		//if you are the room server, run these codes
-		RoomServer roomServer=new RoomServer();
-		roomServer.run();
+//		RoomServer roomServer=new RoomServer();
+//		roomServer.run();
 
 		c1.getRoomList();
 		//c1.createRoom();
