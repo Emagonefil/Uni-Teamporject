@@ -153,8 +153,8 @@ public class Main extends Application {
 
 	public static void MultiPlayer(Stage stage) {
 		//if you are the room server, run these codes
-		RoomServer roomServer=new RoomServer();
-		roomServer.run();
+//		RoomServer roomServer=new RoomServer();
+//		roomServer.run();
 
 		c1.getRoomList();
 		//c1.createRoom();
@@ -200,7 +200,7 @@ public class Main extends Application {
 						else if(r.status == 2){
 							c1.ServerId = c1.getMyRoom();
 							Port.serverAddress = r.ServerIp;
-							GameWindow newGame = new GameWindow(stage,c1);
+//							GameWindow newGame = new GameWindow(stage,c1);
 						}
 						break;
 					}
