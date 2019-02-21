@@ -1,0 +1,9 @@
+width = 5
+height = 10
+xPos = 10
+yPos = 15
+angle = 30
+speed = 0.5
+rotationSpeed = 1
+health = 100
+ammo = 20
