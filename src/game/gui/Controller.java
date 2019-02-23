@@ -186,7 +186,7 @@ public class Controller {
             for (String id : users) {
                 userList.getItems().add(id);
             }
-            idOfRoom = new Label(" ROOM " + room.roomId);
+            idOfRoom = new Label(" ROOM " + room.getRoomId());
             userList.setGroupnode(idOfRoom);
             roomList.getItems().add(userList);
         }
