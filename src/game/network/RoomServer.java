@@ -99,7 +99,7 @@ public class RoomServer {
     }
     private Room  findRoom(int id){
         for(int i=0;i<rooms.size();i++){
-            if(rooms.get(i).roomId==id)
+            if(rooms.get(i).getRoomId()==id)
                 return rooms.get(i);
         }
         return null;
@@ -110,7 +110,7 @@ public class RoomServer {
         for(int i=1;i<255;i++){
             id=i;
             for(int u=0;u<rooms.size();u++)
-                if((rooms.get(u).roomId==id)){
+                if((rooms.get(u).getRoomId()==id)){
                     t=false;
                     break;
                 }
@@ -140,11 +140,11 @@ public class RoomServer {
     }
     private int createRoom(){
         Room r=new Room();
-        r.roomId=getSpareId();
+        r.setRoomId(getSpareId());
         r.ClientId.add(getSpareClientId());
         r.status=1;
         rooms.add(r);
-        return r.roomId;
+        return r.getRoomId();
     }
     private Integer joinRoom(Integer roomNum){
         Room r1=findRoom(roomNum);

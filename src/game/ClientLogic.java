@@ -173,7 +173,7 @@ public class ClientLogic {
 	}
 	public Room  findRoom(int id){
 		for(int i=0;i<rooms.size();i++){
-			if(rooms.get(i).roomId==id)
+			if(rooms.get(i).getRoomId()==id)
 				return rooms.get(i);
 		}
 		return null;
