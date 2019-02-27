@@ -2,6 +2,7 @@ package game;
 
 import game.controller.InputManager;
 import game.entity.*;
+import game.entity.items.Item;
 import game.gui.Animation;
 import game.gui.Sprite;
 import javafx.animation.AnimationTimer;
@@ -89,6 +90,9 @@ public class GameLoop {
                     currentSprite = new Sprite(e, Renderer.bullet, ((Bullet) e).getWidth(), ((Bullet) e).getHeight(), 2);
                     Renderer.playAnimation(currentSprite, (IRectangularEntity) e);
                     break;
+                case "Item":
+                	currentSprite = new Sprite(e,Renderer.healthPickup, ((Item) e).getWidth(), ((Item) e).getHeight(),1);
+                	break;
             }
 
 

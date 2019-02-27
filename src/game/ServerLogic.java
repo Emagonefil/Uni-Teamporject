@@ -1,5 +1,6 @@
 package game;
 import game.entity.*;
+import game.entity.items.*;
 import game.entity.collisions.*;
 import game.network.Port;
 import game.network.server.*;
@@ -33,12 +34,24 @@ public class ServerLogic {
 				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
 				w = new Wall(40, 40, new Point((float)x, (float) y));
 				int l=checkColision(w);
+				
+				
 				//System.out.println(l);
 				if (l== 0) {
 					w.id = getSpareId();
 					Entities.add(w);
 					break;
 				}
+			}
+			
+			for (int c = 0;c<10;c++) {
+				//Spawn Random items
+				HealthPickup h;
+				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
+				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
+				h = new HealthPickup(new Point((float)x, (float)y));
+				h.id = getSpareId();
+				Entities.add(h);
 			}
 		}
 		listPlayers();
@@ -104,8 +117,14 @@ public class ServerLogic {
 			if(e2.equals(e))
 				continue;
 			p2=getCorner(e2);
-			if(CollisionDetection.isTouching(p1,p2))
+			if(CollisionDetection.isTouching(p1,p2)) {
+				if (e2.type.equals("Item")) {
+					((Item) e2).effect((Player) e);
+					Entities.remove(e2);
+					return 0;
+				}
 				return e2.id;
+			}
 		}
 		return 0;
 	}
@@ -144,18 +163,12 @@ public class ServerLogic {
 		while (true) {
 			double x = ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40;
 			double y = ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40;
-//			try {
-//
-//				File config = new File("Resources/playerConfigs/basic.player");
-//				w = Player.fromFile(config.getAbsolutePath());
-//
-//			} catch (IOException e) {
-
-				// TODO Auto-generated catch block
-
+			try {
+				File config = new File("Resources/playerConfigs/basic.player");
+				w = Player.fromFile(config.getAbsolutePath());
+			} catch (IOException e) {
 				w = new Player();
-
-//			}
+			}
 			w.setPosition(new Point((float)x,(float)y));
 			int l=checkColision(w);
 			//System.out.println(l);
@@ -286,7 +299,7 @@ public class ServerLogic {
 	public void broadcastEntities() {
 		server.send(Port.mulitcastAddress,Entities);
 		//List<PlayerScore> newRank = RankService.getInstance().rankList();
-		//System.out.println("发送："+System.currentTimeMillis());
+		//System.out.println("å�‘é€�ï¼š"+System.currentTimeMillis());
 	}
 
 }
