@@ -114,19 +114,16 @@ public class ServerLogic {
 		while (true) {
 			double x = ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40;
 			double y = ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40;
+			try {
 
-//			try {
-//
-//				File config = new File("Resources/playerConfigs/basic.player");
-//				w = Player.fromFile(config.getAbsolutePath());
-//
-//			} catch (IOException e) {
-//
-//				// TODO Auto-generated catch block
+				File config = new File("Resources/playerConfigs/basic.player");
+				w = Player.fromFile(config.getAbsolutePath());
+
+			} catch (IOException e) {
 
 				w = new Player();
 
-//			}
+			}
 			w.setPosition(new Point((float)x,(float)y));
 			int l=checkColision(w);
 			//System.out.println(l);
@@ -144,18 +141,15 @@ public class ServerLogic {
 		while (true) {
 			double x = ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40;
 			double y = ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40;
-//			try {
-//
-//				File config = new File("Resources/playerConfigs/basic.player");
-//				w = Player.fromFile(config.getAbsolutePath());
-//
-//			} catch (IOException e) {
+			try {
 
-				// TODO Auto-generated catch block
+				File config = new File("Resources/playerConfigs/basic.player");
+				w = Player.fromFile(config.getAbsolutePath());
+
+			} catch (IOException e) {
 
 				w = new Player();
-
-//			}
+			}
 			w.setPosition(new Point((float)x,(float)y));
 			int l=checkColision(w);
 			//System.out.println(l);
