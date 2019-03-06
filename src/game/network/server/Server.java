@@ -37,7 +37,10 @@ public class Server{
 			e.printStackTrace();
 		}
 	}
-	
+	public void close(){
+		fromClient.close();
+		multicastSocket.close();
+	}
 	public List<String> getMoves(){
 		List<String> list = new ArrayList<String>(movements);
 		movements.clear();

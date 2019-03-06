@@ -235,6 +235,7 @@ public class Main extends Application {
 					e.printStackTrace();
 				}
 			}
+			s1.close();
 		}
 	}
 }
