@@ -55,23 +55,7 @@ public class Main extends Application {
 		});
 
 		// create a scene
-		String sceneFile = "gui/menu3.fxml";
-		Parent root = null;
-		URL url  = null;
-		try
-		{
-			url  = getClass().getResource( sceneFile );
-			root = FXMLLoader.load( url );
-			System.out.println( "  fxmlResource = " + sceneFile );
-		}
-		catch ( Exception ex )
-		{
-			System.out.println( "Exception on FXMLLoader.load()" );
-			System.out.println( "  * url: " + url );
-			System.out.println( "  * " + ex );
-			System.out.println( "    ----------------------------------------\n" );
-			throw ex;
-		}
+		Parent root = getMenuScene();
 		Scene scene = new Scene(root);
 
 		// add style sheet to this scene
@@ -129,6 +113,27 @@ public class Main extends Application {
 			}
 		};
 		timer.start();
+	}
+
+	public static Parent getMenuScene() throws java.io.IOException {
+		String sceneFile = "gui/menu3.fxml";
+		Parent root = null;
+		URL url  = null;
+		try
+		{
+			url  = Main.class.getResource( sceneFile );
+			root = FXMLLoader.load( url );
+//			System.out.println( "  fxmlResource = " + sceneFile );
+		}
+		catch ( Exception ex )
+		{
+			System.out.println( "Exception on FXMLLoader.load()" );
+			System.out.println( "  * url: " + url );
+			System.out.println( "  * " + ex );
+			System.out.println( "    ----------------------------------------\n" );
+			throw ex;
+		}
+		return root;
 	}
 
 	public static void SinglePlayer(Stage stage) {
@@ -230,6 +235,7 @@ public class Main extends Application {
 					e.printStackTrace();
 				}
 			}
+			s1.close();
 		}
 	}
 }

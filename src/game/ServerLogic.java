@@ -283,4 +283,8 @@ public class ServerLogic {
 		//System.out.println("发送："+System.currentTimeMillis());
 	}
 
+	public void close(){
+		server.close();
+		server=null;
+	}
 }
