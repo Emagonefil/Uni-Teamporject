@@ -5,6 +5,9 @@ import java.net.URL;
 import java.util.*;
 
 import game.ai.AiController;
+import game.controller.Login;
+import game.entity.Player;
+import game.entity.User;
 import game.network.Port;
 import game.network.Room;
 import game.network.RoomServer;
@@ -13,16 +16,15 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 // loop that runs continuously to update every component of the game
 public class Main extends Application {
+	private static User user;
 	public static Stage mainStage;
 	public static boolean isRunning = false;
 	public static ClientLogic c1 = new ClientLogic();
@@ -30,9 +32,19 @@ public class Main extends Application {
 	boolean forward, backward, left, right, shoot;
 	public static List<ClientLogic> AIs=new ArrayList<>();
 	public static int numOfAI=7;
+
+
 	public static void main(String args[]) {
 		c1.init();
 		launch(args);
+	}
+
+	public static User getUser() {
+		return user;
+	}
+
+	public static void setUser(User user) {
+		Main.user = user;
 	}
 
 	public void start(Stage primaryStage) throws Exception {
@@ -55,7 +67,26 @@ public class Main extends Application {
 		});
 
 		// create a scene
-		Parent root = getMenuScene();
+		String sceneFile = "gui/login.fxml";
+		Parent root = null;
+		URL url  = null;
+		try
+		{
+			url  = getClass().getResource( sceneFile );
+			FXMLLoader fxmlLoader = new FXMLLoader(url);
+			root = fxmlLoader.load();
+			Login loginController = fxmlLoader.getController();
+			setUser(loginController.getUser());
+			System.out.println( "  fxmlResource = " + sceneFile );
+		}
+		catch ( Exception ex )
+		{
+			System.out.println( "Exception on FXMLLoader.load()" );
+			System.out.println( "  * url: " + url );
+			System.out.println( "  * " + ex );
+			System.out.println( "    ----------------------------------------\n" );
+			throw ex;
+		}
 		Scene scene = new Scene(root);
 
 		// add style sheet to this scene
@@ -64,7 +95,6 @@ public class Main extends Application {
 		// add scene to stage and display stage
 		primaryStage.setScene(scene);
 		primaryStage.show();
-
 
 		primaryStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -115,43 +145,30 @@ public class Main extends Application {
 		timer.start();
 	}
 
-	public static Parent getMenuScene() throws java.io.IOException {
-		String sceneFile = "gui/menu3.fxml";
-		Parent root = null;
-		URL url  = null;
-		try
-		{
-			url  = Main.class.getResource( sceneFile );
-			root = FXMLLoader.load( url );
-//			System.out.println( "  fxmlResource = " + sceneFile );
-		}
-		catch ( Exception ex )
-		{
-			System.out.println( "Exception on FXMLLoader.load()" );
-			System.out.println( "  * url: " + url );
-			System.out.println( "  * " + ex );
-			System.out.println( "    ----------------------------------------\n" );
-			throw ex;
-		}
-		return root;
-	}
-
 	public static void SinglePlayer(Stage stage) {
+
 		isRunning = true;
 		serverGap s1=new serverGap();
 		s1.start();
 		c1.ServerId=s1.s1.ServerId;
 		c1.id=s1.s1.addPlayer();
+		c1.diePlayer=s1.s1.diePlayer;
+		Player p = (Player)s1.s1.getEntityByID(c1.id);
+		p.name=user.getUsername();//玩家名
 		ClientLogic ai;
 		for(int i=0;i<numOfAI;i++){
 			ai=new ClientLogic();
 			ai.ServerId=s1.s1.ServerId;
 			ai.id=s1.s1.addPlayer();
+			p = (Player)s1.s1.getEntityByID(ai.id);
+			p.name="AI_NO."+i;
 			AIs.add(ai);
 			(new AiController(ai,c1)).start();
 		}
 		GameWindow newGame = new GameWindow(stage, c1);
+
 	}
+
 
 
 
@@ -197,6 +214,8 @@ public class Main extends Application {
 							s1.s1.ServerId = c1.getMyRoom();
 							for (int id : r.ClientId) {
 								s1.s1.addPlayer(id);
+								Player p = (Player)s1.s1.getEntityByID(c1.id);
+								p.name=user.getUsername();//玩家名
 							}
 							System.out.println(r.ServerIp);
 							c1.ServerId = c1.getMyRoom();

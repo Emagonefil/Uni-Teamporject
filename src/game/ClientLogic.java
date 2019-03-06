@@ -18,10 +18,11 @@ public class ClientLogic {
 	public int id=0;
 	Client c1=new Client();
 	public List<Entity> Entities= new ArrayList<Entity>();
+	public List<Player> diePlayer= new ArrayList<Player>();
 	public int ServerId=0;
 	List<String> Room = new ArrayList<String>();
 	public List<Room> rooms = new ArrayList();
-	ClientSender sender1= c1.getSender();;
+	ClientSender sender1= c1.getSender();
 	private int myRoom;
 	long[] freezetime={System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis()};
 	public void init() {
@@ -123,9 +124,11 @@ public class ClientLogic {
 			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
 			PrintStream ps=new PrintStream(socket.getOutputStream());
 			ps.println("Room,create");
+			System.out.println("Room,create");
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
 			getRoomList();
 			int t=(int) in.readObject();
+			System.out.println(t);
 			while(true){
 				try {
 					id = findRoom(t).ClientId.get(0);

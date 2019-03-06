@@ -1,8 +1,5 @@
 package game.entity;
 
-import game.Renderer;
-import game.gui.Sprite;
-
 public class RectangularEntity extends Entity implements IRectangularEntity {
 
 	private float width;
@@ -65,12 +62,5 @@ public class RectangularEntity extends Entity implements IRectangularEntity {
 	public float getHeight() {
 		return this.height;
 	}
-
-//	public void draw() {
-//		this.set
-//		Sprite s = new Sprite(this,this.getImage(),this.getWidth(),this.getHeight(),1);
-//		Renderer.playAnimation(s,this);
-//
-//	}
 
 }
