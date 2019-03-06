@@ -12,7 +12,7 @@ public class Wall extends RectangularEntity {
 	}
 
 	public void draw() {
-		Sprite s = new Sprite(this,Renderer.wall,this.getWidth(),this.getHeight(),1);
+		Sprite s = new Sprite(this,Renderer.wall,this.getWidth(),this.getHeight(),1.2);
 		Renderer.playAnimation(s,this);
 	}
 	

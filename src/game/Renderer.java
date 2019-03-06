@@ -38,7 +38,7 @@ public class Renderer {
         gameOver = loadImage("Resources/image/game-over.gif");
         hero = loadImage("Resources/image/chubbyZombie.png");
         tank = loadImage("Resources/image/Tank.png");
-        wall = loadImage("Resources/image/terrain4.png");
+        wall = loadImage("Resources/image/hole.png");
 //        ghost1 = loadImage("Resources/image/ghost1.png");
 //        ghost2 = loadImage("Resources/image/ghost2.png");
         skull1 = loadImage("Resources/image/skull1.png");

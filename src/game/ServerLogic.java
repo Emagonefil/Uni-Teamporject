@@ -31,7 +31,7 @@ public class ServerLogic {
 				Wall w;
 				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
 				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
-				w = new Wall(40, 40, new Point((float)x, (float) y));
+				w = new Wall(50, 50, new Point((float)x, (float) y));
 				int l=checkColision(w);
 				//System.out.println(l);
 				if (l== 0) {
@@ -254,7 +254,7 @@ public class ServerLogic {
 								break;
 							}
 							case "Shoot": {
-								Bullet b = new Bullet(5, 5, new Point(e1.getPosition().getX(), e1.getPosition().getY()));
+								Bullet b = new Bullet(8, 8, new Point(e1.getPosition().getX(), e1.getPosition().getY()));
 								b.setAngle(e1.getAngle());
 								//b.id = getSpareId();
 								b.owner = e1.id;
