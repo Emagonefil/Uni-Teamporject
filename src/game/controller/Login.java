@@ -36,7 +36,7 @@ public class Login extends Control {
     public void handleLogin(ActionEvent actionEvent) throws Exception {
         getUser().setUsername(userName.getText());
         getUser().setPassword(passWord.getText());
-        System.out.println("The login User is："+ getUser().toString());
+        System.out.println("登录用户为："+ getUser().toString());
         if(ud.login(getUser())){
             Node node = (Node) actionEvent.getSource();
 

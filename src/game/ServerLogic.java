@@ -13,6 +13,7 @@ import game.entity.*;
 import java.util.*;
 public class ServerLogic {
 	List<Entity> Entities=new ArrayList<Entity>();
+	public List<Player> diePlayer= new ArrayList<Player>();
 	List<String> Commands=new ArrayList<String>();
 	Server server= new Server();
 	Random ra = new Random();
@@ -202,6 +203,7 @@ public class ServerLogic {
 							live=false;
 							if(((Player) e2).getHealth()<=0) {
 								((Player) e2).die();
+								diePlayer.add(((Player) e2));
 								Entities.remove(e2);
 							}
 						}
@@ -276,6 +278,13 @@ public class ServerLogic {
 		this.Commands = null;
 		moveBullets();
 	}
+	public Entity getEntityByID(int id) {
+		for(int i=0;i<Entities.size();i++) {
+			if(Entities.get(i).id==id)
+				return Entities.get(i);
+		}
+		return null;
+	}
 
 	public void broadcastEntities() {
 		server.send(Port.mulitcastAddress,Entities);
@@ -283,8 +292,4 @@ public class ServerLogic {
 		//System.out.println("发送："+System.currentTimeMillis());
 	}
 
-	public void close(){
-		server.close();
-		server=null;
-	}
 }

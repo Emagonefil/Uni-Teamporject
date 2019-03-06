@@ -93,7 +93,7 @@ public class UserDao {
         }catch (Exception e){
             System.out.println("Error when login！");
             e.printStackTrace();
-           throw  new RuntimeException("Error when authenticate!");
+            throw  new RuntimeException("Error when authenticate!");
         }
         return flag;
     }
@@ -101,3 +101,4 @@ public class UserDao {
 
 
 }
+
