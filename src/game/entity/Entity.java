@@ -1,5 +1,7 @@
 package game.entity;
 
+import javafx.scene.image.Image;
+
 import java.io.Serializable;
 
 public class Entity implements IEntity, Serializable {
@@ -12,6 +14,7 @@ public class Entity implements IEntity, Serializable {
 	public String type;
 	public float width;
 	public float height;
+	public Image image;
 	// Dont use this
 	public Entity() {
 		this.position = new Point(0.0f, 0.0f);

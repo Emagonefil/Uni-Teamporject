@@ -38,5 +38,10 @@ public class Bullet extends MovableRectangularEntity implements KillableEntity{
 		return 0;
 	}
 
+	public void draw() {
+		Sprite s = new Sprite(this, Renderer.bullet,this.getWidth(),this.getHeight(),1.2);
+		Renderer.playAnimation(s,this);
+	}
+
 
 }

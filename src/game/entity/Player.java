@@ -45,6 +45,11 @@ public class Player extends MovableRectangularEntity implements KillableEntity{
 	private int ammo;
 	public String name;
 
+	public void draw() {
+		Sprite s = new Sprite(this, this.getImage(),this.getWidth(),this.getHeight(),1.2);
+		Renderer.playAnimation(s,this);
+	}
+
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub
