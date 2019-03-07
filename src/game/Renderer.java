@@ -1,6 +1,7 @@
 package game;
 
 import game.entity.IRectangularEntity;
+import game.entity.Player;
 import game.gui.Sprite;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,6 +19,13 @@ public class Renderer {
     public static Image gameOver;
     public static Image hero;
     public static Image tank;
+    public static Image tank1;
+    public static Image tank2;
+    public static Image tank3;
+    public static Image tank4;
+    public static Image tank5;
+    public static Image tank6;
+    public static Image tank7;
     static Image ghost1;
     static Image ghost2;
     static Image skull1;
@@ -38,6 +46,13 @@ public class Renderer {
 //        snake1 = loadImage("Resources/image/snake1.png");
 //        snake2 = loadImage("Resources/image/snake2.png");
         bullet = loadImage("Resources/image/bullet.png");
+        tank1 = loadImage("Resources/image/tank1.png");
+        tank2 = loadImage("Resources/image/tank2.png");
+        tank3 = loadImage("Resources/image/tank3.png");
+        tank4 = loadImage("Resources/image/tank4.png");
+        tank5 = loadImage("Resources/image/tank5.png");
+        tank6 = loadImage("Resources/image/tank6.png");
+        tank7 = loadImage("Resources/image/tank7.png");
     }
 
     // return an Image object given the image path
@@ -62,7 +77,7 @@ public class Renderer {
     }
 
     public static Image getHeroImage() {
-        return hero;
+        return tank2;
     }
     
     public static void playAnimation(Sprite sprite, IRectangularEntity e) {
@@ -71,12 +86,16 @@ public class Renderer {
         rotate(gc, e.getAngle(), e.getPosition().getX(),e.getPosition().getY());
         gc.drawImage(sprite.spriteImage,e.getPosition().getX()-(e.getWidth()/2),e.getPosition().getY()-(e.getHeight()/2),
         		sprite.width*sprite.scale,sprite.height * sprite.scale);
-
         gc.restore();
     }
 
     public static void rotate(GraphicsContext gc, double angle, double x, double y) {
         Rotate r = new Rotate(angle,x,y);
         gc.setTransform(r.getMxx(),r.getMyx(),r.getMxy(),r.getMyy(),r.getTx(),r.getTy());
+    }
+
+    public static Image getTank(int index) {
+        Image[] tanks = {tank1,tank2,tank3,tank4,tank5,tank6,tank7};
+        return tanks[index];
     }
 }

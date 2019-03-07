@@ -27,7 +27,6 @@ public class AiController extends Thread {
 			e.printStackTrace();
 		}
 		aiPlayer = myPlayer();
-
 		
 	}
 	
