@@ -43,17 +43,20 @@ public class ServerLogic {
 					break;
 				}
 			}
-			
-			for (int c = 0;c<10;c++) {
-				//Spawn Random items
-				HealthPickup h;
-				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
-				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
-				h = new HealthPickup(new Point((float)x, (float)y));
-				h.id = getSpareId();
-				Entities.add(h);
-			}
 		}
+		
+		
+		for (int c = 0;c<10;c++) {
+			//Spawn Random items
+			HealthPickup h;
+			double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
+			double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
+			h = new HealthPickup(new Point((float)x, (float)y));
+			h.id = getSpareId();
+			Entities.add(h);
+		}
+		
+		
 		listPlayers();
 	}
 	public int getPlayerId(){
@@ -102,6 +105,8 @@ public class ServerLogic {
 			return ((Wall)e).getCorners();
 		if (e.type.equals("Bullet"))
 			return ((Bullet)e).getCorners();
+		if (e.type.equals("Item"))
+			return ((Item)e).getCorners();
 		return null;
 	}
 	public int checkColision(Entity e){

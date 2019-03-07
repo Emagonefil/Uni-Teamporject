@@ -92,6 +92,7 @@ public class GameLoop {
                     break;
                 case "Item":
                 	currentSprite = new Sprite(e,Renderer.healthPickup, ((Item) e).getWidth(), ((Item) e).getHeight(),1);
+                	Renderer.playAnimation(currentSprite, (IRectangularEntity) e);
                 	break;
             }
 

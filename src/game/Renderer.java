@@ -39,7 +39,7 @@ public class Renderer {
 //        snake1 = loadImage("Resources/image/snake1.png");
 //        snake2 = loadImage("Resources/image/snake2.png");
         bullet = loadImage("Resources/image/bullet.png");
-        healthPickup = loadImage("Resources/image/healthPickup");
+        healthPickup = loadImage("Resources/image/healthPickup.png");
     }
 
     // return an Image object given the image path
