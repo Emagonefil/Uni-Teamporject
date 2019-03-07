@@ -67,7 +67,7 @@ public class Main extends Application {
 		});
 
 		// create a scene
-		String sceneFile = "gui/menu3.fxml";
+		String sceneFile = "gui/login.fxml";
 		Parent root = null;
 		URL url  = null;
 		try
@@ -75,8 +75,8 @@ public class Main extends Application {
 			url  = getClass().getResource( sceneFile );
 			FXMLLoader fxmlLoader = new FXMLLoader(url);
 			root = fxmlLoader.load();
-//			Login loginController = fxmlLoader.getController();
-//			setUser(loginController.getUser());
+			Login loginController = fxmlLoader.getController();
+			setUser(loginController.getUser());
 			System.out.println( "  fxmlResource = " + sceneFile );
 		}
 		catch ( Exception ex )
