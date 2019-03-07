@@ -241,18 +241,21 @@ public class Main extends Application {
 		public void run() {
 			s1.init();
 			System.out.println("Server thread " + s1.ServerId+ " is running");
+			int t=0;
 			while (true) {
 				if(!Main.isRunning)
 					break;
 				try {
 					s1.dealCommmands();
-					if (s1.status == 2) {
+					if (s1.status == 2&&t==6) {
 						s1.broadcastEntities();
+						t=0;
 					}
 					Thread.currentThread().sleep(10);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				t++;
 			}
 		}
 	}
