@@ -1,6 +1,7 @@
 package game.entity;
 
 import game.entity.MovableEntity;
+import javafx.scene.image.Image;
 
 public class MovableRectangularEntity extends MovableEntity implements IRectangularEntity {
 
@@ -18,15 +19,31 @@ public class MovableRectangularEntity extends MovableEntity implements IRectangu
 		super(position, angle);
 		rec = new RectangularEntity(width, height, position, angle);
 	}
-	
+
 	public MovableRectangularEntity(float width, float height, Point position, float angle, float speed) {
 		super(position, angle, speed);
 		rec = new RectangularEntity(width, height, position, angle);
 	}
-	
+
 	public MovableRectangularEntity(float width, float height, Point position, float angle, float speed, float rotationSpeed) {
 		super(position, angle, speed, rotationSpeed);
 		rec = new RectangularEntity(width, height, position, angle);
+	}
+
+	// Image constructors
+	public MovableRectangularEntity(float width, float height, Point position, float angle, Image image) {
+		super(position, angle,image);
+		rec = new RectangularEntity(width, height, position, angle);
+	}
+
+	public MovableRectangularEntity(float width, float height, Point position, float angle, float speed, Image image) {
+		super(position, angle, speed,image);
+		rec = new RectangularEntity(width, height, position, angle, image);
+	}
+
+	public MovableRectangularEntity(float width, float height, Point position, float angle, float speed, float rotationSpeed, Image image) {
+		super(position, angle, speed, rotationSpeed,image);
+		rec = new RectangularEntity(width, height, position, angle, image);
 	}
 
 	// collision checking should be added to all movements

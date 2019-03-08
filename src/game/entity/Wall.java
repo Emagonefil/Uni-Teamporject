@@ -9,10 +9,13 @@ public class Wall extends RectangularEntity {
 		super(width, height, position);
 		// TODO Auto-generated constructor stub
 		this.type="Wall";
+
 	}
 
+
 	public void draw() {
-		Sprite s = new Sprite(this, Renderer.wall,this.getWidth(),this.getHeight(),1.2);
+		this.setImage(Renderer.wall);
+		Sprite s = new Sprite(this, this.getImage(),this.getWidth(),this.getHeight(),1.2);
 		Renderer.playAnimation(s,this);
 	}
 	

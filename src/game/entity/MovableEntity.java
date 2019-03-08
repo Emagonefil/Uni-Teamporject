@@ -1,5 +1,7 @@
 package game.entity;
 
+import javafx.scene.image.Image;
+
 public class MovableEntity extends Entity {
 
 	private float speed = 5.0f;
@@ -20,6 +22,22 @@ public class MovableEntity extends Entity {
 	
 	public MovableEntity(Point position, float angle, float speed, float rotationSpeed) {
 		super(position, angle);
+		this.speed = speed;
+		this.rotationSpeed = rotationSpeed;
+	}
+
+	// Image constructors
+	public MovableEntity(Point position, float angle, Image image) {
+		super(position, angle, image);
+	}
+
+	public MovableEntity(Point position, float angle, float speed, Image image){
+		super(position, angle,image);
+		this.speed = speed;
+	}
+
+	public MovableEntity(Point position, float angle, float speed, float rotationSpeed, Image image) {
+		super(position, angle,image);
 		this.speed = speed;
 		this.rotationSpeed = rotationSpeed;
 	}

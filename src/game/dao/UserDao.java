@@ -12,10 +12,11 @@ public class UserDao {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/goldenaxe", "root", "root");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/goldenaxe", "root", "");
 //            conn = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=rootpassword");
             System.out.println("Database connected");
         } catch (Exception ex) {
+            System.out.println("THIS HAPPENED");
             ex.printStackTrace();
         }
         return conn;

@@ -1,5 +1,7 @@
 package game.entity;
 
+import javafx.scene.image.Image;
+
 public class RectangularEntity extends Entity implements IRectangularEntity {
 
 	private float width;
@@ -13,6 +15,12 @@ public class RectangularEntity extends Entity implements IRectangularEntity {
 	
 	public RectangularEntity(float width, float height, Point position, float angle) {
 		super(position, angle);
+		this.width = width;
+		this.height = height;
+	}
+
+	public RectangularEntity(float width, float height, Point position, float angle, Image image) {
+		super(position, angle, image);
 		this.width = width;
 		this.height = height;
 	}
@@ -62,5 +70,4 @@ public class RectangularEntity extends Entity implements IRectangularEntity {
 	public float getHeight() {
 		return this.height;
 	}
-
 }
