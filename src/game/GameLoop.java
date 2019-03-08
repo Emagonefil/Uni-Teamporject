@@ -152,54 +152,54 @@ public class GameLoop {
 //            System.out.println(Font.getFontNames());
                 gc.setFont(new Font("Press Start 2P", 80));
                 gc.fillText("You Won!", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
-//                backToMenu(gc);
+                backToMenu(gc);
             }
         } else {
             gc.setFill(Color.BLACK);
 //            System.out.println(Font.getFontNames());
             gc.setFont(new Font("Press Start 2P", 80));
             gc.fillText("GAME OVER", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
-//            backToMenu(gc);
+            backToMenu(gc);
 //            gc.drawImage(Renderer.gameOver,CANVAS_WIDTH/3.2, CANVAS_HEIGHT/2.2);
         }
         
     }
 
-//    public static void backToMenu(GraphicsContext gc){
-//        gc.getCanvas().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent t) {
-//                Main.isRunning = false;
-//                try {
-//                    Main.mainStage.getScene().setRoot(getMenuScene());
-//                } catch(Exception e) {
-//                    System.out.println("Exception when going back to menu");
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
-//
-//    public static Parent getMenuScene() throws java.io.IOException {
-//        String sceneFile = "gui/menu3.fxml";
-//        Parent root = null;
-//        URL url  = null;
-//        try
-//        {
-//            url  = Main.class.getResource( sceneFile );
-//            root = FXMLLoader.load( url );
-////			System.out.println( "  fxmlResource = " + sceneFile );
-//        }
-//        catch ( Exception ex )
-//        {
-//            System.out.println( "Exception on FXMLLoader.load()" );
-//            System.out.println( "  * url: " + url );
-//            System.out.println( "  * " + ex );
-//            System.out.println( "    ----------------------------------------\n" );
-//            throw ex;
-//        }
-//        return root;
-//    }
+    public static void backToMenu(GraphicsContext gc){
+        gc.getCanvas().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                Main.isRunning = false;
+                try {
+                    Main.mainStage.getScene().setRoot(getMenuScene());
+                } catch(Exception e) {
+                    System.out.println("Exception when going back to menu");
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public static Parent getMenuScene() throws java.io.IOException {
+        String sceneFile = "gui/menu3.fxml";
+        Parent root = null;
+        URL url  = null;
+        try
+        {
+            url  = Main.class.getResource( sceneFile );
+            root = FXMLLoader.load( url );
+//			System.out.println( "  fxmlResource = " + sceneFile );
+        }
+        catch ( Exception ex )
+        {
+            System.out.println( "Exception on FXMLLoader.load()" );
+            System.out.println( "  * url: " + url );
+            System.out.println( "  * " + ex );
+            System.out.println( "    ----------------------------------------\n" );
+            throw ex;
+        }
+        return root;
+    }
 
     private static void drawCorners(GraphicsContext gc,Point[] corners, Color colour) {
     	gc.setFill(colour);
