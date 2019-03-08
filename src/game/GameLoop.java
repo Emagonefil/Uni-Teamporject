@@ -1,18 +1,23 @@
 package game;
 
 import game.controller.InputManager;
+import game.controller.Login;
 import game.entity.*;
 import game.gui.Animation;
 import game.gui.Sprite;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
 import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.*;
 
 import static game.Constants.CANVAS_HEIGHT;
@@ -109,63 +114,93 @@ public class GameLoop {
 
     public static void render(ClientLogic client, GraphicsContext gc) {
         Sprite currentSprite = null;
+        Player currentPlayer = (Player) client.getEntityByID(client.id);
+        int playerCount = 0;
 
         for (Entity e : client.getEntities()) {
 
-            switch (e.type) {
+            if(!e.type.equals("Player")) {
+                e.draw();
+            } else {
+                e.draw();
+                playerCount++;
+                //drawCorners(gc, ((IRectangularEntity) e).getCorners(), Color.GREEN);
+                gc.setFont(new Font("SERIF", 12));
+                gc.strokeText("" + ((Player) e).name, e.getPosition().getX() - 14, e.getPosition().getY() - 50);
 
-                case "Player":
-                    currentSprite = new Sprite(e, Renderer.tank, ((Player) e).getWidth(), ((Player) e).getHeight(), 1);
-                    Renderer.playAnimation(currentSprite, (IRectangularEntity) e);
-
-                    //drawCorners(gc, ((IRectangularEntity) e).getCorners(), Color.GREEN);
-                    gc.setFont(new Font("SERIF", 12));
-                    gc.strokeText(""+((Player) e).name,e.getPosition().getX() -14 ,e.getPosition().getY() - 42);
-
-                    double health = (((Player) e).getHealth()/1.6);
-                    if(health < 20) {
-                        gc.setFill(Color.RED);
-                    } else if(health < 40) {
-                        gc.setFill(Color.YELLOW);
-                    } else if(health > 40){
-                        gc.setFill(Color.DARKGREEN);
-                    }
-                    gc.fillRoundRect(e.getPosition().getX()-30 ,e.getPosition().getY() -37 ,health, 6,3,4);
-                    break;
-                case "Wall":
-                    currentSprite = new Sprite(e, Renderer.wall, ((Wall) e).getWidth(), ((Wall) e).getHeight(), 1);
-                    Renderer.playAnimation(currentSprite, (IRectangularEntity) e);
-                    //drawCorners(gc, ((IRectangularEntity) e).getCorners(), Color.RED);
-                    gc.setFill(Color.BLACK);
-                    gc.getPixelWriter();
-
-                    //gc.fillRect(e.getPosition().getX(),e.getPosition().getY(),((Wall) e).getWidth(), ((Wall) e).getHeight());
-
-                    break;
-                case "Bullet":
-                    currentSprite = new Sprite(e, Renderer.bullet, ((Bullet) e).getWidth(), ((Bullet) e).getHeight(), 2);
-                    Renderer.playAnimation(currentSprite, (IRectangularEntity) e);
-                    break;
+                double health = (((Player) e).getHealth() / 1.25);
+                if (health < 30) {
+                    gc.setFill(Color.RED);
+                } else if (health < 60) {
+                    gc.setFill(Color.YELLOW);
+                } else if (health > 60) {
+                    gc.setFill(Color.LIMEGREEN);
+                }
+                gc.fillRoundRect(e.getPosition().getX() - 38, e.getPosition().getY() - 45, health, 6, 3, 4);
+                gc.setStroke(Color.BLACK);
+                gc.strokeRoundRect(e.getPosition().getX() - 38, e.getPosition().getY() - 45, 80, 6, 3, 4);
             }
-
-
         }
 
-        Player currentPlayer = (Player) client.getEntityByID(client.id);
+
         gc.setFill(Color.BLACK);
         if(currentPlayer!=null) {
             gc.fillText("x: " + currentPlayer.getPosition().getX(), 50,20);
             gc.fillText("y: " + currentPlayer.getPosition().getY(), 50,40);
+            if (playerCount == 1) {
+                gc.setFill(Color.BLACK);
+//            System.out.println(Font.getFontNames());
+                gc.setFont(new Font("Press Start 2P", 80));
+                gc.fillText("You Won!", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
+//                backToMenu(gc);
+            }
         } else {
             gc.setFill(Color.BLACK);
 //            System.out.println(Font.getFontNames());
             gc.setFont(new Font("Press Start 2P", 80));
             gc.fillText("GAME OVER", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
+//            backToMenu(gc);
 //            gc.drawImage(Renderer.gameOver,CANVAS_WIDTH/3.2, CANVAS_HEIGHT/2.2);
         }
         
     }
-    
+
+//    public static void backToMenu(GraphicsContext gc){
+//        gc.getCanvas().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent t) {
+//                Main.isRunning = false;
+//                try {
+//                    Main.mainStage.getScene().setRoot(getMenuScene());
+//                } catch(Exception e) {
+//                    System.out.println("Exception when going back to menu");
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
+//
+//    public static Parent getMenuScene() throws java.io.IOException {
+//        String sceneFile = "gui/menu3.fxml";
+//        Parent root = null;
+//        URL url  = null;
+//        try
+//        {
+//            url  = Main.class.getResource( sceneFile );
+//            root = FXMLLoader.load( url );
+////			System.out.println( "  fxmlResource = " + sceneFile );
+//        }
+//        catch ( Exception ex )
+//        {
+//            System.out.println( "Exception on FXMLLoader.load()" );
+//            System.out.println( "  * url: " + url );
+//            System.out.println( "  * " + ex );
+//            System.out.println( "    ----------------------------------------\n" );
+//            throw ex;
+//        }
+//        return root;
+//    }
+
     private static void drawCorners(GraphicsContext gc,Point[] corners, Color colour) {
     	gc.setFill(colour);
     	gc.fillRect(corners[0].getX(), corners[0].getY(), 3, 3);

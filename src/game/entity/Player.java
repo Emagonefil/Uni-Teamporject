@@ -7,9 +7,11 @@ import game.gui.Sprite;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Random;
 
 public class Player extends MovableRectangularEntity implements KillableEntity{
 
+	private int tankModel = 1;
 	public static Player fromFile(String path) throws IOException {
 		Properties configFile = new Properties();
 		configFile.load(new FileInputStream(path));
@@ -31,6 +33,8 @@ public class Player extends MovableRectangularEntity implements KillableEntity{
 		this.health = 100;
 		this.ammo = 30;
 		this.type="Player";
+		Random rand = new Random();
+		this.tankModel = rand.nextInt(7);
 	}
 
 	public Player(float width, float height, Point position, float angle, float speed, float rotationSpeed, int health,
@@ -39,11 +43,24 @@ public class Player extends MovableRectangularEntity implements KillableEntity{
 		this.health = health;
 		this.ammo = ammo;
 		this.type="Player";
+		Random rand = new Random();
+		this.tankModel = rand.nextInt(7);
 	}
 
 	private int health;
 	private int ammo;
 	public String name;
+
+	@Override
+	public void draw() {
+		draw(this.tankModel);
+	}
+
+	public void draw(int tankModel) {
+		this.setImage(Renderer.getTank(tankModel));
+		Sprite s = new Sprite(this,this.getImage(),this.getWidth(),this.getHeight(),1);
+		Renderer.playAnimation(s,this);
+	}
 
 	@Override
 	public void die() {
@@ -67,6 +84,14 @@ public class Player extends MovableRectangularEntity implements KillableEntity{
 
 	public void setAmmo(int amount) {
 		this.ammo = amount;
+	}
+
+	public int getTankModel() {
+		return this.tankModel;
+	}
+
+	public void setTankModel(int tankModel) {
+		this.tankModel = tankModel;
 	}
 
 	// This is simply to easily increment ammo

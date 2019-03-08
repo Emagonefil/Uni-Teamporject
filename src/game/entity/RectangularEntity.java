@@ -18,12 +18,6 @@ public class RectangularEntity extends Entity implements IRectangularEntity {
 		this.width = width;
 		this.height = height;
 	}
-
-	public RectangularEntity(float width, float height, Point position, float angle, Image image) {
-		super(position, angle, image);
-		this.width = width;
-		this.height = height;
-	}
 	
 	private Point rotateCorner(Point corner, float angle) {
 		float radAngle = (float) Math.toRadians(angle);

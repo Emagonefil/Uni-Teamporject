@@ -30,22 +30,6 @@ public class MovableRectangularEntity extends MovableEntity implements IRectangu
 		rec = new RectangularEntity(width, height, position, angle);
 	}
 
-	// Image constructors
-	public MovableRectangularEntity(float width, float height, Point position, float angle, Image image) {
-		super(position, angle,image);
-		rec = new RectangularEntity(width, height, position, angle);
-	}
-
-	public MovableRectangularEntity(float width, float height, Point position, float angle, float speed, Image image) {
-		super(position, angle, speed,image);
-		rec = new RectangularEntity(width, height, position, angle, image);
-	}
-
-	public MovableRectangularEntity(float width, float height, Point position, float angle, float speed, float rotationSpeed, Image image) {
-		super(position, angle, speed, rotationSpeed,image);
-		rec = new RectangularEntity(width, height, position, angle, image);
-	}
-
 	// collision checking should be added to all movements
 
 	public Point[] getCorners() {

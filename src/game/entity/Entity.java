@@ -31,12 +31,6 @@ public class Entity implements IEntity, Serializable {
 		this.angle = angle;
 	}
 
-	public Entity(Point position, float angle, Image image) {
-		this.position = position;
-		this.angle = angle;
-		this.image = image;
-	}
-
 	public float getAngle() {
 		return angle;
 	}

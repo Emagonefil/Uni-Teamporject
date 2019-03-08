@@ -18,6 +18,13 @@ public class Renderer {
     public static Image gameOver;
     public static Image hero;
     public static Image tank;
+    public static Image tank1;
+    public static Image tank2;
+    public static Image tank3;
+    public static Image tank4;
+    public static Image tank5;
+    public static Image tank6;
+    public static Image tank7;
     static Image ghost1;
     static Image ghost2;
     static Image skull1;
@@ -30,6 +37,13 @@ public class Renderer {
         gameOver = loadImage("Resources/image/game-over.gif");
         hero = loadImage("Resources/image/chubbyZombie.png");
         tank = loadImage("Resources/image/Tank.png");
+        tank1 = loadImage("Resources/image/tank1.png");
+        tank2 = loadImage("Resources/image/tank2.png");
+        tank3 = loadImage("Resources/image/tank3.png");
+        tank4 = loadImage("Resources/image/tank4.png");
+        tank5 = loadImage("Resources/image/tank5.png");
+        tank6 = loadImage("Resources/image/tank6.png");
+        tank7 = loadImage("Resources/image/tank7.png");
         wall = loadImage("Resources/image/hole.png");
 //        ghost1 = loadImage("Resources/image/ghost1.png");
 //        ghost2 = loadImage("Resources/image/ghost2.png");
@@ -38,6 +52,12 @@ public class Renderer {
 //        snake1 = loadImage("Resources/image/snake1.png");
 //        snake2 = loadImage("Resources/image/snake2.png");
         bullet = loadImage("Resources/image/bullet.png");
+    }
+
+    public static Image[] tanks = {tank1,tank2,tank3,tank4,tank5,tank6,tank7};
+
+    public static Image getTank(int tankModel) {
+        return tanks[tankModel];
     }
 
     // return an Image object given the image path

@@ -20,6 +20,14 @@ public class Bullet extends MovableRectangularEntity implements KillableEntity{
 	}
 	public int owner;
 	public int damage=10;
+
+	@Override
+	public void draw() {
+		this.setImage(Renderer.bullet);
+		Sprite s = new Sprite(this, this.getImage(),this.getWidth(),this.getHeight(),1);
+		Renderer.playAnimation(s,this);
+	}
+
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub
