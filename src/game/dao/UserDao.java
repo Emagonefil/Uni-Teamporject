@@ -12,7 +12,8 @@ public class UserDao {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/goldenaxe", "root", "");
+//            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/goldenaxe", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://119.28.194.192:3306/goldenaxe", "root", "djj0209.");
 //            conn = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=rootpassword");
             System.out.println("Database connected");
         } catch (Exception ex) {
