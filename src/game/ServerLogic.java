@@ -63,6 +63,21 @@ public class ServerLogic {
 			}
 		}
 		
+		for (int c = 0;c<10;c++) {
+			while(true) {
+				//Spawn health pickups
+				HealthPickup h;
+				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
+				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
+				h = new HealthPickup(new Point((float)x, (float)y));
+				h.id = getSpareId();
+				if(checkColision(h)==0) {
+					Entities.add(h);
+					break;
+				}
+			}
+		}
+
 		for (int c = 0;c<5;c++) {
 			while(true) {
 				//Spawn speed pickups
