@@ -32,7 +32,9 @@ public class ClientSender{
 			packet.setAddress(InetAddress.getByName(address));
 			packet.setPort(port);
 			socket.send(packet);
-		}catch(Exception ignored) {}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

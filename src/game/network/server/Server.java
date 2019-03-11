@@ -19,7 +19,8 @@ public class Server{
 		try {
 			fromClient = new DatagramSocket(Port.serverPort);
 			multicastSocket = new MulticastSocket();
-			multicastSocket.setInterface(InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()));
+			multicastSocket.setInterface(InetAddress.getByName(Port.localIP));
+//			multicastSocket.joinGroup(InetAddress.getByName(Port.mulitcastAddress));
 			run();
 			System.out.println("Server started");
 		} catch (Exception e) {
@@ -51,9 +52,6 @@ public class Server{
 
 	public void send(String addr,Object obj){
 		try {
-//			DatagramSocket broadSocket = new DatagramSocket();
-//			MulticastSocket multicastSocket = new MulticastSocket();
-//			multicastSocket.setInterface(InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()));
 			DatagramPacket packet;
 
 
@@ -73,11 +71,12 @@ public class Server{
 			multicastSocket.send(packet);
 //			broadSocket.send(packet);
 
-		}catch(Exception ignored){}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 
 	}
-	
-	 
+
 	private void run() {
 		new Thread(new Runnable() {
 
@@ -92,7 +91,9 @@ public class Server{
 						movements.add(move);
 						//aSystem.out.println("Server got from client: "+move);
 					}
-				}catch(Exception ignored) {}
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
 			}
 			
 		}).start();

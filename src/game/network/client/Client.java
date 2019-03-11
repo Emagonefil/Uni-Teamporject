@@ -16,7 +16,7 @@ public class Client{
 
 	public Client() {
 		sender = new ClientSender();
-		System.out.println("Client ready");
+		System.out.println("111");
 	}
 	
 
@@ -63,5 +63,8 @@ public class Client{
     }
 
 
+    public void setInterface(String IP){
+		this.receiver.setInterface(IP);
+	}
 
 }

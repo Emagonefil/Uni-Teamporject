@@ -1,4 +1,5 @@
 package game;
+
 import game.entity.*;
 import game.entity.items.*;
 import game.entity.collisions.*;
@@ -28,21 +29,24 @@ public class ServerLogic {
 	}
 	public void initMap() {
 		int num=ra.nextInt(30)+30;
-		for(int i=0;i<num;i++) {
-			while (true) {
-				Wall w;
-				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
-				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
-				w = new Wall(50, 50, new Point((float)x, (float) y));
-				int l=checkColision(w);
-				//System.out.println(l);
-				if (l== 0) {
-					w.id = getSpareId();
-					Entities.add(w);
-					break;
-				}
-			}
-		}
+//		for(int i=0;i<num;i++) {
+//			while (true) {
+//				Wall w;
+//				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
+//				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
+//				w = new Wall(50, 50, new Point((float)x, (float) y));
+//				int l=checkColision(w);
+//				//System.out.println(l);
+//				if (l== 0) {
+//					w.id = getSpareId();
+//					Entities.add(w);
+//					break;
+//				}
+//			}
+//		}
+		Entities.add(new Wall(50, 50, new Point((float)50, (float)50 )));
+		Entities.add(new Wall(50, 50, new Point((float)100, (float)100 )));
+		Entities.add(new Wall(50, 50, new Point((float)200, (float)200 )));
 		
 		for (int c = 0;c<10;c++) {
 			while(true) {
@@ -58,7 +62,22 @@ public class ServerLogic {
 				}
 			}
 		}
-		
+
+		for (int c = 0;c<10;c++) {
+			while(true) {
+				//Spawn health pickups
+				HealthPickup h;
+				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
+				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
+				h = new HealthPickup(new Point((float)x, (float)y));
+				h.id = getSpareId();
+				if(checkColision(h)==0) {
+					Entities.add(h);
+					break;
+				}
+			}
+		}
+
 		for (int c = 0;c<5;c++) {
 			while(true) {
 				//Spawn speed pickups
@@ -167,6 +186,7 @@ public class ServerLogic {
 				w = new Player();
 
 			}
+			w.name=""+id;
 			w.setPosition(new Point((float)x,(float)y));
 			int l=checkColision(w);
 			//System.out.println(l);
@@ -175,6 +195,7 @@ public class ServerLogic {
 				Entities.add(w);
 				break;
 			}
+
 		}
 		RankService.getInstance().initPlayScore(w.id);
 		return w.id;
