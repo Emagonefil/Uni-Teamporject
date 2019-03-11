@@ -62,7 +62,7 @@ public class ServerLogic {
 				}
 			}
 		}
-		
+
 		for (int c = 0;c<10;c++) {
 			while(true) {
 				//Spawn health pickups

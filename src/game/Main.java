@@ -236,8 +236,6 @@ public class Main extends Application {
 //								p.name = String.valueOf(id);
 
 							}
-							Player p = (Player)s1.s1.getEntityByID(c1.id);
-							p.name="YOU";
 							System.out.println(r.ServerIp);
 							c1.ServerId = c1.getMyRoom();
 

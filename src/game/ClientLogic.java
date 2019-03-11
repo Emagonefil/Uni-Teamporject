@@ -33,7 +33,8 @@ public class ClientLogic {
 			public void receive(Object o) {
 				try {
 						Entities = (List<Entity>) o;
-
+						Player you = (Player)getEntityByID(id);
+						you.name="YOU";
 
 				}
 				catch (Exception e){
@@ -202,6 +203,7 @@ public class ClientLogic {
 		}
 		return null;
 	}
+
 
 	public void restartReciver(){
 		c1.closeReceiver();
