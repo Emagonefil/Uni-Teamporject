@@ -33,6 +33,7 @@ public class Renderer {
     static Image snake2;
     public static Image wall;
     public static Image bullet;
+    public static Image healthPickup;
     static {
         gameOver = loadImage("Resources/image/game-over.gif");
         hero = loadImage("Resources/image/chubbyZombie.png");
@@ -52,6 +53,7 @@ public class Renderer {
 //        snake1 = loadImage("Resources/image/snake1.png");
 //        snake2 = loadImage("Resources/image/snake2.png");
         bullet = loadImage("Resources/image/bullet.png");
+        healthPickup = loadImage("Resources/image/healthPickup.png");
     }
 
     public static Image[] tanks = {tank1,tank2,tank3,tank4,tank5,tank6,tank7};

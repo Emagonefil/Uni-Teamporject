@@ -118,7 +118,6 @@ public class GameLoop {
         int playerCount = 0;
 
         for (Entity e : client.getEntities()) {
-
             if(!e.type.equals("Player")) {
                 e.draw();
             } else {
