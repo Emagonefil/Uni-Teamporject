@@ -46,7 +46,7 @@ public class Renderer {
         tank5 = loadImage("Resources/image/tank5.png");
         tank6 = loadImage("Resources/image/tank6.png");
         tank7 = loadImage("Resources/image/tank7.png");
-        wall = loadImage("Resources/image/wall4.png");
+        wall = loadImage("Resources/image/wall6.png");
 //        ghost1 = loadImage("Resources/image/ghost1.png");
 //        ghost2 = loadImage("Resources/image/ghost2.png");
         skull1 = loadImage("Resources/image/skull1.png");
@@ -54,8 +54,8 @@ public class Renderer {
 //        snake1 = loadImage("Resources/image/snake1.png");
 //        snake2 = loadImage("Resources/image/snake2.png");
         bullet = loadImage("Resources/image/bullet.png");
-        healthPickup = loadImage("Resources/image/healthPickup.png");
-        speedPickup = loadImage("Resources/image/speedPickup.png");
+        healthPickup = loadImage("Resources/image/mushroom.png");
+        speedPickup = loadImage("Resources/image/star.png");
     }
 
     public static Image[] tanks = {tank1,tank2,tank3,tank4,tank5,tank6,tank7};
