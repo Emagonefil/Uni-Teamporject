@@ -1,7 +1,6 @@
 package game.entity;
 
 import game.entity.MovableEntity;
-import javafx.scene.image.Image;
 
 public class MovableRectangularEntity extends MovableEntity implements IRectangularEntity {
 

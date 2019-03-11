@@ -57,8 +57,7 @@ public class Player extends MovableRectangularEntity implements KillableEntity{
 	}
 
 	public void draw(int tankModel) {
-		this.setImage(Renderer.getTank(tankModel));
-		Sprite s = new Sprite(this,this.getImage(),this.getWidth(),this.getHeight(),1);
+		Sprite s = new Sprite(this,Renderer.getTank(tankModel),this.getWidth(),this.getHeight(),1);
 		Renderer.playAnimation(s,this);
 	}
 

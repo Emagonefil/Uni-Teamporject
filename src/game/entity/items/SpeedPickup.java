@@ -17,8 +17,7 @@ public class SpeedPickup extends Item {
 	
 	@Override
 	public void draw() {
-		this.setImage(Renderer.speedPickup);
-		Sprite s = new Sprite(this, this.getImage(),this.getWidth(),this.getHeight(),1);
+		Sprite s = new Sprite(this, Renderer.speedPickup,this.getWidth(),this.getHeight(),1);
 		Renderer.playAnimation(s,this);
 	}
 }

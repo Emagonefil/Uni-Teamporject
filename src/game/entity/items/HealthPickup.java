@@ -18,8 +18,7 @@ public class HealthPickup extends Item {
 	
 	@Override
 	public void draw() {
-		this.setImage(Renderer.healthPickup);
-		Sprite s = new Sprite(this, this.getImage(),this.getWidth(),this.getHeight(),1);
+		Sprite s = new Sprite(this, Renderer.healthPickup,this.getWidth(),this.getHeight(),1);
 		Renderer.playAnimation(s,this);
 	}
 }

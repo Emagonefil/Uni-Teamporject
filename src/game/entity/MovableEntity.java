@@ -1,7 +1,5 @@
 package game.entity;
 
-import javafx.scene.image.Image;
-
 public class MovableEntity extends Entity {
 
 	private float speed = 5.0f;
