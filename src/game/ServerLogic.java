@@ -48,13 +48,24 @@ public class ServerLogic {
 		
 		for (int c = 0;c<10;c++) {
 			
-			//Spawn items
+			//Spawn health pickups
 			HealthPickup h;
 			double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
 			double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
 			h = new HealthPickup(new Point((float)x, (float)y));
 			h.id = getSpareId();
 			Entities.add(h);
+		}
+		
+		for (int c = 0;c<5;c++) {
+			
+			//Spawn speed pickups
+			SpeedPickup s;
+			double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
+			double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
+			s = new SpeedPickup(new Point((float)x, (float)y));
+			s.id = getSpareId();
+			Entities.add(s);
 		}
 		
 		listPlayers();

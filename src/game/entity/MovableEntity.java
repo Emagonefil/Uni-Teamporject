@@ -41,6 +41,10 @@ public class MovableEntity extends Entity {
 	public void setSpeed(float s){
 		this.speed=s;
 	}
+	
+	public void setRotationSpeed(float s) {
+		this.rotationSpeed = s;
+	}
 
 	public void rotateRight() {
 		this.angle = (this.angle + rotationSpeed) % 360;
