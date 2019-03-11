@@ -1,5 +1,6 @@
 package game;
 import game.entity.*;
+import game.entity.items.*;
 import game.entity.collisions.*;
 import game.network.Port;
 import game.network.server.*;
@@ -42,6 +43,37 @@ public class ServerLogic {
 				}
 			}
 		}
+		
+		for (int c = 0;c<10;c++) {
+			while(true) {
+				//Spawn health pickups
+				HealthPickup h;
+				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
+				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
+				h = new HealthPickup(new Point((float)x, (float)y));
+				h.id = getSpareId();
+				if(checkColision(h)==0) {
+					Entities.add(h);
+					break;
+				}
+			}
+		}
+		
+		for (int c = 0;c<5;c++) {
+			while(true) {
+				//Spawn speed pickups
+				SpeedPickup s;
+				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
+				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
+				s = new SpeedPickup(new Point((float)x, (float)y));
+				s.id = getSpareId();
+				if(checkColision(s)==0) {
+					Entities.add(s);
+					break;
+				}
+			}
+		}
+		
 		listPlayers();
 	}
 	public int getPlayerId(){
@@ -90,6 +122,8 @@ public class ServerLogic {
 			return ((Wall)e).getCorners();
 		if (e.type.equals("Bullet"))
 			return ((Bullet)e).getCorners();
+		if (e.type.equals("Item"))
+			return ((Item)e).getCorners();
 		return null;
 	}
 	public int checkColision(Entity e){
@@ -105,8 +139,16 @@ public class ServerLogic {
 			if(e2.equals(e))
 				continue;
 			p2=getCorner(e2);
-			if(CollisionDetection.isTouching(p1,p2))
+			if(CollisionDetection.isTouching(p1,p2)) {
+				if (e2.type.equals("Item")) {
+					if (e.type.equals("Player")) {
+						((Item) e2).effect((Player) e);
+					}
+					Entities.remove(e2);
+					return 1;
+				}
 				return e2.id;
+			}
 		}
 		return 0;
 	}
