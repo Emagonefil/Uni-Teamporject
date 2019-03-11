@@ -44,28 +44,34 @@ public class ServerLogic {
 			}
 		}
 		
-		
-		
 		for (int c = 0;c<10;c++) {
-			
-			//Spawn health pickups
-			HealthPickup h;
-			double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
-			double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
-			h = new HealthPickup(new Point((float)x, (float)y));
-			h.id = getSpareId();
-			Entities.add(h);
+			while(true) {
+				//Spawn health pickups
+				HealthPickup h;
+				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
+				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
+				h = new HealthPickup(new Point((float)x, (float)y));
+				h.id = getSpareId();
+				if(checkColision(h)==0) {
+					Entities.add(h);
+					break;
+				}
+			}
 		}
 		
 		for (int c = 0;c<5;c++) {
-			
-			//Spawn speed pickups
-			SpeedPickup s;
-			double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
-			double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
-			s = new SpeedPickup(new Point((float)x, (float)y));
-			s.id = getSpareId();
-			Entities.add(s);
+			while(true) {
+				//Spawn speed pickups
+				SpeedPickup s;
+				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
+				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
+				s = new SpeedPickup(new Point((float)x, (float)y));
+				s.id = getSpareId();
+				if(checkColision(s)==0) {
+					Entities.add(s);
+					break;
+				}
+			}
 		}
 		
 		listPlayers();
@@ -135,9 +141,11 @@ public class ServerLogic {
 			p2=getCorner(e2);
 			if(CollisionDetection.isTouching(p1,p2)) {
 				if (e2.type.equals("Item")) {
-					((Item) e2).effect((Player) e);
+					if (e.type.equals("Player")) {
+						((Item) e2).effect((Player) e);
+					}
 					Entities.remove(e2);
-					return 0;
+					return 1;
 				}
 				return e2.id;
 			}
