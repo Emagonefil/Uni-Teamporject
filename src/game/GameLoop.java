@@ -16,6 +16,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
+
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.*;
@@ -29,9 +31,9 @@ public class GameLoop {
         {
             add(Color.WHITE);
             add(Color.YELLOW);
-            add(Color.BLUE);
+            add(Color.DARKBLUE);
             add(Color.GREEN);
-            add(Color.GREY);
+            add(Color.DARKORANGE);
             add(Color.BLACK);
             add(Color.RED);
         }
@@ -56,7 +58,16 @@ public class GameLoop {
                 currentGameTime = (currentNanoTime - startNanoTime) / 1000000000.0;
                 deltaTime = currentGameTime - oldGameTime;
                 gc.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
-                render(client, gc);
+                if(client.getEntities().isEmpty()) {
+                    System.out.println("THERE ARE NO ENTITIES LOADED IN client.getEntities()");
+                    gc.setFill(Color.BLACK);
+
+                    gc.setFont(new Font("Press Start 2P", 40));
+                    gc.fillText("Loading...", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.23);
+                    gc.fillText("No entities loaded", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2);
+                } else {
+                    render(client, gc);
+                }
 
                 drawScoreboard(client, gc);
 
@@ -92,20 +103,30 @@ public class GameLoop {
         int everyHeight = 20;
         int height = (players.size()+client.diePlayer.size()+1)*everyHeight+40;
         int i = 1;
-        gc.setFill(Color.rgb(242,93,142,0.5));
-        gc.setStroke(Color.rgb(242,93,142,0.9));
+        gc.setFill(Color.rgb(150,150,150,0.3));
+        gc.setStroke(Color.rgb(0,0,0,0.5));
         gc.fillRoundRect(CANVAS_WIDTH-200, 0, 200, height, 10, 10);
         gc.strokeRoundRect(CANVAS_WIDTH-200, 0, 200, height, 10, 10);
-        gc.setFont(new Font("SERIF", 16));
-        gc.strokeText("name       HEALTH",CANVAS_WIDTH-170 ,30);
+        gc.setFont(new Font("Press Start 2P", 9));
+        gc.setFill(Color.BLACK);
+        gc.fillText(" name      HEALTH",CANVAS_WIDTH-170 ,30);
+        String space = "                       ";
         for(Player p :players){
-            gc.setStroke(constColor.get( p.id%constColor.size()));
-            gc.strokeText(p.name+"       "+p.getHealth() ,CANVAS_WIDTH-170 ,i*everyHeight+30);
+            if(p.id == client.id) {
+                gc.setFill(Color.YELLOW);
+            } else {
+                gc.setFill(Color.DARKRED);
+            }
+            gc.fillText(p.name+ space.substring(0,12-p.name.length()) +p.getHealth() ,CANVAS_WIDTH-170 ,i*everyHeight+30);
             i++;
         }
         for(int n = client.diePlayer.size();n>0;n--){
-            gc.setStroke(constColor.get( client.diePlayer.get(n-1).id%constColor.size()));
-            gc.strokeText(client.diePlayer.get(n-1).name+"       "+client.diePlayer.get(n-1).getHealth() ,CANVAS_WIDTH-170 ,i*everyHeight+30);
+            if(client.diePlayer.get(n-1).id == client.id) {
+                gc.setFill(Color.YELLOW);
+            } else {
+                gc.setFill(Color.DARKRED);
+            }
+            gc.fillText(client.diePlayer.get(n-1).name+space.substring(0,12-client.diePlayer.get(n-1).name.length())+client.diePlayer.get(n-1).getHealth() ,CANVAS_WIDTH-170 ,i*everyHeight+30);
             i++;
         }
 
@@ -117,6 +138,7 @@ public class GameLoop {
         Player currentPlayer = (Player) client.getEntityByID(client.id);
         int playerCount = 0;
 
+
         for (Entity e : client.getEntities()) {
 
             if(!e.type.equals("Player")) {
@@ -125,8 +147,20 @@ public class GameLoop {
                 e.draw();
                 playerCount++;
                 //drawCorners(gc, ((IRectangularEntity) e).getCorners(), Color.GREEN);
-                gc.setFont(new Font("SERIF", 12));
-                gc.strokeText("" + ((Player) e).name, e.getPosition().getX() - 14, e.getPosition().getY() - 50);
+//                gc.setFont(new Font("SERIF", 12));
+                gc.setFont(new Font("Press Start 2P", 8));
+                if(currentPlayer != null) {
+                    if(e.id == currentPlayer.id) {
+                        gc.setFill(Color.YELLOW);
+                    }else {
+                        gc.setFill(Color.DARKRED);
+                    }
+                } else {
+                    gc.setFill(Color.DARKRED);
+                }
+
+                float xpos = e.getPosition().getX() - 38 + (80 - ((Player) e).name.length()*(((Player) e).name.length()))/2;
+                gc.fillText("" + ((Player) e).name, xpos, e.getPosition().getY() - 50);
 
                 double health = (((Player) e).getHealth() / 1.25);
                 if (health < 30) {

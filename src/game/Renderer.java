@@ -44,7 +44,7 @@ public class Renderer {
         tank5 = loadImage("Resources/image/tank5.png");
         tank6 = loadImage("Resources/image/tank6.png");
         tank7 = loadImage("Resources/image/tank7.png");
-        wall = loadImage("Resources/image/hole.png");
+        wall = loadImage("Resources/image/wall4.png");
 //        ghost1 = loadImage("Resources/image/ghost1.png");
 //        ghost2 = loadImage("Resources/image/ghost2.png");
         skull1 = loadImage("Resources/image/skull1.png");
