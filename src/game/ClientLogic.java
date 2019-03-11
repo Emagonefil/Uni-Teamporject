@@ -11,6 +11,7 @@ import game.network.Port;
 import game.network.Room;
 import game.network.client.*;
 import game.network.Room;
+import game.network.common.IPSearcher;
 
 import javax.naming.ldap.SortKey;
 
@@ -30,7 +31,7 @@ public class ClientLogic {
 		c1.startReceiver(new Receivable() {
 			@Override
 			public void receive(Object o) {
-//				System.out.println("received");
+				System.out.println("received");
 				try {
 						Entities = (List<Entity>) o;
 
@@ -185,7 +186,7 @@ public class ClientLogic {
 		try{
 			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
 			PrintStream ps=new PrintStream(socket.getOutputStream());
-			ps.println("Room,start"+myRoom+","+ InetAddress.getLocalHost().getHostAddress());
+			ps.println("Room,start"+myRoom+","+ Port.localIP);
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
 		}catch (Exception e){
 			e.printStackTrace();
@@ -202,6 +203,26 @@ public class ClientLogic {
 		}
 		return null;
 	}
+
+	public void restartReciver(){
+		c1.closeReceiver();
+		c1.startReceiver(new Receivable() {
+			@Override
+			public void receive(Object o) {
+				System.out.println("received");
+				try {
+					Entities = (List<Entity>) o;
+
+
+				}
+				catch (Exception e){
+//					String command= (String) o;
+
+				}
+			}
+		});
+	}
+
 	}
 
 

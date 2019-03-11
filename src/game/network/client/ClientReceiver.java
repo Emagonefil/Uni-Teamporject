@@ -33,7 +33,7 @@ public class ClientReceiver implements Runnable{
 	public void run() {
 		try {
 			//DatagramSocket fromServer = new DatagramSocket(listenPort);
-			fromServer.setInterface(InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()));
+			fromServer.setInterface(InetAddress.getByName(Port.localIP));
 			fromServer.joinGroup(InetAddress.getByName(fromRoom));
 			fromServer.setSoTimeout(100);
 			byte[] buf = new byte[4096];
@@ -47,9 +47,11 @@ public class ClientReceiver implements Runnable{
 					renderer.receive(obj);
 				}
 				catch (Exception e){
+
 				}
 			}while(flag);
 		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	public void stop(){
@@ -80,6 +82,16 @@ public class ClientReceiver implements Runnable{
 		}
 
 	}
-	
+
+	public void setInterface(String IP){
+		try {
+			stop();
+			fromServer.setInterface(InetAddress.getByName(IP));
+
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+	}
 	
 }

@@ -140,7 +140,6 @@ public class GameLoop {
 
 
         for (Entity e : client.getEntities()) {
-
             if(!e.type.equals("Player")) {
                 e.draw();
             } else {

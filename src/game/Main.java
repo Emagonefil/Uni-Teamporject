@@ -11,6 +11,8 @@ import game.entity.User;
 import game.network.Port;
 import game.network.Room;
 import game.network.RoomServer;
+import game.network.client.Receivable;
+import game.network.common.IPSearcher;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -35,7 +37,14 @@ public class Main extends Application {
 
 
 	public static void main(String args[]) {
-		c1.init();
+//		Port.localIP = IPSearcher.goldenaxeAddress();
+		try {
+			Port.localIP = InetAddress.getLocalHost().getHostAddress();
+			System.out.println(Port.localIP);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		System.out.println("localIP: "+Port.localIP);
 		launch(args);
 	}
 
@@ -145,18 +154,21 @@ public class Main extends Application {
 		timer.start();
 	}
 
-	public static void SinglePlayer(Stage stage) {
-
+	public static void SinglePlayer(Stage stage){
+//		Port.localIP=IPSearcher.goldenaxeAddress();
+		c1.init();
 		isRunning = true;
+
 		serverGap s1=new serverGap();
 		s1.start();
 		c1.ServerId=s1.s1.ServerId;
 		c1.id=s1.s1.addPlayer();
 		c1.diePlayer=s1.s1.diePlayer;
 		Player p = (Player)s1.s1.getEntityByID(c1.id);
-		p.name=user.getUsername();//玩家名
-		ClientLogic ai;
+		p.name="YOU";
+//		p.name=user.getUsername();//玩家名
 		for(int i=0;i<numOfAI;i++){
+			ClientLogic ai;
 			ai=new ClientLogic();
 			ai.ServerId=s1.s1.ServerId;
 			ai.id=s1.s1.addPlayer();
@@ -175,6 +187,10 @@ public class Main extends Application {
 
 	public static void MultiPlayer(Stage stage) {
 		//if you are the room server, run these codes
+		Port.localIP = IPSearcher.goldenaxeAddress();
+//		c1.restartReciver();
+		c1.init();
+		System.out.println(c1.c1);
 		RoomServer roomServer=new RoomServer();
 		roomServer.run();
 
@@ -208,19 +224,23 @@ public class Main extends Application {
 					//System.out.println(r.status+" "+r.ServerIp + " " );
 					if (r.ServerIp != null&&r.status == 2 && r.ServerIp != "") {
 						isRunning = true;
-						if (r.ServerIp.equals(InetAddress.getLocalHost().getHostAddress())) {
+						if (r.ServerIp.equals(Port.localIP)) {
 							serverGap s1 = new serverGap();
 							s1.start();
 							s1.s1.ServerId = c1.getMyRoom();
+							System.out.println(r.ClientId);
 							for (int id : r.ClientId) {
 								s1.s1.addPlayer(id);
-								Player p = (Player)s1.s1.getEntityByID(c1.id);
-								p.name=user.getUsername();//玩家名
+//								Player p = (Player)s1.s1.getEntityByID(c1.id);
+//								p.name=user.getUsername();//玩家名
+//								p.name = String.valueOf(id);
 							}
 							System.out.println(r.ServerIp);
 							c1.ServerId = c1.getMyRoom();
+
 							Port.serverAddress = r.ServerIp;
 						}
+
 						else if(r.status == 2){
 							c1.ServerId = c1.getMyRoom();
 							Port.serverAddress = r.ServerIp;
