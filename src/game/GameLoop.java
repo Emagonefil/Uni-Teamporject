@@ -169,7 +169,12 @@ public class GameLoop {
                 } else if (health > 60) {
                     gc.setFill(Color.LIMEGREEN);
                 }
-                gc.fillRoundRect(e.getPosition().getX() - 38, e.getPosition().getY() - 45, health, 6, 3, 4);
+                if(health > 80) {
+                    gc.fillRoundRect(e.getPosition().getX() - 38, e.getPosition().getY() - 45, 80, 6, 3, 4);
+                } else {
+                    gc.fillRoundRect(e.getPosition().getX() - 38, e.getPosition().getY() - 45, health, 6, 3, 4);
+                }
+
                 gc.setStroke(Color.BLACK);
                 gc.strokeRoundRect(e.getPosition().getX() - 38, e.getPosition().getY() - 45, 80, 6, 3, 4);
             }
