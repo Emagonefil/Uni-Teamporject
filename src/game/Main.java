@@ -234,6 +234,8 @@ public class Main extends Application {
 					//System.out.println(r.status+" "+r.ServerIp + " " );
 					if (r.ServerIp != null&&r.status == 2 && r.ServerIp != "") {
 						Port.mulitcastAddress = r.RoomIP;
+						c1.c1.leaveRoom();
+						c1.c1.joinRoom(r.RoomIP);
 						c1.init();
 						isRunning = true;
 						if (r.ServerIp.equals(Port.localIP)) {

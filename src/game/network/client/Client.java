@@ -6,7 +6,7 @@ public class Client{
 	
 	private Integer sendingPort = Port.serverPort;
 //	private Integer listenPort = Port.boradcastPort;
-	private String address = Port.serverAddress;
+//	private String address = Port.serverAddress;
 	
 	private ClientSender sender;
 	private ClientReceiver receiver;
@@ -38,10 +38,10 @@ public class Client{
 		
 	}
 
-	public void changeServerIP(String address){
-		Port.serverAddress = address;
-		this.address = address;
-	}
+//	public void changeServerIP(String address){
+//		Port.serverAddress = address;
+//		this.address = address;
+//	}
 	public void closeReceiver(){
 	    if(null!=this.receiver)
 		this.receiver.stop();
@@ -58,9 +58,9 @@ public class Client{
 	}
 
 
-	public String getAddress(){
-	    return address+"@"+sendingPort;
-    }
+//	public String getAddress(){
+//	    return address+"@"+sendingPort;
+//    }
 
 
     public void setInterface(String IP){
