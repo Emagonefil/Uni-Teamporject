@@ -236,6 +236,7 @@ public class Main extends Application {
 							s1.start();
 							s1.s1.ServerId = c1.getMyRoom();
 							System.out.println(r.ClientId);
+							Thread.sleep(1000);
 							for (int id : r.ClientId) {
 								s1.s1.addPlayer(id);
 

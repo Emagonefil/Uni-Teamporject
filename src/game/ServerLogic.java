@@ -130,12 +130,15 @@ public class ServerLogic {
 			//System.out.println(l);
 			if (l== 0) {
 				w.id = id;
+				w.name = String.valueOf(w.id);
 				Entities.add(w);
 				break;
 			}
 
 		}
+
 		RankService.getInstance().initPlayScore(w.id);
+		listPlayers();
 		return w.id;
 	}
 	public int addPlayer(){
@@ -157,10 +160,12 @@ public class ServerLogic {
 			//System.out.println(l);
 			if (l== 0) {
 				w.id =getSpareId();
+				w.name = String.valueOf(w.id);
 				Entities.add(w);
 				break;
 			}
 		}
+
 		listPlayers();
 		RankService.getInstance().initPlayScore(w.id);
 		return w.id;
