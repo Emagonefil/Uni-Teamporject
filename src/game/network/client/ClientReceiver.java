@@ -82,7 +82,7 @@ public class ClientReceiver implements Runnable{
 		try{
 			fromServer.leaveGroup(InetAddress.getByName(fromRoom));
 		}catch (Exception e){
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 
 	}

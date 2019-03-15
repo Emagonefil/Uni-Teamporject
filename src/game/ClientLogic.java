@@ -28,9 +28,15 @@ public class ClientLogic {
 	long[] freezetime={System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis()};
 	public void init() {
 		c1 = new Client();
+		diePlayer = new ArrayList<>();
+		Entities = new ArrayList<>();
+		ServerId = 0;
+		sender1 = c1.getSender();
+
 		c1.startReceiver(new Receivable() {
 			@Override
 			public void receive(Object o) {
+
 				try {
 						Entities = (List<Entity>) o;
 						Player you = (Player)getEntityByID(id);
@@ -41,6 +47,7 @@ public class ClientLogic {
 //					String command= (String) o;
 
 				}
+
 			}
 
 		});

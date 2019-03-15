@@ -198,6 +198,9 @@ public class Main extends Application {
 	public static void MultiPlayer(Stage stage) {
 		//if you are the room server, run these codes
 		Port.localIP = IPSearcher.goldenaxeAddress();
+//		c1.close();
+		c1 = null;
+		c1 = new ClientLogic();
 //		c1.restartReciver();
 //		c1.init();
 		System.out.println(c1.c1);
@@ -234,8 +237,8 @@ public class Main extends Application {
 					//System.out.println(r.status+" "+r.ServerIp + " " );
 					if (r.ServerIp != null&&r.status == 2 && r.ServerIp != "") {
 						Port.mulitcastAddress = r.RoomIP;
-						c1.c1.leaveRoom();
-						c1.c1.joinRoom(r.RoomIP);
+						System.out.println("sadgaskldfmoijgoiehigdf"+Port.mulitcastAddress);
+//						c1.close();
 						c1.init();
 						isRunning = true;
 						if (r.ServerIp.equals(Port.localIP)) {

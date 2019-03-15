@@ -9,10 +9,6 @@ import game.network.server.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
-import java.math.*;
-import java.util.regex.*;
-import game.entity.*;
 import java.util.*;
 public class ServerLogic {
 	List<Entity> Entities=new ArrayList<Entity>();
