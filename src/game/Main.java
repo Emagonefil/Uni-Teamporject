@@ -42,7 +42,7 @@ public class Main extends Application {
 
 
 	public static void main(String args[]) {
-		roomServer.run();
+		//roomServer.run();
 		try {
 			Port.localIP = InetAddress.getLocalHost().getHostAddress();
 			System.out.println(Port.localIP);
