@@ -234,6 +234,10 @@ public class Main extends Application {
 					//System.out.println(r.status+" "+r.ServerIp + " " );
 					if (r.ServerIp != null&&r.status == 2 && r.ServerIp != "") {
 						Port.mulitcastAddress = r.RoomIP;
+//						c1.c1.closeReceiver();
+//						c1.init();
+						c1.close();
+						c1.init();
 						isRunning = true;
 						if (r.ServerIp.equals(Port.localIP)) {
 							serverGap s1 = new serverGap();

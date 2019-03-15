@@ -27,7 +27,7 @@ public class ClientLogic {
 	private int myRoom;
 	long[] freezetime={System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis()};
 	public void init() {
-
+		c1 = new Client();
 		c1.startReceiver(new Receivable() {
 			@Override
 			public void receive(Object o) {
@@ -206,6 +206,10 @@ public class ClientLogic {
 		return null;
 	}
 
+	public void close(){
+		c1.closeReceiver();
+		c1 = null;
+	}
 
 	public void restartReciver(){
 		c1.closeReceiver();

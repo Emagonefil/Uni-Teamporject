@@ -31,7 +31,7 @@ public class ServerLogic {
 	}
 	public void initMap() {
 		m.initMap(0);
-		Entities=m.getMap();
+		Entities.addAll(m.getMap());
 	}
 	public int getPlayerId(){
 		Entity e;

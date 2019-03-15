@@ -43,7 +43,7 @@ public class Client{
 		this.address = address;
 	}
 	public void closeReceiver(){
-	    if(!(null==this.receiver))
+	    if(null!=this.receiver)
 		this.receiver.stop();
 	    this.receiver = null;
 		receOn = false;
