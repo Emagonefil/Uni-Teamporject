@@ -10,6 +10,12 @@ public class Wall extends RectangularEntity {
 		// TODO Auto-generated constructor stub
 		this.type="Wall";
 	}
+	public Wall(float width, float height, Point position,int id) {
+		super(width, height, position);
+		// TODO Auto-generated constructor stub
+		this.type="Wall";
+		this.id=id;
+	}
 
 
 	public void draw() {

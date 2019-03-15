@@ -7,7 +7,7 @@ public class Port {
 	public static String serverAddress = "127.0.0.1";
 	public static String mulitcastAddress = "230.0.0.1";
 //	public static String roomServerAddress="192.168.137.1";
-	public static String roomServerAddress="127.0.0.1";
+	public static String roomServerAddress="192.168.137.1";
 	public static String roomPort="9999";
 
 	public static String localIP = null;

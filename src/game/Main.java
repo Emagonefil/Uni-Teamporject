@@ -33,7 +33,7 @@ public class Main extends Application {
 	public String username = "";
 	boolean forward, backward, left, right, shoot;
 	public static List<ClientLogic> AIs=new ArrayList<>();
-	public static int numOfAI=7;
+	public static int numOfAI=4;
 
 
 	public static void main(String args[]) {
@@ -161,22 +161,29 @@ public class Main extends Application {
 
 		serverGap s1=new serverGap();
 		s1.start();
-		c1.ServerId=s1.s1.ServerId;
-		c1.id=s1.s1.addPlayer();
-		c1.diePlayer=s1.s1.diePlayer;
-		Player p = (Player)s1.s1.getEntityByID(c1.id);
-		p.name="YOU";
 //		p.name=user.getUsername();//玩家名
+		try{
+			Thread.sleep(500);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
 		for(int i=0;i<numOfAI;i++){
 			ClientLogic ai;
 			ai=new ClientLogic();
 			ai.ServerId=s1.s1.ServerId;
 			ai.id=s1.s1.addPlayer();
+			Player p;
 			p = (Player)s1.s1.getEntityByID(ai.id);
 			p.name="AI_NO."+i;
 			AIs.add(ai);
 			(new AiController(ai,c1)).start();
 		}
+		c1.ServerId=s1.s1.ServerId;
+		c1.id=s1.s1.addPlayer();
+		c1.diePlayer=s1.s1.diePlayer;
+		Player p = (Player)s1.s1.getEntityByID(c1.id);
+		p.name="YOU";
 		GameWindow newGame = new GameWindow(stage, c1);
 
 	}
@@ -278,6 +285,8 @@ public class Main extends Application {
 				}
 				t++;
 			}
+			s1.close();
+			s1=null;
 		}
 	}
 }

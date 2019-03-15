@@ -3,6 +3,7 @@ package game;
 import game.entity.*;
 import game.entity.items.*;
 import game.entity.collisions.*;
+import game.maps.map;
 import game.network.Port;
 import game.network.server.*;
 
@@ -21,6 +22,7 @@ public class ServerLogic {
 	Random ra = new Random();
 	public int status=0;
 	public int ServerId= 99999;
+	map m=new map();
 	public void init() {
 		initMap();
 		this.status=1;
@@ -28,72 +30,8 @@ public class ServerLogic {
 		this.status=2;
 	}
 	public void initMap() {
-		int num=ra.nextInt(30)+30;
-//		for(int i=0;i<num;i++) {
-//			while (true) {
-//				Wall w;
-//				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
-//				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
-//				w = new Wall(50, 50, new Point((float)x, (float) y));
-//				int l=checkColision(w);
-//				//System.out.println(l);
-//				if (l== 0) {
-//					w.id = getSpareId();
-//					Entities.add(w);
-//					break;
-//				}
-//			}
-//		}
-		Entities.add(new Wall(50, 50, new Point((float)50, (float)50 )));
-		Entities.add(new Wall(50, 50, new Point((float)100, (float)100 )));
-		Entities.add(new Wall(50, 50, new Point((float)200, (float)200 )));
-		
-		for (int c = 0;c<10;c++) {
-			while(true) {
-				//Spawn health pickups
-				HealthPickup h;
-				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
-				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
-				h = new HealthPickup(new Point((float)x, (float)y));
-				h.id = getSpareId();
-				if(checkColision(h)==0) {
-					Entities.add(h);
-					break;
-				}
-			}
-		}
-
-		for (int c = 0;c<10;c++) {
-			while(true) {
-				//Spawn health pickups
-				HealthPickup h;
-				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
-				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
-				h = new HealthPickup(new Point((float)x, (float)y));
-				h.id = getSpareId();
-				if(checkColision(h)==0) {
-					Entities.add(h);
-					break;
-				}
-			}
-		}
-
-		for (int c = 0;c<5;c++) {
-			while(true) {
-				//Spawn speed pickups
-				SpeedPickup s;
-				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
-				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
-				s = new SpeedPickup(new Point((float)x, (float)y));
-				s.id = getSpareId();
-				if(checkColision(s)==0) {
-					Entities.add(s);
-					break;
-				}
-			}
-		}
-		
-		listPlayers();
+		m.initMap(0);
+		Entities=m.getMap();
 	}
 	public int getPlayerId(){
 		Entity e;
@@ -223,6 +161,7 @@ public class ServerLogic {
 				break;
 			}
 		}
+		listPlayers();
 		RankService.getInstance().initPlayScore(w.id);
 		return w.id;
 	}
@@ -340,6 +279,36 @@ public class ServerLogic {
 		}
 		this.Commands = null;
 		moveBullets();
+		createItems();
+	}
+	public void createItems(){
+
+		if(ra.nextInt(Entities.size()*50)==1)
+			for(int i=0;i<50;i++){
+				//Spawn health pickups
+				HealthPickup h;
+				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/50)*50 ;
+				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/50)*50 ;
+				h = new HealthPickup(new Point((float)x, (float)y));
+				h.id = getSpareId();
+				if(checkColision(h)==0) {
+					Entities.add(h);
+					break;
+			}
+		}
+		if(ra.nextInt(Entities.size()*50)==1)
+			for(int i=0;i<50;i++){
+				//Spawn speed pickups
+				SpeedPickup s;
+				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/50)*50 ;
+				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/50)*50 ;
+				s = new SpeedPickup(new Point((float)x, (float)y));
+				s.id = getSpareId();
+				if(checkColision(s)==0) {
+					Entities.add(s);
+					break;
+			}
+		}
 	}
 	public Entity getEntityByID(int id) {
 		for(int i=0;i<Entities.size();i++) {
@@ -353,6 +322,9 @@ public class ServerLogic {
 		server.send(Port.mulitcastAddress,Entities);
 		//List<PlayerScore> newRank = RankService.getInstance().rankList();
 		//System.out.println("发送："+System.currentTimeMillis());
+	}
+	public void close(){
+		server.close();
 	}
 
 }

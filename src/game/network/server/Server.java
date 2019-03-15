@@ -98,6 +98,13 @@ public class Server{
 			
 		}).start();
 	}
-	
+
+	public void close(){
+		fromClient.close();
+		multicastSocket.close();
+		fromClient=null;
+		multicastSocket=null;
+		movements=null;
+	}
 	
 }
