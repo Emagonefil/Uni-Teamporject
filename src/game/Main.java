@@ -34,13 +34,15 @@ public class Main extends Application {
 	public static boolean isRunning = false;
 	public static ClientLogic c1 = new ClientLogic();
 	public String username = "";
+	public static RoomServer roomServer=new RoomServer();
+
 	boolean forward, backward, left, right, shoot;
 	public static List<ClientLogic> AIs=new ArrayList<>();
 	public static int numOfAI=4;
 
 
 	public static void main(String args[]) {
-//		Port.localIP = IPSearcher.goldenaxeAddress();
+		roomServer.run();
 		try {
 			Port.localIP = InetAddress.getLocalHost().getHostAddress();
 			System.out.println(Port.localIP);
@@ -158,7 +160,6 @@ public class Main extends Application {
 	}
 
 	public static void SinglePlayer(Stage stage){
-//		Port.localIP=IPSearcher.goldenaxeAddress();
 		try {
 			Port.localIP = InetAddress.getLocalHost().getHostAddress();
 			Port.mulitcastAddress = "230.0.1.1";
@@ -204,22 +205,15 @@ public class Main extends Application {
 
 
 	public static void MultiPlayer(Stage stage) {
-		//if you are the room server, run these codes
 		Port.localIP = IPSearcher.goldenaxeAddress();
-//		c1.close();
 		c1 = null;
 		c1 = new ClientLogic();
-//		c1.restartReciver();
-//		c1.init();
 		System.out.println(c1.c1);
-		RoomServer roomServer=new RoomServer();
-		roomServer.run();
+
 
 		c1.getRoomList();
-		//c1.createRoom();
 		waitForGame w1=new waitForGame(stage);
 		w1.start();
-//		GameWindow newGame = new GameWindow(stage,c1);
 
 	}
 
@@ -246,7 +240,6 @@ public class Main extends Application {
 					if (r.ServerIp != null&&r.status == 2 && r.ServerIp != "") {
 						Port.mulitcastAddress = r.RoomIP;
 						System.out.println("sadgaskldfmoijgoiehigdf"+Port.mulitcastAddress);
-//						c1.close();
 						c1.init();
 						isRunning = true;
 						if (r.ServerIp.equals(Port.localIP)) {
