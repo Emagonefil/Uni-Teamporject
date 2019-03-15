@@ -15,12 +15,14 @@ public class ClientReceiver implements Runnable{
 	private ObjectInputStream input;
 	private static boolean flag = true;
 	private static MulticastSocket fromServer;
-	private static String fromRoom = Port.mulitcastAddress;
+	private static String fromRoom;
 	
 	public ClientReceiver(Receivable r) {
+		fromRoom = Port.mulitcastAddress;
+
 		try{
 			fromServer = new MulticastSocket(listenPort);
-		}catch (IOException e){
+		}catch (Exception e){
 			e.printStackTrace();
 		}
 //		this.listenPort = listenPort;
@@ -35,6 +37,8 @@ public class ClientReceiver implements Runnable{
 			//DatagramSocket fromServer = new DatagramSocket(listenPort);
 			fromServer.setInterface(InetAddress.getByName(Port.localIP));
 			fromServer.joinGroup(InetAddress.getByName(fromRoom));
+			System.out.println("interface: "+fromServer.getInterface());
+			System.out.println("group: "+ fromRoom);
 			fromServer.setSoTimeout(100);
 			byte[] buf = new byte[4096];
 			DatagramPacket packet = new DatagramPacket(buf,buf.length);

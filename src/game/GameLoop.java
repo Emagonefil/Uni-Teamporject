@@ -59,7 +59,7 @@ public class GameLoop {
                 deltaTime = currentGameTime - oldGameTime;
                 gc.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
                 if(client.getEntities().isEmpty()) {
-                    System.out.println("THERE ARE NO ENTITIES LOADED IN client.getEntities()");
+//                    System.out.println("THERE ARE NO ENTITIES LOADED IN client.getEntities()");
                     gc.setFill(Color.BLACK);
 
                     gc.setFont(new Font("Press Start 2P", 40));
