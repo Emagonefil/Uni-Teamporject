@@ -6,4 +6,5 @@ public class Command {
     public static final String roomLeave = "Room,leave";
     public static final String roomList = "Room,list";
     public static final String roomStart = "Room,start";
+    public static final String roomEnd = "Room,endGame";
 }

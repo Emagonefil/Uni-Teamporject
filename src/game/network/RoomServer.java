@@ -48,6 +48,13 @@ public class RoomServer {
         else if(command.startsWith(Command.roomList)) {
             return rooms;
         }
+        else if(command.startsWith(Command.roomEnd)){
+            int roomID = Integer.parseInt(command.substring(Command.roomEnd.length()));
+            Room room = findRoom(roomID);
+            if(null==room) return "???";
+            rooms.remove(room);
+            return "OK";
+        }
         else if(command.startsWith(Command.roomStart)){
             String t = command.substring(Command.roomStart.length());
             String[] a=t.split(",");

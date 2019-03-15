@@ -1,6 +1,9 @@
 package game;
 
+import java.io.ObjectInputStream;
+import java.io.PrintStream;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.URL;
 import java.util.*;
 
@@ -230,9 +233,11 @@ public class Main extends Application {
 						continue;
 					//System.out.println(r.status+" "+r.ServerIp + " " );
 					if (r.ServerIp != null&&r.status == 2 && r.ServerIp != "") {
+						Port.mulitcastAddress = r.RoomIP;
 						isRunning = true;
 						if (r.ServerIp.equals(Port.localIP)) {
 							serverGap s1 = new serverGap();
+							s1.mode=2;
 							s1.start();
 							s1.s1.ServerId = c1.getMyRoom();
 							System.out.println(r.ClientId);
@@ -266,6 +271,7 @@ public class Main extends Application {
 
 	public static class serverGap extends Thread {
 		public ServerLogic s1=new ServerLogic();
+		public int mode = 1;
 		@Override
 		public void run() {
 			s1.init();
@@ -285,6 +291,16 @@ public class Main extends Application {
 					e.printStackTrace();
 				}
 				t++;
+			}
+			if(mode==2){
+				try{
+					Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
+					PrintStream ps=new PrintStream(socket.getOutputStream());
+					ps.println("Room,endGame"+s1.ServerId);
+					ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
+				}catch (Exception e){
+					e.printStackTrace();
+				}
 			}
 			s1.close();
 			s1=null;

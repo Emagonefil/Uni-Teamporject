@@ -192,6 +192,8 @@ public class ClientLogic {
 			e.printStackTrace();
 		}
 	}
+
+
 	public int getMyRoom(){
 		return myRoom;
 	}
