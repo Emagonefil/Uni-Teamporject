@@ -161,9 +161,12 @@ public class Main extends Application {
 //		Port.localIP=IPSearcher.goldenaxeAddress();
 		try {
 			Port.localIP = InetAddress.getLocalHost().getHostAddress();
+			Port.mulitcastAddress = "230.0.1.1";
+			Port.serverAddress = "127.0.0.1";
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+
 		c1.init();
 		isRunning = true;
 
