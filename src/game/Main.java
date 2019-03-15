@@ -159,6 +159,11 @@ public class Main extends Application {
 
 	public static void SinglePlayer(Stage stage){
 //		Port.localIP=IPSearcher.goldenaxeAddress();
+		try {
+			Port.localIP = InetAddress.getLocalHost().getHostAddress();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		c1.init();
 		isRunning = true;
 
