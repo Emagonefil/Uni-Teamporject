@@ -74,11 +74,12 @@ public class GameLoop {
                     gc.setFill(Color.BLACK);
 
                     gc.setFont(new Font("Press Start 2P", 40));
-                    gc.fillText("Loading...", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.23);
-                    gc.fillText("No entities loaded", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2);
-//                    stop();
+                    gc.fillText("Loading...", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.5);
+                    gc.fillText("No entities loaded", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
+                    GameWindow.toggleBtn(true);
 
                 } else {
+                    GameWindow.toggleBtn(false);
                     render(client, gc);
                     drawScoreboard(client, gc);
                 }
