@@ -24,6 +24,7 @@ public class GameWindow {
     private static GraphicsContext gc;
     private static Pane root;
     private static Stage windowStage;
+    private static JFXButton b1;
 
     public static void start(Stage stage, ClientLogic client) {
         windowStage = stage;
@@ -35,7 +36,24 @@ public class GameWindow {
         root.getChildren().add(holder);
         gc = c.getGraphicsContext2D();
         c.setMouseTransparent(true);
-//        addBtn();
+        b1 = new JFXButton("RETURN TO MENU");
+
+        root.getStylesheets().addAll(GameWindow.class.getResource("gui/style.css").toExternalForm());
+
+        b1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                GameLoop.stop();
+                Main.isRunning = false;
+                System.out.println("I am here lalallalallalalalalal");
+                backToMenu(windowStage);
+            }
+        });
+        b1.setVisible(false);
+
+        root.getChildren().add(b1);
+        b1.setLayoutX((Constants.CANVAS_WIDTH - 230)/2);
+        b1.setLayoutY((Constants.CANVAS_HEIGHT - 40)/2);
         BackgroundImage bkg = new BackgroundImage(Renderer.background, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT);
         holder.setBackground(new Background(bkg));
         stage.getScene().setRoot(root);
@@ -44,22 +62,8 @@ public class GameWindow {
         GameLoop.start(gc, stage.getScene(), client);
     }
 
-    public static void addBtn() {
-        Main.isRunning = false;
-        GameLoop.stop();
-        JFXButton b1 = new JFXButton("RETURN TO MENU");
-        root.getStylesheets().addAll(GameWindow.class.getResource("gui/style.css").toExternalForm());
-
-        b1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("I am here lalallalallalalalalal");
-                backToMenu(windowStage);
-            }
-        });
-        root.getChildren().add(b1);
-        b1.setLayoutX((Constants.CANVAS_WIDTH - 230)/2);
-        b1.setLayoutY((Constants.CANVAS_HEIGHT - 40)/2);
+    public static void toggleBtn(boolean val) {
+        b1.setVisible(val);
     }
 
 

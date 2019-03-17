@@ -50,6 +50,8 @@ public class GameLoop {
     private static double oldGameTime;
     private static double deltaTime;
     private final static long startNanoTime = System.nanoTime();
+    private static int count = 0;
+    private static boolean btnAdded = false;
 //    private static List<Entity> entities;
     public static double getCurrentGameTime() {
         return currentGameTime;
@@ -67,15 +69,6 @@ public class GameLoop {
                 deltaTime = currentGameTime - oldGameTime;
                 gc.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
                 Player currentPlayer = (Player) client.getEntityByID(client.id);
-                if(currentPlayer == null) {
-                    gc.setFill(Color.BLACK);
-
-                    gc.setFont(new Font("Press Start 2P", 40));
-                    gc.fillText("Loading...", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.23);
-                    gc.fillText("Your player isnt loaded", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2);
-                    stop();
-                    timer.start();
-                }
                 if(client.getEntities().isEmpty()) {
 //                    System.out.println("THERE ARE NO ENTITIES LOADED IN client.getEntities()");
                     gc.setFill(Color.BLACK);
@@ -84,7 +77,7 @@ public class GameLoop {
                     gc.fillText("Loading...", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.23);
                     gc.fillText("No entities loaded", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2);
 //                    stop();
-                    GameWindow.addBtn();
+
                 } else {
                     render(client, gc);
                     drawScoreboard(client, gc);
@@ -198,9 +191,18 @@ public class GameLoop {
             }
         }
 
+        if(currentPlayer == null) {
+            count++;
+            if (count > 100) {
+                gc.setFill(Color.BLACK);
+//            System.out.println(Font.getFontNames());
+                gc.setFont(new Font("Press Start 2P", 80));
+                gc.fillText("GAME OVER", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
+                GameWindow.toggleBtn(true);
+            }
 
-        gc.setFill(Color.BLACK);
-        if(currentPlayer!=null) {
+        } else {
+            gc.setFill(Color.BLACK);
             gc.fillText("x: " + currentPlayer.getPosition().getX(), 50,20);
             gc.fillText("y: " + currentPlayer.getPosition().getY(), 50,40);
             if (playerCount == 1) {
@@ -208,16 +210,10 @@ public class GameLoop {
 //            System.out.println(Font.getFontNames());
                 gc.setFont(new Font("Press Start 2P", 80));
                 gc.fillText("You Won!", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
-//                timer.stop();
-                GameWindow.addBtn();
+                GameWindow.toggleBtn(true);
+            } else {
+                GameWindow.toggleBtn(false);
             }
-        } else {
-            gc.setFill(Color.BLACK);
-//            System.out.println(Font.getFontNames());
-            gc.setFont(new Font("Press Start 2P", 80));
-            gc.fillText("GAME OVER", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
-//            timer.stop();
-            GameWindow.addBtn();
         }
         
     }
