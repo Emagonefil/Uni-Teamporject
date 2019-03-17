@@ -35,7 +35,9 @@ public class Renderer {
     public static Image bullet;
     public static Image healthPickup;
     public static Image speedPickup;
+    public static Image background;
     static {
+        background = loadImage("Resources/image/bkg.png");
         gameOver = loadImage("Resources/image/game-over.gif");
         hero = loadImage("Resources/image/chubbyZombie.png");
         tank = loadImage("Resources/image/Tank.png");
@@ -52,7 +54,7 @@ public class Renderer {
         skull1 = loadImage("Resources/image/skull1.png");
 //        skull2 = loadImage("Resources/image/skull2.png");
 //        snake1 = loadImage("Resources/image/snake1.png");
-//        snake2 = loadImage("Resources/image/snake2.png");
+//        snake2 = loadImage("Resources/image/snake2.png");andreea
         bullet = loadImage("Resources/image/bullet.png");
         healthPickup = loadImage("Resources/image/mushroom.png");
         speedPickup = loadImage("Resources/image/star.png");

@@ -1,21 +1,32 @@
 package game;
 
+import com.jfoenix.controls.JFXButton;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.effect.ColorInput;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import java.net.URL;
 
 public class GameWindow {
 
     private static Canvas c;
     private static GraphicsContext gc;
     private static Pane root;
+    private static Stage windowStage;
 
-    public GameWindow(Stage stage, ClientLogic client) {
+    public static void start(Stage stage, ClientLogic client) {
+        windowStage = stage;
         root = new Pane();
         StackPane holder = new StackPane();
 
@@ -23,15 +34,68 @@ public class GameWindow {
         holder.getChildren().add(c);
         root.getChildren().add(holder);
         gc = c.getGraphicsContext2D();
-
-        holder.setId("gameWindow");
-        holder.getStylesheets().addAll(this.getClass().getResource("gui/style.css").toExternalForm());
-
+        c.setMouseTransparent(true);
+//        addBtn();
+        BackgroundImage bkg = new BackgroundImage(Renderer.background, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT);
+        holder.setBackground(new Background(bkg));
         stage.getScene().setRoot(root);
 
         stage.show();
         GameLoop.start(gc, stage.getScene(), client);
     }
+
+    public static void addBtn() {
+        Main.isRunning = false;
+        GameLoop.stop();
+        JFXButton b1 = new JFXButton("RETURN TO MENU");
+        root.getStylesheets().addAll(GameWindow.class.getResource("gui/style.css").toExternalForm());
+
+        b1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("I am here lalallalallalalalalal");
+                backToMenu(windowStage);
+            }
+        });
+        root.getChildren().add(b1);
+        b1.setLayoutX((Constants.CANVAS_WIDTH - 230)/2);
+        b1.setLayoutY((Constants.CANVAS_HEIGHT - 40)/2);
+    }
+
+
+    public static void backToMenu(Stage stage){
+        Main.isRunning = false;
+        try {
+            Parent r = getMenuScene();
+            stage.getScene().setRoot(r);
+        } catch(Exception e) {
+            System.out.println("Exception when going back to menu");
+            e.printStackTrace();
+        }
+
+    }
+
+    public static Parent getMenuScene() throws java.io.IOException {
+        String sceneFile = "gui/menu3.fxml";
+        Parent root = null;
+        URL url  = null;
+        try
+        {
+            url  = Main.class.getResource( sceneFile );
+            root = FXMLLoader.load( url );
+//			System.out.println( "  fxmlResource = " + sceneFile );
+        }
+        catch ( Exception ex )
+        {
+            System.out.println( "Exception on FXMLLoader.load()" );
+            System.out.println( "  * url: " + url );
+            System.out.println( "  * " + ex );
+            System.out.println( "    ----------------------------------------\n" );
+            throw ex;
+        }
+        return root;
+    }
+
 
     public static GraphicsContext getGraphicsContext() {
         return gc;

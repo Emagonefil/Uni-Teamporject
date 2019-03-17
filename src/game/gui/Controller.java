@@ -3,6 +3,7 @@ package game.gui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import game.Constants;
+import game.GameLoop;
 import game.GameWindow;
 import game.Main;
 import javafx.animation.AnimationTimer;
@@ -107,6 +108,8 @@ public class Controller {
                 roomList.refresh();
 
                 try {
+                    Main.isRunning = false;
+                    GameLoop.stop();
                     Parent root1 = FXMLLoader.load(getClass().getResource("menu3.fxml"));
                     primaryStage.getScene().setRoot(root1);
                     primaryStage.setTitle("Tanks");
@@ -145,8 +148,10 @@ public class Controller {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 Main.c1.startGame();
-                GameWindow newGame = new GameWindow(primaryStage, Main.c1);
+//                GameWindow newGame = new GameWindow(primaryStage, Main.c1);
+                GameWindow.start(primaryStage,Main.c1);
             }
+
         });
 
 

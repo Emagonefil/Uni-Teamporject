@@ -171,6 +171,7 @@ public class Main extends Application {
 		c1.init();
 		isRunning = true;
 
+
 		serverGap s1=new serverGap();
 		s1.start();
 //		p.name=user.getUsername();//玩家名
@@ -196,8 +197,8 @@ public class Main extends Application {
 		c1.diePlayer=s1.s1.diePlayer;
 		Player p = (Player)s1.s1.getEntityByID(c1.id);
 		p.name="YOU";
-		GameWindow newGame = new GameWindow(stage, c1);
-
+//		GameWindow newGame = new GameWindow(stage, c1);
+		GameWindow.start(stage,c1);
 	}
 
 

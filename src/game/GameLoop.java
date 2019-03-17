@@ -1,5 +1,6 @@
 package game;
 
+import com.jfoenix.controls.JFXButton;
 import game.controller.InputManager;
 import game.controller.Login;
 import game.entity.*;
@@ -7,15 +8,20 @@ import game.gui.Animation;
 import game.gui.Sprite;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 
 import java.awt.image.BufferedImage;
@@ -26,6 +32,7 @@ import static game.Constants.CANVAS_HEIGHT;
 import static game.Constants.CANVAS_WIDTH;
 
 public class GameLoop {
+
     public static final List<Color> constColor = new ArrayList<Color>() {
         private static final long serialVersionUID = 1L;
         {
@@ -38,6 +45,7 @@ public class GameLoop {
             add(Color.RED);
         }
     };
+    private static AnimationTimer timer = null;
     private static double currentGameTime;
     private static double oldGameTime;
     private static double deltaTime;
@@ -52,12 +60,22 @@ public class GameLoop {
     }
 
     public static void start(GraphicsContext gc, Scene scene, ClientLogic client) {
-        new AnimationTimer() {
+        timer = new AnimationTimer() {
             public void handle(long currentNanoTime) {
                 oldGameTime = currentGameTime;
                 currentGameTime = (currentNanoTime - startNanoTime) / 1000000000.0;
                 deltaTime = currentGameTime - oldGameTime;
                 gc.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+                Player currentPlayer = (Player) client.getEntityByID(client.id);
+                if(currentPlayer == null) {
+                    gc.setFill(Color.BLACK);
+
+                    gc.setFont(new Font("Press Start 2P", 40));
+                    gc.fillText("Loading...", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.23);
+                    gc.fillText("Your player isnt loaded", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2);
+                    stop();
+                    timer.start();
+                }
                 if(client.getEntities().isEmpty()) {
 //                    System.out.println("THERE ARE NO ENTITIES LOADED IN client.getEntities()");
                     gc.setFill(Color.BLACK);
@@ -65,20 +83,21 @@ public class GameLoop {
                     gc.setFont(new Font("Press Start 2P", 40));
                     gc.fillText("Loading...", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.23);
                     gc.fillText("No entities loaded", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2);
+//                    stop();
+                    GameWindow.addBtn();
                 } else {
                     render(client, gc);
+                    drawScoreboard(client, gc);
                 }
-
-                drawScoreboard(client, gc);
-
             }
-        }.start();
+        };
+        timer.start();
     }
 
-//    public static void update(Scene scene, ClientLogic client) {
-//        InputManager.handlePlayerMovements(scene,client);
-//    }
-/**/
+    public static void stop()  {
+        timer.stop();
+    }
+
     public static void drawScoreboard(ClientLogic client,GraphicsContext gc) {
         List<Player> players = new ArrayList<>();
         for (Entity e : client.getEntities()) {
@@ -134,7 +153,6 @@ public class GameLoop {
 
 
     public static void render(ClientLogic client, GraphicsContext gc) {
-        Sprite currentSprite = null;
         Player currentPlayer = (Player) client.getEntityByID(client.id);
         int playerCount = 0;
 
@@ -190,53 +208,18 @@ public class GameLoop {
 //            System.out.println(Font.getFontNames());
                 gc.setFont(new Font("Press Start 2P", 80));
                 gc.fillText("You Won!", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
-                backToMenu(gc);
+//                timer.stop();
+                GameWindow.addBtn();
             }
         } else {
             gc.setFill(Color.BLACK);
 //            System.out.println(Font.getFontNames());
             gc.setFont(new Font("Press Start 2P", 80));
             gc.fillText("GAME OVER", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
-            backToMenu(gc);
-//            gc.drawImage(Renderer.gameOver,CANVAS_WIDTH/3.2, CANVAS_HEIGHT/2.2);
+//            timer.stop();
+            GameWindow.addBtn();
         }
         
-    }
-
-    public static void backToMenu(GraphicsContext gc){
-        gc.getCanvas().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent t) {
-                Main.isRunning = false;
-                try {
-                    Main.mainStage.getScene().setRoot(getMenuScene());
-                } catch(Exception e) {
-                    System.out.println("Exception when going back to menu");
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    public static Parent getMenuScene() throws java.io.IOException {
-        String sceneFile = "gui/menu3.fxml";
-        Parent root = null;
-        URL url  = null;
-        try
-        {
-            url  = Main.class.getResource( sceneFile );
-            root = FXMLLoader.load( url );
-//			System.out.println( "  fxmlResource = " + sceneFile );
-        }
-        catch ( Exception ex )
-        {
-            System.out.println( "Exception on FXMLLoader.load()" );
-            System.out.println( "  * url: " + url );
-            System.out.println( "  * " + ex );
-            System.out.println( "    ----------------------------------------\n" );
-            throw ex;
-        }
-        return root;
     }
 
     private static void drawCorners(GraphicsContext gc,Point[] corners, Color colour) {
