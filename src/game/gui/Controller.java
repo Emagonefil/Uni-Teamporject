@@ -3,6 +3,7 @@ package game.gui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import game.*;
+import game.network.Port;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
@@ -44,6 +45,7 @@ public class Controller {
 
     public JFXListView roomList;
     public static AnimationTimer tim;
+    public static Room room;
 
     @FXML
     protected void handleSinglePlayerButtonAction(ActionEvent event) throws Exception {
@@ -90,22 +92,19 @@ public class Controller {
 //        JFXListView newList;
 
         Label gamestart = new Label("Game started, press start now");
-        Room room = Main.c1.findRoom(Main.c1.getMyRoom());
+        room = Main.c1.findRoom(Main.c1.getMyRoom());
 
         tim = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                updateRoom();
                 if (room != null) {
                     if(room.ServerIp != null&&room.status == 2 && room.ServerIp != "") {
+                        System.out.println("GAME WINDOW SHOULD START NOW"+ Port.mulitcastAddress);
                         GameWindow.start(Main.mainStage,Main.c1);
+                        System.out.println("GAME WINDOW SHOULD HAVE STARTED ALREADY"+ Port.mulitcastAddress);
                         stopTimer();
-    //                    if (!vbox.getChildren().contains(gamestart)) {
-    //                        vbox.getChildren().add(gamestart);
-    //                    }
-                    } //else {
-//                    if (vbox.getChildren().contains(gamestart)) {
-//                        vbox.getChildren().remove(gamestart);
-//                    }
+                    }
                 }
 
 //                if (vbox.getChildren().contains(roomList)) {
@@ -205,8 +204,14 @@ public class Controller {
 
     }
 
+
+
+    public static void updateRoom() {
+        room = Main.c1.findRoom(Main.c1.getMyRoom());
+    }
     public static void stopTimer() {
         tim.stop();
+        System.out.println("Timer stopped");
     }
 
 
