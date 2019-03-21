@@ -299,5 +299,22 @@
 	-fx-padding : 0 0 5 0;
 }*/
 
+.jfx-text-field, .jfx-password-field {
 
+    -fx-max-width: 350;
+    -fx-pref-height: 35.0;
+    -fx-prompt-text-fill: black;
+    -jfx-focus-color: rgba(45,85,100,1);
+    -jfx-unfocus-color: black;
+}
 
+/*#login {*/
+    /*-fx-alignment: CENTER;*/
+/*}*/
+.hbox {
+    -fx-alignment: CENTER;
+}
+
+.hbox .jfx-button {
+    -fx-max-width: 160;
+}

@@ -26,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javax.sound.sampled.*;
 
 // loop that runs continuously to update every component of the game
 public class Main extends Application {
