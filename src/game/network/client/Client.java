@@ -73,9 +73,6 @@ public class Client{
 	}
 
 
-//	public String getAddress(){
-//	    return address+"@"+sendingPort;
-//    }
 
 
     public void setInterface(String IP){
