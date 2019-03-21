@@ -18,10 +18,11 @@
       <VBox fx:id="titleImg">
 
       </VBox>
-      <JFXButton text="SOUND">
-      </JFXButton>
-      <JFXButton text="CONTACT">
-      </JFXButton>
+      <Label text="Music Volume"></Label>
+      <JFXSlider></JFXSlider>
+      <Label text="Sound Effects Volume"></Label>
+      <JFXSlider></JFXSlider>
+      
       <JFXButton onAction="#handleBackButtonAction" text="BACK" >
       </JFXButton>
    </children>

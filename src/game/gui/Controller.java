@@ -57,8 +57,9 @@ public class Controller {
         loading.getChildren().add(imgv);
         primaryStage.getScene().setRoot(loading);
         primaryStage.show();
-
-        Main.SinglePlayer(primaryStage);
+        System.out.println("fuck");
+        Thread.sleep(1000);
+       Main.SinglePlayer(primaryStage);
     }
 
     @FXML
@@ -101,6 +102,9 @@ public class Controller {
                 if (room != null) {
                     if(room.ServerIp != null&&room.status == 2 && room.ServerIp != "") {
                         System.out.println("GAME WINDOW SHOULD START NOW"+ Port.mulitcastAddress);
+                        if(GameLoop.isRunning) {
+                            GameLoop.stop();
+                        }
                         GameWindow.start(Main.mainStage,Main.c1);
                         System.out.println("GAME WINDOW SHOULD HAVE STARTED ALREADY"+ Port.mulitcastAddress);
                         stopTimer();
@@ -211,7 +215,7 @@ public class Controller {
     }
     public static void stopTimer() {
         tim.stop();
-        System.out.println("Timer stopped");
+        System.out.println("TIMER STOPPED");
     }
 
 

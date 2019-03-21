@@ -207,8 +207,8 @@ public class GameLoop {
 
         } else {
             gc.setFill(Color.BLACK);
-            gc.fillText("x: " + currentPlayer.getPosition().getX(), 50,20);
-            gc.fillText("y: " + currentPlayer.getPosition().getY(), 50,40);
+            gc.fillText("x: " + currentPlayer.getPosition().getX(), 60,25);
+            gc.fillText("y: " + currentPlayer.getPosition().getY(), 60,45);
             if (playerCount == 1) {
                 gc.setFill(Color.BLACK);
 //            System.out.println(Font.getFontNames());

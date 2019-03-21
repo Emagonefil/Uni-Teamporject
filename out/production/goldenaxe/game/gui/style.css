@@ -216,7 +216,7 @@
 }
 
 .custom-jfx-list-view .jfx-rippler {
-    -jfx-rippler-fill: rgba(45,85,100,0.2);
+    -jfx-rippler-fill: rgba(45,100,85,0.2);
 }
 
 .custom-jfx-list-view1 {
@@ -304,7 +304,7 @@
     -fx-max-width: 350;
     -fx-pref-height: 35.0;
     -fx-prompt-text-fill: black;
-    -jfx-focus-color: rgba(45,85,100,1);
+    -jfx-focus-color: rgba(45,100,85,1);
     -jfx-unfocus-color: black;
 }
 
@@ -317,4 +317,65 @@
 
 .hbox .jfx-button {
     -fx-max-width: 160;
+}
+
+
+.toggle-button {
+    /*-fx-graphic: url('../../image/v-on.png');*/
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-image: url('../../image/v-on.png');
+    -fx-background-size: 40 40;
+    -fx-pref-width: 40;
+    -fx-pref-height: 40;
+    -fx-max-width: 40;
+    -fx-max-height: 40;
+    -fx-min-width: 40;
+    -fx-min-height: 40;
+}
+
+.toggle-button:selected {
+    -fx-background-image: url('../../image/v-off.png');
+    -fx-background-size: 40 40;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.jfx-slider {
+    -fx-pref-width: 300;
+    -fx-max-width: 300;
+    -fx-border-radius: 3!important;
+
+}
+/* Styling the slider track */
+.jfx-slider > .track {
+    -fx-background-color: #ddd;
+    -fx-pref-height: 7;
+    -fx-max-height: 7;
+    -fx-border-radius: 3!important;
+
+}
+
+/* Styling the slider thumb */
+.jfx-slider > .thumb {
+    -fx-background-color: rgba(45,100,85,1);
+}
+
+/* Styling the filled track */
+.jfx-slider > .colored-track {
+    -fx-background-color: rgba(45,100,85,1);
+}
+
+/* Styling the animated thumb */
+.jfx-slider > .animated-thumb {
+    -fx-background-color: rgba(45,100,85,1);
+    -fx-pref-width: 50;
+    -fx-pref-height: 50;
+}
+
+/* Styling the slider value text inside animated thumb */
+.jfx-slider .slider-value {
+    -fx-fill: white;
+    -fx-stroke: white;
+    -fx-font-size: 14;
 }
