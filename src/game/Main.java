@@ -1,5 +1,6 @@
 package game;
 
+import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.PrintStream;
 import java.net.InetAddress;
@@ -43,7 +44,7 @@ public class Main extends Application {
 
 
 	public static void main(String args[]) {
-		//roomServer.run();
+		roomServer.run();
 		try {
 			Port.localIP = InetAddress.getLocalHost().getHostAddress();
 			System.out.println(Port.localIP);
@@ -64,6 +65,8 @@ public class Main extends Application {
 
 	public void start(Stage primaryStage) throws Exception {
 		mainStage = primaryStage;
+
+
 		// set the window title
 		primaryStage.setTitle(Constants.GAME_NAME + " " + Constants.GAME_VERSION);
 
