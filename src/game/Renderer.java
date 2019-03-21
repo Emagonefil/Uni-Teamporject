@@ -16,6 +16,7 @@ import java.io.File;
 public class Renderer {
 
     public static Image gameOver;
+    public static Image loading;
     public static Image hero;
     public static Image tank;
     public static Image tank1;
@@ -39,6 +40,7 @@ public class Renderer {
     static {
         background = loadImage("Resources/image/bkg.png");
         gameOver = loadImage("Resources/image/game-over.gif");
+        loading = loadImage("Resources/image/loading.gif");
         hero = loadImage("Resources/image/chubbyZombie.png");
         tank = loadImage("Resources/image/Tank.png");
         tank1 = loadImage("Resources/image/tank1.png");

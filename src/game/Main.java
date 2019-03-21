@@ -24,7 +24,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javax.sound.sampled.*;
@@ -164,6 +167,8 @@ public class Main extends Application {
 	}
 
 	public static void SinglePlayer(Stage stage){
+
+
 		try {
 			Port.localIP = InetAddress.getLocalHost().getHostAddress();
 			Port.mulitcastAddress = "230.0.1.1";
@@ -205,7 +210,9 @@ public class Main extends Application {
 		GameWindow.start(stage,c1);
 	}
 
+	public static void loadingScreen() {
 
+	}
 
 
 
