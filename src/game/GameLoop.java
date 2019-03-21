@@ -33,6 +33,7 @@ import static game.Constants.CANVAS_WIDTH;
 
 public class GameLoop {
 
+    public static boolean isRunning = false;
     public static final List<Color> constColor = new ArrayList<Color>() {
         private static final long serialVersionUID = 1L;
         {
@@ -86,10 +87,12 @@ public class GameLoop {
             }
         };
         timer.start();
+        isRunning = true;
     }
 
     public static void stop()  {
         timer.stop();
+        isRunning = false;
     }
 
     public static void drawScoreboard(ClientLogic client,GraphicsContext gc) {

@@ -103,13 +103,14 @@ public class Controller {
         back.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent t) {
-                roomList.getItems().clear();
-//                roomList.getItems().removeAll(roomIDs);
-                roomList.refresh();
-
                 try {
+                    roomList.getItems().clear();
+                    roomList.refresh();
                     Main.isRunning = false;
-                    GameLoop.stop();
+                    if (GameLoop.isRunning) {
+                        GameLoop.stop();
+                    }
+
                     Parent root1 = FXMLLoader.load(getClass().getResource("menu3.fxml"));
                     primaryStage.getScene().setRoot(root1);
                     primaryStage.setTitle("Tanks");
