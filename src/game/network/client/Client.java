@@ -5,8 +5,7 @@ import game.network.Port;
 public class Client{
 	
 	private Integer sendingPort = Port.serverPort;
-//	private Integer listenPort = Port.boradcastPort;
-//	private String address = Port.serverAddress;
+
 	
 	private ClientSender sender;
 	private ClientReceiver receiver;
@@ -17,31 +16,40 @@ public class Client{
 	public Client() {
 		sender = new ClientSender();
 		System.out.println("111");
-	}
-	
 
-	
+	}
+
+
+	/**
+	 * get a ClientSender that is used to send data to server
+	 * @return the ClientSender of this client used to send data to server
+	 * @see ClientSender
+	 */
 	public ClientSender getSender() {
 		return sender;
 	}
-	
-	public void startReceiver(Receivable r) {
+
+	/**
+	 * start a ClientReceiver that automatically runs the receive method
+	 * of the receivable class that passed in when receives data from server
+	 * @param receivable Receivable class used to be called by ClientReceiver
+	 * @see ClientReceiver
+	 */
+	public void startReceiver(Receivable receivable) {
 		if(receOn) {
 			System.out.println("Receiver has started already");
 			return;
 		}else {
-			receiver = new ClientReceiver(r);
+			receiver = new ClientReceiver(receivable);
 			new Thread(receiver).start();
 			receOn = true;
 			System.out.println("Receiver starts");
 		}
-		
 	}
 
-//	public void changeServerIP(String address){
-//		Port.serverAddress = address;
-//		this.address = address;
-//	}
+	/**
+	 * close the current ClientReceiver that is running
+	 */
 	public void closeReceiver(){
 	    if(null!=this.receiver)
 		this.receiver.stop();
@@ -49,10 +57,17 @@ public class Client{
 		receOn = false;
 	}
 
+	/**
+	 * let this client to join a specific room
+	 * @param address the address of the room that the client wants to join in
+	 */
 	public void joinRoom(String address){
 		this.receiver.join(address);
 	}
 
+	/**
+	 *
+	 */
 	public void leaveRoom(){
 		this.receiver.leave();
 	}
