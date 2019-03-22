@@ -22,7 +22,7 @@
       <JFXSlider></JFXSlider>
       <Label text="Sound Effects Volume"></Label>
       <JFXSlider></JFXSlider>
-      
+
       <JFXButton onAction="#handleBackButtonAction" text="BACK" >
       </JFXButton>
    </children>
