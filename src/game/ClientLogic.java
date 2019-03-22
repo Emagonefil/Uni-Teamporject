@@ -5,8 +5,13 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+
+import game.dao.UserDao;
 import game.entity.*;
 
+import game.entity.items.HealthPickup;
+import game.entity.items.Item;
+import game.entity.items.SpeedPickup;
 import game.network.Port;
 import game.network.Room;
 import game.network.client.*;
@@ -17,6 +22,11 @@ import javax.naming.ldap.SortKey;
 
 public class ClientLogic {
 	public int id=0;
+	public User user;
+	public ServerLogic s1;
+	public boolean startFlag =false;
+	public boolean addpointFlag =true;//Only one additional point mark can be added for each game.
+	boolean mallShow =false;
 	Client c1=new Client();
 	public List<Entity> Entities= new ArrayList<Entity>();
 	public List<Player> diePlayer= new ArrayList<Player>();
@@ -36,7 +46,6 @@ public class ClientLogic {
 		c1.startReceiver(new Receivable() {
 			@Override
 			public void receive(Object o) {
-
 				try {
 						Entities = (List<Entity>) o;
 						Player you = (Player)getEntityByID(id);
@@ -85,6 +94,46 @@ public class ClientLogic {
 	public List<Entity> getEntities(){
 		return this.Entities;
 	}
+
+	public boolean buySomething(String something){
+		if(startFlag){
+			if(mallShow){
+				if(something.equals("Health")){
+
+					if(user.getPoint()>5){
+						user.setPoint(user.getPoint()-5);
+						UserDao ud = new UserDao();
+						if(ud.userUpdatePoint(user)) {
+							Item i = new HealthPickup(new Point());
+							i.effect((Player) s1.getEntityByID(id));
+							System.out.println("Purchase life success!");
+						}
+					}else{
+						System.out.println("Not enough points!");
+					}
+
+				}
+				if(something.equals("Speed")){
+					if(user.getPoint()>5){
+						user.setPoint(user.getPoint()-5);
+						UserDao ud = new UserDao();
+						if(ud.userUpdatePoint(user))
+						{
+							System.out.println("Purchase speed success!");
+							Item i =new SpeedPickup(new Point());
+							i.effect((Player)s1.getEntityByID(id));
+						}
+
+					}else{
+						System.out.println("Not enough points!");
+					}
+				}
+			}
+
+		}
+
+		return false;
+	}
 	public void sendCommands(String c) {
 		if(id==0||ServerId==0)
 			return;
@@ -113,6 +162,12 @@ public class ClientLogic {
 				sender1.send(Port.serverAddress, ServerId + "," + this.id + "," + c);
 				freezetime[4]=System.currentTimeMillis();
 			}
+		if(c.equals("Shoot"))
+			if(freezetime[4]+500<System.currentTimeMillis()) {
+				sender1.send(Port.serverAddress, ServerId + "," + this.id + "," + c);
+				freezetime[4]=System.currentTimeMillis();
+			}
+
 		//sender1.send(Port.serverAddress,ServerId+","+this.id+","+c);
 		//System.out.println("Client sent: "+ServerId+","+this.id+","+c);
 	}
