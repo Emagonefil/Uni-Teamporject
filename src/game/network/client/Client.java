@@ -3,20 +3,17 @@ package game.network.client;
 import game.network.Port;
 
 public class Client{
-	
-	private Integer sendingPort = Port.serverPort;
 
-	
 	private ClientSender sender;
 	private ClientReceiver receiver;
 	
 	private boolean receOn = false;
-	
 
+	/**
+	 * default constructor
+	 */
 	public Client() {
 		sender = new ClientSender();
-		System.out.println("111");
-
 	}
 
 
@@ -66,18 +63,16 @@ public class Client{
 	}
 
 	/**
-	 *
+	 * let the client leave the current room
 	 */
 	public void leaveRoom(){
 		this.receiver.leave();
 	}
 
-
-//	public String getAddress(){
-//	    return address+"@"+sendingPort;
-//    }
-
-
+	/**
+	 * let the client set which interface is using
+	 * @param IP the string of interface
+	 */
     public void setInterface(String IP){
 		this.receiver.setInterface(IP);
 	}

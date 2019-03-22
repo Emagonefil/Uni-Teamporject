@@ -10,6 +10,10 @@ import static java.net.NetworkInterface.getNetworkInterfaces;
 
 public class IPSearcher {
 
+    /**
+     * get the network interface of the hotspot of GlodenAxe
+     * @return the string of the network interface of GlodenAxe
+     */
     public static String goldenaxeAddress(){
         try{
             Enumeration<NetworkInterface> interfaceList = getNetworkInterfaces();

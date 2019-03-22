@@ -1,7 +1,5 @@
 package game.network.server;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,42 +12,40 @@ public class Server{
 	private DatagramSocket fromClient;
 	private MulticastSocket multicastSocket;
 	private List<String> movements = new ArrayList<>();
-	
+
+	/**
+	 * default constructor
+	 * open basic socket for future use
+	 * @exception SocketException,UnknownHostException,java.io.IOException
+	 */
 	public Server() {
 		try {
 			fromClient = new DatagramSocket(Port.serverPort);
 			multicastSocket = new MulticastSocket();
 			multicastSocket.setInterface(InetAddress.getByName(Port.localIP));
-//			multicastSocket.joinGroup(InetAddress.getByName(Port.mulitcastAddress));
 			run();
 			System.out.println("Server started");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public Server(String address) {
-		try {
-			Port.serverAddress = address;
-			fromClient = new DatagramSocket(Port.serverPort);
-			run();
-			System.out.println("Server started");
-		} catch (SocketException e) {
-			e.printStackTrace();
-		}
-	}
-	
+
+	/**
+	 * get a list all the moves get from clients since last time call this method
+	 * @return all the moves get from clients since last time call this method
+	 */
 	public List<String> getMoves(){
 		List<String> list = new ArrayList<String>(movements);
 		movements.clear();
 		return list;
 	}
 
-	public void setBroadcastPort(Integer port){
-
-	}
-	//send broadcast with list
-
+	/**
+	 * send data to a address using multicast
+	 * @param addr the address of multicast
+	 * @param obj the data for sending
+	 * @exception IOException,UnknownHostException
+	 */
 	public void send(String addr,Object obj){
 		try {
 			DatagramPacket packet;
@@ -69,7 +65,6 @@ public class Server{
 			packet.setAddress(InetAddress.getByName(address));
 			packet.setPort(port);
 			multicastSocket.send(packet);
-//			broadSocket.send(packet);
 
 		}catch(Exception e){
 			e.printStackTrace();
@@ -77,6 +72,11 @@ public class Server{
 
 	}
 
+	/**
+	 * start receiving data from clients
+	 * and add these moves of client into the list
+	 * @exception IOException
+	 */
 	private void run() {
 		new Thread(new Runnable() {
 
@@ -89,7 +89,6 @@ public class Server{
 						fromClient.receive(rece);
 						String move = new String(rece.getData(),0,rece.getLength());
 						movements.add(move);
-						//aSystem.out.println("Server got from client: "+move);
 					}
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -99,6 +98,9 @@ public class Server{
 		}).start();
 	}
 
+	/**
+	 * close all the sockets and stream of this class
+	 */
 	public void close(){
 		fromClient.close();
 		multicastSocket.close();
