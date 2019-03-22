@@ -3,6 +3,7 @@ package game;
 import com.jfoenix.controls.JFXButton;
 import game.controller.InputManager;
 import game.controller.Login;
+import game.dao.UserDao;
 import game.entity.*;
 import game.gui.Animation;
 import game.gui.Sprite;
@@ -33,19 +34,7 @@ import static game.Constants.CANVAS_WIDTH;
 
 public class GameLoop {
 
-    public static boolean isRunning = false;
-    public static final List<Color> constColor = new ArrayList<Color>() {
-        private static final long serialVersionUID = 1L;
-        {
-            add(Color.WHITE);
-            add(Color.YELLOW);
-            add(Color.DARKBLUE);
-            add(Color.GREEN);
-            add(Color.DARKORANGE);
-            add(Color.BLACK);
-            add(Color.RED);
-        }
-    };
+
     private static AnimationTimer timer = null;
     private static double currentGameTime;
     private static double oldGameTime;
@@ -53,6 +42,7 @@ public class GameLoop {
     private final static long startNanoTime = System.nanoTime();
     private static int count = 0;
     private static boolean btnAdded = false;
+    private static boolean mallPanelShowFlag = false;
 //    private static List<Entity> entities;
     public static double getCurrentGameTime() {
         return currentGameTime;
@@ -65,6 +55,7 @@ public class GameLoop {
     public static void start(GraphicsContext gc, Scene scene, ClientLogic client) {
         timer = new AnimationTimer() {
             public void handle(long currentNanoTime) {
+
                 oldGameTime = currentGameTime;
                 currentGameTime = (currentNanoTime - startNanoTime) / 1000000000.0;
                 deltaTime = currentGameTime - oldGameTime;
@@ -73,7 +64,6 @@ public class GameLoop {
                 if(client.getEntities().isEmpty()) {
 //                    System.out.println("THERE ARE NO ENTITIES LOADED IN client.getEntities()");
                     gc.setFill(Color.BLACK);
-
                     gc.setFont(new Font("Press Start 2P", 40));
                     gc.fillText("Loading...", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.5);
                     gc.fillText("No entities loaded", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
@@ -87,12 +77,10 @@ public class GameLoop {
             }
         };
         timer.start();
-        isRunning = true;
     }
 
     public static void stop()  {
         timer.stop();
-        isRunning = false;
     }
 
     public static void drawScoreboard(ClientLogic client,GraphicsContext gc) {
@@ -113,7 +101,7 @@ public class GameLoop {
                 }else if (diff < 0) {
                     return -1;
                 }
-                return 0; //相等为0
+                return 0; //equare -> zero
             }
         }); // 按生命值排序);
         int everyHeight = 20;
@@ -152,7 +140,6 @@ public class GameLoop {
     public static void render(ClientLogic client, GraphicsContext gc) {
         Player currentPlayer = (Player) client.getEntityByID(client.id);
         int playerCount = 0;
-
 
         for (Entity e : client.getEntities()) {
             if(!e.type.equals("Player")) {
@@ -207,19 +194,31 @@ public class GameLoop {
 
         } else {
             gc.setFill(Color.BLACK);
-            gc.fillText("x: " + currentPlayer.getPosition().getX(), 60,25);
-            gc.fillText("y: " + currentPlayer.getPosition().getY(), 60,45);
+            gc.fillText("x: " + currentPlayer.getPosition().getX(), 50,20);
+            gc.fillText("y: " + currentPlayer.getPosition().getY(), 50,40);
             if (playerCount == 1) {
                 gc.setFill(Color.BLACK);
 //            System.out.println(Font.getFontNames());
                 gc.setFont(new Font("Press Start 2P", 80));
                 gc.fillText("You Won!", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
+                //increase points
+                if(client.addpointFlag){
+                    client.user.setPoint(client.user.getPoint()+5);
+                    UserDao ud = new UserDao();
+                    ud.userUpdatePoint(client.user);
+                    client.addpointFlag=false;
+                }
                 GameWindow.toggleBtn(true);
             } else {
                 GameWindow.toggleBtn(false);
             }
         }
-        
+
+        if (client.mallShow){
+            Renderer.drawMallPanel(client.user.getPoint());
+
+        }
+
     }
 
     private static void drawCorners(GraphicsContext gc,Point[] corners, Color colour) {

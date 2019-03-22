@@ -7,18 +7,19 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 
 import java.io.File;
 
+import static game.Constants.CANVAS_HEIGHT;
+import static game.Constants.CANVAS_WIDTH;
 
 
 public class Renderer {
 
     public static Image gameOver;
-    public static Image loading;
-    public static Image volumeOn;
-    public static Image volumeOff;
     public static Image hero;
     public static Image tank;
     public static Image tank1;
@@ -39,12 +40,10 @@ public class Renderer {
     public static Image healthPickup;
     public static Image speedPickup;
     public static Image background;
+    public static Image mallPanel;
     static {
         background = loadImage("Resources/image/bkg.png");
         gameOver = loadImage("Resources/image/game-over.gif");
-        loading = loadImage("Resources/image/loading.gif");
-        volumeOn = loadImage("Resources/image/v-on.png");
-        volumeOff = loadImage("Resources/image/v-off.png");
         hero = loadImage("Resources/image/chubbyZombie.png");
         tank = loadImage("Resources/image/Tank.png");
         tank1 = loadImage("Resources/image/tank1.png");
@@ -64,6 +63,7 @@ public class Renderer {
         bullet = loadImage("Resources/image/bullet.png");
         healthPickup = loadImage("Resources/image/mushroom.png");
         speedPickup = loadImage("Resources/image/star.png");
+        mallPanel = loadImage("Resources/image/shop.png");
     }
 
     public static Image[] tanks = {tank1,tank2,tank3,tank4,tank5,tank6,tank7};
@@ -110,5 +110,14 @@ public class Renderer {
     public static void rotate(GraphicsContext gc, double angle, double x, double y) {
         Rotate r = new Rotate(angle,x,y);
         gc.setTransform(r.getMxx(),r.getMyx(),r.getMxy(),r.getMyy(),r.getTx(),r.getTy());
+    }
+    public static void drawMallPanel(int point) {
+        GraphicsContext gc = GameWindow.getGraphicsContext();
+        gc.save();
+        gc.drawImage(mallPanel,CANVAS_WIDTH/2-mallPanel.getWidth()/2, CANVAS_HEIGHT/2-mallPanel.getHeight()/2);
+        gc.restore();
+        gc.setFont(new Font("Press Start 2P", 30));
+        gc.setFill(Color.YELLOW);
+        gc.fillText(point+"", CANVAS_WIDTH/2-30, CANVAS_HEIGHT/2-10);
     }
 }

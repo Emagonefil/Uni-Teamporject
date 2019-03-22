@@ -1,6 +1,5 @@
 package game;
 
-import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.PrintStream;
 import java.net.InetAddress;
@@ -24,13 +23,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javax.sound.sampled.*;
 
 // loop that runs continuously to update every component of the game
 public class Main extends Application {
@@ -41,13 +36,13 @@ public class Main extends Application {
 	public String username = "";
 	public static RoomServer roomServer=new RoomServer();
 
-	boolean forward, backward, left, right, shoot;
+	boolean forward, backward, left, right, shoot,addHeath;
 	public static List<ClientLogic> AIs=new ArrayList<>();
 	public static int numOfAI=4;
 
 
 	public static void main(String args[]) {
-		roomServer.run();
+		//roomServer.run();
 		try {
 			Port.localIP = InetAddress.getLocalHost().getHostAddress();
 			System.out.println(Port.localIP);
@@ -68,8 +63,6 @@ public class Main extends Application {
 
 	public void start(Stage primaryStage) throws Exception {
 		mainStage = primaryStage;
-
-
 		// set the window title
 		primaryStage.setTitle(Constants.GAME_NAME + " " + Constants.GAME_VERSION);
 
@@ -131,6 +124,8 @@ public class Main extends Application {
 					case RIGHT:	right = true; break;
 					case J:
 					case SPACE:	shoot = true; break;
+					case K:	c1.mallShow = !c1.mallShow; break;
+
 				}
 			}
 		});
@@ -149,6 +144,8 @@ public class Main extends Application {
 					case RIGHT:	right = false; break;
 					case J:
 					case SPACE:	shoot = false; break;
+					case H:	addHeath = c1.buySomething("Health"); break;
+					case M:	addHeath = c1.buySomething("Speed"); break;
 				}
 			}
 		});
@@ -161,14 +158,13 @@ public class Main extends Application {
 				if(left) c1.sendCommands("RotateLeft");
 				if(right) c1.sendCommands("RotateRight");
 				if(shoot) c1.sendCommands("Shoot");
+
 			}
 		};
 		timer.start();
 	}
 
 	public static void SinglePlayer(Stage stage){
-
-
 		try {
 			Port.localIP = InetAddress.getLocalHost().getHostAddress();
 			Port.mulitcastAddress = "230.0.1.1";
@@ -183,6 +179,7 @@ public class Main extends Application {
 
 		serverGap s1=new serverGap();
 		s1.start();
+		c1.mallShow=false;//开始游戏商店不显示
 //		p.name=user.getUsername();//玩家名
 		try{
 			Thread.sleep(500);
@@ -202,17 +199,19 @@ public class Main extends Application {
 			(new AiController(ai,c1)).start();
 		}
 		c1.ServerId=s1.s1.ServerId;
+		c1.s1 = s1.s1;
 		c1.id=s1.s1.addPlayer();
 		c1.diePlayer=s1.s1.diePlayer;
+
+		c1.user=user;
+		c1.startFlag = true;
 		Player p = (Player)s1.s1.getEntityByID(c1.id);
 		p.name="YOU";
 //		GameWindow newGame = new GameWindow(stage, c1);
 		GameWindow.start(stage,c1);
 	}
 
-	public static void loadingScreen() {
 
-	}
 
 
 
@@ -264,7 +263,7 @@ public class Main extends Application {
 							for (int id : r.ClientId) {
 								s1.s1.addPlayer(id);
 
-//								p.name=user.getUsername();//玩家名
+//								p.name=user.getUsername();//player name
 //								p.name = String.valueOf(id);
 
 							}
