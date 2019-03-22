@@ -1,10 +1,5 @@
 package game.audio;
 
-import javafx.scene.media.AudioClip;
-
-import javax.sound.sampled.*;
-
-import java.io.File;
 import java.util.Scanner;
 
 /**

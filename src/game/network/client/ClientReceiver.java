@@ -3,9 +3,9 @@ package game.network.client;
 import game.network.Port;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.*;
+import java.io.*;
 
 
 public class ClientReceiver implements Runnable{
@@ -16,7 +16,12 @@ public class ClientReceiver implements Runnable{
 	private static boolean flag = true;
 	private static MulticastSocket fromServer;
 	private static String fromRoom;
-	
+
+	/**
+	 * default constructor
+	 * @param r Receivable class that would be called in future when receives data in future
+	 * @exception IOException
+	 */
 	public ClientReceiver(Receivable r) {
 		fromRoom = Port.mulitcastAddress;
 
@@ -25,27 +30,26 @@ public class ClientReceiver implements Runnable{
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-//		this.listenPort = listenPort;
 		this.renderer = r;
 	}
 
 
-
+	/**
+	 * start to receiving data from server
+	 * and call the render method of Receivable each time receives data
+	 * @exception SocketException,UnknownHostException,ClassNotFoundException,IOException
+	 */
 	@Override
 	public void run() {
 		try {
-			//DatagramSocket fromServer = new DatagramSocket(listenPort);
 			fromServer.setInterface(InetAddress.getByName(Port.localIP));
 			fromServer.joinGroup(InetAddress.getByName(fromRoom));
-			System.out.println("interface: "+fromServer.getInterface());
-			System.out.println("group: "+ fromRoom);
 			fromServer.setSoTimeout(100);
 			byte[] buf = new byte[4096];
 			DatagramPacket packet = new DatagramPacket(buf,buf.length);
 			do {
 				try{
 					fromServer.receive(packet);
-					//System.out.println(packet.getLength());
 					input = new ObjectInputStream(new ByteArrayInputStream(buf));
 					Object obj = input.readObject();
 					renderer.receive(obj);
@@ -58,6 +62,11 @@ public class ClientReceiver implements Runnable{
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * stop receiving data
+	 * @exception IOException
+	 */
 	public void stop(){
 	    try {
             this.flag = false;
@@ -67,6 +76,11 @@ public class ClientReceiver implements Runnable{
 
 	}
 
+	/**
+	 * join a group of muticast
+	 * @param groupAddress the address of the group
+	 * @exception UnknownHostException
+	 */
 	public void join(String groupAddress){
 		try{
 			leave();
@@ -78,15 +92,24 @@ public class ClientReceiver implements Runnable{
 
 	}
 
+	/**
+	 * leave the current multicast group
+	 * @exception UnknownHostException
+	 */
 	public void leave(){
 		try{
 			fromServer.leaveGroup(InetAddress.getByName(fromRoom));
 		}catch (Exception e){
-//			e.printStackTrace();
+			e.printStackTrace();
 		}
 
 	}
 
+	/**
+	 * set the interface of this socket
+	 * @param IP the string of the interface
+	 * @exception UnknownHostException
+	 */
 	public void setInterface(String IP){
 		try {
 			stop();
