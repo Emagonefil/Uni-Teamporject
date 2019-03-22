@@ -1,6 +1,7 @@
 package game;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +11,10 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -38,6 +41,9 @@ public class GameWindow {
         c.setMouseTransparent(true);
         b1 = new JFXButton("RETURN TO MENU");
 
+        final ToggleButton toggle = new ToggleButton();
+        toggle.setLayoutX(10);
+        toggle.setLayoutY(10);
         root.getStylesheets().addAll(GameWindow.class.getResource("gui/style.css").toExternalForm());
 
         b1.setOnAction(new EventHandler<ActionEvent>() {
@@ -51,14 +57,14 @@ public class GameWindow {
         });
         b1.setVisible(false);
 
-        root.getChildren().add(b1);
+        root.getChildren().addAll(b1,toggle);
         b1.setLayoutX((Constants.CANVAS_WIDTH - 230)/2);
         b1.setLayoutY((Constants.CANVAS_HEIGHT - 40)/2);
         BackgroundImage bkg = new BackgroundImage(Renderer.background, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT);
         holder.setBackground(new Background(bkg));
         stage.getScene().setRoot(root);
 
-        stage.show();
+//        stage.show();
         GameLoop.start(gc, stage.getScene(), client);
     }
 

@@ -2,10 +2,8 @@ package game.gui;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
-import game.Constants;
-import game.GameLoop;
-import game.GameWindow;
-import game.Main;
+import game.*;
+import game.network.Port;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
@@ -28,6 +26,8 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -44,12 +44,22 @@ public class Controller {
     private Text actiontarget;
 
     public JFXListView roomList;
+    public static AnimationTimer tim;
+    public static Room room;
 
     @FXML
     protected void handleSinglePlayerButtonAction(ActionEvent event) throws Exception {
         Node node = (Node) event.getSource();
         Stage primaryStage = (Stage) node.getScene().getWindow();
-        Main.SinglePlayer(primaryStage);
+        VBox loading = new VBox();
+        Image img = Renderer.loading;
+        ImageView imgv= new ImageView(img);
+        loading.getChildren().add(imgv);
+        primaryStage.getScene().setRoot(loading);
+        primaryStage.show();
+        System.out.println("fuck");
+        Thread.sleep(1000);
+       Main.SinglePlayer(primaryStage);
     }
 
     @FXML
@@ -82,6 +92,39 @@ public class Controller {
         roomsLabel.setId("roomsLabel");
 //        JFXListView newList;
 
+        Label gamestart = new Label("Game started, press start now");
+        room = Main.c1.findRoom(Main.c1.getMyRoom());
+
+        tim = new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                updateRoom();
+                if (room != null) {
+                    if(room.ServerIp != null&&room.status == 2 && room.ServerIp != "") {
+                        System.out.println("GAME WINDOW SHOULD START NOW"+ Port.mulitcastAddress);
+                        if(GameLoop.isRunning) {
+                            GameLoop.stop();
+                        }
+                        GameWindow.start(Main.mainStage,Main.c1);
+                        System.out.println("GAME WINDOW SHOULD HAVE STARTED ALREADY"+ Port.mulitcastAddress);
+                        stopTimer();
+                    }
+                }
+
+//                if (vbox.getChildren().contains(roomList)) {
+//                    if (Main.c1.getEntities() != null) {
+//                        System.out.println(roomList.getGroupnode());
+//                        vbox.getChildren().remove(roomList);
+////                        Main.c1.getRoomList();
+////                        roomList = getRoomsList();
+//                        vbox.getChildren().add(roomList);
+//                    }
+//
+//                }
+            }
+        };
+
+
         refresh.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -103,13 +146,14 @@ public class Controller {
         back.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent t) {
-                roomList.getItems().clear();
-//                roomList.getItems().removeAll(roomIDs);
-                roomList.refresh();
-
                 try {
+                    roomList.getItems().clear();
+                    roomList.refresh();
                     Main.isRunning = false;
-                    GameLoop.stop();
+                    if (GameLoop.isRunning) {
+                        GameLoop.stop();
+                    }
+
                     Parent root1 = FXMLLoader.load(getClass().getResource("menu3.fxml"));
                     primaryStage.getScene().setRoot(root1);
                     primaryStage.setTitle("Tanks");
@@ -139,7 +183,7 @@ public class Controller {
             public void handle(MouseEvent mouseEvent) {
 
                 Main.c1.createRoom();
-                Main.c1.getRoomList();
+//                Main.c1.getRoomList();
             }
         });
 
@@ -153,9 +197,6 @@ public class Controller {
             }
 
         });
-
-
-
         vbox.getStyleClass().add("vbox");
 
         vbox.getChildren().addAll(titleImg, join, create, start, back, refresh, roomsLabel, roomList);
@@ -163,7 +204,20 @@ public class Controller {
         primaryStage.getScene().getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
         primaryStage.show();
 
+        tim.start();
+
     }
+
+
+
+    public static void updateRoom() {
+        room = Main.c1.findRoom(Main.c1.getMyRoom());
+    }
+    public static void stopTimer() {
+        tim.stop();
+        System.out.println("TIMER STOPPED");
+    }
+
 
     public static JFXListView getRoomsList() {
         // Create List of Rooms

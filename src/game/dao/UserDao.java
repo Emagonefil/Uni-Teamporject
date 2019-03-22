@@ -24,6 +24,7 @@ public class UserDao {
     }
 
     /**
+     * 新增
      * @param user
      * @return
      */
@@ -34,7 +35,7 @@ public class UserDao {
             preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
-            flag  = !preparedStatement.execute();
+            flag  = !preparedStatement.execute();//执行查询语句
             System.out.println("The new increasing result is："+flag);
         }catch (Exception e){
             flag =false;
@@ -45,7 +46,7 @@ public class UserDao {
     }
 
     /**
-     * Check user according to their password
+     * 根据账户名和密码查询
      * @param user
      * @return
      */
@@ -58,8 +59,6 @@ public class UserDao {
             preparedStatement.setString(2, user.getPassword());
             ResultSet rSet =  preparedStatement.executeQuery();//执行查询语句
             if(rSet.next()){
-                user.setPoint(rSet.getInt(4));
-                user.setID(rSet.getInt(1));
                 System.out.println("Login success！");
                 flag = true;
             }else{
@@ -75,8 +74,9 @@ public class UserDao {
     }
 
     /**
+     * 根据账户名和密码查询
      * @param user
-     * @return  if exist return true
+     * @return  用户存在返回true
      */
     public boolean userIsExist(User user) throws Exception{
         boolean flag ;
@@ -84,7 +84,7 @@ public class UserDao {
         try{
             preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, user.getUsername());
-            ResultSet rSet =  preparedStatement.executeQuery();
+            ResultSet rSet =  preparedStatement.executeQuery();//执行查询语句
             if(rSet.next()){
                 System.out.println("user exist！");
                 flag = true;
@@ -100,32 +100,6 @@ public class UserDao {
         return flag;
     }
 
-    /**
-     * Update user points
-     * @param user
-     * @return  if user exist return true
-     */
-    public boolean userUpdatePoint(User user) {
-        boolean flag =false;
-        String sql="update user set  point=? where id=? ";
-        try{
-            preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setInt(1, user.getPoint());
-            preparedStatement.setInt(2, user.getID());
-            int rSet =  preparedStatement.executeUpdate();
-            if(rSet>0){
-                System.out.println("update success！");
-                flag = true;
-            }else{
-                System.out.println("update  failure！");
-                flag = false;
-            }
-        }catch (Exception e){
-            System.out.println("Error when update！");
-            e.printStackTrace();
-        }
-        return flag;
-    }
 
 
 }
