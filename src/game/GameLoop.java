@@ -217,6 +217,16 @@ public class GameLoop {
         if (client.mallShow){
             Renderer.drawMallPanel(client.user.getPoint());
 
+        }else{
+            gc.setFont(new Font("Press Start 2P", 20));
+            gc.setFill(Color.BLACK);
+            gc.fillText("Press ", (CANVAS_WIDTH/2)-250, 50);
+            gc.setFill(Color.LIGHTGOLDENRODYELLOW);
+            gc.setFont(new Font("Press Start 2P", 30));
+            gc.fillText("'K'", (CANVAS_WIDTH/2)-150, 50);
+            gc.setFont(new Font("Press Start 2P", 20));
+            gc.setFill(Color.BLACK);
+            gc.fillText("to access the shop", (CANVAS_WIDTH/2)-70, 50);
         }
 
     }
