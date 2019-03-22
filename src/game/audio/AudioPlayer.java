@@ -1,5 +1,7 @@
 package game.audio;
 
+import javafx.scene.media.AudioClip;
+
 import javax.sound.sampled.*;
 import java.io.File;
 
@@ -17,10 +19,9 @@ public class AudioPlayer {
     private static float musicVolume=60;
     private static float soundEffectVolume=60;
 
-    /**
-     * Default constructor that initialize all the music needed
-     */
+
     public AudioPlayer(){
+
             this.backgroundMusicPlayer = getMusicPlayer(new File(AudioPath.backgroudMusic));
             this.shootSoundPlayer = getSoundPlayer(new File(AudioPath.shootMusic));
             this.pickItemSoundPlayer = getSoundPlayer(new File(AudioPath.pickItemMusic));
@@ -28,99 +29,47 @@ public class AudioPlayer {
             this.loseSoundPlayer = getSoundPlayer(new File(AudioPath.loseMusic));
     }
 
-    /**
-     * get the current volume value of the music
-     * @return the volume of the music
-     */
     public float getMusicVolume(){
         return musicVolume;
     }
-
-    /**
-     * set the volume for music
-     * @param volume value of the volume in (0-80)
-     */
     public void setMusicVolume(float volume){
         if(volume<=80&&volume>=0) {
             this.musicVolume = volume;
             this.backgroundMusicPlayer.setVolume(this.musicVolume);
         }
     }
-
-    /**
-     * get the current volume value of the sound effect
-     * @return the volume of the sound effect
-     */
     public float getSoundEffectVolume(){
         return this.soundEffectVolume;
     }
-
-    /**
-     * set the volume of sound effect
-     * @param volume value of the volume in (0-80)
-     */
     public void setSoundEffectVolume(float volume){
         if(volume<=80&&volume>=0)
         this.soundEffectVolume = volume;
     }
 
-    /**
-     * play the default background music
-     */
     public void playBackgroundMusic(){
         this.backgroundMusicPlayer.play();
     }
-
-    /**
-     * mute all background music
-     * (set the volume of music to 0)
-     */
     public void muteBackgroundMusic(){
-        setMusicVolume(0);
+        this.backgroundMusicPlayer.mute();
     }
-
-    /**
-     * mute all sound effects
-     * (set the volume of sound effects to 0)
-     */
     public void muteSoundEffect(){
-        setSoundEffectVolume(0);
+        soundEffectVolume=0;
     }
-
-    /**
-     * play the sound effect of shooting
-     */
     public void playShootSound(){
         this.shootSoundPlayer.play();
     }
-
-    /**
-     * play the sound of picking up items
-     */
     public void playPickItemSound(){
         this.pickItemSoundPlayer.play();
     }
-
-    /**
-     * play the sound of winning
-     */
     public void playWinSound(){
         this.winSoundPlayer.play();
     }
-
-    /**
-     * play the sound of losing
-     */
     public void playLoseSound(){
         this.loseSoundPlayer.play();
     }
 
 
-    /**
-     *
-     * @param file
-     * @return a Clip that generated from the file
-     */
+
     private Clip getClip(File file){
         Clip clip=null;
         try {
@@ -135,22 +84,10 @@ public class AudioPlayer {
         return clip;
     }
 
-    /**
-     *
-     * @param file the file of musice that wants to be played
-     * @return a MusicPlayer that can play the music of the file
-     * @see MusicPlayer
-     */
     private MusicPlayer getMusicPlayer(File file){
         return new MusicPlayer(getClip(file));
     }
 
-    /**
-     *
-     * @param file the file of sound that wants to be played
-     * @return a SoundPlayer that can play the sound of the file
-     * @see SoundPlayer
-     */
     private SoundPlayer getSoundPlayer(File file){
         return new SoundPlayer(getClip(file));
     }
@@ -171,12 +108,15 @@ public class AudioPlayer {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
 
+        public void mute(){
+            floatControl.setValue(-80);
+        }
+
         public void setVolume(float volume){
             floatControl.setValue(volume-80);
         }
 
     }
-
 
     private static class SoundPlayer{
         Clip clip;
