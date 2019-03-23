@@ -188,6 +188,7 @@ public class Main extends Application {
 		}
 
 		c1.init();
+		c1.mapID=1;
 		isRunning = true;
 
 
@@ -255,7 +256,6 @@ public class Main extends Application {
 					//System.out.println(r.status+" "+r.ServerIp + " " );
 					if (r.ServerIp != null&&r.status == 2 && r.ServerIp != "") {
 						Port.mulitcastAddress = r.RoomIP;
-						System.out.println("sadgaskldfmoijgoiehigdf"+Port.mulitcastAddress);
 						c1.init();
 						c1.mapID=r.mapID;
 						isRunning = true;
@@ -264,6 +264,7 @@ public class Main extends Application {
 
 						if (r.ServerIp.equals(Port.localIP)) {
 							serverGap s1 = new serverGap();
+							s1.s1.mapID=r.mapID;
 							s1.mode=2;
 							s1.start();
 							s1.s1.ServerId = c1.getMyRoom();
@@ -302,6 +303,7 @@ public class Main extends Application {
 		public int mode = 1;
 		@Override
 		public void run() {
+			s1.mapID=c1.mapID;
 			s1.init();
 			System.out.println("Server thread " + s1.ServerId+ " is running");
 			int t=0;

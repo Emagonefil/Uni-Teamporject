@@ -1,7 +1,9 @@
 package game.graphics;
 
 import game.ClientLogic;
+import game.Main;
 import game.entity.*;
+import game.maps.map;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -46,7 +48,7 @@ public class GameLoop {
     }
 
     public static double getDeltaTime() {
-        return deltaTime*1000;
+        return deltaTime*100;
     }
 
     public static void start(GraphicsContext gc, Scene scene, ClientLogic client) {
@@ -139,7 +141,11 @@ public class GameLoop {
     public static void render(ClientLogic client, GraphicsContext gc) {
         Player currentPlayer = (Player) client.getEntityByID(client.id);
         int playerCount = 0;
-
+        map map = new map();
+        map.initMap(Main.c1.mapID);
+        for(Entity e: map.getMap()) {
+            e.draw();
+        }
 
         for (Entity e : client.getEntities()) {
             if(!e.type.equals("Player")) {

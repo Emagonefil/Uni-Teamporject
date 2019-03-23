@@ -19,6 +19,7 @@ public class ServerLogic {
 	public int status=0;
 	public int ServerId= 99999;
 	map m=new map();
+	public int mapID;
 
 	/**
 	 * init the whole server and create the map
@@ -34,7 +35,7 @@ public class ServerLogic {
 	 * create the map
 	 */
 	public void initMap() {
-		m.initMap(0);
+		m.initMap(mapID);
 		Entities.addAll(m.getMap());
 	}
 	public int getPlayerId(){
@@ -373,7 +374,15 @@ public class ServerLogic {
 	 * this function is used to send the entity list to clients
 	 */
 	public void broadcastEntities() {
-		server.send(Port.mulitcastAddress,Entities);
+		List<Entity> items=new ArrayList<>();
+		for(int i=0;i<Entities.size();i++){
+			Entity e1;
+			e1=Entities.get(i);
+			if(!e1.type.equals("Wall"))
+				items.add(e1);
+
+		}
+		server.send(Port.mulitcastAddress,items);
 		//List<PlayerScore> newRank = RankService.getInstance().rankList();
 		//System.out.println("发送："+System.currentTimeMillis());
 	}
