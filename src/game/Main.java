@@ -307,7 +307,7 @@ public class Main extends Application {
 					break;
 				try {
 					s1.dealCommmands();
-					if (s1.status == 2&&t==5) {
+					if (s1.status == 2&&t==10) {
 						s1.broadcastEntities();
 						t=0;
 					}
