@@ -1,4 +1,4 @@
-package game.network;
+package game.network.mainserver;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

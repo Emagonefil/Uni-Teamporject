@@ -1,19 +1,14 @@
 package game;
 import java.io.ObjectInputStream;
 import java.io.PrintStream;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import game.entity.*;
 
 import game.network.Port;
-import game.network.Room;
+import game.network.mainserver.Room;
 import game.network.client.*;
-import game.network.Room;
-import game.network.common.IPSearcher;
-
-import javax.naming.ldap.SortKey;
 
 public class ClientLogic {
 	public int id=0;

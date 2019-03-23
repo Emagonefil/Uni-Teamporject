@@ -1,4 +1,4 @@
-package game.network;
+package game.network.mainserver;
 
 public class Command {
     public static final String roomCreate = "Room,create";
