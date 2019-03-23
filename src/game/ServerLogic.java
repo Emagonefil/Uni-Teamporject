@@ -141,7 +141,7 @@ public class ServerLogic {
 	 * @param id player's id
 	 * @return player's id
 	 */
-	public int addPlayer(int id){
+	public int addPlayer(int id,String name){
 		Player w;
 		while (true) {
 			double x = ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40;
@@ -156,13 +156,13 @@ public class ServerLogic {
 				w = new Player();
 
 			}
-			w.name=""+id;
+			w.name=id+" "+name;
 			w.setPosition(new Point((float)x,(float)y));
 			int l=checkCollision(w);
 			//System.out.println(l);
 			if (l== 0) {
 				w.id = id;
-				w.name = String.valueOf(w.id);
+				w.name = id+" "+name;
 				Entities.add(w);
 				break;
 			}

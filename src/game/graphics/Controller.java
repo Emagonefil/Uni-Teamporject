@@ -35,6 +35,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import game.network.Room;
 
+import java.net.InetAddress;
 import java.net.URL;
 import java.util.*;
 
@@ -239,9 +240,11 @@ public class Controller {
             userList.getStyleClass().add("sublist");
 //            roomList.getItems().
 
-            for (int client : room.ClientId) {
-                users.add(" PLAYER " + (room.ClientId.indexOf(client) + 1) + ": " + client + "");
+            for (Map.Entry<Integer,String> client : room.Clients.entrySet()) {
+//                users.add(" PLAYER " + (room.ClientId.indexOf(client) + 1) + ": " + client + "");
+                users.add("PLAYER"+client.getKey()+": "+client.getValue());
             }
+
             for (String id : users) {
                 userList.getItems().add(id);
             }

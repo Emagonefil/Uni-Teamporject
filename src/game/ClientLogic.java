@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import game.entity.*;
 
+import game.network.Command;
 import game.network.Port;
 import game.network.Room;
 import game.network.client.*;
@@ -17,6 +18,7 @@ import javax.naming.ldap.SortKey;
 
 public class ClientLogic {
 	public int id=0;
+	public String name=Main.user.getUsername();
 	Client c1=new Client();
 	public List<Entity> Entities= new ArrayList<Entity>();
 	public List<Player> diePlayer= new ArrayList<Player>();
@@ -44,8 +46,8 @@ public class ClientLogic {
 
 				try {
 						Entities = (List<Entity>) o;
-						Player you = (Player)getEntityByID(id);
-						you.name="YOU";
+//						Player you = (Player)getEntityByID(id);
+//						you.name="YOU";
 
 				}
 				catch (Exception e){
@@ -123,7 +125,7 @@ public class ClientLogic {
 		try{
 			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
 			PrintStream ps=new PrintStream(socket.getOutputStream());
-			ps.println("Room,list");
+			ps.println(Command.roomList);
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
 			rooms=(List<Room>)in.readObject();
 		}catch (Exception e){
@@ -139,19 +141,22 @@ public class ClientLogic {
 			int oldId=id;
 			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
 			PrintStream ps=new PrintStream(socket.getOutputStream());
-			ps.println("Room,create");
+			ps.println(Command.roomCreate+name);
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
 			getRoomList();
-			int t=(int) in.readObject();
+			String t=(String) in.readObject();
+			String[] sp = t.split(",");
 			while(true){
 				try {
-					id = findRoom(t).ClientId.get(0);
+					id = Integer.parseInt(sp[0]);
 					break;
 				}catch (Exception e){
 					e.printStackTrace();
 				}
 			}
-			myRoom=t;
+
+			myRoom=Integer.parseInt(sp[1]);
+
 
 			leaveRoom(oldId);
 		}catch (Exception e){
@@ -168,7 +173,7 @@ public class ClientLogic {
 			int oldId=id;
 			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
 			PrintStream ps=new PrintStream(socket.getOutputStream());
-			ps.println("Room,join"+roomNum);
+			ps.println(Command.roomJoin+roomNum+","+name);
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
 			getRoomList();
 			Object t=in.readObject();
@@ -193,7 +198,7 @@ public class ClientLogic {
 		try{
 			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
 			PrintStream ps=new PrintStream(socket.getOutputStream());
-			ps.println("Room,leave"+id);
+			ps.println(Command.roomLeave+id);
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
 		}catch (Exception e){
 			e.printStackTrace();

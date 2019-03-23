@@ -1,5 +1,6 @@
 package game.dao;
 
+import game.Main;
 import game.entity.User;
 
 import java.sql.*;
@@ -65,6 +66,7 @@ public class UserDao {
                 System.out.println("Login failure！");
                 flag = false;
             }
+
         }catch (Exception e){
             flag =false;
             System.out.println("Error！");
