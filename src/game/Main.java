@@ -186,7 +186,8 @@ public class Main extends Application {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-
+		c1=null;
+		c1=new ClientLogic();
 		c1.init();
 		c1.mapID=1;
 		isRunning = true;
