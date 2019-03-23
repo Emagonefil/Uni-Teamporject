@@ -9,7 +9,7 @@ import java.util.Properties;
 import java.util.Random;
 
 /**
- * This class is the entitiy that is controlled by the player/AI
+ * This class is the entity that is controlled by the player/AI
  * it extends MovableEntity to add relevant features such as health
  * and ammunition
  * 

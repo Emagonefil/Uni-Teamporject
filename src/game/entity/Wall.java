@@ -3,6 +3,14 @@ package game.entity;
 import game.graphics.Renderer;
 import game.graphics.Sprite;
 
+/**
+ * This class extends Entity and does not add any extra functionality
+ * it simply sets type to be "Wall" and the correct wall sprite within
+ * the constructor
+ * 
+ * @author callum
+ *
+ */
 public class Wall extends Entity {
 
 	public Wall(float width, float height, Point position) {
