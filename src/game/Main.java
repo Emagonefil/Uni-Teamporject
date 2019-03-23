@@ -189,7 +189,8 @@ public class Main extends Application {
 		c1=null;
 		c1=new ClientLogic();
 		c1.init();
-		c1.mapID=1;
+		Random r = new Random();
+		c1.mapID=r.nextInt(2)+1;
 		isRunning = true;
 
 
