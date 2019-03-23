@@ -5,12 +5,36 @@ import java.util.Collections;
 
 import game.entity.Point;
 
-//An implementation of Seperating Axis Theorem (SAT)
-//Shapes must be convex polygons! (More complex shapes should be
-//constructed of multiple convex polygons)
 
+/**
+ * An implementation of Seperating Axis Theorem (SAT)
+ * 
+ * This can detect whether any two convex polygons 
+ * (more complex shapes must be made up of a few smaller convex polygons)
+ * touch or not.
+ * 
+ * It also provides a minimum translation vector such that two colliding
+ * objects are no longer touching (though this is not used within the project).
+ * 
+ * The basic steps for detecting if two shapes are touching are:
+ * <ol>
+ * <li> Find all unique normals to the faces of the two shapes given.
+ * <li> These unique normals are then used as axis onto which we project the corners of the two shapes.
+ * <li> We take the minimum and maximum corner projection for each shape. If these overlap then, in this axis, the shapes overlap.
+ * <li> Repeat steps 2-3 for each axis (unique normal to the faces of the shapes) until we find a non-overlapping set of projections in which case they are not touching, or, until we run out of axis on which to test in which case they are touching
+ * </ol>
+ * @author callum
+ *
+ */
 public class CollisionDetection {
 
+	/**
+	 * This takes two corners and gives a vector from corner1 to corner2
+	 * 
+	 * @param corner1 
+	 * @param corner2 
+	 * @return The vector connecting the two given points.
+	 */
 	private static Vector2d getVector(Point corner1, Point corner2) {
 		float xDiff = corner2.getX() - corner1.getX();
 		float yDiff = corner2.getY() - corner1.getY();
@@ -26,8 +50,13 @@ public class CollisionDetection {
 		return false;
 	}
 
-	// Note: it is assumed that corners are connected to the
-	// corner before and after them in a circular fashion
+	/**
+	 * This finds all unique normals to the given shapes edges.
+	 * It is assumed that the corners are given in a 'circular' order
+	 * 
+	 * @param corners 
+	 * @param axis
+	 */
 	private static void getAxis(Point[] corners, ArrayList<Vector2d> axis) {
 		for (int i = 0; i < corners.length; i++) {
 			Vector2d normal;
@@ -43,8 +72,19 @@ public class CollisionDetection {
 		}
 	}
 	
-	//This function will give the mtv i.e. the minimum amount & direction by which an overlapping
-	//object must be moved to no longer overlap.
+	/**
+	 * This function will give the mtv i.e. the minimum amount & direction by which an overlapping
+	 * object must be moved to no longer overlap.
+	 * 
+	 * Note: it takes corners such that any convex polygon can be checked for collision. Corners
+	 * must be in a 'circular' order i.e. each corner has an edge connecting it to the corner before
+	 * it in the array and an edge connecting it to the one after.
+	 * 
+	 * @param c1
+	 * @param c2
+	 * @return The minumum translation vector for the objects.
+	 */
+
 	public static Vector2d minimumTranslationVector(Point[] c1, Point[] c2) {
 		ArrayList<Vector2d> axis = new ArrayList<Vector2d>();
 		// Get the unique normals of each face to use as axis:
@@ -101,6 +141,14 @@ public class CollisionDetection {
 		return mtv;
 	}
 
+	/**
+	 * Given the corners of two convex polygons this will return true if the entities
+	 * are touching and false otherwise
+	 * 
+	 * @param c1
+	 * @param c2
+	 * @return true if the entities are touching and false otherwise.
+	 */
 	public static boolean isTouching(Point[] c1, Point[] c2) {
 		Vector2d result = minimumTranslationVector(c1, c2);
 		//If overlap is > 0

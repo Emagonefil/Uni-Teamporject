@@ -3,11 +3,14 @@ package game.network;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Room implements Serializable {
     private int roomId;
-    public List<Integer> ClientId=new ArrayList<Integer>();
+//    public List<Integer> ClientId=new ArrayList<Integer>();
+//    public List<String> ClientName=new ArrayList<>();
+    public HashMap<Integer,String> Clients = new HashMap<>();
     public String ServerIp;
     public String RoomIP;
     public int status=0;

@@ -36,10 +36,10 @@ import javax.sound.sampled.*;
 
 // loop that runs continuously to update every component of the game
 public class Main extends Application {
-	private static User user;
+	public static User user;
 	public static Stage mainStage;
 	public static boolean isRunning = false;
-	public static ClientLogic c1 = new ClientLogic();
+	public static ClientLogic c1;
 	public String username = "";
 	public static RoomServer roomServer=new RoomServer();
 
@@ -269,16 +269,12 @@ public class Main extends Application {
 							s1.start();
 							s1.s1.ServerId = c1.getMyRoom();
 
-							System.out.println(r.ClientId);
+
 							Thread.sleep(1000);
-							for (int id : r.ClientId) {
-								s1.s1.addPlayer(id);
-
-//								p.name=user.getUsername();//玩家名
-//								p.name = String.valueOf(id);
-
+							for(Map.Entry<Integer,String> ids:r.Clients.entrySet()){
+								s1.s1.addPlayer(ids.getKey(),ids.getValue());
 							}
-							System.out.println(r.ServerIp);
+
 							c1.ServerId = c1.getMyRoom();
 
 							Port.serverAddress = r.ServerIp;

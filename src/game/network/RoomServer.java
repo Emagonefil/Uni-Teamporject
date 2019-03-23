@@ -48,11 +48,13 @@ public class RoomServer {
      * @return the object sends back to client
      */
     private Object dealCommand(Socket s,String command){
-
-        if(command.equalsIgnoreCase(Command.roomCreate)){
-            return createRoom();
+        if(command.startsWith(Command.roomCreate)){
+            String name = command.substring(Command.roomCreate.length());
+            return createRoom(name);
         }else if(command.startsWith(Command.roomJoin)) {
-            return joinRoom(Integer.parseInt(command.substring(Command.roomJoin.length())));
+            String id_name = command.substring(Command.roomJoin.length());
+            String[] array = id_name.split(",");
+            return joinRoom(Integer.parseInt(array[0]),array[1]);
         }
         else if(command.startsWith(Command.roomLeave)) {
             return leaveRoom(Integer.parseInt(command.substring(Command.roomLeave.length())));
@@ -78,6 +80,7 @@ public class RoomServer {
             return "";
         }
         return null;
+
     }
 
     /**
@@ -167,13 +170,18 @@ public class RoomServer {
             boolean t=true;
             for (int u = 0; u < rooms.size(); u++) {
                 Room r1= rooms.get(u);
-                for (int i = 0; i<r1.ClientId.size();i++)
-                    if(r1.ClientId.get(i)==id) {
-                        t = false;
-                        break;
-                    }
-                if(!t)
+//                for (int i = 0; i<r1.Clients.size();i++)
+//                    if(r1.Clients.get(i)==id) {
+//                        t = false;
+//                        break;
+//                    }
+                String result=r1.Clients.get(id);
+                if(result!=null){
+                    t=false;
                     break;
+                }
+//                if(!t)
+//                    break;
             }
             if(t)
                 return id;
@@ -184,13 +192,16 @@ public class RoomServer {
      * create a new room
      * @return the id of the new room
      */
-    private int createRoom(){
+    private String createRoom(String hostName){
         Room r=new Room();
         r.setRoomId(getSpareId());
-        r.ClientId.add(getSpareClientId());
+//        r.ClientId.add(getSpareClientId());
+//        r.ClientName.add(hostName);
+        int id = getSpareClientId();
+        r.Clients.put(id,hostName);
         r.status=1;
         rooms.add(r);
-        return r.getRoomId();
+        return id+","+r.getRoomId();
     }
 
     /**
@@ -198,7 +209,7 @@ public class RoomServer {
      * @param roomNum the id of room wants to join
      * @return the id of the room, 0 if room not found
      */
-    private Integer joinRoom(Integer roomNum){
+    private Integer joinRoom(Integer roomNum,String name){
         Room r1=findRoom(roomNum);
         if(r1==null){
 
@@ -206,7 +217,9 @@ public class RoomServer {
         }
         else {
             int id=getSpareClientId();
-            r1.ClientId.add(id);
+//            r1.ClientId.add(id);
+//            r1.ClientName.add(name);
+            r1.Clients.put(id,name);
             return id;
 
         }
@@ -223,13 +236,19 @@ public class RoomServer {
         for(int u=0;u<rooms.size();u++){
                 Room r=rooms.get(u);
                 System.out.println("r"+rooms.size());
-                for(int i=0;i<r.ClientId.size();i++){
-                    if(r.ClientId.get(i).equals(cid)) {
-                        r.ClientId.remove(i);
-                        if(r.ClientId.size()==0)
-                            rooms.remove(r);
-                    }
-                }
+//                for(int i=0;i<r.ClientId.size();i++){
+//                    if(r.ClientId.get(i).equals(cid)) {
+//                        r.ClientId.remove(i);
+//                        if(r.ClientId.size()==0)
+//                            rooms.remove(r);
+//                    }
+//                }
+            String sss = r.Clients.get(cid);
+            if(sss!=null){
+                r.Clients.remove(cid);
+                if(r.Clients.size()==0) rooms.remove(r);
+            }
+
         }
         return "0";
     }
