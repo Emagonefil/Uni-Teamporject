@@ -86,7 +86,7 @@ public class Login extends Control {
         Parent root1 = FXMLLoader.load(getClass().getResource(path));
         primaryStage.getScene().setRoot(root1);
         primaryStage.setTitle(title);
-//        primaryStage.setMaximized(true);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 

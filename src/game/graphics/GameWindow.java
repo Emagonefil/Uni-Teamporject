@@ -13,6 +13,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.net.URL;
 
@@ -61,12 +62,6 @@ public class GameWindow {
         b1.setLayoutY((Constants.CANVAS_HEIGHT - 40)/2);
         BackgroundImage bkg = new BackgroundImage(Renderer.background, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT);
         holder.setBackground(new Background(bkg));
-
-        Scale scale = new Scale(1, 1, 0, 0);
-		scale.xProperty().bind(root.widthProperty().divide(Constants.CANVAS_WIDTH));     //must match with the one in the controller
-		scale.yProperty().bind(root.heightProperty().divide(Constants.CANVAS_HEIGHT));   //must match with the one in the controller
-        root.getTransforms().add(scale);
-
         stage.getScene().setRoot(root);
         stage.setMaximized(true);
         stage.setFullScreen(true);

@@ -3,18 +3,11 @@ package game.entity;
 import game.graphics.Renderer;
 import game.graphics.Sprite;
 
-public class Bullet extends MovableRectangularEntity implements KillableEntity{
-
-	public Bullet(float width, float height, Point position) {
-		super(width, height, position);
-		this.type="Bullet";
-		this.setSpeed(10f);
-
-	}
+public class Bullet extends MovableEntity implements KillableEntity{
 	
 	public Bullet(float width, float height, Point position, float angle) {
-		super(width, height, position, angle);
-
+		super(width, height, position, angle, 10.0f, 0.0f);
+		this.type = "Bullet";
 
 	}
 	public int owner;
@@ -27,20 +20,10 @@ public class Bullet extends MovableRectangularEntity implements KillableEntity{
 	}
 
 	@Override
-	public void die() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void reduceHealth(int amount) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void reduceHealth(int amount) {}
 
 	@Override
 	public int getHealth() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
