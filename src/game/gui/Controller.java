@@ -6,37 +6,23 @@ import game.*;
 import game.network.Port;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.Group;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import game.network.Room;
-
-import java.net.URL;
-import java.util.*;
+import game.network.mainserver.Room;
 
 
 public class Controller {
@@ -57,7 +43,7 @@ public class Controller {
         loading.getChildren().add(imgv);
         primaryStage.getScene().setRoot(loading);
         primaryStage.show();
-        System.out.println("fuck");
+//        System.out.println("fuck");
         Thread.sleep(1000);
        Main.SinglePlayer(primaryStage);
     }
