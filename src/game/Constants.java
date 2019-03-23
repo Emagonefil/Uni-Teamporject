@@ -6,7 +6,9 @@ import javafx.stage.Screen;
 
 import java.awt.*;
 
-
+/**
+ * A class that stores important constants for the game
+ */
 public class Constants {
 
 //    static GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();

@@ -12,7 +12,10 @@ import javafx.scene.transform.Rotate;
 import java.io.File;
 
 
-
+/**
+ * The renderer is concerned with loading images necessary for the game
+ * and providing methods to render these on the scree
+ */
 public class Renderer {
 
     public static Image gameOver;
@@ -54,7 +57,7 @@ public class Renderer {
         tank5 = loadImage("Resources/image/tank5.png");
         tank6 = loadImage("Resources/image/tank6.png");
         tank7 = loadImage("Resources/image/tank7.png");
-        wall = loadImage("Resources/image/wall6.png");
+        wall = loadImage("Resources/image/t1.png");
 //        ghost1 = loadImage("Resources/image/ghost1.png");
 //        ghost2 = loadImage("Resources/image/ghost2.png");
         skull1 = loadImage("Resources/image/skull1.png");

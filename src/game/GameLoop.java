@@ -1,36 +1,22 @@
 package game;
 
-import com.jfoenix.controls.JFXButton;
-import game.controller.InputManager;
-import game.controller.Login;
 import game.entity.*;
-import game.gui.Animation;
-import game.gui.Sprite;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 
-import java.awt.image.BufferedImage;
-import java.net.URL;
 import java.util.*;
 
 import static game.Constants.CANVAS_HEIGHT;
 import static game.Constants.CANVAS_WIDTH;
 
+/**
+ * The Game Loop runs constantly during a game. It continuously redraws the game entities
+ * to display their movements and actions.
+ */
 public class GameLoop {
 
     public static boolean isRunning = false;
