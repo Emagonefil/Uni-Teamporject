@@ -19,6 +19,8 @@ public class Renderer {
     public static Image loading;
     public static Image volumeOn;
     public static Image volumeOff;
+    public static Image musicOn;
+    public static Image musicOff;
     public static Image hero;
     public static Image tank;
     public static Image tank1;
@@ -45,6 +47,8 @@ public class Renderer {
         loading = loadImage("Resources/image/loading.gif");
         volumeOn = loadImage("Resources/image/v-on.png");
         volumeOff = loadImage("Resources/image/v-off.png");
+        musicOn = loadImage("Resources/image/m-on.png");
+        musicOff = loadImage("Resources/image/m-off.png");
         hero = loadImage("Resources/image/chubbyZombie.png");
         tank = loadImage("Resources/image/Tank.png");
         tank1 = loadImage("Resources/image/tank1.png");
@@ -54,7 +58,7 @@ public class Renderer {
         tank5 = loadImage("Resources/image/tank5.png");
         tank6 = loadImage("Resources/image/tank6.png");
         tank7 = loadImage("Resources/image/tank7.png");
-        wall = loadImage("Resources/image/t1.png");
+        wall = loadImage("Resources/image/crate6.png");
 //        ghost1 = loadImage("Resources/image/ghost1.png");
 //        ghost2 = loadImage("Resources/image/ghost2.png");
         skull1 = loadImage("Resources/image/skull1.png");
@@ -103,6 +107,14 @@ public class Renderer {
         rotate(gc, e.getAngle(), e.getPosition().getX(),e.getPosition().getY());
         gc.drawImage(sprite.spriteImage,e.getPosition().getX()-(e.getWidth()/2),e.getPosition().getY()-(e.getHeight()/2),
         		sprite.width*sprite.scale,sprite.height * sprite.scale);
+
+        gc.restore();
+    }
+    public static void playAnimation(GraphicsContext gc, Sprite sprite, IEntity e) {
+        gc.save();
+        rotate(gc, e.getAngle(), e.getPosition().getX(),e.getPosition().getY());
+        gc.drawImage(sprite.spriteImage,e.getPosition().getX()-(e.getWidth()/2),e.getPosition().getY()-(e.getHeight()/2),
+                sprite.width*sprite.scale,sprite.height * sprite.scale);
 
         gc.restore();
     }

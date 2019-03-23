@@ -43,9 +43,12 @@ public class GameWindow {
         c.setMouseTransparent(true);
         b1 = new JFXButton("RETURN TO MENU");
 
-        final ToggleButton toggle = new ToggleButton();
-        toggle.setLayoutX(10);
-        toggle.setLayoutY(10);
+        final ToggleButton toggleMusic = new ToggleButton();
+        toggleMusic.setLayoutX(10);
+        toggleMusic.setLayoutY(10);
+        final ToggleButton toggleSound = new ToggleButton();
+        toggleSound.setLayoutX(60);
+        toggleSound.setLayoutY(10);
         root.getStylesheets().addAll(GameWindow.class.getResource("style.css").toExternalForm());
 
         b1.setOnAction(new EventHandler<ActionEvent>() {
@@ -59,7 +62,7 @@ public class GameWindow {
         });
         b1.setVisible(false);
 
-        root.getChildren().addAll(b1,toggle);
+        root.getChildren().addAll(b1,toggleMusic,toggleSound);
         b1.setLayoutX((Constants.CANVAS_WIDTH - 230)/2);
         b1.setLayoutY((Constants.CANVAS_HEIGHT - 40)/2);
         BackgroundImage bkg = new BackgroundImage(Renderer.background, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT);
@@ -73,10 +76,10 @@ public class GameWindow {
         scale.xProperty().bind(root.widthProperty().divide(Constants.CANVAS_WIDTH));     //must match with the one in the controller
         scale.yProperty().bind(root.heightProperty().divide(Constants.CANVAS_HEIGHT));   //must match with the one in the controller
         root.getTransforms().add(scale);
-
+        stage.setMaximized(true);
         stage.setFullScreen(true);
 
-//        stage.show();
+        stage.show();
 
         GameLoop.start(gc, stage.getScene(), client);
     }

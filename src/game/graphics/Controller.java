@@ -52,14 +52,14 @@ public class Controller {
     protected void handleSinglePlayerButtonAction(ActionEvent event) throws Exception {
         Node node = (Node) event.getSource();
         Stage primaryStage = (Stage) node.getScene().getWindow();
-//        VBox loading = new VBox();
-//        Image img = Renderer.loading;
-//        ImageView imgv= new ImageView(img);
-//        loading.getChildren().add(imgv);
-//        primaryStage.getScene().setRoot(loading);
-//        primaryStage.show();
+        VBox loading = new VBox();
+        Image img = Renderer.loading;
+        ImageView imgv= new ImageView(img);
+        loading.getChildren().add(imgv);
+        primaryStage.getScene().setRoot(loading);
+        primaryStage.show();
 ////        System.out.println("fuck");
-//        Thread.sleep(1000);
+//        Thread.sleep(5000);
        Main.SinglePlayer(primaryStage);
     }
 

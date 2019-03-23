@@ -67,8 +67,8 @@
       <Label fx:id="message" alignment="CENTER" textFill="RED">
          </Label>
 
-      <!--<JFXButton onAction="#test"-->
-                 <!--text="TEST"/>-->
+      <JFXButton onAction="#test"
+                 text="TEST"/>
 
 
    </children>

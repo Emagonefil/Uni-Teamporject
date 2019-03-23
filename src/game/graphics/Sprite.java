@@ -34,4 +34,8 @@ public class Sprite {
         return entity.getPosition().getY();
     }
 
+    public Entity getEntity() {
+        return entity;
+    }
+
 }

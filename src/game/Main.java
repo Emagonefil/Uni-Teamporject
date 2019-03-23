@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.*;
 
 import game.ai.AiController;
+import game.audio.AudioPlayer;
 import game.controller.Login;
 import game.entity.Player;
 import game.entity.User;
@@ -126,6 +127,8 @@ public class Main extends Application {
 
 		primaryStage.setFullScreen(true);
 		primaryStage.show();
+		AudioPlayer audioPlayer = new AudioPlayer();
+		audioPlayer.playBackgroundMusic();
 
 		primaryStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -170,14 +173,18 @@ public class Main extends Application {
 				if(backward) c1.sendCommands("Backward");
 				if(left) c1.sendCommands("RotateLeft");
 				if(right) c1.sendCommands("RotateRight");
-				if(shoot) c1.sendCommands("Shoot");
+				if(shoot) {
+					c1.sendCommands("Shoot");
+					audioPlayer.playShootSound();
+				}
 			}
 		};
 		timer.start();
+
+
 	}
 
 	public static void SinglePlayer(Stage stage){
-
 
 		try {
 			Port.localIP = InetAddress.getLocalHost().getHostAddress();

@@ -2,6 +2,7 @@ package game.graphics;
 
 import game.ClientLogic;
 import game.Main;
+import game.audio.AudioPlayer;
 import game.entity.*;
 import game.maps.map;
 import javafx.animation.AnimationTimer;
@@ -36,6 +37,7 @@ public class GameLoop {
         }
     };
     private static AnimationTimer timer = null;
+    private static AudioPlayer audioPlayer = new AudioPlayer();
     private static double currentGameTime;
     private static double oldGameTime;
     private static double deltaTime;
@@ -196,18 +198,20 @@ public class GameLoop {
                 gc.setFont(new Font("Press Start 2P", 80));
                 gc.fillText("GAME OVER", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
                 GameWindow.toggleBtn(true);
+                audioPlayer.playLoseSound();
             }
 
         } else {
             gc.setFill(Color.BLACK);
-            gc.fillText("x: " + currentPlayer.getPosition().getX(), 60,25);
-            gc.fillText("y: " + currentPlayer.getPosition().getY(), 60,45);
+            gc.fillText("x: " + currentPlayer.getPosition().getX(), 110,25);
+            gc.fillText("y: " + currentPlayer.getPosition().getY(), 110,45);
             if (playerCount == 1) {
                 gc.setFill(Color.BLACK);
 //            System.out.println(Font.getFontNames());
                 gc.setFont(new Font("Press Start 2P", 80));
                 gc.fillText("You Won!", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
                 GameWindow.toggleBtn(true);
+                audioPlayer.playWinSound();
             } else {
                 GameWindow.toggleBtn(false);
             }
