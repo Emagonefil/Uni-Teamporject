@@ -1,4 +1,4 @@
-package game.network.mainserver;
+package game.network;
 
 import java.io.Serializable;
 import java.net.InetAddress;
