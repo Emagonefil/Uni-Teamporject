@@ -28,6 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javax.sound.sampled.*;
@@ -74,8 +75,10 @@ public class Main extends Application {
 		primaryStage.setTitle(Constants.GAME_NAME + " " + Constants.GAME_VERSION);
 
 		// set the window to be maximized (fullscreen)
-		primaryStage.setMaximized(true);
+//		primaryStage.setMaximized(true);
 
+		primaryStage.setWidth(Constants.CANVAS_WIDTH);
+		primaryStage.setHeight(Constants.CANVAS_HEIGHT);
 		// close application (stop all processes) when x button is pressed
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -110,11 +113,17 @@ public class Main extends Application {
 		}
 		Scene scene = new Scene(root);
 
+		Scale scale = new Scale(1, 1, 0, 0);
+//		scale.xProperty().bind(root.widthProperty().divide(initWidth));     //must match with the one in the controller
+//		scale.yProperty().bind(root.heightProperty().divide(initHeight));   //must match with the one in the controller
+		root.getTransforms().add(scale);
+
 		// add style sheet to this scene
 //		scene.getStylesheets().addAll(this.getClass().getResource("gui/style.css").toExternalForm());
 
 		// add scene to stage and display stage
 		primaryStage.setScene(scene);
+		primaryStage.setMaximized(true);
 		primaryStage.show();
 
 		primaryStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {

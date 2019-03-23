@@ -13,8 +13,10 @@ public class Constants {
 
 //    static GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
     static Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-    public static double CANVAS_WIDTH = screenBounds.getWidth();
-    public static double CANVAS_HEIGHT = screenBounds.getHeight();
+//    public static double CANVAS_WIDTH = screenBounds.getWidth();
+//    public static double CANVAS_HEIGHT = screenBounds.getHeight();
+    public static double CANVAS_WIDTH = 1400;
+    public static double CANVAS_HEIGHT = 800;
 //    public static int SCENE_WIDTH = gd.getDisplayMode().getWidth();
 //    public static int SCENE_HEIGHT = gd.getDisplayMode().getHeight();
 //    public static int CANVAS_WIDTH = 640;

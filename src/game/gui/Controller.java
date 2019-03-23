@@ -157,7 +157,7 @@ public class Controller {
                     Parent root1 = FXMLLoader.load(getClass().getResource("menu3.fxml"));
                     primaryStage.getScene().setRoot(root1);
                     primaryStage.setTitle("Tanks");
-                    primaryStage.setMaximized(true);
+//                    primaryStage.setMaximized(true);
 
                     primaryStage.show();
                 } catch (Exception e) {
@@ -260,7 +260,7 @@ public class Controller {
         Parent root1 = FXMLLoader.load(getClass().getResource("settings.fxml"));
         primaryStage.getScene().setRoot(root1);
         primaryStage.setTitle("Tanks");
-        primaryStage.setMaximized(true);
+//        primaryStage.setMaximized(true);
 
         primaryStage.show();
     }
@@ -281,7 +281,7 @@ public class Controller {
         Parent root1 = FXMLLoader.load(getClass().getResource("menu3.fxml"));
         primaryStage.getScene().setRoot(root1);
         primaryStage.setTitle("Tanks");
-        primaryStage.setMaximized(true);
+//        primaryStage.setMaximized(true);
 
         primaryStage.show();
 
