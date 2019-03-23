@@ -1,6 +1,5 @@
 package game;
 
-import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.PrintStream;
 import java.net.InetAddress;
@@ -13,9 +12,8 @@ import game.controller.Login;
 import game.entity.Player;
 import game.entity.User;
 import game.network.Port;
-import game.network.Room;
-import game.network.RoomServer;
-import game.network.client.Receivable;
+import game.network.mainserver.Room;
+import game.network.mainserver.RoomServer;
 import game.network.common.IPSearcher;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -24,13 +22,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javax.sound.sampled.*;
 
 // loop that runs continuously to update every component of the game
 public class Main extends Application {
