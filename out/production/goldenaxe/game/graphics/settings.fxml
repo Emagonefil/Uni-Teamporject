@@ -11,7 +11,7 @@
 
 
 <VBox id="pane" styleClass="vbox"
-      fx:controller="game.gui.Controller"
+      fx:controller="game.graphics.Controller"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1">
    <children>

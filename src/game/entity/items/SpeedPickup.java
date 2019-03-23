@@ -1,8 +1,8 @@
 package game.entity.items;
 
-import game.Renderer;
+import game.graphics.Renderer;
 import game.entity.*;
-import game.gui.Sprite;
+import game.graphics.Sprite;
 
 public class SpeedPickup extends Item {
 

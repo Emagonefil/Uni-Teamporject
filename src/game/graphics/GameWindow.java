@@ -1,23 +1,17 @@
-package game;
+package game.graphics;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.beans.binding.Bindings;
+import game.ClientLogic;
+import game.Constants;
+import game.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.effect.ColorInput;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import java.net.URL;
@@ -49,7 +43,7 @@ public class GameWindow {
         final ToggleButton toggle = new ToggleButton();
         toggle.setLayoutX(10);
         toggle.setLayoutY(10);
-        root.getStylesheets().addAll(GameWindow.class.getResource("gui/style.css").toExternalForm());
+        root.getStylesheets().addAll(GameWindow.class.getResource("style.css").toExternalForm());
 
         b1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -75,6 +69,8 @@ public class GameWindow {
 
         stage.getScene().setRoot(root);
         stage.setMaximized(true);
+        stage.setFullScreen(true);
+
 //        stage.show();
         GameLoop.start(gc, stage.getScene(), client);
     }
@@ -97,7 +93,7 @@ public class GameWindow {
     }
 
     public static Parent getMenuScene() throws java.io.IOException {
-        String sceneFile = "gui/menu3.fxml";
+        String sceneFile = "graphics/menu3.fxml";
         Parent root = null;
         URL url  = null;
         try

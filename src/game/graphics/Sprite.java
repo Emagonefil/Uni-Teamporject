@@ -1,4 +1,4 @@
-package game.gui;
+package game.graphics;
 
 import game.entity.Entity;
 import javafx.scene.image.Image;

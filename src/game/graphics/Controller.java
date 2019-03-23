@@ -1,4 +1,4 @@
-package game.gui;
+package game.graphics;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
@@ -272,5 +272,6 @@ public class Controller {
         primaryStage.show();
 
     }
+
 
 }

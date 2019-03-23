@@ -11,6 +11,7 @@ import game.ai.AiController;
 import game.controller.Login;
 import game.entity.Player;
 import game.entity.User;
+import game.graphics.GameWindow;
 import game.network.Port;
 import game.network.mainserver.Room;
 import game.network.mainserver.RoomServer;
@@ -23,7 +24,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -86,7 +86,7 @@ public class Main extends Application {
 		});
 
 		// create a scene
-		String sceneFile = "gui/login.fxml";
+		String sceneFile = "graphics/login.fxml";
 		Parent root = null;
 		URL url  = null;
 		try
@@ -114,11 +114,12 @@ public class Main extends Application {
 		root.getTransforms().add(scale);
 
 		// add style sheet to this scene
-//		scene.getStylesheets().addAll(this.getClass().getResource("gui/style.css").toExternalForm());
+//		scene.getStylesheets().addAll(this.getClass().getResource("graphics/style.css").toExternalForm());
 
 		// add scene to stage and display stage
 		primaryStage.setScene(scene);
 		primaryStage.setMaximized(true);
+		primaryStage.setFullScreen(true);
 		primaryStage.show();
 
 		primaryStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {

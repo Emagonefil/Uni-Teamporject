@@ -1,7 +1,7 @@
 package game.entity;
 
-import game.Renderer;
-import game.gui.Sprite;
+import game.graphics.Renderer;
+import game.graphics.Sprite;
 
 public class Wall extends RectangularEntity {
 

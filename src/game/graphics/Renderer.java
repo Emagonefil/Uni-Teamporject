@@ -1,12 +1,8 @@
-package game;
+package game.graphics;
 
 import game.entity.IRectangularEntity;
-import game.gui.Sprite;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.WritableImage;
 import javafx.scene.transform.Rotate;
 
 import java.io.File;
