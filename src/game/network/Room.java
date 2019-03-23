@@ -11,8 +11,13 @@ public class Room implements Serializable {
     public String ServerIp;
     public String RoomIP;
     public int status=0;
+    public int mapID;
 
     private final String roomIpPre= "230.0.0.";
+
+    public void Room(){
+        this.mapID=1;
+    }
 
     public void setRoomId(int roomNum){
         if(roomNum>=1&&roomNum<=255) {

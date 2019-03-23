@@ -25,6 +25,7 @@ public class ClientLogic {
 	public List<Room> rooms = new ArrayList();
 	ClientSender sender1= c1.getSender();
 	private int myRoom;
+	public int mapID;
 	long[] freezetime={System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis()};
 
 	/**

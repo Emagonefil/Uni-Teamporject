@@ -257,14 +257,17 @@ public class Main extends Application {
 						Port.mulitcastAddress = r.RoomIP;
 						System.out.println("sadgaskldfmoijgoiehigdf"+Port.mulitcastAddress);
 						c1.init();
+						c1.mapID=r.mapID;
 						isRunning = true;
 						System.out.println(r.ServerIp);
 						System.out.println(Port.localIP);
+
 						if (r.ServerIp.equals(Port.localIP)) {
 							serverGap s1 = new serverGap();
 							s1.mode=2;
 							s1.start();
 							s1.s1.ServerId = c1.getMyRoom();
+
 							System.out.println(r.ClientId);
 							Thread.sleep(1000);
 							for (int id : r.ClientId) {
