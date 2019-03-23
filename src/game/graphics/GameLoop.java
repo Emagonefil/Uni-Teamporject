@@ -46,7 +46,7 @@ public class GameLoop {
     }
 
     public static double getDeltaTime() {
-        return deltaTime*1000;
+        return deltaTime*100;
     }
 
     public static void start(GraphicsContext gc, Scene scene, ClientLogic client) {
@@ -149,7 +149,7 @@ public class GameLoop {
                 playerCount++;
                 //drawCorners(gc, ((IRectangularEntity) e).getCorners(), Color.GREEN);
 //                gc.setFont(new Font("SERIF", 12));
-//                gc.setFont(new Font("Press Start 2P", 8));
+                gc.setFont(new Font("Press Start 2P", 8));
                 if(currentPlayer != null) {
                     if(e.id == currentPlayer.id) {
                         gc.setFill(Color.YELLOW);
@@ -160,9 +160,7 @@ public class GameLoop {
                     gc.setFill(Color.DARKRED);
                 }
 
-                float x = e.getPosition().getX() - 38;
-                float y = e.getPosition().getY() - 45;
-                float xpos = x + (80 - ((Player) e).name.length()*(((Player) e).name.length()))/2;
+                float xpos = e.getPosition().getX() - 38 + (80 - ((Player) e).name.length()*(((Player) e).name.length()))/2;
                 gc.fillText("" + ((Player) e).name, xpos, e.getPosition().getY() - 50);
 
                 double health = (((Player) e).getHealth() / 1.25);
@@ -174,13 +172,13 @@ public class GameLoop {
                     gc.setFill(Color.LIMEGREEN);
                 }
                 if(health > 80) {
-                    gc.fillRoundRect(x, y, 80, 6, 3, 4);
+                    gc.fillRoundRect(e.getPosition().getX() - 38, e.getPosition().getY() - 45, 80, 6, 3, 4);
                 } else {
-                    gc.fillRoundRect(x, y, health, 6, 3, 4);
+                    gc.fillRoundRect(e.getPosition().getX() - 38, e.getPosition().getY() - 45, health, 6, 3, 4);
                 }
 
                 gc.setStroke(Color.BLACK);
-                gc.strokeRoundRect(x, y, 80, 6, 3, 4);
+                gc.strokeRoundRect(e.getPosition().getX() - 38, e.getPosition().getY() - 45, 80, 6, 3, 4);
             }
         }
 
