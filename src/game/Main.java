@@ -312,7 +312,7 @@ public class Main extends Application {
 					break;
 				try {
 					s1.dealCommmands();
-					if (s1.status == 2&&t==10) {
+					if (s1.status == 2&&t==3) {
 						s1.broadcastEntities();
 						t=0;
 					}
