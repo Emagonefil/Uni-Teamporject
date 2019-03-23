@@ -1,4 +1,4 @@
-package game.audio;
+package audio;
 
 import java.util.Scanner;
 

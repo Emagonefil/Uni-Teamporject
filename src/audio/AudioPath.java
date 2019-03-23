@@ -1,4 +1,4 @@
-package game.audio;
+package audio;
 /**
  *  @author Feilue 3/21/2019
  */

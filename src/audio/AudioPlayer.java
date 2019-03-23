@@ -1,4 +1,4 @@
-package game.audio;
+package audio;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -13,7 +13,6 @@ public class AudioPlayer {
     private SoundPlayer pickItemSoundPlayer;
     private SoundPlayer winSoundPlayer;
     private SoundPlayer loseSoundPlayer;
-
     private static float musicVolume=60;
     private static float soundEffectVolume=60;
 
