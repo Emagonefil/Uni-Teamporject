@@ -1,28 +1,16 @@
 package game.entity;
 
-public class MovableEntity extends Entity {
+public abstract class MovableEntity extends Entity {
 
-	private float speed = 5.0f;
-	private float rotationSpeed = 2.5f;
-
-	public MovableEntity(Point position) {
-		super(position);
-	}
-
-	public MovableEntity(Point position, float angle) {
-		super(position, angle);
-	}
+	private float speed;
+	private float rotationSpeed;
 	
-	public MovableEntity(Point position, float angle, float speed){
-		super(position, angle);
-		this.speed = speed;
-	}
-	
-	public MovableEntity(Point position, float angle, float speed, float rotationSpeed) {
-		super(position, angle);
+	public MovableEntity(float width, float height, Point position, float angle, float speed, float rotationSpeed) {
+		super(width, height, position, angle);
 		this.speed = speed;
 		this.rotationSpeed = rotationSpeed;
 	}
+
 
 	public void forward() {
 		float radAngle = (float) Math.toRadians(this.angle);

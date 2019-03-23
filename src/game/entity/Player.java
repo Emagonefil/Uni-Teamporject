@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
 
-public class Player extends MovableRectangularEntity implements KillableEntity{
+public class Player extends MovableEntity implements KillableEntity{
 
 	private int tankModel = 1;
 	public static Player fromFile(String path) throws IOException {
@@ -58,12 +58,6 @@ public class Player extends MovableRectangularEntity implements KillableEntity{
 	public void draw(int tankModel) {
 		Sprite s = new Sprite(this,Renderer.getTank(tankModel),this.getWidth(),this.getHeight(),1);
 		Renderer.playAnimation(s,this);
-	}
-
-	@Override
-	public void die() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

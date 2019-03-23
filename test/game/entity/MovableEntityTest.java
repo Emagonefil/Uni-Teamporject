@@ -3,9 +3,9 @@ package game.entity;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MovableRectangularEntityTest {
+public class MovableEntityTest {
 
-	private MovableRectangularEntity testRectangle;
+	private MovableEntity testRectangle;
 	private final float HEIGHT = 10.0f;
 	private final float WIDTH = 5.0f;
 	private final float ANGLE = 30.0f;
@@ -18,10 +18,12 @@ public class MovableRectangularEntityTest {
 		return false;
 	}
 	
+	/*
 	@Before
 	public void setUp() {
-		this.testRectangle = new MovableRectangularEntity(WIDTH, HEIGHT, new Point(15, 2), ANGLE);
+		this.testRectangle = new MovableEntity(WIDTH, HEIGHT, new Point(15, 2), ANGLE);
 	}
+	*/
 	
 	@Test
 	public void testForward() {

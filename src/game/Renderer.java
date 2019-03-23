@@ -1,6 +1,6 @@
 package game;
 
-import game.entity.IRectangularEntity;
+import game.entity.IEntity;
 import game.gui.Sprite;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -100,7 +100,7 @@ public class Renderer {
         return hero;
     }
     
-    public static void playAnimation(Sprite sprite, IRectangularEntity e) {
+    public static void playAnimation(Sprite sprite, IEntity e) {
         GraphicsContext gc = GameWindow.getGraphicsContext();
         gc.save();
         rotate(gc, e.getAngle(), e.getPosition().getX(),e.getPosition().getY());

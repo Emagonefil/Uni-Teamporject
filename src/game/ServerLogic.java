@@ -255,7 +255,6 @@ public class ServerLogic {
 							Entities.remove(i);
 							live=false;
 							if(((Player) e2).getHealth()<=0) {
-								((Player) e2).die();
 								diePlayer.add(((Player) e2));
 								Entities.remove(e2);
 							}
@@ -313,8 +312,7 @@ public class ServerLogic {
 								break;
 							}
 							case "Shoot": {
-								Bullet b = new Bullet(8, 8, new Point(e1.getPosition().getX(), e1.getPosition().getY()));
-								b.setAngle(e1.getAngle());
+								Bullet b = new Bullet(8, 8, new Point(e1.getPosition().getX(), e1.getPosition().getY()), e1.getAngle());
 								//b.id = getSpareId();
 								b.owner = e1.id;
 								this.Entities.add(b);
