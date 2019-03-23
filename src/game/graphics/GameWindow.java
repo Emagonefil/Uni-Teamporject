@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import game.ClientLogic;
 import game.Constants;
 import game.Main;
+import game.entity.Entity;
+import game.maps.map;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -75,6 +77,12 @@ public class GameWindow {
         stage.setFullScreen(true);
 
 //        stage.show();
+        map map = new map();
+        map.initMap(Main.c1.mapID);
+        for(Entity e: map.getMap()) {
+            e.draw();
+        }
+
         GameLoop.start(gc, stage.getScene(), client);
     }
 
