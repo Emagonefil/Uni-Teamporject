@@ -42,6 +42,7 @@ public class GameLoop {
     private final static long startNanoTime = System.nanoTime();
     private static int count = 0;
     private static boolean btnAdded = false;
+    private static map map=new map();
 //    private static List<Entity> entities;
     public static double getCurrentGameTime() {
         return currentGameTime;
@@ -52,6 +53,7 @@ public class GameLoop {
     }
 
     public static void start(GraphicsContext gc, Scene scene, ClientLogic client) {
+        map.initMap(Main.c1.mapID);
         timer = new AnimationTimer() {
             public void handle(long currentNanoTime) {
                 oldGameTime = currentGameTime;
@@ -141,8 +143,6 @@ public class GameLoop {
     public static void render(ClientLogic client, GraphicsContext gc) {
         Player currentPlayer = (Player) client.getEntityByID(client.id);
         int playerCount = 0;
-        map map = new map();
-        map.initMap(Main.c1.mapID);
         for(Entity e: map.getMap()) {
             e.draw();
         }
