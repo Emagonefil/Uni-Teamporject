@@ -8,9 +8,32 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
 
+/**
+ * This class is the entitiy that is controlled by the player/AI
+ * it extends MovableEntity to add relevant features such as health
+ * and ammunition
+ * 
+ * @author callum
+ *
+ */
 public class Player extends MovableEntity implements KillableEntity{
 
+	/**
+	 * There are multiple possible sprites for tanks, chosen randomly when
+	 * the tank is created. This field specifies which tank sprite this 
+	 * entity has.
+	 */
 	private int tankModel = 1;
+	
+	/**
+	 * This takes a path to a config file and generates a new Player objects with the
+	 * properties specified within the file. If any properties are missing then their
+	 * default values are used instead.
+	 * 
+	 * @param path The path to the desired player config file.
+	 * @return The Player that has been created from the file.
+	 * @throws IOException
+	 */
 	public static Player fromFile(String path) throws IOException {
 		Properties configFile = new Properties();
 		configFile.load(new FileInputStream(path));
@@ -27,6 +50,10 @@ public class Player extends MovableEntity implements KillableEntity{
 		return new Player(width, height, new Point(x, y), angle, speed, rotationSpeed, health, ammo);
 	}
 	
+	/**
+	 * Create a Player with the default properties
+	 * This shouldn't be used in practice.
+	 */
 	public Player() {
 		super(60.0f, 36.0f, new Point(0.0f, 0.0f), 0.0f, 1f, 1.0f);
 		this.health = 100;
@@ -36,6 +63,18 @@ public class Player extends MovableEntity implements KillableEntity{
 		this.tankModel = rand.nextInt(7);
 	}
 
+	/**
+	 * Create a Player with the given property values
+	 * 
+	 * @param width The width of the Player
+	 * @param height The height of the Player
+	 * @param position The position of the centre of the Player
+	 * @param angle The angle in which the Player should start facing
+	 * @param speed The amount by which the player moves in a single move command
+	 * @param rotationSpeed The amount (in degrees) by which the Player rotates in a sing rotate command
+	 * @param health This Player's starting health
+	 * @param ammo This Player's starting ammunition
+	 */
 	public Player(float width, float height, Point position, float angle, float speed, float rotationSpeed, int health,
 			int ammo) {
 		super(width, height, position, angle, speed, rotationSpeed);
@@ -46,8 +85,20 @@ public class Player extends MovableEntity implements KillableEntity{
 		this.tankModel = rand.nextInt(7);
 	}
 
+	/**
+	 * This players health. This is checked when they get hit
+	 * by a bullet and if it reaches 0 then the Player is removed
+	 */
 	private int health;
+	
+	/**
+	 * This Player's ammunition, should be checked before the Player is allowed to shoot
+	 */
 	private int ammo;
+	
+	/**
+	 * This Player's username
+	 */
 	public String name;
 
 	@Override
@@ -60,34 +111,64 @@ public class Player extends MovableEntity implements KillableEntity{
 		Renderer.playAnimation(s,this);
 	}
 
+	/**
+	 * Reduces this Player's health by the given amount. Used by collision handling
+	 * when a bullet hits a Player.
+	 * 
+	 * @param amount The amount by which to reduce this Player's health
+	 */
 	@Override
 	public void reduceHealth(int amount) {
 		this.health -= amount;
 	}
 
+	/**
+	 * Returns this Player's health
+	 * @return this Player's health
+	 */
 	@Override
 	public int getHealth() {
 		return this.health;
 	}
 
+	/**
+	 * Returns this Player's ammo
+	 * @return This Player's ammo
+	 */
 	public int getAmmo() {
 		return this.ammo;
 	}
 
+	/**
+	 * This sets the ammo field to the given value
+	 * 
+	 * @param amount The new value for ammo
+	 */
 	public void setAmmo(int amount) {
 		this.ammo = amount;
 	}
-
+	
+	/**
+	 * This returns the tank sprite number for this tank. This is used by the Renderer
+	 * 
+	 * @return The tank sprite number for this Player
+	 */
 	public int getTankModel() {
 		return this.tankModel;
 	}
 
+	/**
+	 * Changes the tank sprite for this Player to the given one
+	 * 
+	 * @param tankModel The new tank sprite number for this Player
+	 */
 	public void setTankModel(int tankModel) {
 		this.tankModel = tankModel;
 	}
 
-	// This is simply to easily increment ammo
-	// there is nothing more in this part.
+	/**
+	 * This gives an easy way to decrement a Player's ammo when they shoot
+	 */
 	public void shoot() {
 		this.ammo -= 1;
 	}
