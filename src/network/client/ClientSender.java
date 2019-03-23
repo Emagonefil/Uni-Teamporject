@@ -1,19 +1,20 @@
-package goldenaxe.network.client;
+package game.network.client;
 
-import goldenaxe.network.Port;
+import game.network.Port;
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
+import java.net.*;
+import java.io.*;
 
 public class ClientSender{
 		
 	private DatagramSocket socket;
 	private DatagramPacket packet;
-//	private String address;
 	private Integer port = Port.serverPort;
-	
+
+	/**
+	 * default constructor
+	 * @exception SocketException
+	 */
 	public ClientSender() {
 		try {
 			socket = new DatagramSocket();
@@ -22,9 +23,12 @@ public class ClientSender{
 		}
 	}
 
-
-
-	
+	/**
+	 * send a String to an address using udp
+	 * @param address the address of receiver
+	 * @param str the string needs to be sent
+	 * @exception UnknownHostException,IOException
+	 */
 	public void send(String address, String str) {
 		try {
 			byte[] buf = str.getBytes();
@@ -32,7 +36,9 @@ public class ClientSender{
 			packet.setAddress(InetAddress.getByName(address));
 			packet.setPort(port);
 			socket.send(packet);
-		}catch(Exception ignored) {}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

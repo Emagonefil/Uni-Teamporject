@@ -1,6 +1,4 @@
-package goldenaxe.network.client;
-
-import java.util.List;
+package game.network.client;
 
 
 public interface Receivable {
