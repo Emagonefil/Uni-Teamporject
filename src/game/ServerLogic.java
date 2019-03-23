@@ -19,12 +19,20 @@ public class ServerLogic {
 	public int status=0;
 	public int ServerId= 99999;
 	map m=new map();
+
+	/**
+	 * init the whole server and create the map
+	 */
 	public void init() {
 		initMap();
 		this.status=1;
 		System.out.println("ServerId: "+this.ServerId);
 		this.status=2;
 	}
+
+	/**
+	 * create the map
+	 */
 	public void initMap() {
 		m.initMap(0);
 		Entities.addAll(m.getMap());
@@ -39,6 +47,10 @@ public class ServerLogic {
 		}
 		return 0;
 	}
+
+	/**
+	 * show the players that have joined the server
+	 */
 	public void listPlayers(){
 		System.out.println("Server info");
 		Entity e;
@@ -49,6 +61,11 @@ public class ServerLogic {
 			}
 		}
 	}
+
+	/**
+	 * get spare id that have not been used in entity list
+	 * @return a random id that have not been used
+	 */
 	public int getSpareId(){
 		int id=ra.nextInt(9999)+1;
 		if (Entities.size()!=0)
@@ -68,6 +85,12 @@ public class ServerLogic {
 		}
 		return id;
 	}
+
+	/**
+	 * get entity's corner points to calculate collision
+	 * @param e the entity
+	 * @return points
+	 */
 	public Point[] getCorner(Entity e){
 		if(e.type.equals("Player"))
 			return ((Player)e).getCorners();
@@ -79,7 +102,13 @@ public class ServerLogic {
 			return ((Item)e).getCorners();
 		return null;
 	}
-	public int checkColision(Entity e){
+
+	/**
+	 * check whether entity touched any other entity
+	 * @param e the entity going to be checked
+	 * @return the touched entity's id or 0
+	 */
+	public int checkCollision(Entity e){
 		Point[] p1= getCorner(e);
 		Point[] p2;
 		Entity e2;
@@ -105,6 +134,12 @@ public class ServerLogic {
 		}
 		return 0;
 	}
+
+	/**
+	 * this funciton is used to add a player to entity list
+	 * @param id player's id
+	 * @return player's id
+	 */
 	public int addPlayer(int id){
 		Player w;
 		while (true) {
@@ -122,7 +157,7 @@ public class ServerLogic {
 			}
 			w.name=""+id;
 			w.setPosition(new Point((float)x,(float)y));
-			int l=checkColision(w);
+			int l=checkCollision(w);
 			//System.out.println(l);
 			if (l== 0) {
 				w.id = id;
@@ -137,6 +172,11 @@ public class ServerLogic {
 		listPlayers();
 		return w.id;
 	}
+
+	/**
+	 * this function is used to add a player to entity list without a random id
+	 * @return player's id created randomly
+	 */
 	public int addPlayer(){
 		Player w;
 		while (true) {
@@ -152,7 +192,7 @@ public class ServerLogic {
 				w = new Player();
 			}
 			w.setPosition(new Point((float)x,(float)y));
-			int l=checkColision(w);
+			int l=checkCollision(w);
 			//System.out.println(l);
 			if (l== 0) {
 				w.id =getSpareId();
@@ -166,6 +206,12 @@ public class ServerLogic {
 		RankService.getInstance().initPlayScore(w.id);
 		return w.id;
 	}
+
+	/**
+	 * it's used to search a specific entity in the entity list by id
+	 * @param id the entity's id
+	 * @return the entity or null
+	 */
 	public Entity SearchEntityById(int id) {
 		for(int i=0;i<Entities.size();i++) {
 			if(Entities.get(i).id==id)
@@ -173,6 +219,10 @@ public class ServerLogic {
 		}
 		return null;
 	}
+
+	/**
+	 * let bullets move on the screen
+	 */
 	public void moveBullets(){
 		Entity e;
 		for(int i=0;i<Entities.size();i++) {
@@ -218,6 +268,10 @@ public class ServerLogic {
 
 		}
 	}
+
+	/**
+	 * this function is used to deal with commands sent from clients
+	 */
 	public void dealCommmands() {
 		this.Commands = server.getMoves();
 		Iterator it1 = Commands.iterator();
@@ -236,25 +290,25 @@ public class ServerLogic {
 						switch (arrs[2]) {
 							case "Forward": {
 								e1.forward();
-								if (checkColision(e1) != 0)
+								if (checkCollision(e1) != 0)
 									e1.backwards();
 								break;
 							}
 							case "Backward": {
 								e1.backwards();
-								if (checkColision(e1) != 0)
+								if (checkCollision(e1) != 0)
 									e1.forward();
 								break;
 							}
 							case "RotateRight": {
 								e1.rotateRight();
-								if (checkColision(e1) != 0)
+								if (checkCollision(e1) != 0)
 									e1.rotateLeft();
 								break;
 							}
 							case "RotateLeft": {
 								e1.rotateLeft();
-								if (checkColision(e1) != 0)
+								if (checkCollision(e1) != 0)
 									e1.rotateRight();
 								break;
 							}
@@ -282,6 +336,11 @@ public class ServerLogic {
 		moveBullets();
 		createItems();
 	}
+
+	/**
+	 * this function would create items randomly
+	 * more items on the map, less possibility new items would be created
+	 */
 	public void createItems(){
 
 		if(ra.nextInt(Entities.size()*50)==1)
@@ -292,7 +351,7 @@ public class ServerLogic {
 				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/50)*50 ;
 				h = new HealthPickup(new Point((float)x, (float)y));
 				h.id = getSpareId();
-				if(checkColision(h)==0) {
+				if(checkCollision(h)==0) {
 					Entities.add(h);
 					break;
 			}
@@ -305,25 +364,25 @@ public class ServerLogic {
 				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/50)*50 ;
 				s = new SpeedPickup(new Point((float)x, (float)y));
 				s.id = getSpareId();
-				if(checkColision(s)==0) {
+				if(checkCollision(s)==0) {
 					Entities.add(s);
 					break;
 			}
 		}
 	}
-	public Entity getEntityByID(int id) {
-		for(int i=0;i<Entities.size();i++) {
-			if(Entities.get(i).id==id)
-				return Entities.get(i);
-		}
-		return null;
-	}
 
+	/**
+	 * this function is used to send the entity list to clients
+	 */
 	public void broadcastEntities() {
 		server.send(Port.mulitcastAddress,Entities);
 		//List<PlayerScore> newRank = RankService.getInstance().rankList();
 		//System.out.println("发送："+System.currentTimeMillis());
 	}
+
+	/**
+	 * close the server
+	 */
 	public void close(){
 		server.close();
 	}

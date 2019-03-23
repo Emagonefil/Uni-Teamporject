@@ -196,7 +196,7 @@ public class Main extends Application {
 			ai.ServerId=s1.s1.ServerId;
 			ai.id=s1.s1.addPlayer();
 			Player p;
-			p = (Player)s1.s1.getEntityByID(ai.id);
+			p = (Player)s1.s1.SearchEntityById(ai.id);
 			p.name="AI_NO."+i;
 			AIs.add(ai);
 			(new AiController(ai,c1)).start();
@@ -204,7 +204,7 @@ public class Main extends Application {
 		c1.ServerId=s1.s1.ServerId;
 		c1.id=s1.s1.addPlayer();
 		c1.diePlayer=s1.s1.diePlayer;
-		Player p = (Player)s1.s1.getEntityByID(c1.id);
+		Player p = (Player)s1.s1.SearchEntityById(c1.id);
 		p.name="YOU";
 //		GameWindow newGame = new GameWindow(stage, c1);
 		GameWindow.start(stage,c1);
@@ -254,6 +254,8 @@ public class Main extends Application {
 						System.out.println("sadgaskldfmoijgoiehigdf"+Port.mulitcastAddress);
 						c1.init();
 						isRunning = true;
+						System.out.println(r.ServerIp);
+						System.out.println(Port.localIP);
 						if (r.ServerIp.equals(Port.localIP)) {
 							serverGap s1 = new serverGap();
 							s1.mode=2;

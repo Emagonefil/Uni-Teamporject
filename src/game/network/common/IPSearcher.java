@@ -15,6 +15,7 @@ public class IPSearcher {
      * @return the string of the network interface of GlodenAxe
      */
     public static String goldenaxeAddress(){
+        String first = null;
         try{
             Enumeration<NetworkInterface> interfaceList = getNetworkInterfaces();
             if (interfaceList == null) {
@@ -27,6 +28,7 @@ public class IPSearcher {
                         InetAddress inetAddress = addrList.nextElement();
                         if(inetAddress instanceof Inet4Address) {
                             String address = inetAddress.getHostAddress();
+                            if(first==null) first = address;
                             String pattern = "192.168.137.\\d+";
                             if(Pattern.matches(pattern, address))
                                 return address;
@@ -34,11 +36,11 @@ public class IPSearcher {
                     }
                 }
             }
-            return null;
+            return first;
 
         }catch (Exception e){
             e.printStackTrace();
         }
-        return null;
+        return first;
     }
 }

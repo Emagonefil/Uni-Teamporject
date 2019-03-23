@@ -28,6 +28,8 @@ public class AudioPlayer {
             this.loseSoundPlayer = getSoundPlayer(new File(AudioPath.loseMusic));
     }
 
+
+
     /**
      * get the current volume value of the music
      * @return the volume of the music

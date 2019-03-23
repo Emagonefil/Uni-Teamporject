@@ -25,7 +25,7 @@ public class RoomServer {
             rooms = new ArrayList<>();
             waiting = new LinkedBlockingDeque<>();
             run();
-            System.out.println("main server started");
+            System.out.println("room server started");
         }catch (Exception e){}
 
     }
@@ -167,11 +167,17 @@ public class RoomServer {
         }
     }
     private String leaveRoom(Integer cid){
+        if(cid==0)
+            return "0";
         for(int u=0;u<rooms.size();u++){
                 Room r=rooms.get(u);
+                System.out.println("r"+rooms.size());
                 for(int i=0;i<r.ClientId.size();i++){
-                    if(r.ClientId.get(i)==cid)
+                    if(r.ClientId.get(i).equals(cid)) {
                         r.ClientId.remove(i);
+                        if(r.ClientId.size()==0)
+                            rooms.remove(r);
+                    }
                 }
         }
         return "0";

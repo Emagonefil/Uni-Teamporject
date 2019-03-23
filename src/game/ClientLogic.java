@@ -26,6 +26,10 @@ public class ClientLogic {
 	ClientSender sender1= c1.getSender();
 	private int myRoom;
 	long[] freezetime={System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis()};
+
+	/**
+	 * init the client and start listening the port
+	 */
 	public void init() {
 		c1 = new Client();
 		diePlayer = new ArrayList<>();
@@ -52,6 +56,10 @@ public class ClientLogic {
 
 		});
 	}
+
+	/**
+	 * list all players in entity list
+	 */
 	public void listPlayers(){
 		System.out.println("Players:");
 		Entity e;
@@ -62,29 +70,19 @@ public class ClientLogic {
 			}
 		}
 	}
-	public void listWalls(){
-		System.out.println("Walls:");
-		Entity e;
-		for(int i=0;i<Entities.size();i++){
-			e =Entities.get(i);
-			if(e.type.equals("Wall")){
-				System.out.println("id: "+e.getId()+" Pos: "+e.getPosition());
-			}
-		}
-	}
-	public void listBullets(){
-		System.out.println("Bullets:");
-		Entity e;
-		for(int i=0;i<Entities.size();i++){
-			e =Entities.get(i);
-			if(e.type.equals("Bullet")){
-				System.out.println("id: "+e.getId()+" Pos: "+e.getPosition()+" Angle: "+e.getAngle());
-			}
-		}
-	}
+
+	/**
+	 * let other modules get entity list
+	 * @return current entity list
+	 */
 	public List<Entity> getEntities(){
 		return this.Entities;
 	}
+
+	/**
+	 * send commands to server
+	 * @param c command
+	 */
 	public void sendCommands(String c) {
 		if(id==0||ServerId==0)
 			return;
@@ -116,6 +114,10 @@ public class ClientLogic {
 		//sender1.send(Port.serverAddress,ServerId+","+this.id+","+c);
 		//System.out.println("Client sent: "+ServerId+","+this.id+","+c);
 	}
+
+	/**
+	 * get data from room server and refresh the room list
+	 */
 	public void getRoomList(){
 		try{
 			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
@@ -127,16 +129,19 @@ public class ClientLogic {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * send data to room server to create a new room
+	 */
 	public void createRoom(){
 		try{
+			int oldId=id;
 			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
 			PrintStream ps=new PrintStream(socket.getOutputStream());
 			ps.println("Room,create");
-			System.out.println("Room,create");
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
 			getRoomList();
 			int t=(int) in.readObject();
-			System.out.println(t);
 			while(true){
 				try {
 					id = findRoom(t).ClientId.get(0);
@@ -146,12 +151,20 @@ public class ClientLogic {
 				}
 			}
 			myRoom=t;
+
+			leaveRoom(oldId);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * send data to room server to join a room
+	 * @param roomNum the room's id that's going to join
+	 */
 	public void joinRoom(int roomNum){
 		try{
+			int oldId=id;
 			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
 			PrintStream ps=new PrintStream(socket.getOutputStream());
 			ps.println("Room,join"+roomNum);
@@ -167,21 +180,30 @@ public class ClientLogic {
 					e.printStackTrace();
 				}
 			}
+			leaveRoom(oldId);
 		}catch (Exception e){
 		}
 	}
-	public void leaveRoom(){
+
+	/**
+	 * leave the current room
+	 */
+	public void leaveRoom(int id){
 		try{
 			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
 			PrintStream ps=new PrintStream(socket.getOutputStream());
-			ps.println("Room,leave");
+			ps.println("Room,leave"+id);
 			ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
-			myRoom=0;
-			id=0;
 		}catch (Exception e){
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * search a room by room's id
+	 * @param id room's id
+	 * @return the room or null
+	 */
 	public Room  findRoom(int id){
 		for(int i=0;i<rooms.size();i++){
 			if(rooms.get(i).getRoomId()==id)
@@ -189,6 +211,10 @@ public class ClientLogic {
 		}
 		return null;
 	}
+
+	/**
+	 * inform the room server to start the game
+	 */
 	public void startGame(){
 		try{
 			Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
@@ -200,11 +226,19 @@ public class ClientLogic {
 		}
 	}
 
-
+	/**
+	 * get the current room that client is in
+	 * @return room's id
+	 */
 	public int getMyRoom(){
 		return myRoom;
 	}
 
+	/**
+	 * search a specific entity in entity list by id
+	 * @param id entity's id
+	 * @return the entity or null
+	 */
 	public Entity getEntityByID(int id) {
 		for(int i=0;i<Entities.size();i++) {
 			if(Entities.get(i).id==id)
@@ -213,29 +247,6 @@ public class ClientLogic {
 		return null;
 	}
 
-	public void close(){
-		c1.closeReceiver();
-		c1 = null;
-	}
-
-	public void restartReciver(){
-		c1.closeReceiver();
-		c1.startReceiver(new Receivable() {
-			@Override
-			public void receive(Object o) {
-				System.out.println("received");
-				try {
-					Entities = (List<Entity>) o;
-
-
-				}
-				catch (Exception e){
-//					String command= (String) o;
-
-				}
-			}
-		});
-	}
 
 	}
 
