@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<VBox id="pane" styleClass="vbox"
+      xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="game.controller.Login">
+   <children>
+      <Label styleClass="vbox" text="REGISTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+
+      <JFXTextField fx:id="signUserName"
+                    labelFloat="true" promptText="USERNAME">
+         <VBox.margin>
+            <Insets>
+               <bottom>25</bottom>
+            </Insets>
+         </VBox.margin>
+      </JFXTextField>
+
+      <JFXPasswordField fx:id="signPassWord"
+                        labelFloat="true" promptText="PASSWORD" >
+         <VBox.margin>
+            <Insets>
+               <bottom>25</bottom>
+            </Insets>
+         </VBox.margin>
+      </JFXPasswordField>
+
+      <JFXPasswordField fx:id="signRepPassWord" labelFloat="true"
+                        promptText="CONFIRM PASSWORD" >
+         <VBox.margin>
+            <Insets>
+               <bottom>25</bottom>
+            </Insets>
+         </VBox.margin>
+      </JFXPasswordField>
+
+      <HBox styleClass="hbox">
+         <JFXButton onAction="#handleRegister" text="REGISTER" textFill="WHITE">
+            <HBox.margin>
+               <Insets>
+                  <right>20</right>
+               </Insets>
+            </HBox.margin>
+         </JFXButton>
+
+         <JFXButton onAction="#handleCancel" text="CANCEL" textFill="WHITE" />
+         <HBox.margin>
+            <Insets>
+               <bottom>20</bottom>
+            </Insets>
+         </HBox.margin>
+      </HBox>
+
+      <Label fx:id="signMessage" styleClass="vbox" textFill="RED" />
+
+
+
+   </children>
+
+   <stylesheets>
+      <URL value="@style.css" />
+   </stylesheets>
+
+
+</VBox>
