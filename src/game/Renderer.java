@@ -12,7 +12,10 @@ import javafx.scene.transform.Rotate;
 import java.io.File;
 
 
-
+/**
+ * The renderer is concerned with loading images necessary for the game
+ * and providing methods to render these on the scree
+ */
 public class Renderer {
 
     public static Image gameOver;

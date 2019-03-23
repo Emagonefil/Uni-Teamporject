@@ -266,19 +266,6 @@ public class Controller {
     }
 
     @FXML
-    protected void handleRankingsButtonAction(ActionEvent event) throws Exception {
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-
-        Parent root1 = FXMLLoader.load(getClass().getResource("Rankings.fxml"));
-        primaryStage.getScene().setRoot(root1);
-        primaryStage.setTitle("Tanks");
-        primaryStage.setMaximized(true);
-
-        primaryStage.show();
-    }
-
-    @FXML
     protected void handleQuitButtonAction(ActionEvent event) throws Exception {
         System.out.println("Quit Game");
         Platform.exit();

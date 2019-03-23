@@ -3,6 +3,9 @@ package game.gui;
 import game.entity.Entity;
 import javafx.scene.image.Image;
 
+/**
+ * A sprite allows easy manipulation of images and is used to draw these in the renderer
+ */
 public class Sprite {
 
     public Image spriteImage;

@@ -1,7 +1,6 @@
 package game.entity;
 
 import game.Renderer;
-import game.gui.Animation;
 import game.gui.Sprite;
 
 public class Bullet extends MovableRectangularEntity implements KillableEntity{
