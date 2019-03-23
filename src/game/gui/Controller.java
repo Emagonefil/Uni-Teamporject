@@ -57,7 +57,7 @@ public class Controller {
         loading.getChildren().add(imgv);
         primaryStage.getScene().setRoot(loading);
         primaryStage.show();
-        System.out.println("fuck");
+//        System.out.println("fuck");
         Thread.sleep(1000);
        Main.SinglePlayer(primaryStage);
     }
