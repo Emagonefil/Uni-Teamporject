@@ -35,23 +35,28 @@ public abstract class Entity implements IEntity, Serializable {
 	public String type;
 	
 	/**
-	 * This creates an entity with the given position and sets the angle to 0 degrees
-	 * @param position The position for the centre of this new entity.
+	 * The width of the Entity, in the scale of the grid position
 	 */
-	public Entity(Point position) {
-		this.position = position;
-		this.angle = 0.0f;
-	}
+	private float width;
+	
+	/**
+	 * The height of the Entity, in the scale of the grid position
+	 */
+	private float height;
 
 	/**
-	 * This creates an entity with the given position and angle(in degrees)
+	 * This creates an entity with the given width, height, position and angle(in degrees)
 	 * 
+	 * @param width The width of the new Entity.
+	 * @param height The height of the new Entity.
 	 * @param position The starting position for the centre of this entity.
 	 * @param angle The angle at which this new entity is facing (in degrees)
 	 */
-	public Entity(Point position, float angle) {
+	public Entity(float width, float height, Point position, float angle) {
 		this.position = position;
 		this.angle = angle;
+		this.width = width;
+		this.height = height;
 	}
 
 	/**
@@ -77,10 +82,72 @@ public abstract class Entity implements IEntity, Serializable {
 	}
 
 	/**
-	 * sets the position of the centre of this entity to a new location
+	 * sets the position of the centre of this entity to the given location
+	 * 
+	 * @param position The new position for the centre of this Entity
 	 */
 	public void setPosition(Point position) {
 		this.position = position;
+	}
+	
+	/**
+	 * This function takes a corner and rotates it about the centre of this
+	 * entity by the given angle in degrees.
+	 * 
+	 * @param corner The unrotated corner of this entity
+	 * @param angle The amount of degrees by which this corner is to be rotated about the centre
+	 * @return
+	 */
+	private Point rotateCorner(Point corner, float angle) {
+		float radAngle = (float) Math.toRadians(angle);
+		Point center = this.position;
+		
+		float tempX = corner.getX()-center.getX();
+		float tempY = corner.getY()-center.getY();
+		
+		float rotX = (float) (tempX * Math.cos(radAngle) - tempY * Math.sin(radAngle));
+		float rotY = (float) (tempX*Math.sin(radAngle) + tempY * Math.cos(radAngle));
+		
+		Point result = new Point(rotX + center.getX(), rotY + center.getY());
+		return result;
+	}
+	
+	/**
+	 * This uses this entities width, height, position and angle in order to return an array
+	 * containing the coordinates of this entities corners in the order: top-left, top-right,
+	 * bottom-right, bottom-left. This order is chosen for ease of use with the collision 
+	 * detection where a 'circular' order is required.
+	 * 
+	 * @return The coordinates of this entities corners in the order: top-left, top-right,
+	 * bottom-right, bottom-left
+	 */
+	public Point[] getCorners() {
+		Point[] corners = new Point[4];
+		float point1X = this.position.getX() - (this.width/2);
+		float point1Y = this.position.getY() + (this.height/2);
+		corners[0] = rotateCorner(new Point(point1X, point1Y), this.angle);
+		
+		float point2X = this.position.getX() + (this.width/2);
+		float point2Y = this.position.getY() + (this.height/2);
+		corners[1] = rotateCorner(new Point(point2X, point2Y), this.angle);
+		
+		float point4X = this.position.getX() + (this.width/2);
+		float point4Y = this.position.getY() - (this.height/2);
+		corners[2] = rotateCorner(new Point(point4X, point4Y), this.angle);
+		
+		float point3X = this.position.getX() - (this.width/2);
+		float point3Y = this.position.getY() - (this.height/2);
+		corners[3] = rotateCorner(new Point(point3X, point3Y), this.angle);
+		
+		return corners;
+	}
+	
+	public float getWidth() {
+		return this.width;
+	}
+	
+	public float getHeight() {
+		return this.height;
 	}
 
 	/**
@@ -90,6 +157,9 @@ public abstract class Entity implements IEntity, Serializable {
 		return id;
 	}
 
+	/**
+	 * This is overwritten by each non-abstract subclass to have a 
+	 */
 	public abstract void draw();
 
 }
