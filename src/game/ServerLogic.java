@@ -11,37 +11,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 public class ServerLogic {
-	/**
-	 * store the Entity list
-	 */
 	List<Entity> Entities=new ArrayList<Entity>();
-	/**
-	 * store dead player list
-	 */
 	public List<Player> diePlayer= new ArrayList<Player>();
-	/**
-	 * temporarily store commands received from clients
-	 */
 	List<String> Commands=new ArrayList<String>();
-	/**
-	 * server listening and sending class
-	 */
 	Server server= new Server();
-	/**
-	 * random class used to generate random number
-	 */
 	Random ra = new Random();
-	/**
-	 * server status
-	 */
 	public int status=0;
-	/**
-	 * server id
-	 */
 	public int ServerId= 99999;
-	/**
-	 * the map used for this server
-	 */
 	map m=new map();
 
 	/**
@@ -58,7 +34,7 @@ public class ServerLogic {
 	 * create the map
 	 */
 	public void initMap() {
-		m.initMap(1);
+		m.initMap(0);
 		Entities.addAll(m.getMap());
 	}
 	public int getPlayerId(){
@@ -279,7 +255,6 @@ public class ServerLogic {
 							Entities.remove(i);
 							live=false;
 							if(((Player) e2).getHealth()<=0) {
-								((Player) e2).die();
 								diePlayer.add(((Player) e2));
 								Entities.remove(e2);
 							}
@@ -337,8 +312,7 @@ public class ServerLogic {
 								break;
 							}
 							case "Shoot": {
-								Bullet b = new Bullet(8, 8, new Point(e1.getPosition().getX(), e1.getPosition().getY()));
-								b.setAngle(e1.getAngle());
+								Bullet b = new Bullet(8, 8, new Point(e1.getPosition().getX(), e1.getPosition().getY()), e1.getAngle());
 								//b.id = getSpareId();
 								b.owner = e1.id;
 								this.Entities.add(b);

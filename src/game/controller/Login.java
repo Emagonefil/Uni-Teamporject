@@ -2,8 +2,10 @@ package game.controller;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import game.Main;
 import game.dao.UserDao;
 import game.entity.User;
+import game.graphics.UserInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,7 +42,7 @@ public class Login extends Control {
         if(ud.login(getUser())){
             Node node = (Node) actionEvent.getSource();
 
-            toPage(node,"../gui/menu3.fxml","Menu");
+            toPage(node,"../graphics/menu3.fxml","Menu");
 
         }else{
             message.setText("Incorrect username or password!!");
@@ -50,7 +52,7 @@ public class Login extends Control {
     public void handleSignUp(ActionEvent actionEvent)throws Exception {
 
         Node node = (Node) actionEvent.getSource();
-        toPage(node,"../gui/sign.fxml","Regist");
+        toPage(node,"../graphics/sign.fxml","Regist");
 
     }
 
@@ -66,7 +68,7 @@ public class Login extends Control {
             signMessage.setText("Success!");
 
             Node node = (Node) actionEvent.getSource();
-            toPage(node,"../gui/login.fxml","Login");
+            toPage(node,"../graphics/login.fxml","Login");
         }else{
             signMessage.setText("Entered passwords differ");
             return ;
@@ -75,7 +77,7 @@ public class Login extends Control {
 
     public void handleCancel(ActionEvent actionEvent) throws IOException {
         Node node = (Node) actionEvent.getSource();
-        toPage(node,"../gui/login.fxml","Login");
+        toPage(node,"../graphics/login.fxml","Login");
     }
 
 
@@ -84,7 +86,7 @@ public class Login extends Control {
         Parent root1 = FXMLLoader.load(getClass().getResource(path));
         primaryStage.getScene().setRoot(root1);
         primaryStage.setTitle(title);
-//        primaryStage.setMaximized(true);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
@@ -95,4 +97,10 @@ public class Login extends Control {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @FXML
+    protected void test(ActionEvent event) throws Exception {
+        UserInterface.background(Main.mainStage);
+    }
+
 }

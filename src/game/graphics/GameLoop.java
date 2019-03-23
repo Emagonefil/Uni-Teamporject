@@ -1,5 +1,6 @@
-package game;
+package game.graphics;
 
+import game.ClientLogic;
 import game.entity.*;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;

@@ -64,11 +64,21 @@
 
 
 .vbox {
-    /*-fx-background-color: #b2ff9b;*/
+    /*-fx-background-color: #333;*/
+    /*-fx-background-color: radial-gradient(focus-angle 240deg, focus-distance 10%, center 50% 50%, radius 50%, #fff, #eee);*/
+    /*-fx-background-color: linear-gradient(to right bottom, #101010, #111);*/
+
     -fx-spacing: 15;
     -fx-padding: 30;
     -fx-pref-width: 300;
     -fx-alignment: TOP_CENTER;
+    -fx-font-family: "Press Start 2P";
+}
+
+.title {
+    -fx-spacing: 15;
+    -fx-padding: 30;
+    -fx-pref-width: 300;
     -fx-font-family: "Press Start 2P";
 }
 

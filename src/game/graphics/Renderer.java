@@ -1,12 +1,9 @@
-package game;
+package game.graphics;
 
-import game.entity.IRectangularEntity;
-import game.gui.Sprite;
+import game.entity.IEntity;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.WritableImage;
 import javafx.scene.transform.Rotate;
 
 import java.io.File;
@@ -100,7 +97,7 @@ public class Renderer {
         return hero;
     }
     
-    public static void playAnimation(Sprite sprite, IRectangularEntity e) {
+    public static void playAnimation(Sprite sprite, IEntity e) {
         GraphicsContext gc = GameWindow.getGraphicsContext();
         gc.save();
         rotate(gc, e.getAngle(), e.getPosition().getX(),e.getPosition().getY());

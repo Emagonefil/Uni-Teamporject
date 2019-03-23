@@ -18,7 +18,7 @@
       fx:controller="game.controller.Login">
 
    <children>
-      <Label alignment="CENTER" styleClass="vbox"
+      <Label alignment="CENTER" styleClass="title"
              text="WELCOME">
          <font>
             <Font size="16.0" />
@@ -66,6 +66,9 @@
 
       <Label fx:id="message" alignment="CENTER" textFill="RED">
          </Label>
+
+      <!--<JFXButton onAction="#test"-->
+                 <!--text="TEST"/>-->
 
 
    </children>

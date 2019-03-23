@@ -1,18 +1,16 @@
 package game.entity;
 
-import game.Renderer;
-import game.gui.Sprite;
+import game.graphics.Renderer;
+import game.graphics.Sprite;
 
-public class Wall extends RectangularEntity {
+public class Wall extends Entity {
 
 	public Wall(float width, float height, Point position) {
-		super(width, height, position);
-		// TODO Auto-generated constructor stub
+		super(width, height, position, 0.0f);
 		this.type="Wall";
 	}
 	public Wall(float width, float height, Point position,int id) {
-		super(width, height, position);
-		// TODO Auto-generated constructor stub
+		super(width, height, position, 0.0f);
 		this.type="Wall";
 		this.id=id;
 	}
