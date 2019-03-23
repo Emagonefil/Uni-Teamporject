@@ -77,11 +77,6 @@ public class GameWindow {
         stage.setFullScreen(true);
 
 //        stage.show();
-        map map = new map();
-        map.initMap(Main.c1.mapID);
-        for(Entity e: map.getMap()) {
-            e.draw();
-        }
 
         GameLoop.start(gc, stage.getScene(), client);
     }

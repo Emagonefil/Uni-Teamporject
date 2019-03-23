@@ -18,7 +18,9 @@ public class RoomServer {
     private static final int listenPort = 9999;
     private static final int sendingPort = 9999;
 
-
+    /**
+     * default constructor
+     */
     public RoomServer(){
         try{
             server = new ServerSocket(listenPort);
@@ -30,11 +32,21 @@ public class RoomServer {
 
     }
 
+    /**
+     * start the server
+     * run all the threads needed
+     */
     public void run(){
         new Thread(new acceptThread()).start();
         new Thread(new serviceThread()).start();
     }
 
+    /**
+     * deal the command sent from client
+     * @param s the socket of client
+     * @param command the command client sends
+     * @return the object sends back to client
+     */
     private Object dealCommand(Socket s,String command){
 
         if(command.equalsIgnoreCase(Command.roomCreate)){
@@ -68,6 +80,9 @@ public class RoomServer {
         return null;
     }
 
+    /**
+     * the thread aceepting client connection
+     */
     private class acceptThread implements Runnable{
 
         @Override
@@ -81,6 +96,9 @@ public class RoomServer {
         }
     }
 
+    /**
+     * the thread deals the commands
+     */
     private class serviceThread implements Runnable{
 
         BufferedReader fromClient;
@@ -104,6 +122,12 @@ public class RoomServer {
 
         }
     }
+
+    /**
+     * find the room by room id
+     * @param id the id of the room
+     * @return the room
+     */
     private Room  findRoom(int id){
         for(int i=0;i<rooms.size();i++){
             if(rooms.get(i).getRoomId()==id)
@@ -111,6 +135,11 @@ public class RoomServer {
         }
         return null;
     }
+
+    /**
+     * get a spare id
+     * @return spare id
+     */
     public int getSpareId(){
         int id;
         boolean t=true;
@@ -127,6 +156,11 @@ public class RoomServer {
         }
         return 0;
     }
+
+    /**
+     * generate a spare client id
+     * @return spare client id
+     */
     public int getSpareClientId() {
         while (true) {
             int id = ra.nextInt(9999);
@@ -145,6 +179,11 @@ public class RoomServer {
                 return id;
         }
     }
+
+    /**
+     * create a new room
+     * @return the id of the new room
+     */
     private int createRoom(){
         Room r=new Room();
         r.setRoomId(getSpareId());
@@ -153,6 +192,12 @@ public class RoomServer {
         rooms.add(r);
         return r.getRoomId();
     }
+
+    /**
+     * join room by room id
+     * @param roomNum the id of room wants to join
+     * @return the id of the room, 0 if room not found
+     */
     private Integer joinRoom(Integer roomNum){
         Room r1=findRoom(roomNum);
         if(r1==null){
@@ -166,6 +211,12 @@ public class RoomServer {
 
         }
     }
+
+    /**
+     * leave the room by id
+     * @param cid the id of the room
+     * @return confirm message
+     */
     private String leaveRoom(Integer cid){
         if(cid==0)
             return "0";

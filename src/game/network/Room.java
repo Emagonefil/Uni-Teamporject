@@ -15,7 +15,7 @@ public class Room implements Serializable {
 
     private final String roomIpPre= "230.0.0.";
 
-    public void Room(){
+    public Room(){
         this.mapID=1;
     }
 
