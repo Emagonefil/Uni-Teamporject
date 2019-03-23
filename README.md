@@ -59,7 +59,7 @@ public void play();
 public void setVolume(float volume);
 ```
 
-#SoundPlayer
+# SoundPlayer
 
 ```java
 //play the clip of this player once
