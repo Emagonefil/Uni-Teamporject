@@ -63,7 +63,15 @@ public class GameWindow {
         BackgroundImage bkg = new BackgroundImage(Renderer.background, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT);
         holder.setBackground(new Background(bkg));
         stage.getScene().setRoot(root);
-        stage.setMaximized(true);
+//        stage.setMaximized(true);
+
+        stage.setWidth(Constants.CANVAS_WIDTH);
+        stage.setHeight(Constants.CANVAS_HEIGHT);
+        Scale scale = new Scale(1, 1, 0, 0);
+        scale.xProperty().bind(root.widthProperty().divide(Constants.CANVAS_WIDTH));     //must match with the one in the controller
+        scale.yProperty().bind(root.heightProperty().divide(Constants.CANVAS_HEIGHT));   //must match with the one in the controller
+        root.getTransforms().add(scale);
+
         stage.setFullScreen(true);
 
 //        stage.show();

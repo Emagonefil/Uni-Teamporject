@@ -116,6 +116,14 @@ public class Main extends Application {
 		// add scene to stage and display stage
 		primaryStage.setScene(scene);
 //		primaryStage.setMaximized(true);
+		primaryStage.setWidth(Constants.CANVAS_WIDTH);
+		primaryStage.setHeight(Constants.CANVAS_HEIGHT);
+
+		Scale scale = new Scale(1, 1, 0, 0);
+//		scale.xProperty().bind(root.widthProperty().divide(Constants.CANVAS_WIDTH));     //must match with the one in the controller
+//		scale.yProperty().bind(root.heightProperty().divide(Constants.CANVAS_HEIGHT));   //must match with the one in the controller
+		root.getTransforms().add(scale);
+
 		primaryStage.setFullScreen(true);
 		primaryStage.show();
 
