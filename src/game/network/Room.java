@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class Room implements Serializable {
     private int roomId;
@@ -19,7 +20,9 @@ public class Room implements Serializable {
     private final String roomIpPre= "230.0.0.";
 
     public Room(){
-        this.mapID=1;
+        Random r = new Random();
+        this.mapID=r.nextInt(2)+1;
+//        this.mapID=2;
     }
 
     public void setRoomId(int roomNum){

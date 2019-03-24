@@ -346,7 +346,6 @@ public class ServerLogic {
 	 * more items on the map, less possibility new items would be created
 	 */
 	public void createItems(){
-
 		if(ra.nextInt(Entities.size()*50)==1)
 			for(int i=0;i<50;i++){
 				//Spawn health pickups
