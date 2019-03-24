@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import game.ClientLogic;
 import game.Constants;
 import game.Main;
+import game.audio.AudioPlayer;
 import game.entity.Entity;
 import game.maps.map;
 import javafx.event.ActionEvent;
@@ -30,6 +31,7 @@ public class GameWindow {
     private static Pane root;
     private static Stage windowStage;
     private static JFXButton b1;
+    private static AudioPlayer audio = new AudioPlayer();
 
     public static void start(Stage stage, ClientLogic client) {
         windowStage = stage;
@@ -42,6 +44,7 @@ public class GameWindow {
         gc = c.getGraphicsContext2D();
         c.setMouseTransparent(true);
         b1 = new JFXButton("RETURN TO MENU");
+
 
         final ToggleButton toggleMusic = new ToggleButton();
         toggleMusic.setLayoutX(10);
@@ -61,7 +64,27 @@ public class GameWindow {
             }
         });
         b1.setVisible(false);
+        int musicVolume = (int)Main.audioPlayer.getMusicVolume();
+        int soundVolume = (int)Main.audioPlayer.getSoundEffectVolume();
 
+        toggleMusic.setOnAction(event -> {
+            if(toggleMusic.isSelected()) {
+                Main.audioPlayer.muteBackgroundMusic();
+            } else {
+                Main.audioPlayer.setMusicVolume(musicVolume);
+            }
+        });
+
+        toggleSound.setOnAction(event -> {
+            if(toggleSound.isSelected()) {
+                Main.audioPlayer.muteSoundEffect();
+            } else {
+                Main.audioPlayer.setSoundEffectVolume(soundVolume);
+            }
+        });
+
+        toggleSound.setId("toggleSound");
+        toggleMusic.setId("toggleMusic");
         root.getChildren().addAll(b1,toggleMusic,toggleSound);
         b1.setLayoutX((Constants.CANVAS_WIDTH - 230)/2);
         b1.setLayoutY((Constants.CANVAS_HEIGHT - 40)/2);

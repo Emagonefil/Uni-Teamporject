@@ -11,7 +11,7 @@
 
 
 <VBox id="pane" styleClass="vbox"
-      fx:controller="game.graphics.Controller"
+      fx:controller="game.graphics.SettingsController"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -19,11 +19,11 @@
 
       </VBox>
       <Label text="Music Volume"></Label>
-      <JFXSlider></JFXSlider>
+      <JFXSlider fx:id="musicSlider"></JFXSlider>
       <Label text="Sound Effects Volume"></Label>
-      <JFXSlider></JFXSlider>
+      <JFXSlider fx:id="soundSlider"></JFXSlider>
 
-      <JFXButton onAction="#handleBackButtonAction" text="BACK" >
+      <JFXButton onAction="#back" text="BACK" >
       </JFXButton>
    </children>
 

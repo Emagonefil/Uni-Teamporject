@@ -334,7 +334,6 @@
     /*-fx-graphic: url('../../image/v-on.png');*/
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-    -fx-background-image: url('../../image/v-on.png');
     -fx-background-size: 40 40;
     -fx-pref-width: 40;
     -fx-pref-height: 40;
@@ -345,11 +344,28 @@
 }
 
 .toggle-button:selected {
-    -fx-background-image: url('../../image/v-off.png');
     -fx-background-size: 40 40;
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
+
+#toggleSound {
+    -fx-background-image: url('../../image/v-on.png');
+}
+
+#toggleSound:selected {
+    -fx-background-image: url('../../image/v-off.png');
+}
+
+#toggleMusic {
+    -fx-background-image: url('../../image/m-on.png');
+}
+
+#toggleMusic:selected {
+    -fx-background-image: url('../../image/m-off.png');
+}
+
+
 
 .jfx-slider {
     -fx-pref-width: 300;

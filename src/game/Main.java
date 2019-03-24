@@ -37,6 +37,7 @@ import javax.sound.sampled.*;
 
 // loop that runs continuously to update every component of the game
 public class Main extends Application {
+	public static AudioPlayer audioPlayer = new AudioPlayer();
 	public static User user;
 	public static Stage mainStage;
 	public static boolean isRunning = false;
@@ -127,7 +128,6 @@ public class Main extends Application {
 
 		primaryStage.setFullScreen(true);
 		primaryStage.show();
-		AudioPlayer audioPlayer = new AudioPlayer();
 		audioPlayer.playBackgroundMusic();
 
 		primaryStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -175,7 +175,7 @@ public class Main extends Application {
 				if(right) c1.sendCommands("RotateRight");
 				if(shoot) {
 					c1.sendCommands("Shoot");
-					audioPlayer.playShootSound();
+//					audioPlayer.playShootSound();
 				}
 			}
 		};

@@ -1,5 +1,6 @@
 package game;
 
+import game.audio.AudioPlayer;
 import game.entity.*;
 import game.entity.items.*;
 import game.entity.collisions.*;
@@ -20,6 +21,7 @@ public class ServerLogic {
 	public int ServerId= 99999;
 	map m=new map();
 	public int mapID;
+	AudioPlayer a = new AudioPlayer();
 
 	/**
 	 * init the whole server and create the map
@@ -315,6 +317,9 @@ public class ServerLogic {
 							case "Shoot": {
 								Bullet b = new Bullet(8, 8, new Point(e1.getPosition().getX(), e1.getPosition().getY()), e1.getAngle());
 								//b.id = getSpareId();
+								if (e1.id == Main.c1.id) {
+									Main.audioPlayer.playShootSound();
+								}
 								b.owner = e1.id;
 								this.Entities.add(b);
 								break;
