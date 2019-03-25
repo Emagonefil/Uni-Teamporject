@@ -4,4 +4,3 @@ public enum State {
 
     ATTACK,FLEE,WANDER,LOOKFORBULLETS,LOOKFORHP;
 }
- 
