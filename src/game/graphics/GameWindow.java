@@ -125,7 +125,7 @@ public class GameWindow {
     }
 
     public static Parent getMenuScene() throws java.io.IOException {
-        String sceneFile = "graphics/menu3.fxml";
+        String sceneFile = "graphics/fxml/menu3.fxml";
         Parent root = null;
         URL url  = null;
         try

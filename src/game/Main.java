@@ -90,7 +90,7 @@ public class Main extends Application {
 		});
 
 		// create a scene
-		String sceneFile = "graphics/login.fxml";
+		String sceneFile = "graphics/fxml/login.fxml";
 		Parent root = null;
 		URL url  = null;
 		try

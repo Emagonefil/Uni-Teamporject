@@ -28,6 +28,6 @@
    </children>
 
    <stylesheets>
-      <URL value="@style.css"/>
+      <URL value="@../style.css"/>
    </stylesheets>
 </VBox>

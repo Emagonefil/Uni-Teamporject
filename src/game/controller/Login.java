@@ -42,7 +42,7 @@ public class Login extends Control {
         if(ud.login(getUser())){
             Node node = (Node) actionEvent.getSource();
 
-            toPage(node,"../graphics/menu3.fxml","Menu");
+            toPage(node,"../graphics/fxml/menu3.fxml","Menu");
 
         }else{
             message.setText("Incorrect username or password!!");
@@ -52,7 +52,7 @@ public class Login extends Control {
     public void handleSignUp(ActionEvent actionEvent)throws Exception {
 
         Node node = (Node) actionEvent.getSource();
-        toPage(node,"../graphics/sign.fxml","Regist");
+        toPage(node,"../graphics/fxml/sign.fxml","Regist");
 
     }
 
@@ -68,7 +68,7 @@ public class Login extends Control {
             signMessage.setText("Success!");
 
             Node node = (Node) actionEvent.getSource();
-            toPage(node,"../graphics/login.fxml","Login");
+            toPage(node,"../graphics/fxml/login.fxml","Login");
         }else{
             signMessage.setText("Entered passwords differ");
             return ;
@@ -77,7 +77,7 @@ public class Login extends Control {
 
     public void handleCancel(ActionEvent actionEvent) throws IOException {
         Node node = (Node) actionEvent.getSource();
-        toPage(node,"../graphics/login.fxml","Login");
+        toPage(node,"../graphics/fxml/login.fxml","Login");
     }
 
 

@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class SettingsController {
@@ -43,7 +42,7 @@ public class SettingsController {
         Node node = (Node) event.getSource();
         Stage primaryStage = (Stage) node.getScene().getWindow();
 
-        Parent root1 = FXMLLoader.load(getClass().getResource("menu3.fxml"));
+        Parent root1 = FXMLLoader.load(getClass().getResource("fxml/menu3.fxml"));
         primaryStage.getScene().setRoot(root1);
         primaryStage.setTitle("Tanks");
         primaryStage.setMaximized(true);

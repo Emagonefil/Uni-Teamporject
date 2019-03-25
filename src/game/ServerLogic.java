@@ -128,6 +128,9 @@ public class ServerLogic {
 				if (e2.type.equals("Item")) {
 					if (e.type.equals("Player")) {
 						((Item) e2).effect((Player) e);
+						if(e.id == Main.c1.id) {
+							Main.audioPlayer.playPickItemSound();
+						}
 					}
 					Entities.remove(e2);
 					return 1;

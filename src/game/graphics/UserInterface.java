@@ -2,21 +2,15 @@ package game.graphics;
 
 import com.jfoenix.controls.JFXButton;
 import game.*;
-import game.ai.AiController;
 import game.entity.Player;
 import game.entity.Point;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 
 public class UserInterface {
@@ -80,7 +74,7 @@ public class UserInterface {
         VBox vbox = null;
         timer.start();
         try {
-            vbox = FXMLLoader.load(UserInterface.class.getResource("menu3.fxml"));
+            vbox = FXMLLoader.load(UserInterface.class.getResource("fxml/menu3.fxml"));
         } catch(Exception e) {
             e.printStackTrace();
         }
