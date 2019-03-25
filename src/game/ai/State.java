@@ -1,6 +1,7 @@
 package game.ai;
 
-public enum andreeaandaState {
+public enum State {
 
-	ATTACK,FLEE,WANDER,LOOKFORBULLETS,LOOKFORHP;
+    ATTACK,FLEE,WANDER,LOOKFORBULLETS,LOOKFORHP;
 }
+ 
