@@ -23,7 +23,6 @@ public class ClientLogic {
 	public List<Entity> Entities= new ArrayList<Entity>();
 	public List<Player> diePlayer= new ArrayList<Player>();
 	public int ServerId=0;
-	List<String> Room = new ArrayList<String>();
 	public List<Room> rooms = new ArrayList();
 	ClientSender sender1= c1.getSender();
 	private int myRoom;

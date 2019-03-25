@@ -11,7 +11,7 @@ public class SpeedPickup extends Item {
 	}
 
 	public void effect(Player e){
-		e.setSpeed(e.getSpeed()+1);
+		e.setSpeed(e.getSpeed()+0.75f);
 		e.setRotationSpeed(e.getRotationSpeed()+0.5f);
     }
 	
