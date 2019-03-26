@@ -359,8 +359,9 @@ public class Main extends Application {
 				}
 			}
 			s1.close();
-			s1=null;
 			System.out.println("Server Thread "+s1.ServerId + " stopped");
+			s1=null;
+			
 		}
 	}
 }
