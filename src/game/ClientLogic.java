@@ -21,6 +21,8 @@ import game.network.common.IPSearcher;
 
 import javax.naming.ldap.SortKey;
 
+import static game.Main.ud;
+
 public class ClientLogic {
 	public int id=0;
 	public String name=Main.user.getUsername();
@@ -264,38 +266,41 @@ public class ClientLogic {
 	}
 
 	public void buySomething(String something){
-		if(singleFlag){
-			if(mallShow){
-				if(something.equals("Health")){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				if(singleFlag){
+					if(mallShow){
+						if(something.equals("Health")){
 
-					if(user.getPoint()>=5){
-						user.setPoint(user.getPoint()-5);
-						UserDao ud = new UserDao();
-						if(ud.userUpdatePoint(user)) {
-							Item i = new HealthPickup(new Point());
-							i.effect((Player) s1.SearchEntityById(id));
-							System.out.println("Purchase life success!");
+							if(user.getPoint()>=5){
+								user.setPoint(user.getPoint()-5);
+								if(ud.userUpdatePoint(user)) {
+									Item i = new HealthPickup(new Point());
+									i.effect((Player) s1.SearchEntityById(id));
+									System.out.println("Purchase life success!");
+								}
+							}else{
+								System.out.println("Not enough points!");
+							}
 						}
-					}else{
-						System.out.println("Not enough points!");
-					}
-				}
-				if(something.equals("Speed")){
-					if(user.getPoint()>=5){
-						user.setPoint(user.getPoint()-5);
-						UserDao ud = new UserDao();
-						if(ud.userUpdatePoint(user))
-						{
-							System.out.println("Purchase speed success!");
-							Item i =new SpeedPickup(new Point());
-							i.effect((Player)s1.SearchEntityById(id));
+						if(something.equals("Speed")){
+							if(user.getPoint()>=5){
+								user.setPoint(user.getPoint()-5);
+								if(ud.userUpdatePoint(user))
+								{
+									System.out.println("Purchase speed success!");
+									Item i =new SpeedPickup(new Point());
+									i.effect((Player)s1.SearchEntityById(id));
+								}
+							}else{
+								System.out.println("Not enough points!");
+							}
 						}
-					}else{
-						System.out.println("Not enough points!");
 					}
 				}
 			}
-		}
+		}).start();
 	}
 
 

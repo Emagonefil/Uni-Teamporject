@@ -18,6 +18,7 @@ import java.util.*;
 
 import static game.Constants.CANVAS_HEIGHT;
 import static game.Constants.CANVAS_WIDTH;
+import static game.Main.ud;
 
 /**
  * The Game Loop runs constantly during a game. It continuously redraws the game entities
@@ -253,8 +254,13 @@ public class GameLoop {
                 if(client.singleFlag){
                     if(client.addpointFlag){
                         client.user.setPoint(client.user.getPoint()+5);
-                        UserDao ud = new UserDao();
-                        ud.userUpdatePoint(client.user);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ud.userUpdatePoint(client.user);
+                            }
+                        }).start();
+
                         client.addpointFlag=false;
                     }
                 }

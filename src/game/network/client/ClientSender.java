@@ -6,9 +6,12 @@ import java.net.*;
 import java.io.*;
 
 public class ClientSender{
-		
+
+	/** socket for sending to server*/
 	private DatagramSocket socket;
+	/** packet is used to be sent to server*/
 	private DatagramPacket packet;
+	/** the port that is used to send to server*/
 	private Integer port = Port.serverPort;
 
 	/**

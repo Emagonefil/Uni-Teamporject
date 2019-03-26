@@ -10,13 +10,16 @@ import java.util.Random;
 import java.util.concurrent.*;
 
 public class RoomServer {
+    /** random */
     Random ra=new Random();
+    /** server socket for this server */
     private ServerSocket server;
+    /** list of all rooms */
     private List<Room> rooms;
+    /** a queue for all actions from clients */
     private BlockingQueue<Socket> waiting;
-
+    /** the port this server is listening to */
     private static final int listenPort = 9999;
-    private static final int sendingPort = 9999;
 
     /**
      * default constructor
@@ -170,18 +173,11 @@ public class RoomServer {
             boolean t=true;
             for (int u = 0; u < rooms.size(); u++) {
                 Room r1= rooms.get(u);
-//                for (int i = 0; i<r1.Clients.size();i++)
-//                    if(r1.Clients.get(i)==id) {
-//                        t = false;
-//                        break;
-//                    }
                 String result=r1.Clients.get(id);
                 if(result!=null){
                     t=false;
                     break;
                 }
-//                if(!t)
-//                    break;
             }
             if(t)
                 return id;
@@ -195,8 +191,6 @@ public class RoomServer {
     private String createRoom(String hostName){
         Room r=new Room();
         r.setRoomId(getSpareId());
-//        r.ClientId.add(getSpareClientId());
-//        r.ClientName.add(hostName);
         int id = getSpareClientId();
         r.Clients.put(id,hostName);
         r.status=1;
@@ -217,8 +211,6 @@ public class RoomServer {
         }
         else {
             int id=getSpareClientId();
-//            r1.ClientId.add(id);
-//            r1.ClientName.add(name);
             r1.Clients.put(id,name);
             return id;
 
@@ -236,13 +228,6 @@ public class RoomServer {
         for(int u=0;u<rooms.size();u++){
                 Room r=rooms.get(u);
                 System.out.println("r"+rooms.size());
-//                for(int i=0;i<r.ClientId.size();i++){
-//                    if(r.ClientId.get(i).equals(cid)) {
-//                        r.ClientId.remove(i);
-//                        if(r.ClientId.size()==0)
-//                            rooms.remove(r);
-//                    }
-//                }
             String sss = r.Clients.get(cid);
             if(sss!=null){
                 r.Clients.remove(cid);

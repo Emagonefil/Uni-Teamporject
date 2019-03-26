@@ -10,6 +10,7 @@ import java.util.*;
 import game.ai.AiController;
 import game.audio.AudioPlayer;
 import game.controller.Login;
+import game.dao.UserDao;
 import game.entity.Player;
 import game.entity.User;
 import game.graphics.GameWindow;
@@ -39,6 +40,8 @@ public class Main extends Application {
 	public static ClientLogic c1;
 	public String username = "";
 	public static RoomServer roomServer=new RoomServer();
+	public static UserDao ud = new UserDao();
+
 
 	boolean forward, backward, left, right, shoot;
 	public static List<ClientLogic> AIs=new ArrayList<>();
@@ -364,8 +367,9 @@ public class Main extends Application {
 				}
 			}
 			s1.close();
-			s1=null;
 			System.out.println("Server Thread "+s1.ServerId + " stopped");
+			s1=null;
+			
 		}
 	}
 

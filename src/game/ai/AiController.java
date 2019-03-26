@@ -2,7 +2,9 @@ package game.ai;
 import java.util.*;
 import game.*;
 import game.entity.*;
+import game.entity.collisions.CollisionDetection;
 import game.entity.items.*;
+import game.maps.map;
 
 /** The AiController class which responsible of controlling an AI player and extends built in java class Thread */
 
@@ -20,6 +22,8 @@ public class AiController extends Thread {
 	private Player aiPlayer;
 	/** the state of the AI player */
 	private States state;
+	private map m1;
+	private List<Entity>walls;
 	/** the volatile boolean variable running which is true when the AI player is alive and false otherwise */ 
 	private volatile boolean running = true;
 	
@@ -35,6 +39,9 @@ public class AiController extends Thread {
 		this.c2 = c2;
 		entities = c2.getEntities();
 		state = States.ATTACK;
+		m1 = new map();
+		m1.initMap(c2.mapID);
+		walls = m1.getMap();
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
@@ -77,6 +84,8 @@ public class AiController extends Thread {
 			
 			System.out.println("AI"+ id + " is the winner");
 		}
+		
+		
 	}
 	
 	/**
@@ -89,7 +98,7 @@ public class AiController extends Thread {
 	 */
 	public void attack() {
 		
-		
+		int gap=0;
 		List<Entity>players = null;
 		Player nearestPlayer = null;
 		
@@ -98,15 +107,17 @@ public class AiController extends Thread {
 		
 		while(true) {
 				
-			
+		
 			updateEntities();
 			updatePlayer();
+			
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			
 			players = getPlayers();
 			
@@ -143,6 +154,22 @@ public class AiController extends Thread {
 			if(aiPlayer.getAngle() < 0) {
 				
 				aiPlayer.setAngle(aiPlayer.getAngle()+360);
+			}
+			if(gap>0) {
+				gap--;
+				c1.sendCommands("Backward");
+				continue;
+			}
+			if(checkCollision()!= -1) {
+				gap=50;
+				continue;
+			}
+			
+			if(!wallAvoidance())
+				c1.sendCommands("Forward");
+			else {
+				c1.sendCommands("RotateRight");
+				continue;
 			}
 			
 			
@@ -307,13 +334,13 @@ public class AiController extends Thread {
 				}
 			}
 			
-			
-			
-			c1.sendCommands("Forward");
+		
 				
 			
 		}
 	}
+	
+	
 	
 	/**
 	 * This method is called when the state of the AI player is LOOKFORHP and it is responsible for collecting hp to increase the AI player's health
@@ -352,11 +379,6 @@ public class AiController extends Thread {
 				break;
 			}
 			
-			
-			
-			
-
-			
 			x = aiPlayer.getPosition().getX();
 			y = aiPlayer.getPosition().getY();
 			
@@ -368,8 +390,9 @@ public class AiController extends Thread {
 				state = States.ATTACK;
 				break;
 			}
+
 			Item nearestHP = (Item)nearest(hp);
-			
+
 			
 			if (aiPlayer.getAngle() >= 360) {
 				
@@ -549,6 +572,95 @@ public class AiController extends Thread {
 		return (float) Math.toDegrees(Math.asin(sin0));
 		
 		
+	}
+	
+	
+	
+	private boolean wallAvoidance() {
+		
+		for(Entity wall: walls) {
+			
+			if (CollisionDetection.isTouching(forwardPoints(),wall.getCorners())) {
+				
+				
+				return true;
+				
+			}
+		}
+		
+		return false;
+	}
+	
+	private float findCorners() {
+		
+		Wall wall = (Wall)walls.get(checkCollision());
+		
+		Point [] corners = wall.getCorners();
+		Point [] aiCorners = aiPlayer.getCorners();
+		Point center = aiPlayer.getPosition();
+		float angle = aiPlayer.getAngle();
+		
+		for(int i = 0; i<aiCorners.length;i++) {
+			
+			if(aiCorners[i].getX()>= corners[2].getX()&& aiCorners[i].getX()<= corners[1].getX() &&
+					aiCorners[i].getY()>= corners[2].getY()&& aiCorners[i].getY()<= corners[3].getY()) {
+				float delx=center.getX()-aiCorners[i].getX();
+				float dely=center.getY()-aiCorners[i].getY();
+				double z=Math.sqrt((double)(delx*delx+dely*dely));
+				double sin=Math.asin(dely/z);
+				double cos=Math.acos(delx/z);
+				if(sin>=0&&cos>=0)
+					return (float)sin;
+				else if(sin>=0&&cos<0)
+					return 180-(float)sin;
+				else if(sin<0&&cos>=0)
+					return 360+(float)sin;
+				else
+					return 180-(float)sin;
+				
+				
+			}
+		}
+		
+		if(angle < 0) {
+			
+			angle+=360;
+		}
+		return angle;
+	}
+	
+	
+	public int checkCollision(){
+		Point[] p1= aiPlayer.getCorners();
+		Point[] p2;
+		Entity e2;
+		float x=aiPlayer.getPosition().getX();
+		float y=aiPlayer.getPosition().getY();
+		if((x-20<=0)||(x+20>=Constants.CANVAS_WIDTH)||(y-20<=0)||(y+20>=Constants.CANVAS_HEIGHT))
+			return -1;
+		for(int i=0;i<walls.size();i++) {
+			e2 = walls.get(i);
+			p2=e2.getCorners();
+			if(CollisionDetection.isTouching(p1,p2)) {
+				
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	
+	private Point[] forwardPoints() {
+		
+		float radAngle = (float)Math.toRadians(aiPlayer.getAngle());
+		Point [] corners = new Point[4];
+		for(int i = 0;i<corners.length;i++) {
+			
+			corners[i]= new Point(aiPlayer.getCorners()[i].getX()+30*aiPlayer.getSpeed()*(float)Math.cos(radAngle),
+								aiPlayer.getCorners()[i].getY()+ 30*aiPlayer.getSpeed()*(float)Math.sin(radAngle));
+		}
+		
+		return corners;
 	}
 
 	
