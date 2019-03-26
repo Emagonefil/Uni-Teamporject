@@ -9,12 +9,18 @@ import java.io.*;
 
 
 public class ClientReceiver implements Runnable{
-	
+
+	/** port this receiver should be listening */
 	private static Integer listenPort=Port.boradcastPort;
+	/** the render method would be called in future*/
 	private Receivable renderer;
+	/** stream for receiving */
 	private ObjectInputStream input;
+	/** flag for if this receiver should be running */
 	private static boolean flag = true;
+	/** socket for receiving packets from server*/
 	private static MulticastSocket fromServer;
+	/** the address string of the room*/
 	private static String fromRoom;
 
 	/**

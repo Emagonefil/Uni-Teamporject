@@ -9,8 +9,11 @@ import game.network.Port;
 
 public class Server{
 
+	/** socket for receiving from clients*/
 	private DatagramSocket fromClient;
+	/** socket for sending data to clients */
 	private MulticastSocket multicastSocket;
+	/** all actions were made by clients*/
 	private List<String> movements = new ArrayList<>();
 
 	/**

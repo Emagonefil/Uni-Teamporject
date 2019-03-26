@@ -4,7 +4,9 @@ import game.network.Port;
 
 public class Client{
 
+	/** used for client to send data to server*/
 	private ClientSender sender;
+	/** used for client to receive data from server*/
 	private ClientReceiver receiver;
 	
 	private boolean receOn = false;
