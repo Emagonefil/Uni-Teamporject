@@ -31,8 +31,10 @@ public class GameWindow {
     private static Pane root;
     private static Stage windowStage;
     private static JFXButton b1;
+    public static int audioCount;
 
     public static void start(Stage stage, ClientLogic client) {
+        audioCount = 0;
         windowStage = stage;
         root = new Pane();
         StackPane holder = new StackPane();

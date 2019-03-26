@@ -56,12 +56,12 @@ public class Controller {
     protected void handleSinglePlayerButtonAction(ActionEvent event) throws Exception {
         Node node = (Node) event.getSource();
         Stage primaryStage = (Stage) node.getScene().getWindow();
-        VBox loading = new VBox();
-        Image img = Renderer.loading;
-        ImageView imgv= new ImageView(img);
-        loading.getChildren().add(imgv);
-        primaryStage.getScene().setRoot(loading);
-        primaryStage.show();
+//        VBox loading = new VBox();
+//        Image img = Renderer.loading;
+//        ImageView imgv= new ImageView(img);
+//        loading.getChildren().add(imgv);
+//        primaryStage.getScene().setRoot(loading);
+//        primaryStage.show();
 ////        System.out.println("fuck");
 //        Thread.sleep(5000);
 //        Main.gui.stop();
@@ -124,27 +124,17 @@ public class Controller {
                 updateRoom();
                 if (room != null) {
                     if(room.ServerIp != null&&room.status == 2 && room.ServerIp != "") {
-                        System.out.println("GAME WINDOW SHOULD START NOW"+ Port.mulitcastAddress);
+//                        System.out.println("GAME WINDOW SHOULD START NOW"+ Port.mulitcastAddress);
 //                        if(GameLoop.isRunning) {
 //                            GameLoop.stop();
 //                        }
                         GameWindow.clear();
                         GameWindow.start(Main.mainStage,Main.c1);
-                        System.out.println("GAME WINDOW SHOULD HAVE STARTED ALREADY"+ Port.mulitcastAddress);
+//                        System.out.println("GAME WINDOW SHOULD HAVE STARTED ALREADY"+ Port.mulitcastAddress);
                         stopTimer();
                     }
                 }
 
-//                if (vbox.getChildren().contains(roomList)) {
-//                    if (Main.c1.getEntities() != null) {
-//                        System.out.println(roomList.getGroupnode());
-//                        vbox.getChildren().remove(roomList);
-////                        Main.c1.getRoomList();
-////                        roomList = getRoomsList();
-//                        vbox.getChildren().add(roomList);
-//                    }
-//
-//                }
             }
         };
 
@@ -162,7 +152,6 @@ public class Controller {
                 vbox.getChildren().addAll(soundHolder,titleImg, join, create, start, back, refresh, roomsLabel, roomList);
                 primaryStage.getScene().setRoot(vbox);
                 primaryStage.show();
-//                vbox.getChildren().removeAll(titleImg, join, create, start, back,refresh, roomsLabel, roomList);
             }
         });
 
@@ -239,7 +228,7 @@ public class Controller {
     }
     public static void stopTimer() {
         tim.stop();
-        System.out.println("TIMER STOPPED");
+//        System.out.println("TIMER STOPPED");
     }
 
 

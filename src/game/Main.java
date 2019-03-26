@@ -77,7 +77,6 @@ public class Main extends Application {
 		primaryStage.setTitle(Constants.GAME_NAME);
 
 
-
 		// close application (stop all processes) when x button is pressed
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -100,7 +99,7 @@ public class Main extends Application {
 			root = fxmlLoader.load();
 			Login loginController = fxmlLoader.getController();
 			setUser(loginController.getUser());
-			System.out.println( "  fxmlResource = " + sceneFile );
+//			System.out.println( "  fxmlResource = " + sceneFile );
 		}
 		catch ( Exception ex )
 		{
@@ -111,36 +110,11 @@ public class Main extends Application {
 			throw ex;
 		}
 
-
-//		primaryStage.setScene(null);
-//		VBox welcome = new VBox();
-//		Label title = new Label("WELCOME!");
-//		JFXButton start = new JFXButton("START THE GAME");
-//		start.setOnAction(event -> {
-////			UserInterface.init(primaryStage);
-//			UserInterface.login();
-//		});
-//		welcome.getChildren().addAll(title,start);
-//		Scene scene = new Scene(welcome);
-
-//		StackPane pane = gui.getHolderRoot();
 		Scene scene = new Scene(root);
 
-		// add style sheet to this scene
-//		scene.getStylesheets().addAll(this.getClass().getResource("graphics/style.css").toExternalForm());
-
-		// add scene to stage and display stage
 		primaryStage.setScene(scene);
-//		primaryStage.setMaximized(true);
 		primaryStage.setWidth(Constants.CANVAS_WIDTH);
 		primaryStage.setHeight(Constants.CANVAS_HEIGHT);
-
-//		gui.login();
-
-//		Scale scale = new Scale(1, 1, 0, 0);
-//		scale.xProperty().bind(root.widthProperty().divide(Constants.CANVAS_WIDTH));     //must match with the one in the controller
-//		scale.yProperty().bind(root.heightProperty().divide(Constants.CANVAS_HEIGHT));   //must match with the one in the controller
-//		root.getTransforms().add(scale);
 
 		primaryStage.setFullScreen(true);
 		primaryStage.show();
@@ -205,12 +179,9 @@ public class Main extends Application {
 			}
 		};
 		timer.start();
-
-
 	}
 
 	public static void SinglePlayer(Stage stage){
-//		System.gc();
 		try {
 			Port.localIP = InetAddress.getLocalHost().getHostAddress();
 			Port.mulitcastAddress = "230.0.1.1";
@@ -255,12 +226,10 @@ public class Main extends Application {
 		startFlag = true;
 		Player p = (Player)s1.s1.SearchEntityById(c1.id);
 		p.name="YOU";
-//		GameWindow newGame = new GameWindow(stage, c1);
 		GameWindow.start(stage,c1);
 	}
 
 	public static void MultiPlayer(Stage stage) {
-//		System.gc();
 		Port.localIP = IPSearcher.goldenaxeAddress();
 		c1 = null;
 		c1 = new ClientLogic();

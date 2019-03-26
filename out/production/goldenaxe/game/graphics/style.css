@@ -25,7 +25,7 @@
 
 }
 .vbox {
-    -fx-background-image: url("../../image/file4.gif");
+    -fx-background-image: url("../../image/file2.gif");
     /*-fx-background-repeat: no-repeat;*/
     -fx-background-size: cover;
     -fx-background-position: center;
@@ -49,14 +49,14 @@
     -fx-padding: 20;
     /*-fx-pref-width: 300;*/
     -fx-font-family: "Press Start 2P";
-    -fx-text-fill: rgb(85,72,64);
+    -fx-text-fill: #000;
 }
 
 
 
 .jfx-button {
     -jfx-button-type: RAISED;
-    -fx-background-color: rgb(85,72,64);
+    -fx-background-color: rgba(135,140,140,1);
     -fx-text-fill: #F5F5DC;
     -fx-pref-width: 230px;
     -fx-min-height: 40px;
@@ -93,22 +93,22 @@
 
 .jfx-list-cell:odd,
 .jfx-list-cell:even {
-    -fx-background-color: rgba(85,72,64,0.08);
+    -fx-background-color: rgba(135,140,140,0.08);
 }
 
 .jfx-list-cell:filled:hover {
-    rgba(85,72,64,0.3);
+    rgba(135,140,140,0.3);
 }
 .jfx-list-cell:selected .label {
     -fx-text-fill: #F5F5DC;
 }
 
 .jfx-list-cell:selected {
-    -fx-background-color: rgba(85,72,64,0.5);
+    -fx-background-color: rgba(135,140,140,0.5);
 }
 
 .jfx-list-cell .jfx-rippler {
-    -jfx-rippler-fill: #5264AE;
+    -jfx-rippler-fill: red;
 }
 
 
@@ -133,7 +133,7 @@
 }
 
 .custom-jfx-list-view .jfx-rippler {
-    -jfx-rippler-fill: rgba(85,72,64,0.2);
+    -jfx-rippler-fill: rgba(135,140,140,0.2);
 }
 
 .custom-jfx-list-view1 {
@@ -193,7 +193,7 @@
     -fx-max-width: 350;
     -fx-pref-height: 35.0;
     -fx-prompt-text-fill: black;
-    -jfx-focus-color: rgba(85,72,64,1);
+    -jfx-focus-color: rgba(135,140,140,1);
     -jfx-unfocus-color: black;
 }
 
@@ -261,17 +261,17 @@
 
 /* Styling the slider thumb */
 .jfx-slider > .thumb {
-    -fx-background-color: rgba(85,72,64,1);
+    -fx-background-color: rgba(135,140,140,1);
 }
 
 /* Styling the filled track */
 .jfx-slider > .colored-track {
-    -fx-background-color: rgba(85,72,64,1);
+    -fx-background-color: rgba(135,140,140,1);
 }
 
 /* Styling the animated thumb */
 .jfx-slider > .animated-thumb {
-    -fx-background-color: rgba(85,72,64,1);
+    -fx-background-color: rgba(135,140,140,1);
     -fx-pref-width: 50;
     -fx-pref-height: 50;
 }

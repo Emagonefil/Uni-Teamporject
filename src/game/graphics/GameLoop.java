@@ -27,29 +27,25 @@ import static game.Main.ud;
 public class GameLoop {
 
     public static boolean isRunning = false;
-    public static final List<Color> constColor = new ArrayList<Color>() {
-        private static final long serialVersionUID = 1L;
-        {
-            add(Color.WHITE);
-            add(Color.YELLOW);
-            add(Color.DARKBLUE);
-            add(Color.GREEN);
-            add(Color.DARKORANGE);
-            add(Color.BLACK);
-            add(Color.RED);
-        }
-    };
+//    public static final List<Color> constColor = new ArrayList<Color>() {
+//        private static final long serialVersionUID = 1L;
+//        {
+//            add(Color.WHITE);
+//            add(Color.YELLOW);
+//            add(Color.DARKBLUE);
+//            add(Color.GREEN);
+//            add(Color.DARKORANGE);
+//            add(Color.BLACK);
+//            add(Color.RED);
+//        }
+//    };
     private static AnimationTimer timer = null;
-    private static AudioPlayer audioPlayer = new AudioPlayer();
     private static double currentGameTime;
     private static double oldGameTime;
     private static double deltaTime;
     private final static long startNanoTime = System.nanoTime();
     private static int count = 0;
-    private static int audioCount = 0;
-    private static boolean btnAdded = false;
     private static map map=new map();
-//    private static List<Entity> entities;
     public static double getCurrentGameTime() {
         return currentGameTime;
     }
@@ -224,15 +220,15 @@ public class GameLoop {
 
         if(currentPlayer == null) {
             count++;
-            if (count > 100) {
+            if (count > 50) {
                 gc.setFill(Color.BLACK);
 //            System.out.println(Font.getFontNames());
                 gc.setFont(new Font("Press Start 2P", 80));
                 gc.fillText("GAME OVER", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
                 GameWindow.toggleBtn(true);
-                if(audioCount <= 0) {
+                if(GameWindow.audioCount <= 0) {
                     Main.audioPlayer.playLoseSound();
-                    audioCount++;
+                    GameWindow.audioCount++;
                 }
             }
 
@@ -246,9 +242,9 @@ public class GameLoop {
                 gc.setFont(new Font("Press Start 2P", 80));
                 gc.fillText("You Won!", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
                 GameWindow.toggleBtn(true);
-                if(audioCount <= 0) {
+                if(GameWindow.audioCount <= 0) {
                     Main.audioPlayer.playWinSound();
-                    audioCount++;
+                    GameWindow.audioCount++;
                 }
                 //increase points
                 if(client.singleFlag){

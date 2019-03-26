@@ -33,9 +33,21 @@
          </font>
       </Label>
       <Label text="Music Volume"></Label>
-      <JFXSlider fx:id="musicSlider"></JFXSlider>
+      <JFXSlider fx:id="musicSlider">
+         <VBox.margin>
+            <Insets>
+               <bottom>15</bottom>
+            </Insets>
+         </VBox.margin>
+      </JFXSlider>
       <Label text="Sound Effects Volume"></Label>
-      <JFXSlider fx:id="soundSlider"></JFXSlider>
+      <JFXSlider fx:id="soundSlider">
+         <VBox.margin>
+            <Insets>
+               <bottom>15</bottom>
+            </Insets>
+         </VBox.margin>
+      </JFXSlider>
 
       <JFXButton onAction="#model" text="SELECT TANK MODEL" >
       </JFXButton>
