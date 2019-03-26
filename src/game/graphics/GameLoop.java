@@ -1,5 +1,6 @@
 package game.graphics;
 
+import com.sun.media.jfxmedia.events.PlayerEvent;
 import game.ClientLogic;
 import game.Main;
 import game.audio.AudioPlayer;
@@ -124,20 +125,34 @@ public class GameLoop {
         String space = "                       ";
         for(Player p :players){
             if(p.id == client.id) {
-                gc.setFill(Color.YELLOW);
+                gc.setFill(Color.GREEN);
             } else {
                 gc.setFill(Color.DARKRED);
             }
-            gc.fillText(p.name+ space.substring(0,12-p.name.length()) +p.getHealth() ,CANVAS_WIDTH-170 ,i*everyHeight+30);
+            String name;
+            if(p.name.split(" ").length == 2) {
+                String[] temp = p.name.split(" ");
+                name = temp[1];
+            } else {
+                name = p.name;
+            }
+            gc.fillText(name + space.substring(0,12-name.length()) + p.getHealth() ,CANVAS_WIDTH-170 ,i*everyHeight+30);
             i++;
         }
         for(int n = client.diePlayer.size();n>0;n--){
             if(client.diePlayer.get(n-1).id == client.id) {
-                gc.setFill(Color.YELLOW);
+                gc.setFill(Color.GREEN);
             } else {
                 gc.setFill(Color.DARKRED);
             }
-            gc.fillText(client.diePlayer.get(n-1).name+space.substring(0,12-client.diePlayer.get(n-1).name.length())+client.diePlayer.get(n-1).getHealth() ,CANVAS_WIDTH-170 ,i*everyHeight+30);
+            String name;
+            if(client.diePlayer.get(n-1).name.split(" ").length == 2) {
+                String[] temp = client.diePlayer.get(n-1).name.split(" ");
+                name = temp[1];
+            } else {
+                name = client.diePlayer.get(n-1).name;
+            }
+            gc.fillText(name + space.substring(0,12 - name.length()) + client.diePlayer.get(n-1).getHealth() ,CANVAS_WIDTH-170 ,i*everyHeight+30);
             i++;
         }
 
@@ -162,7 +177,7 @@ public class GameLoop {
                 gc.setFont(new Font("Press Start 2P", 8));
                 if(currentPlayer != null) {
                     if(e.id == currentPlayer.id) {
-                        gc.setFill(Color.YELLOW);
+                        gc.setFill(Color.GREEN);
                     }else {
                         gc.setFill(Color.DARKRED);
                     }
@@ -170,8 +185,21 @@ public class GameLoop {
                     gc.setFill(Color.DARKRED);
                 }
 
-                float xpos = e.getPosition().getX() - 38 + (80 - ((Player) e).name.length()*(((Player) e).name.length()))/2;
-                gc.fillText("" + ((Player) e).name, xpos, e.getPosition().getY() - 50);
+                String name;
+                if(((Player)e).name.split(" ").length == 2) {
+                    String[] temp = ((Player)e).name.split(" ");
+                    name = temp[1];
+                } else {
+                    name = ((Player)e).name;
+                }
+
+                float xpos = e.getPosition().getX() - 38 + (80 - name.length()*name.length())/2;
+                if(name.equals("YOU")) {
+                    gc.fillText("" + name, e.getPosition().getX() - 11, e.getPosition().getY() - 50);
+                } else {
+                    gc.fillText("" + name, xpos, e.getPosition().getY() - 50);
+                }
+
 
 //                System.out.println(((Player)e).name);
                 double health = (((Player) e).getHealth() / 1.25);

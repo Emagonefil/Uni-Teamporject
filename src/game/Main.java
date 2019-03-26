@@ -13,6 +13,7 @@ import game.controller.Login;
 import game.entity.Player;
 import game.entity.User;
 import game.graphics.GameWindow;
+import game.graphics.Renderer;
 import game.network.Port;
 import game.network.Room;
 import game.network.RoomServer;
@@ -24,6 +25,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -40,7 +42,7 @@ public class Main extends Application {
 
 	boolean forward, backward, left, right, shoot;
 	public static List<ClientLogic> AIs=new ArrayList<>();
-	public static int numOfAI=4;
+	public static int numOfAI=8;
 
 	public static boolean  startFlag =false;//can not purchase before game start
 
@@ -68,7 +70,9 @@ public class Main extends Application {
 		mainStage = primaryStage;
 
 		// set the window title
-		primaryStage.setTitle(Constants.GAME_NAME + " " + Constants.GAME_VERSION);
+		primaryStage.getIcons().add(Renderer.icon);
+		primaryStage.setTitle(Constants.GAME_NAME);
+
 
 
 		// close application (stop all processes) when x button is pressed
@@ -203,7 +207,7 @@ public class Main extends Application {
 	}
 
 	public static void SinglePlayer(Stage stage){
-
+//		System.gc();
 		try {
 			Port.localIP = InetAddress.getLocalHost().getHostAddress();
 			Port.mulitcastAddress = "230.0.1.1";
@@ -253,6 +257,7 @@ public class Main extends Application {
 	}
 
 	public static void MultiPlayer(Stage stage) {
+//		System.gc();
 		Port.localIP = IPSearcher.goldenaxeAddress();
 		c1 = null;
 		c1 = new ClientLogic();
@@ -362,5 +367,48 @@ public class Main extends Application {
 			s1=null;
 			System.out.println("Server Thread "+s1.ServerId + " stopped");
 		}
+	}
+
+
+	public static void soundButtons(ToggleButton toggleMusic, ToggleButton toggleSound) {
+		int musicVolume;
+		if((int) Main.audioPlayer.getMusicVolume() == 0) {
+			musicVolume = 60;
+		} else {
+			musicVolume = (int)Main.audioPlayer.getMusicVolume();
+		}
+
+		int soundVolume;
+		if((int)Main.audioPlayer.getSoundEffectVolume() == 0) {
+			soundVolume = 60;
+		} else {
+			soundVolume = (int)Main.audioPlayer.getSoundEffectVolume();
+		}
+
+		if(Main.audioPlayer.getMusicVolume() == 0) {
+			toggleMusic.setSelected(true);
+		} else {
+			toggleMusic.setSelected(false);
+		}
+		if(Main.audioPlayer.getSoundEffectVolume() == 0) {
+			toggleSound.setSelected(true);
+		} else {
+			toggleSound.setSelected(false);
+		}
+		toggleMusic.setOnAction(event -> {
+			if(toggleMusic.isSelected()) {
+				Main.audioPlayer.muteBackgroundMusic();
+			} else {
+				Main.audioPlayer.setMusicVolume(musicVolume);
+			}
+		});
+
+		toggleSound.setOnAction(event -> {
+			if(toggleSound.isSelected()) {
+				Main.audioPlayer.muteSoundEffect();
+			} else {
+				Main.audioPlayer.setSoundEffectVolume(soundVolume);
+			}
+		});
 	}
 }

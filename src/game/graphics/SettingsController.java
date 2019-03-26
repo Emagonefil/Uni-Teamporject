@@ -1,13 +1,20 @@
 package game.graphics;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
+import game.Constants;
 import game.Main;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class SettingsController {
@@ -23,47 +30,7 @@ public class SettingsController {
     private ToggleButton sound;
 
     public void initialize() {
-        int musicVolume;
-        if((int)Main.audioPlayer.getMusicVolume() == 0) {
-            musicVolume = 60;
-        } else {
-            musicVolume = (int)Main.audioPlayer.getMusicVolume();
-        }
-
-        int soundVolume;
-        if((int)Main.audioPlayer.getSoundEffectVolume() == 0) {
-            soundVolume = 60;
-        } else {
-            soundVolume = (int)Main.audioPlayer.getSoundEffectVolume();
-        }
-
-        if(Main.audioPlayer.getMusicVolume() == 0) {
-            music.setSelected(true);
-        } else {
-            music.setSelected(false);
-        }
-        if(Main.audioPlayer.getSoundEffectVolume() == 0) {
-            sound.setSelected(true);
-        } else {
-            sound.setSelected(false);
-        }
-
-        music.setOnAction(event -> {
-            if(music.isSelected()) {
-                Main.audioPlayer.muteBackgroundMusic();
-            } else {
-                Main.audioPlayer.setMusicVolume(musicVolume);
-            }
-        });
-
-        sound.setOnAction(event -> {
-            if(sound.isSelected()) {
-                Main.audioPlayer.muteSoundEffect();
-            } else {
-                Main.audioPlayer.setSoundEffectVolume(soundVolume);
-            }
-        });
-
+        Main.soundButtons(music,sound);
         System.out.println("MUSIC VOLUME WAS: " + Main.audioPlayer.getMusicVolume());
         musicSlider.setValue((5.0f*Main.audioPlayer.getMusicVolume())/4);
         musicSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -98,8 +65,46 @@ public class SettingsController {
 
         Parent root1 = FXMLLoader.load(getClass().getResource("fxml/menu3.fxml"));
         primaryStage.getScene().setRoot(root1);
-        primaryStage.setTitle("Tanks");
-        primaryStage.setMaximized(true);
+        primaryStage.setTitle(Constants.GAME_NAME);
+
+        primaryStage.show();
+    }
+
+    @FXML
+    protected void model(ActionEvent event) throws Exception {
+        Node node = (Node) event.getSource();
+        Stage primaryStage = (Stage) node.getScene().getWindow();
+
+//        Parent root1 = FXMLLoader.load(getClass().getResource("fxml/model.fxml"));
+        VBox box = new VBox();
+        Label title = new Label("CLASH OF TANKS");
+        title.getStyleClass().add("title");
+        title.setFont(new Font("Press Start 2P", 36));
+
+        JFXButton backBtn = new JFXButton("BACK");
+
+        // When the back button is pressed
+        backBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                try {
+                    Parent root1 = FXMLLoader.load(getClass().getResource("fxml/menu3.fxml"));
+                    primaryStage.getScene().setRoot(root1);
+                    primaryStage.setTitle(Constants.GAME_NAME);
+
+                    primaryStage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+
+        box.getChildren().addAll(title,backBtn);
+
+        primaryStage.getScene().setRoot(box);
+        primaryStage.setTitle(Constants.GAME_NAME);
 
         primaryStage.show();
     }

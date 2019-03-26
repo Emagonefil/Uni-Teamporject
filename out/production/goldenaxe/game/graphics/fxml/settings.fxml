@@ -17,6 +17,11 @@
    <children>
       <HBox alignment="TOP_LEFT">
          <ToggleButton fx:id="music" styleClass="music" layoutX="10" layoutY="100">
+            <HBox.margin>
+               <Insets>
+                  <right>10</right>
+               </Insets>
+            </HBox.margin>
          </ToggleButton>
          <ToggleButton fx:id="sound" styleClass="sound" layoutX="60" layoutY="100">
          </ToggleButton>
@@ -24,7 +29,7 @@
       <Label alignment="CENTER" styleClass="title"
              text="CLASH OF TANKS">
          <font>
-            <Font size="30.0" />
+            <Font size="36.0" />
          </font>
       </Label>
       <Label text="Music Volume"></Label>
@@ -32,6 +37,8 @@
       <Label text="Sound Effects Volume"></Label>
       <JFXSlider fx:id="soundSlider"></JFXSlider>
 
+      <JFXButton onAction="#model" text="SELECT TANK MODEL" >
+      </JFXButton>
       <JFXButton onAction="#back" text="BACK" >
       </JFXButton>
    </children>

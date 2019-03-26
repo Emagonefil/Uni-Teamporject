@@ -22,6 +22,11 @@
 
       <HBox alignment="TOP_LEFT">
          <ToggleButton fx:id="music" styleClass="music" layoutX="10" layoutY="100">
+            <HBox.margin>
+               <Insets>
+                  <right>10</right>
+               </Insets>
+            </HBox.margin>
          </ToggleButton>
          <ToggleButton fx:id="sound" styleClass="sound" layoutX="60" layoutY="100">
          </ToggleButton>
@@ -29,7 +34,7 @@
       <Label alignment="CENTER" styleClass="title"
              text="WELCOME">
          <font>
-            <Font size="16.0" />
+            <Font size="20.0" />
          </font>
       </Label>
 

@@ -22,6 +22,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -45,45 +46,7 @@ public class Controller {
     private ToggleButton sound;
 
     public void initialize() {
-        int musicVolume;
-        if((int)Main.audioPlayer.getMusicVolume() == 0) {
-            musicVolume = 60;
-        } else {
-            musicVolume = (int)Main.audioPlayer.getMusicVolume();
-        }
-
-        int soundVolume;
-        if((int)Main.audioPlayer.getSoundEffectVolume() == 0) {
-            soundVolume = 60;
-        } else {
-            soundVolume = (int)Main.audioPlayer.getSoundEffectVolume();
-        }
-        if(Main.audioPlayer.getMusicVolume() == 0) {
-            music.setSelected(true);
-        } else {
-            music.setSelected(false);
-        }
-        if(Main.audioPlayer.getSoundEffectVolume() == 0) {
-            sound.setSelected(true);
-        } else {
-            sound.setSelected(false);
-        }
-        music.setOnAction(event -> {
-            if(music.isSelected()) {
-                Main.audioPlayer.muteBackgroundMusic();
-            } else {
-                Main.audioPlayer.setMusicVolume(musicVolume);
-            }
-        });
-
-        sound.setOnAction(event -> {
-            if(sound.isSelected()) {
-                Main.audioPlayer.muteSoundEffect();
-            } else {
-                Main.audioPlayer.setSoundEffectVolume(soundVolume);
-            }
-        });
-
+        Main.soundButtons(music,sound);
     }
 
 //    public void initialize() {
@@ -118,6 +81,21 @@ public class Controller {
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
 
+        // Sound buttons
+        final ToggleButton toggleMusic = new ToggleButton();
+        toggleMusic.setLayoutX(10);
+        toggleMusic.setLayoutY(10);
+        final ToggleButton toggleSound = new ToggleButton();
+        toggleSound.setLayoutX(60);
+        toggleSound.setLayoutY(10);
+        toggleSound.setId("toggleSound");
+        toggleMusic.setId("toggleMusic");
+
+        Main.soundButtons(toggleMusic, toggleSound);
+        HBox soundHolder = new HBox();
+        soundHolder.setSpacing(10);
+        soundHolder.getChildren().addAll(toggleMusic,toggleSound);
+
         // Create necessary Buttons
         JFXButton refresh = new JFXButton("REFRESH ROOMS");
         JFXButton join = new JFXButton("JOIN ROOM");
@@ -131,7 +109,7 @@ public class Controller {
         roomList = getRoomsList();
         Label titleImg = new Label("CLASH OF TANKS");
         titleImg.getStyleClass().add("title");
-        titleImg.setFont(new Font("Press Start 2P", 30));
+        titleImg.setFont(new Font("Press Start 2P", 36));
 
         Label roomsLabel = new Label("ROOMS");
         roomsLabel.setId("roomsLabel");
@@ -174,14 +152,14 @@ public class Controller {
         refresh.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                vbox.getChildren().removeAll(titleImg, join, create, start, back,refresh, roomsLabel, roomList);
+                vbox.getChildren().removeAll(soundHolder,titleImg, join, create, start, back,refresh, roomsLabel, roomList);
 
                 Main.c1.getRoomList();
                 roomList.refresh();
 //                JFXListView newList = getRoomsList();
                 roomList = getRoomsList();
 //                roomList = newList;
-                vbox.getChildren().addAll(titleImg, join, create, start, back, refresh, roomsLabel, roomList);
+                vbox.getChildren().addAll(soundHolder,titleImg, join, create, start, back, refresh, roomsLabel, roomList);
                 primaryStage.getScene().setRoot(vbox);
                 primaryStage.show();
 //                vbox.getChildren().removeAll(titleImg, join, create, start, back,refresh, roomsLabel, roomList);
@@ -203,8 +181,7 @@ public class Controller {
 
                     Parent root1 = FXMLLoader.load(getClass().getResource("fxml/menu3.fxml"));
                     primaryStage.getScene().setRoot(root1);
-                    primaryStage.setTitle("Tanks");
-                    primaryStage.setMaximized(true);
+                    primaryStage.setTitle(Constants.GAME_NAME);
 
                     primaryStage.show();
                 } catch (Exception e) {
@@ -246,7 +223,7 @@ public class Controller {
         });
         vbox.getStyleClass().add("vbox");
 
-        vbox.getChildren().addAll(titleImg, join, create, start, back, refresh, roomsLabel, roomList);
+        vbox.getChildren().addAll(soundHolder,titleImg, join, create, start, back, refresh, roomsLabel, roomList);
         primaryStage.getScene().setRoot(vbox);
         primaryStage.getScene().getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
         primaryStage.show();
@@ -288,7 +265,7 @@ public class Controller {
 
             for (Map.Entry<Integer,String> client : room.Clients.entrySet()) {
 //                users.add(" PLAYER " + (room.ClientId.indexOf(client) + 1) + ": " + client + "");
-                users.add("PLAYER"+client.getKey()+": "+client.getValue());
+                users.add(client.getValue());
             }
 
             for (String id : users) {
@@ -308,8 +285,7 @@ public class Controller {
 
         Parent root1 = FXMLLoader.load(getClass().getResource("fxml/settings.fxml"));
 
-        primaryStage.setTitle("Tanks");
-        primaryStage.setMaximized(true);
+        primaryStage.setTitle(Constants.GAME_NAME);
         primaryStage.getScene().setRoot(root1);
         primaryStage.show();
 
@@ -332,8 +308,7 @@ public class Controller {
 
         Parent root1 = FXMLLoader.load(getClass().getResource("fxml/menu3.fxml"));
         primaryStage.getScene().setRoot(root1);
-        primaryStage.setTitle("Tanks");
-        primaryStage.setMaximized(true);
+        primaryStage.setTitle(Constants.GAME_NAME);
 
         primaryStage.show();
 

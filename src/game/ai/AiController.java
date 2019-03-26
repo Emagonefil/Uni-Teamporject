@@ -355,7 +355,7 @@ public class AiController extends Thread {
 			
 			
 			
-			Item nearestHP = (Item)nearest(hp);
+
 			
 			x = aiPlayer.getPosition().getX();
 			y = aiPlayer.getPosition().getY();
@@ -364,11 +364,11 @@ public class AiController extends Thread {
 			
 			
 			if(aiPlayer.getHealth()>20||hp.size() == 0) {
-				
+
 				state = States.ATTACK;
 				break;
 			}
-			
+			Item nearestHP = (Item)nearest(hp);
 			
 			
 			if (aiPlayer.getAngle() >= 360) {

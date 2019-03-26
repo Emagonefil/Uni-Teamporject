@@ -2,6 +2,7 @@ package game.controller;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import game.Constants;
 import game.Main;
 import game.dao.UserDao;
 import game.entity.User;
@@ -41,46 +42,7 @@ public class Login extends Control {
     private ToggleButton sound;
 
     public void initialize() {
-        int musicVolume;
-        if((int)Main.audioPlayer.getMusicVolume() == 0) {
-            musicVolume = 60;
-        } else {
-            musicVolume = (int)Main.audioPlayer.getMusicVolume();
-        }
-
-        int soundVolume;
-        if((int)Main.audioPlayer.getSoundEffectVolume() == 0) {
-            soundVolume = 60;
-        } else {
-            soundVolume = (int)Main.audioPlayer.getSoundEffectVolume();
-        }
-        if(Main.audioPlayer.getMusicVolume() == 0) {
-            music.setSelected(true);
-        } else {
-            music.setSelected(false);
-        }
-        if(Main.audioPlayer.getSoundEffectVolume() == 0) {
-            sound.setSelected(true);
-        } else {
-            sound.setSelected(false);
-        }
-
-        music.setOnAction(event -> {
-            if(music.isSelected()) {
-                Main.audioPlayer.muteBackgroundMusic();
-            } else {
-                Main.audioPlayer.setMusicVolume(musicVolume);
-            }
-        });
-
-        sound.setOnAction(event -> {
-            if(sound.isSelected()) {
-                Main.audioPlayer.muteSoundEffect();
-            } else {
-                Main.audioPlayer.setSoundEffectVolume(soundVolume);
-            }
-        });
-
+        Main.soundButtons(music,sound);
     }
 
     public void handleLogin(ActionEvent actionEvent) throws Exception {
@@ -137,8 +99,7 @@ public class Login extends Control {
         Stage primaryStage = (Stage) node.getScene().getWindow();
         Parent root1 = FXMLLoader.load(getClass().getResource(path));
         primaryStage.getScene().setRoot(root1);
-        primaryStage.setTitle(title);
-        primaryStage.setMaximized(true);
+        primaryStage.setTitle(Constants.GAME_NAME);
         primaryStage.show();
     }
 

@@ -65,45 +65,7 @@ public class GameWindow {
             }
         });
         b1.setVisible(false);
-        int musicVolume;
-        if((int)Main.audioPlayer.getMusicVolume() == 0) {
-            musicVolume = 60;
-        } else {
-            musicVolume = (int)Main.audioPlayer.getMusicVolume();
-        }
-
-        int soundVolume;
-        if((int)Main.audioPlayer.getSoundEffectVolume() == 0) {
-            soundVolume = 60;
-        } else {
-            soundVolume = (int)Main.audioPlayer.getSoundEffectVolume();
-        }
-
-        if(Main.audioPlayer.getMusicVolume() == 0) {
-            toggleMusic.setSelected(true);
-        } else {
-            toggleMusic.setSelected(false);
-        }
-        if(Main.audioPlayer.getSoundEffectVolume() == 0) {
-            toggleSound.setSelected(true);
-        } else {
-            toggleSound.setSelected(false);
-        }
-        toggleMusic.setOnAction(event -> {
-            if(toggleMusic.isSelected()) {
-                Main.audioPlayer.muteBackgroundMusic();
-            } else {
-                Main.audioPlayer.setMusicVolume(musicVolume);
-            }
-        });
-
-        toggleSound.setOnAction(event -> {
-            if(toggleSound.isSelected()) {
-                Main.audioPlayer.muteSoundEffect();
-            } else {
-                Main.audioPlayer.setSoundEffectVolume(soundVolume);
-            }
-        });
+        Main.soundButtons(toggleMusic, toggleSound);
 
         toggleSound.setId("toggleSound");
         toggleMusic.setId("toggleMusic");
@@ -113,7 +75,6 @@ public class GameWindow {
         BackgroundImage bkg = new BackgroundImage(Renderer.background, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT);
         holder.setBackground(new Background(bkg));
         stage.getScene().setRoot(root);
-//        stage.setMaximized(true);
 
         stage.setWidth(Constants.CANVAS_WIDTH);
         stage.setHeight(Constants.CANVAS_HEIGHT);
@@ -121,13 +82,15 @@ public class GameWindow {
         scale.xProperty().bind(root.widthProperty().divide(Constants.CANVAS_WIDTH));     //must match with the one in the controller
         scale.yProperty().bind(root.heightProperty().divide(Constants.CANVAS_HEIGHT));   //must match with the one in the controller
         root.getTransforms().add(scale);
-        stage.setMaximized(true);
+        b1.getTransforms().add(scale);
         stage.setFullScreen(true);
 
         stage.show();
 
         GameLoop.start(gc, stage.getScene(), client);
     }
+
+
 
     public static void toggleBtn(boolean val) {
         b1.setVisible(val);
@@ -137,11 +100,11 @@ public class GameWindow {
         if (GameLoop.isRunning) {
             GameLoop.stop();
         }
-        c = null;
-        gc = null;
-        windowStage = null;
-        root = null;
-        b1 = null;
+//        c = null;
+//        gc = null;
+//        windowStage = null;
+//        root = null;
+//        b1 = null;
     }
 
 

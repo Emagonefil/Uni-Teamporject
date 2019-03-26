@@ -22,6 +22,7 @@ public class Renderer {
 
     /** The images used in the game*/
     public static Image loading;
+    public static Image icon;
     public static Image tank1;
     public static Image tank2;
     public static Image tank3;
@@ -43,8 +44,9 @@ public class Renderer {
         /***********新增star************/
         mallPanel = loadImage("Resources/image/shop.png");
         /***********新增end************/
-        background = loadImage("Resources/image/bkg.png");
+        background = loadImage("Resources/image/floor2.jpg");
         loading = loadImage("Resources/image/loading.gif");
+        icon = loadImage("Resources/image/icon.png");
         tank1 = loadImage("Resources/image/tank1.png");
         tank2 = loadImage("Resources/image/tank2.png");
         tank3 = loadImage("Resources/image/tank3.png");

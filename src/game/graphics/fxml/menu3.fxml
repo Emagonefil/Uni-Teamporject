@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.geometry.Insets?>
 <VBox styleClass="vbox" id="mainMenu" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="game.graphics.Controller"
@@ -14,6 +15,11 @@
     <children>
         <HBox alignment="TOP_LEFT">
             <ToggleButton fx:id="music" styleClass="music" layoutX="10" layoutY="100">
+                <HBox.margin>
+                    <Insets>
+                        <right>10</right>
+                    </Insets>
+                </HBox.margin>
             </ToggleButton>
             <ToggleButton fx:id="sound" styleClass="sound" layoutX="60" layoutY="100">
             </ToggleButton>
@@ -21,7 +27,7 @@
         <Label alignment="CENTER" styleClass="title"
                text="CLASH OF TANKS">
             <font>
-                <Font size="30.0" />
+                <Font size="36.0" />
             </font>
         </Label>
         <JFXButton text="SINGLEPLAYER" onAction="#handleSinglePlayerButtonAction">

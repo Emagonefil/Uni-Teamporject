@@ -19,7 +19,7 @@ public class Constants {
 //    public static int SCENE_HEIGHT = gd.getDisplayMode().getHeight();
 //    public static int CANVAS_WIDTH = 640;
 //    public static int CANVAS_HEIGHT = 640;
-    public static String GAME_NAME = "Tanks";
+    public static String GAME_NAME = "Clash of Tanks";
     public static String GAME_VERSION = "  v 0.1";
     public static Color BACKGROUND_COLOR = Color.WHITE;
 
