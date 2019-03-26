@@ -97,8 +97,8 @@ public class map {
 
         }
         else if(choice==2){
-            float width = 1500;
-            float height = 950;
+            float width = 1400;
+            float height = 800;
             float height_dif = ((height-20)-(height/2))/4;
             float width_dif = ((width-20)-(width/2))/4;
 
