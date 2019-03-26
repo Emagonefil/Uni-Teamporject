@@ -42,6 +42,7 @@ public class Main extends Application {
 	public static List<ClientLogic> AIs=new ArrayList<>();
 	public static int numOfAI=4;
 
+	public static boolean  startFlag =false;//can not purchase before game start
 
 	public static void main(String args[]) {
 		roomServer.run();
@@ -152,6 +153,9 @@ public class Main extends Application {
 					case RIGHT:	right = true; break;
 					case J:
 					case SPACE:	shoot = true; break;
+					case K:if(startFlag){
+						c1.mallShow = !c1.mallShow; break;
+					}
 				}
 			}
 		});
@@ -170,6 +174,12 @@ public class Main extends Application {
 					case RIGHT:	right = false; break;
 					case J:
 					case SPACE:	shoot = false; break;
+					case H:	 if(startFlag){
+						c1.buySomething("Health"); break;
+					}
+					case M:	if(startFlag){
+						c1.buySomething("Speed"); break;
+					}
 				}
 			}
 		});
@@ -211,7 +221,7 @@ public class Main extends Application {
 
 		serverGap s1=new serverGap();
 		s1.start();
-//		p.name=user.getUsername();//玩家名
+//		p.name=user.getUsername();//player name
 		try{
 			Thread.sleep(500);
 		}
@@ -232,6 +242,10 @@ public class Main extends Application {
 		c1.ServerId=s1.s1.ServerId;
 		c1.id=s1.s1.addPlayer();
 		c1.diePlayer=s1.s1.diePlayer;
+		c1.s1=s1.s1;
+		c1.mallShow=false;
+		c1.user=user;
+		startFlag = true;
 		Player p = (Player)s1.s1.SearchEntityById(c1.id);
 		p.name="YOU";
 //		GameWindow newGame = new GameWindow(stage, c1);
@@ -243,8 +257,7 @@ public class Main extends Application {
 		c1 = null;
 		c1 = new ClientLogic();
 		System.out.println(c1.c1);
-
-
+		c1.singleFlag=false;
 		c1.getRoomList();
 		waitForGame w1=new waitForGame(stage);
 		w1.start();

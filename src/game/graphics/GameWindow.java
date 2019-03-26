@@ -31,7 +31,6 @@ public class GameWindow {
     private static Pane root;
     private static Stage windowStage;
     private static JFXButton b1;
-    private static AudioPlayer audio = new AudioPlayer();
 
     public static void start(Stage stage, ClientLogic client) {
         windowStage = stage;
@@ -57,10 +56,12 @@ public class GameWindow {
         b1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                GameLoop.stop();
+//                GameLoop.stop();
+
                 Main.isRunning = false;
-                System.out.println("I am here lalallalallalalalalal");
+
                 backToMenu(windowStage);
+                GameWindow.clear();
             }
         });
         b1.setVisible(false);
@@ -130,6 +131,17 @@ public class GameWindow {
 
     public static void toggleBtn(boolean val) {
         b1.setVisible(val);
+    }
+
+    public static void clear() {
+        if (GameLoop.isRunning) {
+            GameLoop.stop();
+        }
+        c = null;
+        gc = null;
+        windowStage = null;
+        root = null;
+        b1 = null;
     }
 
 

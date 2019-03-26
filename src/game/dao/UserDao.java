@@ -1,10 +1,12 @@
 package game.dao;
 
-import game.Main;
 import game.entity.User;
 
 import java.sql.*;
 
+/**
+ * user data database operation class
+ */
 public class UserDao {
     private PreparedStatement preparedStatement;
     private Connection conn = this.initializeDB();
@@ -25,9 +27,8 @@ public class UserDao {
     }
 
     /**
-     * 新增
-     * @param user
-     * @return
+     * @param user User entity
+     * @return True succeeded in adding new users; false failed in adding new users
      */
     public boolean insertUser(User user) {
         String sql="INSERT INTO `user` (username,password )value(?,?)";
@@ -47,7 +48,7 @@ public class UserDao {
     }
 
     /**
-     * 根据账户名和密码查询
+     * Search by account name and password
      * @param user
      * @return
      */
@@ -60,13 +61,15 @@ public class UserDao {
             preparedStatement.setString(2, user.getPassword());
             ResultSet rSet =  preparedStatement.executeQuery();//执行查询语句
             if(rSet.next()){
+                //set user points
+                user.setPoint(rSet.getInt(4));
+                user.setID(rSet.getInt(1));
                 System.out.println("Login success！");
                 flag = true;
             }else{
                 System.out.println("Login failure！");
                 flag = false;
             }
-
         }catch (Exception e){
             flag =false;
             System.out.println("Error！");
@@ -76,9 +79,9 @@ public class UserDao {
     }
 
     /**
-     * 根据账户名和密码查询
+     * Search by account name and password
      * @param user
-     * @return  用户存在返回true
+     * @return  User exist returns true
      */
     public boolean userIsExist(User user) throws Exception{
         boolean flag ;
@@ -86,7 +89,7 @@ public class UserDao {
         try{
             preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, user.getUsername());
-            ResultSet rSet =  preparedStatement.executeQuery();//执行查询语句
+            ResultSet rSet =  preparedStatement.executeQuery();
             if(rSet.next()){
                 System.out.println("user exist！");
                 flag = true;
@@ -101,8 +104,32 @@ public class UserDao {
         }
         return flag;
     }
-
-
+    /**
+     * Update User Integral
+     * @param user
+     * @return  Update successfully returns true, failure returns false
+     */
+    public boolean userUpdatePoint(User user) {
+        boolean flag =false;
+        String sql="update user set  point=? where id=? ";
+        try{
+            preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, user.getPoint());
+            preparedStatement.setInt(2, user.getID());
+            int rSet =  preparedStatement.executeUpdate();
+            if(rSet>0){
+                System.out.println("update success！");
+                flag = true;
+            }else{
+                System.out.println("update  failure！");
+                flag = false;
+            }
+        }catch (Exception e){
+            System.out.println("Error when update！");
+            e.printStackTrace();
+        }
+        return flag;
+    }
 
 }
 

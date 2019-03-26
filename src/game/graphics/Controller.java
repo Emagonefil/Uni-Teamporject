@@ -147,9 +147,10 @@ public class Controller {
                 if (room != null) {
                     if(room.ServerIp != null&&room.status == 2 && room.ServerIp != "") {
                         System.out.println("GAME WINDOW SHOULD START NOW"+ Port.mulitcastAddress);
-                        if(GameLoop.isRunning) {
-                            GameLoop.stop();
-                        }
+//                        if(GameLoop.isRunning) {
+//                            GameLoop.stop();
+//                        }
+                        GameWindow.clear();
                         GameWindow.start(Main.mainStage,Main.c1);
                         System.out.println("GAME WINDOW SHOULD HAVE STARTED ALREADY"+ Port.mulitcastAddress);
                         stopTimer();
@@ -195,9 +196,10 @@ public class Controller {
                     roomList.getItems().clear();
                     roomList.refresh();
                     Main.isRunning = false;
-                    if (GameLoop.isRunning) {
-                        GameLoop.stop();
-                    }
+//                    if (GameLoop.isRunning) {
+//                        GameLoop.stop();
+//                    }
+                    GameWindow.clear();
 
                     Parent root1 = FXMLLoader.load(getClass().getResource("fxml/menu3.fxml"));
                     primaryStage.getScene().setRoot(root1);

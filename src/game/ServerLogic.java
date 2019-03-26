@@ -391,7 +391,7 @@ public class ServerLogic {
 		}
 		server.send(Port.mulitcastAddress,items);
 		//List<PlayerScore> newRank = RankService.getInstance().rankList();
-		//System.out.println("发送："+System.currentTimeMillis());
+		//System.out.println("send："+System.currentTimeMillis());
 	}
 
 	/**
@@ -400,5 +400,7 @@ public class ServerLogic {
 	public void close(){
 		server.close();
 	}
+
+
 
 }
