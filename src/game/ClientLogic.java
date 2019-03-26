@@ -5,8 +5,13 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+
+import game.dao.UserDao;
 import game.entity.*;
 
+import game.entity.items.HealthPickup;
+import game.entity.items.Item;
+import game.entity.items.SpeedPickup;
 import game.network.Command;
 import game.network.Port;
 import game.network.Room;
@@ -23,11 +28,17 @@ public class ClientLogic {
 	public List<Entity> Entities= new ArrayList<Entity>();
 	public List<Player> diePlayer= new ArrayList<Player>();
 	public int ServerId=0;
+	List<String> Room = new ArrayList<String>();
 	public List<Room> rooms = new ArrayList();
 	ClientSender sender1= c1.getSender();
 	private int myRoom;
 	public int mapID;
 	long[] freezetime={System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis(),System.currentTimeMillis()};
+	public User user;
+	public ServerLogic s1;
+	public boolean singleFlag = true;//true 单人游戏 false
+	public boolean addpointFlag =true;//Only one additional point mark can be added for each game.
+	public boolean mallShow =false;
 
 	/**
 	 * init the client and start listening the port
@@ -250,6 +261,41 @@ public class ClientLogic {
 				return Entities.get(i);
 		}
 		return null;
+	}
+
+	public void buySomething(String something){
+		if(singleFlag){
+			if(mallShow){
+				if(something.equals("Health")){
+
+					if(user.getPoint()>=5){
+						user.setPoint(user.getPoint()-5);
+						UserDao ud = new UserDao();
+						if(ud.userUpdatePoint(user)) {
+							Item i = new HealthPickup(new Point());
+							i.effect((Player) s1.SearchEntityById(id));
+							System.out.println("Purchase life success!");
+						}
+					}else{
+						System.out.println("Not enough points!");
+					}
+				}
+				if(something.equals("Speed")){
+					if(user.getPoint()>=5){
+						user.setPoint(user.getPoint()-5);
+						UserDao ud = new UserDao();
+						if(ud.userUpdatePoint(user))
+						{
+							System.out.println("Purchase speed success!");
+							Item i =new SpeedPickup(new Point());
+							i.effect((Player)s1.SearchEntityById(id));
+						}
+					}else{
+						System.out.println("Not enough points!");
+					}
+				}
+			}
+		}
 	}
 
 

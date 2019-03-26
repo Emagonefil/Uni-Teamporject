@@ -1,18 +1,41 @@
 package game.entity;
 
 /**
- * 玩家类
- * 包含账户、密码
+ * player class
+ * include password and username
  */
 public class User {
     /**
-     * 用户名
+     * Username
      */
     private String username;
     /**
-     * 密码
+     * Password
      */
     private String password;
+
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
+
+    private Integer ID;
+
+    public Integer getPoint() {
+        return point;
+    }
+
+    public void setPoint(Integer point) {
+        this.point = point;
+    }
+
+    /**
+     * points
+     */
+    private Integer point;
 
     public String getUsername() {
         return username;

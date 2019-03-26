@@ -40,6 +40,17 @@ public class ServerLogic {
 		m.initMap(mapID);
 		Entities.addAll(m.getMap());
 	}
+	public int getPlayerId(){
+		Entity e;
+		for(int i=0;i<Entities.size();i++){
+			e =Entities.get(i);
+			if(e.type.equals("Player")){
+				return ((Player)e).id;
+			}
+		}
+		return 0;
+	}
+
 	/**
 	 * show the players that have joined the server
 	 */
@@ -48,7 +59,6 @@ public class ServerLogic {
 		Entity e;
 		for(int i=0;i<Entities.size();i++){
 			e =Entities.get(i);
-
 			if(e.type.equals("Player")){
 				System.out.println("id: "+e.getId()+" Pos: "+e.getPosition()+" Angle: "+e.getAngle());
 			}
@@ -339,12 +349,12 @@ public class ServerLogic {
 	 * more items on the map, less possibility new items would be created
 	 */
 	public void createItems(){
-		if(ra.nextInt(Entities.size()*20)==1)
+		if(ra.nextInt(Entities.size()*50)==1)
 			for(int i=0;i<50;i++){
 				//Spawn health pickups
 				HealthPickup h;
-				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
-				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
+				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/50)*50 ;
+				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/50)*50 ;
 				h = new HealthPickup(new Point((float)x, (float)y));
 				h.id = getSpareId();
 				if(checkCollision(h)==0) {
@@ -352,12 +362,12 @@ public class ServerLogic {
 					break;
 			}
 		}
-		if(ra.nextInt(Entities.size()*40)==1)
+		if(ra.nextInt(Entities.size()*50)==1)
 			for(int i=0;i<50;i++){
 				//Spawn speed pickups
 				SpeedPickup s;
-				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/40)*40 ;
-				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/40)*40 ;
+				double x=ra.nextInt((int)Constants.CANVAS_WIDTH/50)*50 ;
+				double y=ra.nextInt((int)Constants.CANVAS_HEIGHT/50)*50 ;
 				s = new SpeedPickup(new Point((float)x, (float)y));
 				s.id = getSpareId();
 				if(checkCollision(s)==0) {
@@ -381,7 +391,7 @@ public class ServerLogic {
 		}
 		server.send(Port.mulitcastAddress,items);
 		//List<PlayerScore> newRank = RankService.getInstance().rankList();
-		//System.out.println("发送："+System.currentTimeMillis());
+		//System.out.println("send："+System.currentTimeMillis());
 	}
 
 	/**
@@ -390,5 +400,7 @@ public class ServerLogic {
 	public void close(){
 		server.close();
 	}
+
+
 
 }

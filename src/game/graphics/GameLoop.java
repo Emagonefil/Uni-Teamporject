@@ -3,6 +3,7 @@ package game.graphics;
 import game.ClientLogic;
 import game.Main;
 import game.audio.AudioPlayer;
+import game.dao.UserDao;
 import game.entity.*;
 import game.maps.map;
 import javafx.animation.AnimationTimer;
@@ -107,9 +108,9 @@ public class GameLoop {
                 }else if (diff < 0) {
                     return -1;
                 }
-                return 0; //相等为0
+                return 0;
             }
-        }); // 按生命值排序);
+        }); // Sort by life value;
         int everyHeight = 20;
         int height = (players.size()+client.diePlayer.size()+1)*everyHeight+40;
         int i = 1;
@@ -219,11 +220,36 @@ public class GameLoop {
                     Main.audioPlayer.playWinSound();
                     audioCount++;
                 }
+                //increase points
+                if(client.singleFlag){
+                    if(client.addpointFlag){
+                        client.user.setPoint(client.user.getPoint()+5);
+                        UserDao ud = new UserDao();
+                        ud.userUpdatePoint(client.user);
+                        client.addpointFlag=false;
+                    }
+                }
             } else {
                 GameWindow.toggleBtn(false);
             }
         }
-        
+        //draw shop panel
+        if(client.singleFlag){
+            if (client.mallShow){
+                Renderer.drawMallPanel(client.user.getPoint());
+            }else{
+                gc.setFont(new Font("Press Start 2P", 20));
+                gc.setFill(Color.BLACK);
+                gc.fillText("Press ", (CANVAS_WIDTH/2)-250, 50);
+                gc.setFill(Color.LIGHTGOLDENRODYELLOW);
+                gc.setFont(new Font("Press Start 2P", 30));
+                gc.fillText("'K'", (CANVAS_WIDTH/2)-150, 50);
+                gc.setFont(new Font("Press Start 2P", 20));
+                gc.setFill(Color.BLACK);
+                gc.fillText("to access the shop", (CANVAS_WIDTH/2)-70, 50);
+            }
+        }
+
     }
 
     private static void drawCorners(GraphicsContext gc,Point[] corners, Color colour) {
