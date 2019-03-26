@@ -10,11 +10,18 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ToggleButton?>
 <VBox id="pane" styleClass="vbox"
       xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="game.controller.Login">
    <children>
+      <HBox alignment="TOP_LEFT">
+         <ToggleButton fx:id="music" styleClass="music" layoutX="10" layoutY="100">
+         </ToggleButton>
+         <ToggleButton fx:id="sound" styleClass="sound" layoutX="60" layoutY="100">
+         </ToggleButton>
+      </HBox>
       <Label styleClass="vbox" text="REGISTER">
          <font>
             <Font size="16.0" />

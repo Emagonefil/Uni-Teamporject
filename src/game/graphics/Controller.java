@@ -2,7 +2,9 @@ package game.graphics;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXSlider;
 import game.*;
+import game.entity.User;
 import game.network.Port;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
@@ -16,10 +18,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import game.network.Room;
@@ -36,6 +40,56 @@ public class Controller {
     public static Room room;
 
     @FXML
+    private ToggleButton music;
+    @FXML
+    private ToggleButton sound;
+
+    public void initialize() {
+        int musicVolume;
+        if((int)Main.audioPlayer.getMusicVolume() == 0) {
+            musicVolume = 60;
+        } else {
+            musicVolume = (int)Main.audioPlayer.getMusicVolume();
+        }
+
+        int soundVolume;
+        if((int)Main.audioPlayer.getSoundEffectVolume() == 0) {
+            soundVolume = 60;
+        } else {
+            soundVolume = (int)Main.audioPlayer.getSoundEffectVolume();
+        }
+        if(Main.audioPlayer.getMusicVolume() == 0) {
+            music.setSelected(true);
+        } else {
+            music.setSelected(false);
+        }
+        if(Main.audioPlayer.getSoundEffectVolume() == 0) {
+            sound.setSelected(true);
+        } else {
+            sound.setSelected(false);
+        }
+        music.setOnAction(event -> {
+            if(music.isSelected()) {
+                Main.audioPlayer.muteBackgroundMusic();
+            } else {
+                Main.audioPlayer.setMusicVolume(musicVolume);
+            }
+        });
+
+        sound.setOnAction(event -> {
+            if(sound.isSelected()) {
+                Main.audioPlayer.muteSoundEffect();
+            } else {
+                Main.audioPlayer.setSoundEffectVolume(soundVolume);
+            }
+        });
+
+    }
+
+//    public void initialize() {
+//        UserInterface.init(Main.mainStage);
+//    }
+    @FXML
     protected void handleSinglePlayerButtonAction(ActionEvent event) throws Exception {
         Node node = (Node) event.getSource();
         Stage primaryStage = (Stage) node.getScene().getWindow();
@@ -47,7 +101,9 @@ public class Controller {
         primaryStage.show();
 ////        System.out.println("fuck");
 //        Thread.sleep(5000);
-       Main.SinglePlayer(primaryStage);
+//        Main.gui.stop();
+
+        Main.SinglePlayer(primaryStage);
     }
 
     @FXML
@@ -73,8 +129,9 @@ public class Controller {
         start.setId("startBtn");
 
         roomList = getRoomsList();
-        VBox titleImg = new VBox();
-        titleImg.getStyleClass().add("titleImg");
+        Label titleImg = new Label("CLASH OF TANKS");
+        titleImg.getStyleClass().add("title");
+        titleImg.setFont(new Font("Press Start 2P", 30));
 
         Label roomsLabel = new Label("ROOMS");
         roomsLabel.setId("roomsLabel");
@@ -248,11 +305,14 @@ public class Controller {
         Stage primaryStage = (Stage) node.getScene().getWindow();
 
         Parent root1 = FXMLLoader.load(getClass().getResource("fxml/settings.fxml"));
-        primaryStage.getScene().setRoot(root1);
+
         primaryStage.setTitle("Tanks");
         primaryStage.setMaximized(true);
-
+        primaryStage.getScene().setRoot(root1);
         primaryStage.show();
+
+
+//        primaryStage.show();
     }
 
     @FXML

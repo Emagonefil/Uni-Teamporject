@@ -15,9 +15,18 @@
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox fx:id="titleImg">
-
-      </VBox>
+      <HBox alignment="TOP_LEFT">
+         <ToggleButton fx:id="music" styleClass="music" layoutX="10" layoutY="100">
+         </ToggleButton>
+         <ToggleButton fx:id="sound" styleClass="sound" layoutX="60" layoutY="100">
+         </ToggleButton>
+      </HBox>
+      <Label alignment="CENTER" styleClass="title"
+             text="CLASH OF TANKS">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
       <Label text="Music Volume"></Label>
       <JFXSlider fx:id="musicSlider"></JFXSlider>
       <Label text="Sound Effects Volume"></Label>

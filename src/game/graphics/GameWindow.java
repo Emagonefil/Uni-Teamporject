@@ -64,9 +64,30 @@ public class GameWindow {
             }
         });
         b1.setVisible(false);
-        int musicVolume = (int)Main.audioPlayer.getMusicVolume();
-        int soundVolume = (int)Main.audioPlayer.getSoundEffectVolume();
+        int musicVolume;
+        if((int)Main.audioPlayer.getMusicVolume() == 0) {
+            musicVolume = 60;
+        } else {
+            musicVolume = (int)Main.audioPlayer.getMusicVolume();
+        }
 
+        int soundVolume;
+        if((int)Main.audioPlayer.getSoundEffectVolume() == 0) {
+            soundVolume = 60;
+        } else {
+            soundVolume = (int)Main.audioPlayer.getSoundEffectVolume();
+        }
+
+        if(Main.audioPlayer.getMusicVolume() == 0) {
+            toggleMusic.setSelected(true);
+        } else {
+            toggleMusic.setSelected(false);
+        }
+        if(Main.audioPlayer.getSoundEffectVolume() == 0) {
+            toggleSound.setSelected(true);
+        } else {
+            toggleSound.setSelected(false);
+        }
         toggleMusic.setOnAction(event -> {
             if(toggleMusic.isSelected()) {
                 Main.audioPlayer.muteBackgroundMusic();

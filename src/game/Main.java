@@ -1,6 +1,5 @@
 package game;
 
-import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.PrintStream;
 import java.net.InetAddress;
@@ -17,7 +16,6 @@ import game.graphics.GameWindow;
 import game.network.Port;
 import game.network.Room;
 import game.network.RoomServer;
-import game.network.client.Receivable;
 import game.network.common.IPSearcher;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -26,14 +24,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.transform.Scale;
-import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javax.sound.sampled.*;
 
 // loop that runs continuously to update every component of the game
 public class Main extends Application {
@@ -73,7 +66,6 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		mainStage = primaryStage;
 
-
 		// set the window title
 		primaryStage.setTitle(Constants.GAME_NAME + " " + Constants.GAME_VERSION);
 
@@ -110,6 +102,20 @@ public class Main extends Application {
 			System.out.println( "    ----------------------------------------\n" );
 			throw ex;
 		}
+
+
+//		primaryStage.setScene(null);
+//		VBox welcome = new VBox();
+//		Label title = new Label("WELCOME!");
+//		JFXButton start = new JFXButton("START THE GAME");
+//		start.setOnAction(event -> {
+////			UserInterface.init(primaryStage);
+//			UserInterface.login();
+//		});
+//		welcome.getChildren().addAll(title,start);
+//		Scene scene = new Scene(welcome);
+
+//		StackPane pane = gui.getHolderRoot();
 		Scene scene = new Scene(root);
 
 		// add style sheet to this scene
@@ -121,10 +127,12 @@ public class Main extends Application {
 		primaryStage.setWidth(Constants.CANVAS_WIDTH);
 		primaryStage.setHeight(Constants.CANVAS_HEIGHT);
 
-		Scale scale = new Scale(1, 1, 0, 0);
+//		gui.login();
+
+//		Scale scale = new Scale(1, 1, 0, 0);
 //		scale.xProperty().bind(root.widthProperty().divide(Constants.CANVAS_WIDTH));     //must match with the one in the controller
 //		scale.yProperty().bind(root.heightProperty().divide(Constants.CANVAS_HEIGHT));   //must match with the one in the controller
-		root.getTransforms().add(scale);
+//		root.getTransforms().add(scale);
 
 		primaryStage.setFullScreen(true);
 		primaryStage.show();

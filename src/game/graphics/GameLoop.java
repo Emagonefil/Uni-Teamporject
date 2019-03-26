@@ -172,6 +172,7 @@ public class GameLoop {
                 float xpos = e.getPosition().getX() - 38 + (80 - ((Player) e).name.length()*(((Player) e).name.length()))/2;
                 gc.fillText("" + ((Player) e).name, xpos, e.getPosition().getY() - 50);
 
+//                System.out.println(((Player)e).name);
                 double health = (((Player) e).getHealth() / 1.25);
                 if (health < 30) {
                     gc.setFill(Color.RED);

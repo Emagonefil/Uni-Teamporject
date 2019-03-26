@@ -5,7 +5,7 @@
 }
 
 #gameWindow {
-    -fx-background-image: url("../../image//bkg.png");
+    -fx-background-image: url("../../image/bkg.png");
     /*-fx-background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../../../../../Resources/image/floor.jpg");*/
     -fx-background-size: 1350 640;
     -fx-background-repeat: repeat;
@@ -25,8 +25,8 @@
 
 }
 .vbox {
-    -fx-background-image: url("../../image/tank-video.gif");
-    -fx-background-repeat: no-repeat;
+    -fx-background-image: url("../../image/file4.gif");
+    /*-fx-background-repeat: no-repeat;*/
     -fx-background-size: cover;
     -fx-background-position: center;
 }
@@ -47,16 +47,17 @@
 .title {
     -fx-spacing: 15;
     -fx-padding: 30;
-    -fx-pref-width: 300;
+    /*-fx-pref-width: 300;*/
     -fx-font-family: "Press Start 2P";
+    -fx-text-fill: black;
 }
 
 
 
 .jfx-button {
     -jfx-button-type: RAISED;
-    -fx-background-color: rgba(45,100,85,1);
-    -fx-text-fill: white;
+    -fx-background-color: rgb(85,72,64);
+    -fx-text-fill: #F5F5DC;
     -fx-pref-width: 230px;
     -fx-min-height: 40px;
     -fx-pref-height: 40px;
@@ -92,18 +93,18 @@
 
 .jfx-list-cell:odd,
 .jfx-list-cell:even {
-    -fx-background-color: rgba(45,100,85,0.08);
+    -fx-background-color: rgba(85,72,64,0.08);
 }
 
 .jfx-list-cell:filled:hover {
-    rgba(45,100,85,0.3);
+    rgba(85,72,64,0.3);
 }
 .jfx-list-cell:selected .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #F5F5DC;
 }
 
 .jfx-list-cell:selected {
-    -fx-background-color: rgba(45,100,85,0.5);
+    -fx-background-color: rgba(85,72,64,0.5);
 }
 
 .jfx-list-cell .jfx-rippler {
@@ -132,7 +133,7 @@
 }
 
 .custom-jfx-list-view .jfx-rippler {
-    -jfx-rippler-fill: rgba(45,100,85,0.2);
+    -jfx-rippler-fill: rgba(85,72,64,0.2);
 }
 
 .custom-jfx-list-view1 {
@@ -192,7 +193,7 @@
     -fx-max-width: 350;
     -fx-pref-height: 35.0;
     -fx-prompt-text-fill: black;
-    -jfx-focus-color: rgba(45,100,85,1);
+    -jfx-focus-color: rgba(85,72,64,1);
     -jfx-unfocus-color: black;
 }
 
@@ -225,19 +226,19 @@
     -fx-border-color: transparent;
 }
 
-#toggleSound {
+#toggleSound, .sound {
     -fx-background-image: url('../../image/v-on.png');
 }
 
-#toggleSound:selected {
+#toggleSound:selected, .sound:selected {
     -fx-background-image: url('../../image/v-off.png');
 }
 
-#toggleMusic {
+#toggleMusic, .music {
     -fx-background-image: url('../../image/m-on.png');
 }
 
-#toggleMusic:selected {
+#toggleMusic:selected, .music:selected {
     -fx-background-image: url('../../image/m-off.png');
 }
 
@@ -260,24 +261,24 @@
 
 /* Styling the slider thumb */
 .jfx-slider > .thumb {
-    -fx-background-color: rgba(45,100,85,1);
+    -fx-background-color: rgba(85,72,64,1);
 }
 
 /* Styling the filled track */
 .jfx-slider > .colored-track {
-    -fx-background-color: rgba(45,100,85,1);
+    -fx-background-color: rgba(85,72,64,1);
 }
 
 /* Styling the animated thumb */
 .jfx-slider > .animated-thumb {
-    -fx-background-color: rgba(45,100,85,1);
+    -fx-background-color: rgba(85,72,64,1);
     -fx-pref-width: 50;
     -fx-pref-height: 50;
 }
 
 /* Styling the slider value text inside animated thumb */
 .jfx-slider .slider-value {
-    -fx-fill: white;
-    -fx-stroke: white;
+    -fx-fill: #F5F5DC;
+    -fx-stroke: #F5F5DC;
     -fx-font-size: 14;
 }

@@ -12,12 +12,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ToggleButton?>
 <VBox id="login" styleClass="vbox"
       xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="game.controller.Login">
 
    <children>
+
+      <HBox alignment="TOP_LEFT">
+         <ToggleButton fx:id="music" styleClass="music" layoutX="10" layoutY="100">
+         </ToggleButton>
+         <ToggleButton fx:id="sound" styleClass="sound" layoutX="60" layoutY="100">
+         </ToggleButton>
+      </HBox>
       <Label alignment="CENTER" styleClass="title"
              text="WELCOME">
          <font>
@@ -66,9 +74,6 @@
 
       <Label fx:id="message" alignment="CENTER" textFill="RED">
          </Label>
-
-      <JFXButton onAction="#test"
-                 text="TEST"/>
 
 
    </children>
