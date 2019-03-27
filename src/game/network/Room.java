@@ -29,7 +29,7 @@ public class Room implements Serializable {
      */
     public Room(){
         Random r = new Random();
-        this.mapID=r.nextInt(2)+1;
+        this.mapID=r.nextInt(3)+1;
     }
 
     /**
