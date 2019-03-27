@@ -35,6 +35,19 @@ public class Vector2dTest {
 		assert (floatEqual(Vector2d.dot(v2, v3), -10.5f));
 	}
 
+	@Test
+	public void testGetMagnitude() {
+		assert(floatEqual(0.0f,v0.getMagnitude()));
+		assert(floatEqual(6.5605f,v1.getMagnitude()));
+		//System.out.println(v1.getMagnitude());
+		
+		assert(floatEqual(5.2202f,v3.getMagnitude()));
+		//System.out.println(v3.getMagnitude());
+		
+		assert(floatEqual(2.0f,v4.getMagnitude()));
+		//System.out.println(v4.getMagnitude());
+	}
+	
 	private boolean isOrthogonal(Vector2d v1, Vector2d v2) {
 		return floatEqual(0.0f, Vector2d.dot(v1, v2));
 	}
@@ -42,9 +55,20 @@ public class Vector2dTest {
 	@Test
 	public void testGetNormal() {
 		assert (isOrthogonal(v1, v1.getNormal()));
-		assert (isOrthogonal(v2, v2.getNormal()));
+		assert ((new Vector2d(0.7926f, -0.6097f)).equals(v1.getNormal()));
+		//System.out.println(v1.getNormal().getX() + "," + v1.getNormal().getY());
+		
+		//This test doesn't add anything new
+		//assert (isOrthogonal(v2, v2.getNormal()));
 		assert (isOrthogonal(v3, v3.getNormal()));
+		assert ((new Vector2d(-0.9578f, 0.2873f)).equals(v3.getNormal()));
+		//System.out.println(v3.getNormal().getX() + "," + v3.getNormal().getY());
+		
 		assert (isOrthogonal(v4, v4.getNormal()));
+		assert((new Vector2d(1.0f, 0.0f)).equals(v4.getNormal()));
+		//System.out.println(v4.getNormal().getX() + "," + v4.getNormal().getY());
 	}
+	
+
 
 }
