@@ -354,6 +354,7 @@ public class AiController extends Thread {
 		
 		List<Entity>hp = null;
 		List<Entity>players = getPlayers();
+		int gap = 0;
 		float x = 0;
 		float y = 0;
 		
@@ -404,6 +405,22 @@ public class AiController extends Thread {
 				aiPlayer.setAngle(aiPlayer.getAngle()+360);
 			}
 			
+			if(gap>0) {
+				gap--;
+				c1.sendCommands("Backward");
+				continue;
+			}
+			if(checkCollision()!= -1) {
+				gap=50;
+				continue;
+			}
+			
+			if(!wallAvoidance())
+				c1.sendCommands("Forward");
+			else {
+				c1.sendCommands("RotateRight");
+				continue;
+			}
 			
 			if (x == nearestHP.getPosition().getX() && y > nearestHP.getPosition().getY()) {
 				
