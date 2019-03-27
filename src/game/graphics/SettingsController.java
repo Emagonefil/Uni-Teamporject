@@ -186,7 +186,7 @@ public class SettingsController {
 
             }
         });
-        
+
 
         box.getChildren().addAll(soundHolder,title,images,backBtn);
 
