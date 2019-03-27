@@ -32,6 +32,8 @@ public class GameWindow {
     private static Stage windowStage;
     private static JFXButton b1;
     public static int audioCount;
+    public static boolean connection = true;
+
 
     public static void start(Stage stage, ClientLogic client) {
         audioCount = 0;

@@ -49,6 +49,7 @@ public class GameLoop {
     public static double getCurrentGameTime() {
         return currentGameTime;
     }
+    private static GraphicsContext gc2;
 
     public static double getDeltaTime() {
         return deltaTime*100;
@@ -56,6 +57,7 @@ public class GameLoop {
 
     public static void start(GraphicsContext gc, Scene scene, ClientLogic client) {
         map.initMap(Main.c1.mapID);
+        gc2 = gc;
         timer = new AnimationTimer() {
             public void handle(long currentNanoTime) {
                 oldGameTime = currentGameTime;
@@ -218,52 +220,64 @@ public class GameLoop {
             }
         }
 
-        if(currentPlayer == null) {
-            count++;
-            if (count > 50) {
-                gc.setFill(Color.BLACK);
-//            System.out.println(Font.getFontNames());
-                gc.setFont(new Font("Press Start 2P", 80));
-                gc.fillText("GAME OVER", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
-                GameWindow.toggleBtn(true);
-                if(GameWindow.audioCount <= 0) {
-                    Main.audioPlayer.playLoseSound();
-                    GameWindow.audioCount++;
-                }
-            }
-
+        if (!GameWindow.connection) {
+            gc2.setFill(Color.BLACK);
+            gc2.setFont(new Font("Press Start 2P", 80));
+            gc2.fillText("GAME DISCONNECTED...", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
+            gc2.fillText("WAITING TO RECONNECT", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
+            GameWindow.toggleBtn(true);
         } else {
-            gc.setFill(Color.BLACK);
-            gc.fillText("x: " + currentPlayer.getPosition().getX(), 110,25);
-            gc.fillText("y: " + currentPlayer.getPosition().getY(), 110,45);
-            if (playerCount == 1) {
-                gc.setFill(Color.BLACK);
+            if(currentPlayer == null) {
+                count++;
+                if (count > 50) {
+                    gc.setFill(Color.BLACK);
 //            System.out.println(Font.getFontNames());
-                gc.setFont(new Font("Press Start 2P", 80));
-                gc.fillText("You Won!", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
-                GameWindow.toggleBtn(true);
-                if(GameWindow.audioCount <= 0) {
-                    Main.audioPlayer.playWinSound();
-                    GameWindow.audioCount++;
-                }
-                //increase points
-                if(client.singleFlag){
-                    if(client.addpointFlag){
-                        client.user.setPoint(client.user.getPoint()+5);
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ud.userUpdatePoint(client.user);
-                            }
-                        }).start();
-
-                        client.addpointFlag=false;
+                    gc.setFont(new Font("Press Start 2P", 80));
+                    gc.fillText("GAME OVER", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
+                    GameWindow.toggleBtn(true);
+                    if(GameWindow.audioCount <= 0) {
+                        Main.audioPlayer.playLoseSound();
+                        GameWindow.audioCount++;
                     }
                 }
+
             } else {
-                GameWindow.toggleBtn(false);
+                gc.setFill(Color.BLACK);
+                gc.fillText("x: " + currentPlayer.getPosition().getX(), 110,25);
+                gc.fillText("y: " + currentPlayer.getPosition().getY(), 110,45);
+                if (playerCount == 1) {
+                    gc.setFill(Color.BLACK);
+//            System.out.println(Font.getFontNames());
+                    gc.setFont(new Font("Press Start 2P", 80));
+                    gc.fillText("You Won!", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
+                    GameWindow.toggleBtn(true);
+                    if(GameWindow.audioCount <= 0) {
+                        Main.audioPlayer.playWinSound();
+                        GameWindow.audioCount++;
+                    }
+                    //increase points
+                    if(client.singleFlag){
+                        if(client.addpointFlag){
+                            client.user.setPoint(client.user.getPoint()+5);
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ud.userUpdatePoint(client.user);
+                                }
+                            }).start();
+
+                            client.addpointFlag=false;
+                        }
+                    }
+                } else {
+                    GameWindow.toggleBtn(false);
+                }
             }
         }
+
+
+
+
         //draw shop panel
         if(client.singleFlag){
             if (client.mallShow){
@@ -290,6 +304,15 @@ public class GameLoop {
         gc.fillRect(corners[2].getX(), corners[2].getY(), 3, 3);
         gc.fillRect(corners[3].getX(), corners[3].getY(), 3, 3);
     }
+
+
+    private static void disconnected() {
+        GameWindow.connection  = false;
+    }
+
+//    private static reconnect() {
+//        gc2.
+//    }
 
 
 }

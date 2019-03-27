@@ -8,6 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
 <VBox styleClass="vbox" id="mainMenu" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="game.graphics.Controller"
@@ -31,12 +32,12 @@
             </font>
         </Label>
 
-        <Label alignment="CENTER_LEFT" styleClass="text"
-               text="Press W or UP ARROW to move forward">
+        <Text textAlignment="JUSTIFY" styleClass="text"
+              text="Press W or UP ARROW to move forward">
             <font>
                 <Font size="16.0" />
             </font>
-        </Label>
+        </Text>
         <Label alignment="CENTER_LEFT" styleClass="text"
                text="Press A or LEFT ARROW to move left">
             <font>
