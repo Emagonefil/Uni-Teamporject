@@ -78,6 +78,21 @@ public class Controller {
         title.getStyleClass().add("title");
         title.setFont(new Font("Press Start 2P", 36));
 
+        // SOUND BUTTONS
+        final ToggleButton toggleMusic = new ToggleButton();
+        toggleMusic.setLayoutX(10);
+        toggleMusic.setLayoutY(10);
+        final ToggleButton toggleSound = new ToggleButton();
+        toggleSound.setLayoutX(60);
+        toggleSound.setLayoutY(10);
+        toggleSound.setId("toggleSound");
+        toggleMusic.setId("toggleMusic");
+
+        Main.soundButtons(toggleMusic, toggleSound);
+
+        HBox soundHolder = new HBox();
+        soundHolder.setSpacing(10);
+        soundHolder.getChildren().addAll(toggleMusic,toggleSound);
         // COUNTER CHANGE
         HBox counter = new HBox();
         counter.setSpacing(10);
@@ -93,6 +108,9 @@ public class Controller {
             @Override
             public void handle(MouseEvent t) {
                 number++;
+                if (number > 40) {
+                    number = 40;
+                }
                 count.setText("" + number);
             }
         });
@@ -100,6 +118,9 @@ public class Controller {
             @Override
             public void handle(MouseEvent t) {
                 number--;
+                if (number < 1) {
+                    number = 1;
+                }
                 count.setText("" + number);
             }
         });
@@ -109,6 +130,7 @@ public class Controller {
         // BUTTONS
         JFXButton backBtn = new JFXButton("CANCEL");
         JFXButton start = new JFXButton("PLAY");
+        start.setStyle("-fx-background-color: LIMEGREEN");
 
         HBox buttons = new HBox();
         buttons.getStyleClass().add("hbox");
@@ -143,7 +165,7 @@ public class Controller {
 
 
 
-        box.getChildren().addAll(title,label,counter,buttons);
+        box.getChildren().addAll(soundHolder, title,label,counter,buttons);
 
         primaryStage.getScene().setRoot(box);
         primaryStage.setTitle(Constants.GAME_NAME);
@@ -187,7 +209,7 @@ public class Controller {
         JFXButton start = new JFXButton("START");
         JFXButton back = new JFXButton("BACK");
 //        ActionEvent event1 = new ActionEvent(Even);
-
+        start.setStyle("-fx-background-color: LIMEGREEN");
         start.setId("startBtn");
 
         roomList = getRoomsList();

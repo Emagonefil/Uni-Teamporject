@@ -24,24 +24,25 @@
     justify-content: center!important;
 
 }
-.vbox {
+.vbox, .vbox2 {
     -fx-background-image: url("../../image/file2.gif");
     /*-fx-background-repeat: no-repeat;*/
     -fx-background-size: cover;
     -fx-background-position: center;
+    -fx-pref-width: 300;
+    -fx-alignment: TOP_CENTER;
+    -fx-font-family: "Press Start 2P";
 }
 
 
 .vbox {
-    /*-fx-background-color: #333;*/
-    /*-fx-background-color: radial-gradient(focus-angle 240deg, focus-distance 10%, center 50% 50%, radius 50%, #fff, #eee);*/
-    /*-fx-background-color: linear-gradient(to right bottom, #101010, #111);*/
-
     -fx-spacing: 15;
     -fx-padding: 30;
-    -fx-pref-width: 300;
-    -fx-alignment: TOP_CENTER;
-    -fx-font-family: "Press Start 2P";
+}
+
+.vbox2 {
+    -fx-spacing: 50;
+    -fx-padding: 30;
 }
 
 .title {
@@ -281,4 +282,22 @@
     -fx-fill: #fff;
     -fx-stroke: #fff;
     -fx-font-size: 14;
+}
+
+.pane {
+    -fx-min-width: 130;
+    -fx-min-height: 230;
+    /*-fx-pref-width: 60;*/
+    /*-fx-pref-height: 110;*/
+    /*-fx-padding: 30;*/
+    /*-fx-spacing: 30;*/
+    -fx-max-width: 130;
+    -fx-max-height: 230;
+}
+
+.selectedTank {
+    -fx-border-color: LIMEGREEN;
+    -fx-border-style: solid;
+    -fx-border-width: 5;
+    -fx-border-radius: 3;
 }
