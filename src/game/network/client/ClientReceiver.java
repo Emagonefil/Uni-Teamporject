@@ -60,14 +60,13 @@ public class ClientReceiver implements Runnable{
 			do {
 				try{
 					fromServer.receive(packet);
+					GameLoop.connected();
 					input = new ObjectInputStream(new ByteArrayInputStream(buf));
 					Object obj = input.readObject();
 					renderer.receive(obj);
 				}
 				catch (Exception e){
-					if(Main.isRunning)
-					System.out.println("disconnected with server");
-					else System.out.println("working");
+					if(Main.isRunning&&GameLoop.isRunning) GameLoop.disconnected();
 				}
 
 			}while(flag);

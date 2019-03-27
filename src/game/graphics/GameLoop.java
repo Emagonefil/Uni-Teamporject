@@ -306,8 +306,12 @@ public class GameLoop {
     }
 
 
-    private static void disconnected() {
+    public static void disconnected() {
         GameWindow.connection  = false;
+    }
+
+    public static void connected(){
+        GameWindow.connection = true;
     }
 
 //    private static reconnect() {
