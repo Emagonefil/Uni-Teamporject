@@ -6,6 +6,7 @@ import game.Constants;
 import game.Main;
 import game.dao.UserDao;
 import game.entity.User;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -111,6 +112,13 @@ public class Login extends Control {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @FXML
+    protected void quit(ActionEvent event) throws Exception {
+        System.out.println("Quit Game");
+        Platform.exit();
+        System.exit(0);
     }
 
 }

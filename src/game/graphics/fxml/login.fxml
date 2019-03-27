@@ -77,6 +77,15 @@
          </VBox.margin>
       </HBox>
 
+      <JFXButton onAction="#quit"
+                 text="QUIT">
+         <VBox.margin>
+            <Insets>
+               <bottom>20</bottom>
+            </Insets>
+         </VBox.margin>
+      </JFXButton>
+
       <Label fx:id="message" alignment="CENTER" textFill="RED">
          </Label>
 

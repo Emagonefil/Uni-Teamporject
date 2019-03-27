@@ -71,14 +71,14 @@
          </JFXButton>
 
          <JFXButton onAction="#handleCancel" text="CANCEL" textFill="WHITE" />
-         <HBox.margin>
+         <VBox.margin>
             <Insets>
                <bottom>20</bottom>
             </Insets>
-         </HBox.margin>
+         </VBox.margin>
       </HBox>
 
-      <Label fx:id="signMessage" styleClass="vbox" textFill="RED" />
+      <Label fx:id="signMessage" alignment="CENTER" textFill="RED" />
 
 
 
