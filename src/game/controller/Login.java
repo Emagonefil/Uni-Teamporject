@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static game.Main.ud;
+
 public class Login extends Control {
     private User user= new User();
     @FXML
@@ -34,7 +36,7 @@ public class Login extends Control {
     Label message;
     @FXML
     Label signMessage;
-    private  UserDao ud =new UserDao();
+//    private  UserDao ud =new UserDao();
 
     @FXML
     private ToggleButton music;
@@ -48,7 +50,7 @@ public class Login extends Control {
     public void handleLogin(ActionEvent actionEvent) throws Exception {
         getUser().setUsername(userName.getText());
         getUser().setPassword(passWord.getText());
-        System.out.println("登录用户为："+ getUser().toString());
+//        System.out.println("登录用户为："+ getUser().toString());
         if(ud.login(getUser())){
             Node node = (Node) actionEvent.getSource();
 

@@ -59,7 +59,7 @@ public class UserDao {
             preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
-            ResultSet rSet =  preparedStatement.executeQuery();//执行查询语句
+            ResultSet rSet =  preparedStatement.executeQuery();
             if(rSet.next()){
                 //set user points
                 user.setPoint(rSet.getInt(4));
