@@ -192,8 +192,9 @@ public class Main extends Application {
 		c1=new ClientLogic();
 		c1.init();
 		Random r = new Random();
-		c1.mapID=r.nextInt(2)+1;
+		c1.mapID=r.nextInt(3)+1;
 		isRunning = true;
+
 
 
 		serverGap s1=new serverGap();
@@ -205,6 +206,7 @@ public class Main extends Application {
 		catch (Exception e){
 			e.printStackTrace();
 		}
+
 		for(int i=1;i<=numOfAI;i++){
 			ClientLogic ai;
 			ai=new ClientLogic();

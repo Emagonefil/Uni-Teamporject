@@ -138,6 +138,27 @@ public class map {
 
             //center
             map.add(new Wall(40,40,new Point(width/2,height/2),getSpareId()));
+        }else if(choice==3){
+            float width = 1400;
+            float height = 800;
+
+            int width_num = (int)((width-40)/40)+1;
+            int height_num = (int)((height-40)/40)+1;
+
+            for(int i=0;i<width_num;i++){
+                map.add(new Wall(40,40,new Point(20+40*i,20),getSpareId()));
+                map.add(new Wall(40,40,new Point(20+40*i,height-20),getSpareId()));
+            }
+
+            for(int i=0;i<height_num;i++){
+                map.add(new Wall(40,40,new Point(20,20+40*i),getSpareId()));
+                map.add(new Wall(40,40,new Point(width-20,20+40*i),getSpareId()));
+            }
+
+            map.add(new Wall(40,40,new Point(width/2,height/2),getSpareId()));
+
+
+
         }
     }
 
