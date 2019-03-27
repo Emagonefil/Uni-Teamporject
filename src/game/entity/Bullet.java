@@ -14,7 +14,7 @@ import game.graphics.Sprite;
 public class Bullet extends MovableEntity implements KillableEntity{
 	
 	public Bullet(float width, float height, Point position, float angle) {
-		super(width, height, position, angle, 10.0f, 0.0f);
+		super(width, height, position, angle, 5.0f, 0.0f);
 		this.type = "Bullet";
 
 	}

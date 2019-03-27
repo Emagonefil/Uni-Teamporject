@@ -49,7 +49,7 @@
          </VBox.margin>
       </JFXSlider>
 
-      <JFXButton onAction="#model" text="SELECT TANK MODEL" >
+      <JFXButton onAction="#model" text="SELECT TANK" >
       </JFXButton>
       <JFXButton onAction="#back" text="BACK" >
       </JFXButton>

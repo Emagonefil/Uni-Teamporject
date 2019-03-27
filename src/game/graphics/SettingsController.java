@@ -128,7 +128,7 @@ public class SettingsController {
             @Override
             public void handle(MouseEvent t) {
                 try {
-                    Parent root1 = FXMLLoader.load(getClass().getResource("fxml/menu3.fxml"));
+                    Parent root1 = FXMLLoader.load(getClass().getResource("fxml/settings.fxml"));
                     primaryStage.getScene().setRoot(root1);
                     primaryStage.setTitle(Constants.GAME_NAME);
 

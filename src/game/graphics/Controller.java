@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
@@ -35,6 +36,7 @@ import java.util.*;
 public class Controller {
     @FXML
     private Text actiontarget;
+    private int number;
 
     public JFXListView roomList;
     public static AnimationTimer tim;
@@ -66,7 +68,89 @@ public class Controller {
 //        Thread.sleep(5000);
 //        Main.gui.stop();
 
-        Main.SinglePlayer(primaryStage);
+        VBox box = new VBox();
+        box.setAlignment(Pos.TOP_CENTER);
+        box.setSpacing(20);
+//        box.setAlignment(Pos.CENTER);
+        box.getStyleClass().add("vbox");
+        Label title = new Label("CLASH OF TANKS");
+        Label label = new Label("CHOOSE THE NUMBER OF AI OPPONENTS:");
+        title.getStyleClass().add("title");
+        title.setFont(new Font("Press Start 2P", 36));
+
+        // COUNTER CHANGE
+        HBox counter = new HBox();
+        counter.setSpacing(10);
+        counter.getStyleClass().add("hbox");
+        number = Main.numOfAI;
+        Text count = new Text("" + number);
+        JFXButton minus = new JFXButton("-");
+        JFXButton plus = new JFXButton("+");
+
+        minus.setMaxWidth(40);
+        plus.setMaxWidth(40);
+        plus.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                number++;
+                count.setText("" + number);
+            }
+        });
+        minus.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                number--;
+                count.setText("" + number);
+            }
+        });
+
+        counter.getChildren().addAll(minus,count,plus);
+
+        // BUTTONS
+        JFXButton backBtn = new JFXButton("CANCEL");
+        JFXButton start = new JFXButton("PLAY");
+
+        HBox buttons = new HBox();
+        buttons.getStyleClass().add("hbox");
+        buttons.setSpacing(10);
+        buttons.getChildren().addAll(backBtn,start);
+        box.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
+        // When the back button is pressed
+        backBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                try {
+                    Parent root1 = FXMLLoader.load(getClass().getResource("fxml/menu3.fxml"));
+                    primaryStage.getScene().setRoot(root1);
+                    primaryStage.setTitle(Constants.GAME_NAME);
+
+                    primaryStage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        start.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                Main.numOfAI = number;
+                Main.SinglePlayer(primaryStage);
+
+            }
+        });
+
+
+
+
+        box.getChildren().addAll(title,label,counter,buttons);
+
+        primaryStage.getScene().setRoot(box);
+        primaryStage.setTitle(Constants.GAME_NAME);
+
+        primaryStage.show();
+
+
     }
 
     @FXML

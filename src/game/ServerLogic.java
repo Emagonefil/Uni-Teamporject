@@ -318,7 +318,7 @@ public class ServerLogic {
 								break;
 							}
 							case "Shoot": {
-								Bullet b = new Bullet(8, 8, new Point(e1.getPosition().getX(), e1.getPosition().getY()), e1.getAngle());
+								Bullet b = new Bullet(12, 12, new Point(e1.getPosition().getX(), e1.getPosition().getY()), e1.getAngle());
 								//b.id = getSpareId();
 								if (e1.id == Main.c1.id) {
 									Main.audioPlayer.playShootSound();

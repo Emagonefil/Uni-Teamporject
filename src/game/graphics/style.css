@@ -57,7 +57,7 @@
 .jfx-button {
     -jfx-button-type: RAISED;
     -fx-background-color: rgba(135,140,140,1);
-    -fx-text-fill: #F5F5DC;
+    -fx-text-fill: #fff;
     -fx-pref-width: 230px;
     -fx-min-height: 40px;
     -fx-pref-height: 40px;
@@ -100,7 +100,7 @@
     rgba(135,140,140,0.3);
 }
 .jfx-list-cell:selected .label {
-    -fx-text-fill: #F5F5DC;
+    -fx-text-fill: #fff;
 }
 
 .jfx-list-cell:selected {
@@ -203,7 +203,7 @@
 }
 
 .hbox .jfx-button {
-    -fx-max-width: 160;
+    -fx-pref-width: 160;
 }
 
 
@@ -278,7 +278,7 @@
 
 /* Styling the slider value text inside animated thumb */
 .jfx-slider .slider-value {
-    -fx-fill: #F5F5DC;
-    -fx-stroke: #F5F5DC;
+    -fx-fill: #fff;
+    -fx-stroke: #fff;
     -fx-font-size: 14;
 }

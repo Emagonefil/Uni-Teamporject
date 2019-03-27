@@ -213,7 +213,7 @@ public class Main extends Application {
 			ai.id=s1.s1.addPlayer();
 			Player p;
 			p = (Player)s1.s1.SearchEntityById(ai.id);
-			p.name="AI_NO."+i;
+			p.name="AI_NO."+i+1;
 			AIs.add(ai);
 			(new AiController(ai,c1)).start();
 		}
