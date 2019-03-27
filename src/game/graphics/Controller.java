@@ -272,6 +272,16 @@ public class Controller {
 //                int room2 = Integer.parseInt(room);
                 Main.c1.joinRoom(room);
 //                GameWindow newWindow = new GameWindow(primaryStage,Main.c1);
+                vbox.getChildren().removeAll(soundHolder,titleImg, join, create, start, back,refresh, roomsLabel, roomList);
+
+                Main.c1.getRoomList();
+                roomList.refresh();
+//                JFXListView newList = getRoomsList();
+                roomList = getRoomsList();
+//                roomList = newList;
+                vbox.getChildren().addAll(soundHolder,titleImg, join, create, start, back, refresh, roomsLabel, roomList);
+                primaryStage.getScene().setRoot(vbox);
+                primaryStage.show();
             }
         });
 
@@ -281,6 +291,16 @@ public class Controller {
 
                 Main.c1.createRoom();
 //                Main.c1.getRoomList();
+                vbox.getChildren().removeAll(soundHolder,titleImg, join, create, start, back,refresh, roomsLabel, roomList);
+
+                Main.c1.getRoomList();
+                roomList.refresh();
+//                JFXListView newList = getRoomsList();
+                roomList = getRoomsList();
+//                roomList = newList;
+                vbox.getChildren().addAll(soundHolder,titleImg, join, create, start, back, refresh, roomsLabel, roomList);
+                primaryStage.getScene().setRoot(vbox);
+                primaryStage.show();
             }
         });
 
