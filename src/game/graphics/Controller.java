@@ -429,5 +429,19 @@ public class Controller {
 
     }
 
+    @FXML
+    protected void help(ActionEvent event) throws Exception {
+
+        Node node = (Node) event.getSource();
+        Stage primaryStage = (Stage) node.getScene().getWindow();
+
+        Parent root1 = FXMLLoader.load(getClass().getResource("fxml/help.fxml"));
+        primaryStage.getScene().setRoot(root1);
+        primaryStage.setTitle(Constants.GAME_NAME);
+
+        primaryStage.show();
+
+    }
+
 
 }

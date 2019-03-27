@@ -39,6 +39,9 @@
         <JFXButton text="SETTINGS" onAction="#handleSettingsButtonAction">
 
         </JFXButton>
+        <JFXButton text="HELP" onAction="#help">
+
+        </JFXButton>
         <JFXButton text="QUIT" onAction="#handleQuitButtonAction">
 
         </JFXButton>

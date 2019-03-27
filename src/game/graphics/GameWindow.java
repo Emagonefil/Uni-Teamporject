@@ -78,8 +78,8 @@ public class GameWindow {
         holder.setBackground(new Background(bkg));
         stage.getScene().setRoot(root);
 
-        stage.setWidth(Constants.CANVAS_WIDTH);
-        stage.setHeight(Constants.CANVAS_HEIGHT);
+//        stage.setWidth(Constants.CANVAS_WIDTH);
+//        stage.setHeight(Constants.CANVAS_HEIGHT);
         Scale scale = new Scale(1, 1, 0, 0);
         scale.xProperty().bind(root.widthProperty().divide(Constants.CANVAS_WIDTH));     //must match with the one in the controller
         scale.yProperty().bind(root.heightProperty().divide(Constants.CANVAS_HEIGHT));   //must match with the one in the controller

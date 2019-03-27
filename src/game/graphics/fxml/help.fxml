@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.geometry.Insets?>
+<VBox styleClass="vbox" id="mainMenu" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="game.graphics.Controller"
+      prefHeight="800.0" prefWidth="1280.0">
+    <children>
+        <HBox alignment="TOP_LEFT">
+            <ToggleButton fx:id="music" styleClass="music" layoutX="10" layoutY="100">
+                <HBox.margin>
+                    <Insets>
+                        <right>10</right>
+                    </Insets>
+                </HBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="sound" styleClass="sound" layoutX="60" layoutY="100">
+            </ToggleButton>
+        </HBox>
+        <Label alignment="CENTER" styleClass="title"
+               text="CLASH OF TANKS">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Label>
+
+        <Label alignment="CENTER_LEFT" styleClass="text"
+               text="Press W or UP ARROW to move forward">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER_LEFT" styleClass="text"
+               text="Press A or LEFT ARROW to move left">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+
+        <Label alignment="CENTER_LEFT" styleClass="text"
+               text="Press S or DOWN ARROW to move backward">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+
+        <Label alignment="CENTER_LEFT" styleClass="text"
+               text="Press D or RIGHT ARROW to move right">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+
+        <Label alignment="CENTER_LEFT" styleClass="text"
+               text="Press J to move shoot">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+
+        <Label alignment="CENTER_LEFT" styleClass="text"
+               text="Press K to open the shop">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+
+        <Label alignment="CENTER_LEFT" styleClass="text"
+               text="Press H to buy a health bonus from the shop">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+
+        <Label alignment="CENTER_LEFT" styleClass="text"
+               text="Press M to buy a speed bonus from the shop">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+
+        <JFXButton text="BACK" onAction="#handleBackButtonAction">
+
+        </JFXButton>
+    </children>
+    <stylesheets>
+        <URL value="@../style.css" />
+    </stylesheets>
+</VBox>

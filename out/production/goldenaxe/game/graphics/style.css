@@ -53,6 +53,10 @@
     -fx-text-fill: #000;
 }
 
+.text {
+    -fx-font-family: "Press Start 2P";
+}
+
 
 
 .jfx-button {
