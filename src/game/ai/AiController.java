@@ -10,7 +10,7 @@ import game.maps.map;
 
 public class AiController extends Thread {
 
-	private static int counter = 0;
+	private static int counter = 1;
 	private int id;
 	/** The clientLogic object c1 which is responsible of sending the commands of movements of the AI player */
 	private ClientLogic c1;
