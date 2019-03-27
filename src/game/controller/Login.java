@@ -45,7 +45,7 @@ public class Login extends Control {
     private ToggleButton sound;
 
     public void initialize() {
-        Main.soundButtons(music,sound);
+//        Main.soundButtons(music,sound);
     }
 
     public void handleLogin(ActionEvent actionEvent) throws Exception {

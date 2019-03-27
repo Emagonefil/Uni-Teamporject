@@ -1,14 +1,10 @@
 package game.graphics;
 
-import com.sun.media.jfxmedia.events.PlayerEvent;
 import game.ClientLogic;
 import game.Main;
-import game.audio.AudioPlayer;
-import game.dao.UserDao;
 import game.entity.*;
 import game.maps.map;
 import javafx.animation.AnimationTimer;
-import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -26,38 +22,36 @@ import static game.Main.ud;
  */
 public class GameLoop {
 
+    /** Boolean value that tracks when the game loop is active */
     public static boolean isRunning = false;
-//    public static final List<Color> constColor = new ArrayList<Color>() {
-//        private static final long serialVersionUID = 1L;
-//        {
-//            add(Color.WHITE);
-//            add(Color.YELLOW);
-//            add(Color.DARKBLUE);
-//            add(Color.GREEN);
-//            add(Color.DARKORANGE);
-//            add(Color.BLACK);
-//            add(Color.RED);
-//        }
-//    };
+    /** The animation timer that runs constantly and renders the game */
     private static AnimationTimer timer = null;
+    /** The current game time */
     private static double currentGameTime;
+    /** The old game time */
     private static double oldGameTime;
+    /** The delta time */
     private static double deltaTime;
+    /** The start time */
     private final static long startNanoTime = System.nanoTime();
+    /** The counter that tracks the time passed while your player is null */
     private static int count = 0;
+    /** The game map */
     private static map map=new map();
-    public static double getCurrentGameTime() {
-        return currentGameTime;
-    }
+    /** Global graphics context to make it easily */
     private static GraphicsContext gc2;
 
-    public static double getDeltaTime() {
-        return deltaTime*100;
-    }
-
-    public static void start(GraphicsContext gc, Scene scene, ClientLogic client) {
+    /**
+     * Starts the game loop and renders the game constantly using an animation timer
+     * @param gc The graphics context the rendering happens in
+     * @param client The client that holds information about the game
+     */
+    public static void start(GraphicsContext gc, ClientLogic client) {
+        // Initialise the map
         map.initMap(Main.c1.mapID);
         gc2 = gc;
+
+        // Define what happens when the timer is running
         timer = new AnimationTimer() {
             public void handle(long currentNanoTime) {
                 oldGameTime = currentGameTime;
@@ -85,11 +79,19 @@ public class GameLoop {
         isRunning = true;
     }
 
+    /**
+     *
+     */
     public static void stop()  {
         timer.stop();
         isRunning = false;
     }
 
+    /**
+     *
+     * @param client
+     * @param gc
+     */
     public static void drawScoreboard(ClientLogic client,GraphicsContext gc) {
         List<Player> players = new ArrayList<>();
         for (Entity e : client.getEntities()) {
@@ -154,10 +156,14 @@ public class GameLoop {
             gc.fillText(name + space.substring(0,12 - name.length()) + client.diePlayer.get(n-1).getHealth() ,CANVAS_WIDTH-170 ,i*everyHeight+30);
             i++;
         }
-
     }
 
 
+    /**
+     *
+     * @param client
+     * @param gc
+     */
     public static void render(ClientLogic client, GraphicsContext gc) {
         Player currentPlayer = (Player) client.getEntityByID(client.id);
         int playerCount = 0;
@@ -171,8 +177,6 @@ public class GameLoop {
             } else {
                 e.draw();
                 playerCount++;
-                //drawCorners(gc, ((IRectangularEntity) e).getCorners(), Color.GREEN);
-//                gc.setFont(new Font("SERIF", 12));
                 gc.setFont(new Font("Press Start 2P", 8));
                 if(currentPlayer != null) {
                     if(e.id == currentPlayer.id) {
@@ -199,8 +203,6 @@ public class GameLoop {
                     gc.fillText("" + name, xpos, e.getPosition().getY() - 50);
                 }
 
-
-//                System.out.println(((Player)e).name);
                 double health = (((Player) e).getHealth() / 1.25);
                 if (health < 30) {
                     gc.setFill(Color.RED);
@@ -231,7 +233,6 @@ public class GameLoop {
                 count++;
                 if (count > 50) {
                     gc.setFill(Color.BLACK);
-//            System.out.println(Font.getFontNames());
                     gc.setFont(new Font("Press Start 2P", 80));
                     gc.fillText("GAME OVER", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
                     GameWindow.toggleBtn(true);
@@ -247,7 +248,6 @@ public class GameLoop {
                 gc.fillText("y: " + currentPlayer.getPosition().getY(), 110,45);
                 if (playerCount == 1) {
                     gc.setFill(Color.BLACK);
-//            System.out.println(Font.getFontNames());
                     gc.setFont(new Font("Press Start 2P", 80));
                     gc.fillText("You Won!", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
                     GameWindow.toggleBtn(true);
@@ -276,8 +276,6 @@ public class GameLoop {
         }
 
 
-
-
         //draw shop panel
         if(client.singleFlag){
             if (client.mallShow){
@@ -297,6 +295,12 @@ public class GameLoop {
 
     }
 
+    /**
+     *
+     * @param gc
+     * @param corners
+     * @param colour
+     */
     private static void drawCorners(GraphicsContext gc,Point[] corners, Color colour) {
     	gc.setFill(colour);
     	gc.fillRect(corners[0].getX(), corners[0].getY(), 3, 3);
@@ -306,17 +310,17 @@ public class GameLoop {
     }
 
 
+    /**
+     *
+     */
     public static void disconnected() {
         GameWindow.connection  = false;
     }
 
+    /**
+     *
+     */
     public static void connected(){
         GameWindow.connection = true;
     }
-
-//    private static reconnect() {
-//        gc2.
-//    }
-
-
 }

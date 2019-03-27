@@ -2,10 +2,7 @@ package game.graphics;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXSlider;
 import game.*;
-import game.entity.User;
-import game.network.Port;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -17,11 +14,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -48,25 +42,14 @@ public class Controller {
     private ToggleButton sound;
 
     public void initialize() {
-        Main.soundButtons(music,sound);
+//        Main.soundButtons(music,sound);
     }
 
-//    public void initialize() {
-//        UserInterface.init(Main.mainStage);
-//    }
     @FXML
     protected void handleSinglePlayerButtonAction(ActionEvent event) throws Exception {
         Node node = (Node) event.getSource();
         Stage primaryStage = (Stage) node.getScene().getWindow();
-//        VBox loading = new VBox();
-//        Image img = Renderer.loading;
-//        ImageView imgv= new ImageView(img);
-//        loading.getChildren().add(imgv);
-//        primaryStage.getScene().setRoot(loading);
-//        primaryStage.show();
-////        System.out.println("fuck");
-//        Thread.sleep(5000);
-//        Main.gui.stop();
+
 
         VBox box = new VBox();
         box.setAlignment(Pos.TOP_CENTER);
@@ -88,7 +71,7 @@ public class Controller {
         toggleSound.setId("toggleSound");
         toggleMusic.setId("toggleMusic");
 
-        Main.soundButtons(toggleMusic, toggleSound);
+//        Main.soundButtons(toggleMusic, toggleSound);
 
         HBox soundHolder = new HBox();
         soundHolder.setSpacing(10);
@@ -162,17 +145,11 @@ public class Controller {
             }
         });
 
-
-
-
         box.getChildren().addAll(soundHolder, title,label,counter,buttons);
 
         primaryStage.getScene().setRoot(box);
         primaryStage.setTitle(Constants.GAME_NAME);
-
         primaryStage.show();
-
-
     }
 
     @FXML
@@ -197,7 +174,7 @@ public class Controller {
         toggleSound.setId("toggleSound");
         toggleMusic.setId("toggleMusic");
 
-        Main.soundButtons(toggleMusic, toggleSound);
+//        Main.soundButtons(toggleMusic, toggleSound);
         HBox soundHolder = new HBox();
         soundHolder.setSpacing(10);
         soundHolder.getChildren().addAll(toggleMusic,toggleSound);
@@ -230,20 +207,13 @@ public class Controller {
                 updateRoom();
                 if (room != null) {
                     if(room.ServerIp != null&&room.status == 2 && room.ServerIp != "") {
-//                        System.out.println("GAME WINDOW SHOULD START NOW"+ Port.mulitcastAddress);
-//                        if(GameLoop.isRunning) {
-//                            GameLoop.stop();
-//                        }
                         GameWindow.clear();
                         GameWindow.start(Main.mainStage,Main.c1);
-//                        System.out.println("GAME WINDOW SHOULD HAVE STARTED ALREADY"+ Port.mulitcastAddress);
                         stopTimer();
                     }
                 }
-
             }
         };
-
 
         refresh.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
@@ -344,19 +314,15 @@ public class Controller {
         primaryStage.show();
 
         tim.start();
-
     }
-
-
 
     public static void updateRoom() {
         room = Main.c1.findRoom(Main.c1.getMyRoom());
     }
+
     public static void stopTimer() {
         tim.stop();
-//        System.out.println("TIMER STOPPED");
     }
-
 
     public static JFXListView getRoomsList() {
         // Create List of Rooms
@@ -376,10 +342,8 @@ public class Controller {
             users = FXCollections.observableArrayList();
             userList = new JFXListView<>();
             userList.getStyleClass().add("sublist");
-//            roomList.getItems().
 
             for (Map.Entry<Integer,String> client : room.Clients.entrySet()) {
-//                users.add(" PLAYER " + (room.ClientId.indexOf(client) + 1) + ": " + client + "");
                 users.add(client.getValue());
             }
 
@@ -404,13 +368,9 @@ public class Controller {
         Stage primaryStage = (Stage) node.getScene().getWindow();
 
         Parent root1 = FXMLLoader.load(getClass().getResource("fxml/settings.fxml"));
-
         primaryStage.setTitle(Constants.GAME_NAME);
         primaryStage.getScene().setRoot(root1);
         primaryStage.show();
-
-
-//        primaryStage.show();
     }
 
     @FXML
@@ -422,7 +382,6 @@ public class Controller {
 
     @FXML
     protected void handleBackButtonAction(ActionEvent event) throws Exception {
-
         Node node = (Node) event.getSource();
         Stage primaryStage = (Stage) node.getScene().getWindow();
 
@@ -431,12 +390,10 @@ public class Controller {
         primaryStage.setTitle(Constants.GAME_NAME);
 
         primaryStage.show();
-
     }
 
     @FXML
     protected void help(ActionEvent event) throws Exception {
-
         Node node = (Node) event.getSource();
         Stage primaryStage = (Stage) node.getScene().getWindow();
 
@@ -445,7 +402,6 @@ public class Controller {
         primaryStage.setTitle(Constants.GAME_NAME);
 
         primaryStage.show();
-
     }
 
 

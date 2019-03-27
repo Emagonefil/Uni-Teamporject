@@ -41,6 +41,8 @@ public class Main extends Application {
 	public String username = "";
 	public static RoomServer roomServer=new RoomServer();
 	public static UserDao ud = new UserDao();
+	public static final ToggleButton toggleMusic = new ToggleButton();
+	public static final ToggleButton toggleSound = new ToggleButton();
 
 	boolean forward, backward, left, right, shoot;
 	public static List<ClientLogic> AIs=new ArrayList<>();
@@ -74,6 +76,14 @@ public class Main extends Application {
 		// set the window title
 		primaryStage.getIcons().add(Renderer.icon);
 		primaryStage.setTitle(Constants.GAME_NAME);
+
+		toggleMusic.setLayoutX(10);
+		toggleMusic.setLayoutY(10);
+		toggleSound.setLayoutX(60);
+		toggleSound.setLayoutY(10);
+		soundButtons();
+		toggleSound.setId("toggleSound");
+		toggleMusic.setId("toggleMusic");
 
 
 		// close application (stop all processes) when x button is pressed
@@ -344,7 +354,7 @@ public class Main extends Application {
 	}
 
 
-	public static void soundButtons(ToggleButton toggleMusic, ToggleButton toggleSound) {
+	public static void soundButtons() {
 		int musicVolume;
 		if((int) Main.audioPlayer.getMusicVolume() == 0) {
 			musicVolume = 60;

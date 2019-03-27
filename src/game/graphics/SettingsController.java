@@ -41,7 +41,7 @@ public class SettingsController {
     private ToggleButton sound;
 
     public void initialize() {
-        Main.soundButtons(music,sound);
+//        Main.soundButtons(music,sound);
         System.out.println("MUSIC VOLUME WAS: " + Main.audioPlayer.getMusicVolume());
         musicSlider.setValue((5.0f*Main.audioPlayer.getMusicVolume())/4);
         musicSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -147,7 +147,7 @@ public class SettingsController {
         toggleSound.setId("toggleSound");
         toggleMusic.setId("toggleMusic");
 
-        Main.soundButtons(toggleMusic, toggleSound);
+//        Main.soundButtons(toggleMusic, toggleSound);
 
         HBox soundHolder = new HBox();
         soundHolder.setSpacing(10);

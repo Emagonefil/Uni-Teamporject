@@ -1,15 +1,12 @@
 package game.graphics;
 
 import game.entity.IEntity;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
-
 import java.io.File;
-
 import static game.Constants.CANVAS_HEIGHT;
 import static game.Constants.CANVAS_WIDTH;
 
@@ -35,15 +32,11 @@ public class Renderer {
     public static Image healthPickup;
     public static Image speedPickup;
     public static Image background;
+    public static Image mallPanel;
 
     // Loading all the images from their paths
-    /***********新增star************/
-    public static Image mallPanel;
-    /***********新增end************/
     static {
-        /***********新增star************/
         mallPanel = loadImage("Resources/image/shop.png");
-        /***********新增end************/
         background = loadImage("Resources/image/floor2.jpg");
         loading = loadImage("Resources/image/loading.gif");
         icon = loadImage("Resources/image/icon.png");
@@ -98,24 +91,29 @@ public class Renderer {
     }
 
     /**
-     *
-     * @param sprite
-     * @param e
+     * Draws a sprite in the existing graphics context of the GameWindow
+     * @param sprite The sprite to be drawn
+     * @param e The respective entity to be drawn
      */
     public static void playAnimation(Sprite sprite, IEntity e) {
+        // Gets the existing graphics context from the GameWindow
         GraphicsContext gc = GameWindow.getGraphicsContext();
+        // Draws the sprite in that graphics context
         playAnimation(gc,sprite,e);
     }
 
     /**
-     *
-     * @param gc
-     * @param sprite
-     * @param e
+     * Draws a sprite for an entity in a specified graphics context at any rotation angle
+     * @param gc The graphics context to draw the sprite in
+     * @param sprite The sprite to be drawn
+     * @param e The respective entity to be drawn
      */
     public static void playAnimation(GraphicsContext gc, Sprite sprite, IEntity e) {
         gc.save();
+        // Gets the angle, the x coordinate and the y coordinate of the entity
+        // To know where and at what angle to draw the sprite
         rotate(gc, e.getAngle(), e.getPosition().getX(),e.getPosition().getY());
+        // Draws the sprite at that position with
         gc.drawImage(sprite.spriteImage,e.getPosition().getX()-(e.getWidth()/2),e.getPosition().getY()-(e.getHeight()/2),
                 sprite.width*sprite.scale,sprite.height * sprite.scale);
 
@@ -123,22 +121,29 @@ public class Renderer {
     }
 
     /**
-     *
-     * @param gc
-     * @param angle
-     * @param x
-     * @param y
+     * Allows the rotation of sprites within a graphics context
+     * @param gc The graphics context to work in
+     * @param angle The angle to rotate the image to
+     * @param x The x coordinate
+     * @param y The y coordinate
      */
     public static void rotate(GraphicsContext gc, double angle, double x, double y) {
         Rotate r = new Rotate(angle,x,y);
         gc.setTransform(r.getMxx(),r.getMyx(),r.getMxy(),r.getMyy(),r.getTx(),r.getTy());
     }
-    //draw shop panel
+
+    /**
+     * Draws the shop panel
+     * @param point The number of points the user has
+     */
     public static void drawMallPanel(int point) {
+        // Get the existing graphics context from the GameWindow
         GraphicsContext gc = GameWindow.getGraphicsContext();
         gc.save();
+        // Draws the shop panel
         gc.drawImage(mallPanel,CANVAS_WIDTH/2-mallPanel.getWidth()/2, CANVAS_HEIGHT/2-mallPanel.getHeight()/2);
         gc.restore();
+        // Displays the number of points the user has available
         gc.setFont(new Font("Press Start 2P", 30));
         gc.setFill(Color.YELLOW);
         gc.fillText(point+"", CANVAS_WIDTH/2-30, CANVAS_HEIGHT/2-10);
