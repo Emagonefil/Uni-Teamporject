@@ -14,6 +14,8 @@ public class User {
      */
     private String password;
 
+    public int tankModel;
+
     public Integer getID() {
         return ID;
     }
@@ -53,6 +55,13 @@ public class User {
         this.password = password;
     }
 
+    public int getTankModel() {
+        return tankModel;
+    }
+
+    public void setTankModel(int tankModel) {
+        this.tankModel = tankModel;
+    }
 
     @Override
     public String toString() {

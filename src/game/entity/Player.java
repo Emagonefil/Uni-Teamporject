@@ -1,5 +1,6 @@
 package game.entity;
 
+import game.Main;
 import game.graphics.Renderer;
 import game.graphics.Sprite;
 
@@ -103,10 +104,15 @@ public class Player extends MovableEntity implements KillableEntity{
 
 	@Override
 	public void draw() {
-		draw(this.tankModel);
+		if(this.id == Main.c1.id) {
+			this.setTankModel(Main.user.getTankModel());
+		}
+			draw(this.tankModel);
 	}
 
 	public void draw(int tankModel) {
+
+
 		Sprite s = new Sprite(this,Renderer.getTank(tankModel),this.getWidth(),this.getHeight(),1);
 		Renderer.playAnimation(s,this);
 	}
