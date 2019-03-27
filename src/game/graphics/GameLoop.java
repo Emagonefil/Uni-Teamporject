@@ -223,8 +223,8 @@ public class GameLoop {
         if (!GameWindow.connection) {
             gc2.setFill(Color.BLACK);
             gc2.setFont(new Font("Press Start 2P", 80));
-            gc2.fillText("GAME DISCONNECTED...", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
-            gc2.fillText("WAITING TO RECONNECT", CANVAS_WIDTH/3.5, CANVAS_HEIGHT/2.2);
+            gc2.fillText("GAME DISCONNECTED...", CANVAS_WIDTH/4, CANVAS_HEIGHT/1.6);
+            gc2.fillText("WAITING TO RECONNECT", CANVAS_WIDTH/4, CANVAS_HEIGHT/1.9);
             GameWindow.toggleBtn(true);
         } else {
             if(currentPlayer == null) {
