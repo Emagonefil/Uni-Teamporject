@@ -8,7 +8,7 @@ public class Client{
 	private ClientSender sender;
 	/** used for client to receive data from server*/
 	private ClientReceiver receiver;
-	
+	/** if receiver is on */
 	private boolean receOn = false;
 
 	/**
@@ -42,8 +42,13 @@ public class Client{
 			receiver = new ClientReceiver(receivable);
 			new Thread(receiver).start();
 			receOn = true;
-			System.out.println("Receiver starts");
 		}
+	}
+
+
+
+	public boolean receiverExist(){
+		return receOn;
 	}
 
 	/**

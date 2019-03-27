@@ -1,5 +1,7 @@
 package game.network.client;
 
+import game.Main;
+import game.graphics.GameLoop;
 import game.network.Port;
 
 import java.io.ByteArrayInputStream;
@@ -17,7 +19,7 @@ public class ClientReceiver implements Runnable{
 	/** stream for receiving */
 	private ObjectInputStream input;
 	/** flag for if this receiver should be running */
-	private static boolean flag = true;
+	private static boolean flag;
 	/** socket for receiving packets from server*/
 	private static MulticastSocket fromServer;
 	/** the address string of the room*/
@@ -30,7 +32,7 @@ public class ClientReceiver implements Runnable{
 	 */
 	public ClientReceiver(Receivable r) {
 		fromRoom = Port.mulitcastAddress;
-
+		flag=true;
 		try{
 			fromServer = new MulticastSocket(listenPort);
 		}catch (Exception e){
@@ -47,12 +49,14 @@ public class ClientReceiver implements Runnable{
 	 */
 	@Override
 	public void run() {
+
 		try {
 			fromServer.setInterface(InetAddress.getByName(Port.localIP));
 			fromServer.joinGroup(InetAddress.getByName(fromRoom));
-			fromServer.setSoTimeout(100);
+			fromServer.setSoTimeout(3000);
 			byte[] buf = new byte[4096];
 			DatagramPacket packet = new DatagramPacket(buf,buf.length);
+			System.out.println("Receiver starts");
 			do {
 				try{
 					fromServer.receive(packet);
@@ -61,8 +65,11 @@ public class ClientReceiver implements Runnable{
 					renderer.receive(obj);
 				}
 				catch (Exception e){
-
+					if(Main.isRunning)
+					System.out.println("disconnected with server");
+					else System.out.println("working");
 				}
+
 			}while(flag);
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -76,7 +83,7 @@ public class ClientReceiver implements Runnable{
 	public void stop(){
 	    try {
             this.flag = false;
-            input.close();
+            fromServer.close();
             System.out.println("Receiver closed");
         }catch (Exception e){}
 

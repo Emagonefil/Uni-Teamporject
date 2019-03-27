@@ -42,7 +42,6 @@ public class Main extends Application {
 	public static RoomServer roomServer=new RoomServer();
 	public static UserDao ud = new UserDao();
 
-
 	boolean forward, backward, left, right, shoot;
 	public static List<ClientLogic> AIs=new ArrayList<>();
 	public static int numOfAI=8;
@@ -206,7 +205,7 @@ public class Main extends Application {
 		catch (Exception e){
 			e.printStackTrace();
 		}
-		for(int i=0;i<numOfAI;i++){
+		for(int i=1;i<=numOfAI;i++){
 			ClientLogic ai;
 			ai=new ClientLogic();
 			ai.ServerId=s1.s1.ServerId;
