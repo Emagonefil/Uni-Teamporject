@@ -386,7 +386,12 @@ public class Controller {
             for (String id : users) {
                 userList.getItems().add(id);
             }
-            idOfRoom = new Label(" ROOM " + room.getRoomId());
+            if(room.status == 2) {
+                idOfRoom = new Label(" ROOM " + room.getRoomId() + " - GAME STARTED");
+            } else {
+                idOfRoom = new Label(" ROOM " + room.getRoomId());
+            }
+
             userList.setGroupnode(idOfRoom);
             roomList.getItems().add(userList);
         }
