@@ -102,6 +102,10 @@ public class Player extends MovableEntity implements KillableEntity{
 	 */
 	public String name;
 
+	/**
+	 * Draws the sprite of this player using the tank model of this player object
+	 * at the position and angle of this player object
+	 */
 	@Override
 	public void draw() {
 		if(this.id == Main.c1.id) {
@@ -110,9 +114,11 @@ public class Player extends MovableEntity implements KillableEntity{
 			draw(this.tankModel);
 	}
 
+	/**
+	 * Draws the sprite of this player with the desired tank model, at the player position and angle
+	 * @param tankModel The desired tank model to draw for this player
+	 */
 	public void draw(int tankModel) {
-
-
 		Sprite s = new Sprite(this,Renderer.getTank(tankModel),this.getWidth(),this.getHeight(),1);
 		Renderer.playAnimation(s,this);
 	}

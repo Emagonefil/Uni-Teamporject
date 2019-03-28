@@ -12,7 +12,15 @@ import game.graphics.Sprite;
  *
  */
 public class Bullet extends MovableEntity implements KillableEntity{
-	
+
+	/**
+	 * Creates a bullet object with the given properties
+	 *
+	 * @param width The bullet width
+	 * @param height The bullet height
+	 * @param position The bullet position
+	 * @param angle The bullet angle
+	 */
 	public Bullet(float width, float height, Point position, float angle) {
 		super(width, height, position, angle, 5.0f, 0.0f);
 		this.type = "Bullet";
@@ -30,13 +38,16 @@ public class Bullet extends MovableEntity implements KillableEntity{
 	 */
 	public int damage=10;
 
+	/**
+	 * Draws the bullet sprite at this bullet object position and angle
+	 * using this bullet object's dimensions
+	 */
 	@Override
 	public void draw() {
 		Sprite s = new Sprite(this, Renderer.bullet,this.getWidth(),this.getHeight(),1);
 		Renderer.playAnimation(s,this);
 	}
 
-	
 	@Override
 	public void reduceHealth(int amount) {}
 
