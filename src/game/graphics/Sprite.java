@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 
 /**
  * A sprite allows easy manipulation of images and is used to draw these in the renderer
- * 
+ *
  * @author Andreea
  */
 public class Sprite {

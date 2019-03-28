@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import game.Constants;
 import game.Main;
-import game.dao.UserDao;
 import game.entity.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,7 +15,6 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 import static game.Main.ud;
@@ -37,38 +35,37 @@ public class Login extends Control {
     Label message;
     @FXML
     Label signMessage;
-//    private  UserDao ud =new UserDao();
 
+    /** The mute music button */
     @FXML
     private ToggleButton music;
+    /** The mute sound effects button */
     @FXML
     private ToggleButton sound;
 
+    /**
+     * Runs once when controller is initialised.
+     * Adds event handlers to the sound buttons
+     */
     public void initialize() {
-//        Main.soundButtons(music,sound);
+        Main.soundButtons(music,sound);
     }
+
 
     public void handleLogin(ActionEvent actionEvent) throws Exception {
         getUser().setUsername(userName.getText());
         getUser().setPassword(passWord.getText());
-//        System.out.println("登录用户为："+ getUser().toString());
         if(ud.login(getUser())){
             Node node = (Node) actionEvent.getSource();
-
             toPage(node,"../graphics/fxml/menu3.fxml","Menu");
-
-
-
         }else{
             message.setText("Incorrect username or password!!");
         }
     }
 
     public void handleSignUp(ActionEvent actionEvent)throws Exception {
-
         Node node = (Node) actionEvent.getSource();
         toPage(node,"../graphics/fxml/sign.fxml","Regist");
-
     }
 
     public void handleRegister(ActionEvent actionEvent) throws Exception {
@@ -106,14 +103,26 @@ public class Login extends Control {
         primaryStage.show();
     }
 
+    /**
+     * Returns the user
+     * @return The user
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * Sets the user to the given parameter
+     * @param user The user to set
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
+    /**
+     * Exists the game
+     * @param event The event that triggers this action
+     */
     @FXML
     protected void quit(ActionEvent event) throws Exception {
         System.out.println("Quit Game");

@@ -28,8 +28,7 @@ import java.util.*;
 
 
 public class Controller {
-    @FXML
-    private Text actiontarget;
+
     private int number;
 
     public JFXListView roomList;
@@ -42,40 +41,34 @@ public class Controller {
     private ToggleButton sound;
 
     public void initialize() {
-//        Main.soundButtons(music,sound);
+        Main.soundButtons(music,sound);
     }
 
+    /**
+     * Starts a singleplayer game by switching to a game window
+     * and launching the server
+     * @param event The event that triggered this method
+     * @throws Exception
+     */
     @FXML
     protected void handleSinglePlayerButtonAction(ActionEvent event) throws Exception {
         Node node = (Node) event.getSource();
         Stage primaryStage = (Stage) node.getScene().getWindow();
 
-
         VBox box = new VBox();
         box.setAlignment(Pos.TOP_CENTER);
         box.setSpacing(20);
-//        box.setAlignment(Pos.CENTER);
         box.getStyleClass().add("vbox");
         Label title = new Label("CLASH OF TANKS");
         Label label = new Label("CHOOSE THE NUMBER OF AI OPPONENTS:");
         title.getStyleClass().add("title");
         title.setFont(new Font("Press Start 2P", 36));
 
-        // SOUND BUTTONS
-        final ToggleButton toggleMusic = new ToggleButton();
-        toggleMusic.setLayoutX(10);
-        toggleMusic.setLayoutY(10);
-        final ToggleButton toggleSound = new ToggleButton();
-        toggleSound.setLayoutX(60);
-        toggleSound.setLayoutY(10);
-        toggleSound.setId("toggleSound");
-        toggleMusic.setId("toggleMusic");
-
-//        Main.soundButtons(toggleMusic, toggleSound);
-
+        // Sound buttons
         HBox soundHolder = new HBox();
         soundHolder.setSpacing(10);
-        soundHolder.getChildren().addAll(toggleMusic,toggleSound);
+        soundHolder.getChildren().addAll(Main.toggleMusic,Main.toggleSound);
+
         // COUNTER CHANGE
         HBox counter = new HBox();
         counter.setSpacing(10);
@@ -152,6 +145,12 @@ public class Controller {
         primaryStage.show();
     }
 
+
+    /**
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     protected void handleMultiplayerButtonAction(ActionEvent event) throws Exception {
         Node node = (Node) event.getSource();
@@ -164,20 +163,9 @@ public class Controller {
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
 
-        // Sound buttons
-        final ToggleButton toggleMusic = new ToggleButton();
-        toggleMusic.setLayoutX(10);
-        toggleMusic.setLayoutY(10);
-        final ToggleButton toggleSound = new ToggleButton();
-        toggleSound.setLayoutX(60);
-        toggleSound.setLayoutY(10);
-        toggleSound.setId("toggleSound");
-        toggleMusic.setId("toggleMusic");
-
-//        Main.soundButtons(toggleMusic, toggleSound);
         HBox soundHolder = new HBox();
         soundHolder.setSpacing(10);
-        soundHolder.getChildren().addAll(toggleMusic,toggleSound);
+        soundHolder.getChildren().addAll(Main.toggleMusic,Main.toggleSound);
 
         // Create necessary Buttons
         JFXButton refresh = new JFXButton("REFRESH ROOMS");
@@ -316,14 +304,24 @@ public class Controller {
         tim.start();
     }
 
+    /**
+     *
+     */
     public static void updateRoom() {
         room = Main.c1.findRoom(Main.c1.getMyRoom());
     }
 
+    /**
+     *
+     */
     public static void stopTimer() {
         tim.stop();
     }
 
+    /**
+     *
+     * @return
+     */
     public static JFXListView getRoomsList() {
         // Create List of Rooms
         ObservableList<JFXListView> roomIDs = FXCollections.<JFXListView>observableArrayList();
@@ -373,6 +371,11 @@ public class Controller {
         primaryStage.show();
     }
 
+    /**
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     protected void handleQuitButtonAction(ActionEvent event) throws Exception {
         System.out.println("Quit Game");
@@ -380,18 +383,30 @@ public class Controller {
         System.exit(0);
     }
 
+    /**
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     protected void handleBackButtonAction(ActionEvent event) throws Exception {
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-
-        Parent root1 = FXMLLoader.load(getClass().getResource("fxml/menu3.fxml"));
-        primaryStage.getScene().setRoot(root1);
-        primaryStage.setTitle(Constants.GAME_NAME);
-
-        primaryStage.show();
+//        Node node = (Node) event.getSource();
+//        Stage primaryStage = (Stage) node.getScene().getWindow();
+//
+//        Parent root1 = FXMLLoader.load(getClass().getResource("fxml/menu3.fxml"));
+//        primaryStage.getScene().setRoot(root1);
+//        primaryStage.setTitle(Constants.GAME_NAME);
+//
+//        primaryStage.show();
+        String path = "fxml/menu3.fxml";
+        Helper.changeScreen(event,this.getClass(),path);
     }
 
+    /**
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     protected void help(ActionEvent event) throws Exception {
         Node node = (Node) event.getSource();
