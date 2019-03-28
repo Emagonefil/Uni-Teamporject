@@ -43,11 +43,11 @@ public class Main extends Application {
 	public static Stage mainStage;
 	/** The flag that tracks when a game is running */
 	public static boolean isRunning = false;
-	/** */
+	/** Player client*/
 	public static ClientLogic c1;
 	/** the game room server */
 	public static RoomServer roomServer = new RoomServer();
-	/** */
+	/** User info*/
 	public static UserDao ud = new UserDao();
 	/** The mute music button for the game */
 	public static final ToggleButton toggleMusic = new ToggleButton();
@@ -241,6 +241,7 @@ public class Main extends Application {
 	 * @param stage The stage of the application
 	 */
 	public static void SinglePlayer(Stage stage){
+		//check IP address
 		try {
 			Port.localIP = InetAddress.getLocalHost().getHostAddress();
 			Port.mulitcastAddress = "230.0.1.1";
@@ -248,23 +249,25 @@ public class Main extends Application {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+		//reset client
 		c1 = null;
 		c1 = new ClientLogic();
 		c1.init();
 		Random r = new Random();
 		c1.mapID=r.nextInt(3)+1;
+		//set signal
 		isRunning = true;
-
-
+		//start local server
 		serverGap s1=new serverGap();
 		s1.start();
+		//wait for server starts
 		try{
 			Thread.sleep(500);
 		}
 		catch (Exception e){
 			e.printStackTrace();
 		}
-
+		//add AI
 		for(int i = 1; i <= numOfAI; i++){
 			ClientLogic ai;
 			ai = new ClientLogic();
@@ -276,7 +279,7 @@ public class Main extends Application {
 			AIs.add(ai);
 			(new AiController(ai,c1)).start();
 		}
-
+		//set client's attributes referring to the server
 		c1.ServerId = s1.s1.ServerId;
 		c1.id = s1.s1.addPlayer();
 		c1.diePlayer = s1.s1.diePlayer;
@@ -284,8 +287,10 @@ public class Main extends Application {
 		c1.mallShow = false;
 		c1.user = user;
 		startFlag = true;
+		//set name
 		Player p = (Player)s1.s1.SearchEntityById(c1.id);
 		p.name="YOU";
+		//load game window
 		GameWindow.start(stage,c1);
 	}
 
@@ -294,18 +299,22 @@ public class Main extends Application {
 	 * @param stage The stage of the application
 	 */
 	public static void MultiPlayer(Stage stage) {
+		//check IP address
 		Port.localIP = IPSearcher.goldenaxeAddress();
+		//reset client
 		c1 = null;
 		c1 = new ClientLogic();
-		System.out.println(c1.c1);
 		c1.singleFlag = false;
+		//refresh room list
 		c1.getRoomList();
+		//wait for game starts
 		waitForGame w1 = new waitForGame(stage);
 		w1.start();
 	}
 
 	/**
-	 *
+	 * This thread would be activated if the player is in some room and waiting for game starts
+	 * If anyone pressed start, it would be detected and the thread would start the game
 	 */
 	public static class waitForGame extends Thread{
 		Stage stage;
@@ -318,25 +327,29 @@ public class Main extends Application {
 			Room r = new Room();
 			while(true) {
 				try {
+					//check if game's runnning
 					if(isRunning)
 						break;
 					Thread.sleep(100);
+					//refresh room list
 					c1.getRoomList();
-					//Thread.sleep(100);
 					r = c1.findRoom(c1.getMyRoom());
+					//if client didn't join some room, continue
 					if(r == null)
 						continue;
-					//System.out.println(r.status+" "+r.ServerIp + " " );
+					//if someone started game
 					if (r.ServerIp != null && r.status == 2 && r.ServerIp != "") {
+						//set UDP multi-broadcast ip address
 						Port.mulitcastAddress = r.RoomIP;
+						//init client
 						c1.init();
 						c1.mapID = r.mapID;
+						//set signal
 						isRunning = true;
-						System.out.println(r.ServerIp);
-						System.out.println(Port.localIP);
-
+						//if this computer is game server, start a new server
 						if (r.ServerIp.equals(Port.localIP)) {
 							serverGap s1 = new serverGap();
+							//set server's attributes
 							s1.s1.mapID = r.mapID;
 							s1.mode = 2;
 							s1.start();
@@ -344,16 +357,18 @@ public class Main extends Application {
 
 
 							Thread.sleep(1000);
+							//add players to map
 							for(Map.Entry<Integer,String> ids:r.Clients.entrySet()){
 								s1.s1.addPlayer(ids.getKey(),ids.getValue());
 							}
-
+							//set server's id
 							c1.ServerId = c1.getMyRoom();
-
+							//change server address
 							Port.serverAddress = r.ServerIp;
 						}
-
+						//if this computer is not game server
 						else if(r.status == 2){
+							//set client's attributes
 							c1.ServerId = c1.getMyRoom();
 							Port.serverAddress = r.ServerIp;
 						}
@@ -367,22 +382,27 @@ public class Main extends Application {
 	}
 
 	/**
-	 *
+	 * This is the thread that runs the game server
 	 */
 	public static class serverGap extends Thread {
 		public ServerLogic s1 = new ServerLogic();
 		public int mode = 1;
 		@Override
 		public void run() {
+			//set game map
 			s1.mapID = c1.mapID;
+			//init the server
 			s1.init();
 			System.out.println("Server thread " + s1.ServerId+ " is running");
 			int t = 0;
+			//deal commands per 10 milliseconds
 			while (true) {
 				if(!Main.isRunning)
 					break;
 				try {
+					//deal commands
 					s1.dealCommmands();
+					//broadcast per 30 milliseconds
 					if (s1.status == 2 && t==3) {
 						s1.broadcastEntities();
 						t=0;
@@ -393,6 +413,7 @@ public class Main extends Application {
 				}
 				t++;
 			}
+			//if the game ended and it's multiplayer mode, inform room server
 			if(mode == 2){
 				try{
 					Socket socket=new Socket(Port.roomServerAddress,Integer.parseInt(Port.roomPort));
@@ -403,6 +424,7 @@ public class Main extends Application {
 					e.printStackTrace();
 				}
 			}
+			//end server
 			s1.close();
 			System.out.println("Server Thread "+s1.ServerId + " stopped");
 			s1 = null;
