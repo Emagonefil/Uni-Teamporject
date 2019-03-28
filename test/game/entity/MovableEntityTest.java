@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class MovableEntityTest {
 
-	private MovableEntity testRectangle;
+	private MovableEntity e1;
 	private final float HEIGHT = 10.0f;
 	private final float WIDTH = 5.0f;
 	private final float ANGLE = 30.0f;
@@ -18,42 +18,30 @@ public class MovableEntityTest {
 		return false;
 	}
 	
-	/*
+	
 	@Before
 	public void setUp() {
-		this.testRectangle = new MovableEntity(WIDTH, HEIGHT, new Point(15, 2), ANGLE);
+		this.e1 = new Bullet(WIDTH, HEIGHT, new Point(15, 2), ANGLE);
 	}
-	*/
+	
 	
 	@Test
 	public void testForward() {
-		testRectangle.forward();
-		testRectangle.forward();
-		testRectangle.forward();
-		testRectangle.forward();
+		e1.forward();
 		
-		
-		//Check its moved in the right direction (roughly)
-		assert(testRectangle.getPosition().getX()>15);
-		assert(testRectangle.getPosition().getY()>2);
-		
-		//Check its moved by the right amount
-		assert(floatEqual(2.0f, Point.distance(new Point(15, 2), testRectangle.getPosition())));
+		Point expected = new Point(19.3301f, 4.5f);
+
+		assert (floatEqual(expected.getX(), e1.getPosition().getX()));
+		assert (floatEqual(expected.getY(), e1.getPosition().getY()));
 	}
 
 	@Test
 	public void testBackwards() {
-		testRectangle.backwards();
-		testRectangle.backwards();
-		testRectangle.backwards();
-		testRectangle.backwards();
-		
-		//Check its moved in the right direction (roughly)
-		assert(testRectangle.getPosition().getX()<15);
-		assert(testRectangle.getPosition().getY()<2);
-				
-		//Check its moved by the right amount
-		assert(floatEqual(2.0f, Point.distance(new Point(15, 2), testRectangle.getPosition())));
+		e1.backwards();
+		Point expected = new Point(10.6698f, -0.5f);
+		System.out.println(e1.getPosition());
+		assert (floatEqual(expected.getX(), e1.getPosition().getX()));
+		assert (floatEqual(expected.getY(), e1.getPosition().getY()));
 	}
 
 }

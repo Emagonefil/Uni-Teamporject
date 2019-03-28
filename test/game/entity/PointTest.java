@@ -28,8 +28,14 @@ public class PointTest {
 	
 	@Test
 	public void testDistance() {
-		//assert(floatEqual(6.2681f, ))
+		assert(floatEqual(6.2681f, Point.distance(p1, p2)));
+		//System.out.println(Point.distance(p1, p2));
+		
 		assert(floatEqual(0.0f, Point.distance(p2, p2)));
+		//System.out.println(Point.distance(p2, p2));
+		
+		assert(floatEqual(9.6041f, Point.distance(p2, p3)));
+		//System.out.println(Point.distance(p2, p3));
 	}
 
 }
