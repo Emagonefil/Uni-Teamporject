@@ -39,7 +39,7 @@ public class Sprite {
     }
 
     /**
-     * Returns the x coordinate of the position of the entity within the game map
+     * Returns the x coordinate of the position of the entity within the game Map
      * @return The x coordinate of the entity
      */
     public float getXPosition() {
@@ -47,7 +47,7 @@ public class Sprite {
     }
 
     /**
-     * Returns the y coordinate of the position of the entity within the game map
+     * Returns the y coordinate of the position of the entity within the game Map
      * @return The y coordinate of the entity
      */
     public float getYPosition() {

@@ -4,7 +4,7 @@ import game.*;
 import game.entity.*;
 import game.entity.collisions.CollisionDetection;
 import game.entity.items.*;
-import game.maps.map;
+import game.maps.Map;
 
 /** The AiController class which responsible of controlling an AI player and extends built in java class Thread */
 
@@ -22,7 +22,7 @@ public class AiController extends Thread {
 	private Player aiPlayer;
 	/** the state of the AI player */
 	private States state;
-	private map m1;
+	private Map m1;
 	private List<Entity>walls;
 	/** the volatile boolean variable running which is true when the AI player is alive and false otherwise */ 
 	private volatile boolean running = true;
@@ -39,7 +39,7 @@ public class AiController extends Thread {
 		this.c2 = c2;
 		entities = c2.getEntities();
 		state = States.ATTACK;
-		m1 = new map();
+		m1 = new Map();
 		m1.initMap(c2.mapID);
 		walls = m1.getMap();
 		try {
@@ -93,6 +93,7 @@ public class AiController extends Thread {
 	 * so first it finds the nearest player using helper methods to find the distance between players and methods to return the nearest player
 	 * Then after finding the nearest player this method use helper methods to compute the angle between the AI player and the nearest player 
 	 * Then it send the appropriate commands using c1.sendCommands depending on what is the current angle of the AI player and what is the angle between AI player and the nearest player
+	 * The AI player also will be avoiding the wall while attacking other players 
 	 * The while loop will not stop until the AI player die (aiPlayer = null) or the AI player wins (players.size() = 0) 
 	 * or when the state of the AI player changes to LOOKFORHP (when the health of the player less or equal 20 i.e aiPlayer.getHealth <=20)
 	 */
@@ -347,6 +348,7 @@ public class AiController extends Thread {
 	 * so first it finds the nearest item using helper methods to find the distances between AI player and items and methods to return the nearest item
 	 * Then after finding the nearest item this method use helper methods to compute the angle between the AI player and the nearest item
 	 * Then it send the appropriate commands using c1.sendCommands depending on what is the current angle of the AI player and what is the angle between AI player and the nearest item
+	 * The AI player will be avoiding the walls while collecting items
 	 * The while loop will not stop until the AI player die (aiPlayer = null) or there is no items  (hp.size() = 0) 
 	 * or when the state of the AI player changes to ATTACK (when the health of the player bigger than 20 i.e aiPlayer.getHealth > 20)
 	 */
@@ -592,7 +594,11 @@ public class AiController extends Thread {
 	}
 	
 	
-	
+	/**
+	 * This method checks if the method checks if moving forward several time will result in a collision any walls 
+	 * and returns true to inform the player to avoid them if that is the case,false otherwise 
+	 * @return true if the player would collide with any walls after moving forward several times and false otherwise
+	 */
 	private boolean wallAvoidance() {
 		
 		for(Entity wall: walls) {
@@ -608,46 +614,13 @@ public class AiController extends Thread {
 		return false;
 	}
 	
-	private float findCorners() {
-		
-		Wall wall = (Wall)walls.get(checkCollision());
-		
-		Point [] corners = wall.getCorners();
-		Point [] aiCorners = aiPlayer.getCorners();
-		Point center = aiPlayer.getPosition();
-		float angle = aiPlayer.getAngle();
-		
-		for(int i = 0; i<aiCorners.length;i++) {
-			
-			if(aiCorners[i].getX()>= corners[2].getX()&& aiCorners[i].getX()<= corners[1].getX() &&
-					aiCorners[i].getY()>= corners[2].getY()&& aiCorners[i].getY()<= corners[3].getY()) {
-				float delx=center.getX()-aiCorners[i].getX();
-				float dely=center.getY()-aiCorners[i].getY();
-				double z=Math.sqrt((double)(delx*delx+dely*dely));
-				double sin=Math.asin(dely/z);
-				double cos=Math.acos(delx/z);
-				if(sin>=0&&cos>=0)
-					return (float)sin;
-				else if(sin>=0&&cos<0)
-					return 180-(float)sin;
-				else if(sin<0&&cos>=0)
-					return 360+(float)sin;
-				else
-					return 180-(float)sin;
-				
-				
-			}
-		}
-		
-		if(angle < 0) {
-			
-			angle+=360;
-		}
-		return angle;
-	}
+
 	
-	
-	public int checkCollision(){
+	/**
+	 * This method checks if the AI player is currently collided with a wall and returns the index of the wall collided in the wall list,-1 otherwise 
+	 * @return the index of the wall which is collided with the AI player, -1 if there is no collisions
+	 */
+	private int checkCollision(){
 		Point[] p1= aiPlayer.getCorners();
 		Point[] p2;
 		Entity e2;
@@ -666,7 +639,10 @@ public class AiController extends Thread {
 		return -1;
 	}
 	
-	
+	/**
+	 * This method compute the points of the AI player after moving forward from the current position
+	 * @return
+	 */
 	private Point[] forwardPoints() {
 		
 		float radAngle = (float)Math.toRadians(aiPlayer.getAngle());

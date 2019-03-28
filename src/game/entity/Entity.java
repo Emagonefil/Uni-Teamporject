@@ -12,7 +12,7 @@ import java.io.Serializable;
 public abstract class Entity implements IEntity, Serializable {
 	/**
 	 * The position of the centre of this entity relative to the bottom
-	 * left corner of the map/screen
+	 * left corner of the Map/screen
 	 */
 	Point position;
 	
