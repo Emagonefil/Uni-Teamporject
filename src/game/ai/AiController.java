@@ -4,7 +4,7 @@ import game.*;
 import game.entity.*;
 import game.entity.collisions.CollisionDetection;
 import game.entity.items.*;
-import game.maps.map;
+import game.maps.Map;
 
 /** The AiController class which responsible of controlling an AI player and extends built in java class Thread */
 
@@ -22,7 +22,7 @@ public class AiController extends Thread {
 	private Player aiPlayer;
 	/** the state of the AI player */
 	private States state;
-	private map m1;
+	private Map m1;
 	private List<Entity>walls;
 	/** the volatile boolean variable running which is true when the AI player is alive and false otherwise */ 
 	private volatile boolean running = true;
@@ -39,7 +39,7 @@ public class AiController extends Thread {
 		this.c2 = c2;
 		entities = c2.getEntities();
 		state = States.ATTACK;
-		m1 = new map();
+		m1 = new Map();
 		m1.initMap(c2.mapID);
 		walls = m1.getMap();
 		try {

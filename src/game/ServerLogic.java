@@ -4,7 +4,7 @@ import game.audio.AudioPlayer;
 import game.entity.*;
 import game.entity.items.*;
 import game.entity.collisions.*;
-import game.maps.map;
+import game.maps.Map;
 import game.network.Port;
 import game.network.server.*;
 
@@ -19,12 +19,12 @@ public class ServerLogic {
 	Random ra = new Random();
 	public int status=0;
 	public int ServerId= 99999;
-	map m=new map();
+	Map m=new Map();
 	public int mapID;
 	AudioPlayer a = new AudioPlayer();
 
 	/**
-	 * init the whole server and create the map
+	 * init the whole server and create the Map
 	 */
 	public void init() {
 		initMap();
@@ -34,7 +34,7 @@ public class ServerLogic {
 	}
 
 	/**
-	 * create the map
+	 * create the Map
 	 */
 	public void initMap() {
 		m.initMap(mapID);
@@ -346,7 +346,7 @@ public class ServerLogic {
 
 	/**
 	 * this function would create items randomly
-	 * more items on the map, less possibility new items would be created
+	 * more items on the Map, less possibility new items would be created
 	 */
 	public void createItems(){
 		if(ra.nextInt(Entities.size()*50)==1)

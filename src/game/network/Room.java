@@ -19,7 +19,7 @@ public class Room implements Serializable {
     public String RoomIP;
     /** status of this room*/
     public int status=0;
-    /** map id of the map is using for this room*/
+    /** Map id of the Map is using for this room*/
     public int mapID;
     /** prefix ip address of the multicast address is using*/
     private final String roomIpPre= "230.0.0.";

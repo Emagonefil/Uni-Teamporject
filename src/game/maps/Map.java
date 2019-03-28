@@ -12,21 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class map {
+public class Map {
     public List<Entity> map=new ArrayList<Entity>();
     Random ra = new Random();
 
     /**
-     * get initialized map
-     * @return initialized map
+     * get initialized Map
+     * @return initialized Map
      */
     public List<Entity> getMap(){
         return map;
     }
 
     /**
-     * initial the map referring to the choice number
-     * @param choice to choose which map to create, 0 means create randomly
+     * initial the Map referring to the choice number
+     * @param choice to choose which Map to create, 0 means create randomly
      */
     public void initMap(int choice){
         map.clear();

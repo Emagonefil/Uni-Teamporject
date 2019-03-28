@@ -3,7 +3,7 @@ package game.graphics;
 import game.ClientLogic;
 import game.Main;
 import game.entity.*;
-import game.maps.map;
+import game.maps.Map;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -36,8 +36,8 @@ public class GameLoop {
     private final static long startNanoTime = System.nanoTime();
     /** The counter that tracks the time passed while your player is null */
     private static int count = 0;
-    /** The game map */
-    private static map map=new map();
+    /** The game Map */
+    private static Map map=new Map();
     /** Global graphics context to make it easily */
     private static GraphicsContext gc2;
 
@@ -47,7 +47,7 @@ public class GameLoop {
      * @param client The client that holds information about the game
      */
     public static void start(GraphicsContext gc, ClientLogic client) {
-        // Initialise the map
+        // Initialise the Map
         map.initMap(Main.c1.mapID);
         gc2 = gc;
 
