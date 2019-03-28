@@ -265,6 +265,10 @@ public class ClientLogic {
 		return null;
 	}
 
+	/**
+	 * buy items during the game
+	 * @param something item's name
+	 */
 	public void buySomething(String something){
 		new Thread(new Runnable() {
 			@Override
