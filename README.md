@@ -1,7 +1,7 @@
 
 # Clash of Tanks
 *The game developed by the GoldenAxe team*
-\
+
 A top-down view tank game. Be the last remaining tank to **win** the game.
 
 ### Run the game using Eclipse:
@@ -24,12 +24,14 @@ make sure you add all the libraries from the lib folder,
 6. Create a new run configuration for the Main class
 7. Navigate to Run  > Edit Configurations > Main run configuration (the one you created)
 and add the following to the VM Options field:
+
     ###### For Mac/Linux users:
     --module-path /path/to/javafx-sdk-11.0.2/lib --add-modules=javafx.controls,javafx.fxml
     (where /path/to is the path where you installed JavaFX)
-    ###### For Windows users:
+    ###### For Windows users: 
     --module-path "\path\to\javafx-sdk-11.0.2\lib" --add-modules=javafx.controls,javafx.fxml
     (where \path\to is the path where you installed JavaFX)
+    
 8. Run the game
 
 *To play a multiplayer game, users must be connected to the same network
