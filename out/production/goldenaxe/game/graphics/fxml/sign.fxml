@@ -7,35 +7,51 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.ToggleButton?>
+
+<!--
+The sign up page that the user can navigate to from the login page.
+This page allows the user to create a new account on the game database.
+The user can return to the login page by pressing the cancel button.
+-->
+
+<!--The main holder for all the sign up page content-->
 <VBox id="pane" styleClass="vbox"
       xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="game.controller.Login">
-   <children>
-      <HBox alignment="TOP_LEFT">
-         <ToggleButton fx:id="music" styleClass="music" layoutX="10" layoutY="100">
 
+   <!--The page content-->
+   <children>
+
+      <!--The sound buttons holder-->
+      <HBox alignment="TOP_LEFT">
+         <!--The mute music button-->
+         <ToggleButton fx:id="music" styleClass="music" layoutX="10" layoutY="100">
             <HBox.margin>
                <Insets>
                   <right>10</right>
                </Insets>
             </HBox.margin>
          </ToggleButton>
+
+         <!--The mute sound effects button-->
          <ToggleButton fx:id="sound" styleClass="sound" layoutX="60" layoutY="100">
          </ToggleButton>
       </HBox>
+
+      <!--The page title-->
       <Label styleClass="vbox" text="REGISTER">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
 
-      <JFXTextField fx:id="signUserName"
-                    labelFloat="true" promptText="USERNAME">
+
+      <!--The username field-->
+      <JFXTextField fx:id="signUserName" labelFloat="true" promptText="USERNAME">
          <VBox.margin>
             <Insets>
                <bottom>25</bottom>
@@ -43,8 +59,8 @@
          </VBox.margin>
       </JFXTextField>
 
-      <JFXPasswordField fx:id="signPassWord"
-                        labelFloat="true" promptText="PASSWORD" >
+      <!--The password field-->
+      <JFXPasswordField fx:id="signPassWord" labelFloat="true" promptText="PASSWORD" >
          <VBox.margin>
             <Insets>
                <bottom>25</bottom>
@@ -52,8 +68,8 @@
          </VBox.margin>
       </JFXPasswordField>
 
-      <JFXPasswordField fx:id="signRepPassWord" labelFloat="true"
-                        promptText="CONFIRM PASSWORD" >
+      <!--The confirmation password field-->
+      <JFXPasswordField fx:id="signRepPassWord" labelFloat="true" promptText="CONFIRM PASSWORD" >
          <VBox.margin>
             <Insets>
                <bottom>25</bottom>
@@ -61,7 +77,11 @@
          </VBox.margin>
       </JFXPasswordField>
 
+      <!--The holder for the register button and the cancel button-->
       <HBox styleClass="hbox">
+         <!--The register button that creates a new account for the user-->
+         <!--if the username is unique and the passwords match, or that -->
+         <!--triggers the error message if not-->
          <JFXButton onAction="#handleRegister" text="REGISTER" textFill="WHITE">
             <HBox.margin>
                <Insets>
@@ -70,6 +90,7 @@
             </HBox.margin>
          </JFXButton>
 
+         <!--The cancel button that return the user to the login screen-->
          <JFXButton onAction="#handleCancel" text="CANCEL" textFill="WHITE" />
          <VBox.margin>
             <Insets>
@@ -78,15 +99,14 @@
          </VBox.margin>
       </HBox>
 
+      <!--The -->
       <Label fx:id="signMessage" alignment="CENTER" textFill="RED" />
-
-
 
    </children>
 
+   <!--The stylesheet-->
    <stylesheets>
       <URL value="@../style.css" />
    </stylesheets>
-
 
 </VBox>

@@ -8,6 +8,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 
+/**
+ * A helper class that holds reusable methods that might be needed by other various classes
+ *
+ * @author Andreea
+ */
 public class Helper {
 
     /**

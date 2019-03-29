@@ -20,6 +20,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+ * The controller for the settings page.
+ * It dictates how elements on the settings page should act.
+ *
+ * @author Andreea
+ */
 public class SettingsController {
 
     /** The tank model number */

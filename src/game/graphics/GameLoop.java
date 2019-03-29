@@ -16,6 +16,8 @@ import static game.Main.ud;
 /**
  * The Game Loop runs constantly during a game. It continuously redraws the game entities
  * to display their movements and actions.
+ *
+ * @author Andreea
  */
 public class GameLoop {
 

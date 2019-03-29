@@ -13,7 +13,9 @@ import static game.Constants.CANVAS_WIDTH;
 
 /**
  * The renderer is concerned with loading images necessary for the game
- * and providing methods to render these on the scree
+ * and providing methods to render these on the screen
+ *
+ * @author Andreea
  */
 public class Renderer {
 

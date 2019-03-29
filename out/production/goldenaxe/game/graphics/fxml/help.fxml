@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
-
 <?import com.jfoenix.controls.JFXButton?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
@@ -9,12 +8,25 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Text?>
+
+<!--
+The help page the user can access from the main menu.
+This page provide instructions relating to the game key bindings and the actions a player can take in game.
+The user can also go back to the main menu of the game by pressing the back button.
+-->
+
+<!--The main holder for all the help page content-->
 <VBox styleClass="vbox" id="mainMenu" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="game.graphics.Controller"
       prefHeight="800.0" prefWidth="1280.0">
+
+    <!--The page content-->
     <children>
+
+        <!--The holder for the sound buttons-->
         <HBox alignment="TOP_LEFT">
+            <!--The mute music button-->
             <ToggleButton fx:id="music" styleClass="music" layoutX="10" layoutY="100">
                 <HBox.margin>
                     <Insets>
@@ -22,9 +34,13 @@
                     </Insets>
                 </HBox.margin>
             </ToggleButton>
+
+            <!--The mute sound effects button-->
             <ToggleButton fx:id="sound" styleClass="sound" layoutX="60" layoutY="100">
             </ToggleButton>
         </HBox>
+
+        <!--The game title-->
         <Label alignment="CENTER" styleClass="title"
                text="CLASH OF TANKS">
             <font>
@@ -32,12 +48,14 @@
             </font>
         </Label>
 
+        <!--The game instructions and key bindings start here-->
         <Text textAlignment="JUSTIFY" styleClass="text"
               text="Press W or UP ARROW to move forward">
             <font>
                 <Font size="16.0" />
             </font>
         </Text>
+
         <Label alignment="CENTER_LEFT" styleClass="text"
                text="Press A or LEFT ARROW to move left">
             <font>
@@ -86,12 +104,17 @@
                 <Font size="16.0" />
             </font>
         </Label>
+        <!--The game instructions and key bindings end here-->
 
+        <!--The back button that allows the user to return to the main menu-->
         <JFXButton text="BACK" onAction="#handleBackButtonAction">
-
         </JFXButton>
+
     </children>
+
+    <!--The stylesheet-->
     <stylesheets>
         <URL value="@../style.css" />
     </stylesheets>
+
 </VBox>

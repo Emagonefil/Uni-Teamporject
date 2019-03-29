@@ -4,23 +4,32 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.ToggleButton?>
+
+<!--
+The first page the user sees is this login page.
+This page allows the user to login to the game and access the main menu or navigate to the sign up page.
+The user can also quit the application from this page using the quit button
+-->
+
+<!--The main holder for all the login page content-->
 <VBox id="login" styleClass="vbox"
       xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="game.controller.Login">
 
+   <!--The page content-->
    <children>
 
+      <!--The holder for the sound buttons-->
       <HBox alignment="TOP_LEFT">
+         <!--The mute music button-->
          <ToggleButton fx:id="music" styleClass="music" layoutX="10" layoutY="100">
             <HBox.margin>
                <Insets>
@@ -28,20 +37,21 @@
                </Insets>
             </HBox.margin>
          </ToggleButton>
+
+         <!--The mute sound effects button-->
          <ToggleButton fx:id="sound" styleClass="sound" layoutX="60" layoutY="100">
          </ToggleButton>
       </HBox>
-      <Label alignment="CENTER" styleClass="title"
-             text="WELCOME">
+
+      <!--The welcome title-->
+      <Label alignment="CENTER" styleClass="title" text="WELCOME">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
 
-
-
-      <JFXTextField fx:id="userName"
-                    labelFloat="true" promptText="USERNAME">
+      <!--The username field-->
+      <JFXTextField fx:id="userName" labelFloat="true" promptText="USERNAME">
          <VBox.margin>
             <Insets>
                <bottom>25</bottom>
@@ -49,8 +59,8 @@
          </VBox.margin>
       </JFXTextField>
 
-      <JFXPasswordField fx:id="passWord"
-                        labelFloat="true" promptText="PASSWORD">
+      <!--The password field-->
+      <JFXPasswordField fx:id="passWord" labelFloat="true" promptText="PASSWORD">
          <VBox.margin>
             <Insets>
                <bottom>25</bottom>
@@ -58,7 +68,10 @@
          </VBox.margin>
       </JFXPasswordField>
 
+      <!--The holder for the login and sign up buttons-->
       <HBox styleClass="hbox">
+         <!--The login button that logs the user in if the credentials are correct-->
+         <!--or triggers the error message -->
          <JFXButton onAction="#handleLogin"
                     text="LOGIN" >
             <HBox.margin>
@@ -68,6 +81,7 @@
             </HBox.margin>
          </JFXButton>
 
+         <!--the button that sends the user to the sign up page-->
          <JFXButton onAction="#handleSignUp"
                  text="SIGN UP"/>
          <VBox.margin>
@@ -77,6 +91,7 @@
          </VBox.margin>
       </HBox>
 
+      <!--The quit game button-->
       <JFXButton onAction="#quit"
                  text="QUIT">
          <VBox.margin>
@@ -86,79 +101,14 @@
          </VBox.margin>
       </JFXButton>
 
-      <Label fx:id="message" alignment="CENTER" textFill="RED">
-         </Label>
-
+      <!--The error message displayed wen login fails-->
+      <Label fx:id="message" alignment="CENTER" textFill="RED"></Label>
 
    </children>
 
+   <!--The stylesheet-->
    <stylesheets>
       <URL value="@../style.css" />
    </stylesheets>
 
-
 </VBox>
-
-
-<!--*******************************************************-->
-        <!--<?xml version="1.0" encoding="UTF-8"?>-->
-
-        <!--<?import com.jfoenix.controls.JFXButton?>-->
-        <!--<?import com.jfoenix.controls.JFXPasswordField?>-->
-        <!--<?import com.jfoenix.controls.JFXTextField?>-->
-        <!--<?import java.net.URL?>-->
-        <!--<?import javafx.scene.Cursor?>-->
-        <!--<?import javafx.scene.control.Label?>-->
-        <!--<?import javafx.scene.layout.AnchorPane?>-->
-        <!--<?import javafx.scene.text.Font?>-->
-
-<!--<AnchorPane id="pane" styleClass="vbox"-->
-            <!--xmlns="http://javafx.com/javafx/11.0.1"-->
-            <!--xmlns:fx="http://javafx.com/fxml/1"-->
-            <!--fx:controller="game.controller.Login">-->
-
-<!--<children>-->
-   <!--<JFXTextField fx:id="userName" focusColor="#eb7a33"-->
-                 <!--labelFloat="true" layoutX="161.0" layoutY="131.0"-->
-                 <!--prefHeight="58.0" prefWidth="228.0" promptText="username" />-->
-
-   <!--<JFXPasswordField fx:id="passWord" focusColor="#eb7a33"-->
-                     <!--labelFloat="true" layoutX="161.0" layoutY="220.0"-->
-                     <!--prefHeight="44.0" prefWidth="228.0" promptText="password" />-->
-
-   <!--<JFXButton buttonType="RAISED"-->
-              <!--layoutX="46.0" layoutY="304.0"-->
-              <!--onAction="#handleLogin"-->
-              <!--prefHeight="34.0" prefWidth="98.0"-->
-              <!--ripplerFill="BLACK"-->
-              <!--style="-fx-background-color: #eb7a33;"-->
-              <!--text="Login" textFill="WHITE" />-->
-
-   <!--<JFXButton buttonType="RAISED"-->
-              <!--layoutX="317.0" layoutY="304.0"-->
-              <!--onAction="#handleSignUp"-->
-              <!--prefHeight="34.0" prefWidth="98.0"-->
-              <!--style="-fx-background-color: #eb7a33;"-->
-              <!--text="sign up" textFill="WHITE" />-->
-
-   <!--<Label fx:id="message" alignment="CENTER" ellipsisString="" layoutX="146.0" layoutY="26.0" lineSpacing="10.0" prefHeight="105.0" prefWidth="406.0" styleClass="vbox" textAlignment="JUSTIFY" textFill="RED" wrapText="true">-->
-      <!--<font>-->
-         <!--<Font size="10.0" />-->
-      <!--</font>-->
-      <!--<cursor>-->
-         <!--<Cursor fx:constant="NONE" />-->
-      <!--</cursor></Label>-->
-
-   <!--<Label alignment="CENTER" layoutX="154.0" layoutY="-7.0" prefHeight="44.0" prefWidth="422.0" styleClass="vbox" text="Login" textFill="#ff7200">-->
-      <!--<font>-->
-         <!--<Font size="16.0" />-->
-      <!--</font>-->
-   <!--</Label>-->
-<!--</children>-->
-
-<!--<stylesheets>-->
-   <!--<URL value="@style.css" />-->
-<!--</stylesheets>-->
-
-
-<!--</AnchorPane>-->

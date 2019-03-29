@@ -18,6 +18,8 @@ import java.net.URL;
 /**
  * The Game Window is a class that allows switching from any scene to
  * a game scene. It draws the game Map and starts the game loop
+ *
+ * @author Andreea
  */
 public class GameWindow {
 

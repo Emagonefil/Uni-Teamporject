@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
 <?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<!--
+The settings page that the user can reach from the main menu.
+This page allows the user to adjust the music and sound effects volume and
+to access the tank model selection page.
+-->
 
+<!--The main holder for all the settings page content-->
 <VBox id="pane" styleClass="vbox"
       fx:controller="game.graphics.SettingsController"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1">
+
+   <!--The page content-->
    <children>
+
+      <!--The holder for the sound buttons-->
       <HBox alignment="TOP_LEFT">
+
+         <!--The mute music button-->
          <ToggleButton fx:id="music" styleClass="music" layoutX="10" layoutY="100">
             <HBox.margin>
                <Insets>
@@ -23,16 +33,24 @@
                </Insets>
             </HBox.margin>
          </ToggleButton>
+
+         <!--The mute sound effects button-->
          <ToggleButton fx:id="sound" styleClass="sound" layoutX="60" layoutY="100">
          </ToggleButton>
       </HBox>
+
+      <!--The game title-->
       <Label alignment="CENTER" styleClass="title"
              text="CLASH OF TANKS">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
+
+      <!--The label for the music slider-->
       <Label text="Music Volume"></Label>
+
+      <!--The music slider-->
       <JFXSlider fx:id="musicSlider">
          <VBox.margin>
             <Insets>
@@ -40,7 +58,11 @@
             </Insets>
          </VBox.margin>
       </JFXSlider>
+
+      <!--The label for the sound effect slider-->
       <Label text="Sound Effects Volume"></Label>
+
+      <!--The sound effects slider-->
       <JFXSlider fx:id="soundSlider">
          <VBox.margin>
             <Insets>
@@ -49,13 +71,17 @@
          </VBox.margin>
       </JFXSlider>
 
-      <JFXButton onAction="#model" text="SELECT TANK" >
-      </JFXButton>
-      <JFXButton onAction="#back" text="BACK" >
-      </JFXButton>
+      <!--The button that allows the user to navigate to the tank model selection page-->
+      <JFXButton onAction="#model" text="SELECT TANK" ></JFXButton>
+
+      <!--The back button that return the user to the main menu-->
+      <JFXButton onAction="#back" text="BACK" ></JFXButton>
+
    </children>
 
+   <!--The stylesheet-->
    <stylesheets>
       <URL value="@../style.css"/>
    </stylesheets>
+
 </VBox>
