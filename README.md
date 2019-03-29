@@ -27,10 +27,10 @@ and add the following to the VM Options field:
 
     ###### For Mac/Linux users:
     --module-path /path/to/javafx-sdk-11.0.2/lib --add-modules=javafx.controls,javafx.fxml
-    (where /path/to is the path where you installed JavaFX)
     ###### For Windows users: 
     --module-path "\path\to\javafx-sdk-11.0.2\lib" --add-modules=javafx.controls,javafx.fxml
-    (where \path\to is the path where you installed JavaFX)
+    
+    *where /path/to and \path\to is the path where you installed JavaFX
     
 8. Run the game
 
