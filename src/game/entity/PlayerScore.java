@@ -9,35 +9,34 @@ import java.io.Serializable;
  */
 public class PlayerScore implements Serializable {
 
-    /**
-     * playerId
-     */
-    private int id;
+	/**
+	 * playerId
+	 */
+	private int id;
 
-    /**
-     * score
-     */
-    private int score;
+	/**
+	 * score
+	 */
+	private int score;
 
+	public PlayerScore(int id, int score) {
+		this.id = id;
+		this.score = score;
+	}
 
-    public PlayerScore(int id, int score) {
-        this.id = id;
-        this.score = score;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getScore() {
+		return score;
+	}
 
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
+	public void setScore(int score) {
+		this.score = score;
+	}
 }
